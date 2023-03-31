@@ -1,5 +1,5 @@
 import React from 'react'
-import Background from '../../Images/SignIn/signInBG.png'
+import Background from '../../assets/Images/SignIn/signInBG.png'
 import { Grid, TextField, Button, InputAdornment } from '@mui/material'
 import { EmailRounded, VpnKey } from '@mui/icons-material'
 import { useState, useEffect } from 'react'

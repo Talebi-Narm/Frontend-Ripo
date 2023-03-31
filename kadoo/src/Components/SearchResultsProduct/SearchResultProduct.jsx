@@ -1,4 +1,4 @@
-import Search from '../../Images/Search/search.jpg'
+import Search from '../../assets/Images/Search/search.jpg'
 import ShowPlants from '../ShowProduct/ShowPlants'
 import ShowTools from '../ShowProduct/ShowTools'
 import SkeletonArticle from '../Cart/SkeletonArticle'

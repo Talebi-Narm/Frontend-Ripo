@@ -28,7 +28,7 @@ import ButtonGroup from '@mui/material/ButtonGroup'
 import TextField from '@mui/material/TextField'
 import AddIcon from '@mui/icons-material/Add'
 import RemoveIcon from '@mui/icons-material/Remove'
-import './Product.css'
+import './Product.scss'
 
 export default function Product(props) {
   const { product, onAddPlant, onRemovePlant } = props

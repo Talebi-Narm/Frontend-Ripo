@@ -1,8 +1,8 @@
 import "./style.scss";
 import { DataGrid } from '@mui/x-data-grid';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
-import { productRows } from "../../dummyData";
-import { userRows } from "../../dummyData";
+import { productRows } from "../../Constant/dummyData";
+import { userRows } from "../../Constant/dummyData";
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { IconButton } from "@mui/material";

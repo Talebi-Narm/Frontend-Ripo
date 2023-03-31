@@ -15,7 +15,7 @@ import ShoppingCartIcon from '@mui/icons-material/ShoppingCart'
 import PaymentIcon from '@mui/icons-material/Payment'
 import ForumIcon from '@mui/icons-material/Forum'
 import Badge from '@mui/material/Badge'
-import CoinsIcon from '../../Images/Coins/coins.png'
+import CoinsIcon from '../../assets/Images/Coins/coins.png'
 
 
 function SpecialistDropDown(props) {

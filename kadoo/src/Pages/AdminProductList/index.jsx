@@ -1,7 +1,7 @@
 import './style.scss'
 import { DataGrid, GridRowsProp, GridColDef } from '@mui/x-data-grid'
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline'
-import { productRows } from '../../dummyData'
+import { productRows } from '../../Constant/dummyData'
 import { Link } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import { IconButton } from '@mui/material'

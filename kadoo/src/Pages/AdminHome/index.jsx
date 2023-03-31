@@ -1,7 +1,7 @@
 import Chart from "../../Components/chart";
 import FeaturedInfo from "../../Components/featuredInfo";
 import "./style.scss";
-import { userData } from "../../dummyData";
+import { userData } from "../../Constant/dummyData";
 import WidgetSm from "../../Components/widgetSm";
 import WidgetLg from "../../Components/widgetLg";
 

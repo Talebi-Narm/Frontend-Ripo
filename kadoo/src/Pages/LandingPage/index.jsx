@@ -1,17 +1,17 @@
 import * as React from 'react';
 import "./style.scss"
-import Background from '../../Images/Landing/Background.png'
-import Background2 from '../../Images/Landing/Background2.png'
-import Background3 from '../../Images/Landing/Background3.png'
-import apartmentPlants from '../../Images/Landing/apartmentPlants.jpg';
-import GardenPlants from '../../Images/Landing/GardenPlants.jpg';
-import YardPlants from '../../Images/Landing/YardPlants.jpg';
-import Amir from '../../Images/Landing/Amirmohammad.jpg';
-import Hooriye from '../../Images/Landing/Hoorie.jpg';
-import Elnaz from '../../Images/Landing/Elnaz.jpg';
-import Navid from '../../Images/Landing/Navid.jpg';
-import Sara from '../../Images/Landing/Sara.jpg';
-import Deniz from '../../Images/Landing/Deniz.jpg';
+import Background from '../../assets/Images/Landing/Background.png'
+import Background2 from '../../assets/Images/Landing/Background2.png'
+import Background3 from '../../assets/Images/Landing/Background3.png'
+import apartmentPlants from '../../assets/Images/Landing/apartmentPlants.jpg';
+import GardenPlants from '../../assets/Images/Landing/GardenPlants.jpg';
+import YardPlants from '../../assets/Images/Landing/YardPlants.jpg';
+import Amir from '../../assets/Images/Landing/Amirmohammad.jpg';
+import Hooriye from '../../assets/Images/Landing/Hoorie.jpg';
+import Elnaz from '../../assets/Images/Landing/Elnaz.jpg';
+import Navid from '../../assets/Images/Landing/Navid.jpg';
+import Sara from '../../assets/Images/Landing/Sara.jpg';
+import Deniz from '../../assets/Images/Landing/Deniz.jpg';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import { Container, Icon, List, ListItem, Tooltip } from '@mui/material';

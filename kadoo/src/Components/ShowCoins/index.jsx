@@ -2,8 +2,7 @@ import React, { useEffect, useState } from 'react'
 import "./style.scss";
 import { Grid } from '@mui/material';
 import Typography from '@mui/material/Typography';
-import CoinsIcon from '../../Images/Coins/coins.png'
-
+import CoinsIcon from '../../assets/Images/Coins/coins.png'
 export default function ShowCoins(props) {
 
     
