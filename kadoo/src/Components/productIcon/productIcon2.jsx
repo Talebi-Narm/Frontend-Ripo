@@ -1,5 +1,5 @@
 import React,{useEffect,useState} from 'react' ;
-import "./ProductIcon.css";
+import "./style.scss";
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import { Link } from 'react-router-dom';

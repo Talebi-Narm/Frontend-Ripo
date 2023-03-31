@@ -1,18 +1,17 @@
 import React, { useEffect, useState } from 'react';
-import "./Navbar.css";
+import "./style.scss";
 import SearchIcon from '@mui/icons-material/Search';
 import Grid from '@mui/material/Grid';
 import TextField from '@mui/material/TextField';
-import UserDropDown from '../UserDropDown/UserDropDown';
+import UserDropDown from '../UserDropDown';
 import history from '../../history';
 import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 
-function Navbar(props){
+function Navbar(){
       const [userNav, setUserNav] = useState(false)
       const [normalNav, setNav] = useState(true)
-       const [openDrawer, setOpenDrawer] = React.useState(false)
       const handleNav = e => {
         setNav(false)
       }
@@ -42,20 +41,6 @@ function Navbar(props){
         }).catch( err => {})
         }, [])
 
-        
-        const handlemenue=() => { 
-            if (openDrawer){
-              props.closemenue ()
-              setOpenDrawer (false)
-              
-            }
-            else {
-              props.openmenue()
-              setOpenDrawer (true)
-            }
-
-        }
-
     return(
       <div className="navbar">
         <Grid container spacing={2}>
@@ -65,10 +50,8 @@ function Navbar(props){
         justifyContent='center'
         alignItems='center'
         >
-
-          <IconButton onClick={handlemenue}>
-          
-
+          <IconButton
+          >
             <MenuIcon />
           </IconButton>
         </Grid>
@@ -92,16 +75,6 @@ function Navbar(props){
         display="flex"
         className="searchBox"
         >
-            <SearchIcon
-            className="Searchicon"
-            fontSize="large"/>
-            <TextField
-            size="small"
-            className="Searchbox"
-            id="outlined-search"
-            label="Search.."
-            type="search" 
-            onClick={() => history.push('/search')}/>
         </Grid>
         <Grid
         item xs={12} sm={4} md={3}

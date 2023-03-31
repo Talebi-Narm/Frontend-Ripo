@@ -1,4 +1,4 @@
-import "./featuredInfo.css";
+import "./style.scss";
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 

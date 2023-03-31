@@ -1,5 +1,5 @@
-import Sidebar from '../../Components/sidebar/Sidebar'
-import AppBar from '../../Components/AppBar/AppBar'
+import Sidebar from '../../Components/sidebar'
+import AppBar from '../../Components/AppBar'
 import './style.scss'
 import AdminHome from '../AdminHome'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'

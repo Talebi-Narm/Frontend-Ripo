@@ -1,4 +1,4 @@
-import './sidebar.css'
+import './style.scss'
 import LineStyleIcon from '@mui/icons-material/LineStyle'
 import TimelineIcon from '@mui/icons-material/Timeline'
 import TrendingUpIcon from '@mui/icons-material/TrendingUp'

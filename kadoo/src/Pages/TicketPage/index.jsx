@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import AppBar from '../../Components/AppBar/AppBar'
+import AppBar from '../../Components/AppBar'
 import Grid from '@mui/material/Grid'
 import Card from '@mui/material/Card'
 import ShowAllTickets from '../../Components/ShowTickets/ShowAllTickets'

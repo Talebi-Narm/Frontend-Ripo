@@ -16,7 +16,7 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import { Container, Icon, List, ListItem, Tooltip } from '@mui/material';
 import { Fade } from "react-awesome-reveal";
-import AppBar from "../../Components/AppBar/AppBar";
+import AppBar from "../../Components/AppBar";
 import { Grid } from '@mui/material';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';

@@ -1,4 +1,4 @@
-import "./widgetSm.css";
+import "./style.scss";
 import VisibilityIcon from '@mui/icons-material/Visibility';
 
 export default function WidgetSm() {

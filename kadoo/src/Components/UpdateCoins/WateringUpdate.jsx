@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import ShowCoins from '../ShowCoins/ShowCoins';
+import ShowCoins from '../ShowCoins';
 import { Button } from '@mui/material';
 import { Grid } from '@mui/material';
 import Dialog from '@mui/material/Dialog';

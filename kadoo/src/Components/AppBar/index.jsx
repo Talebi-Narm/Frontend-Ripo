@@ -24,12 +24,12 @@ import MoreIcon from '@mui/icons-material/MoreVert'
 import Button from '@mui/material/Button'
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart'
 import Grid from '@mui/material/Grid'
-import UserDropDown from '../UserDropDown/UserDropDown'
-import ShowCoins from '../ShowCoins/ShowCoins'
-import SpecialistDropDown from '../SpecialistDropDown/SpecialistDropDown'
+import UserDropDown from '../UserDropDown'
+import ShowCoins from '../ShowCoins'
+import SpecialistDropDown from '../SpecialistDropDown'
 import { Link } from 'react-router-dom'
-import WriteTicket from '../WriteTicket/WriteTicket'
-import './AppBar.css'
+import WriteTicket from '../WriteTicket'
+import './style.scss'
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',

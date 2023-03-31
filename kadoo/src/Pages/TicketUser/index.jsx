@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import './style.scss'
-import AppBar from '../../Components/AppBar/AppBar'
+import AppBar from '../../Components/AppBar'
 import Grid from '@mui/material/Grid'
 import Card from '@mui/material/Card'
 import Alert from '@mui/material/Alert'
@@ -15,7 +15,7 @@ import { styled } from '@mui/material/styles'
 import CachedIcon from '@mui/icons-material/Cached'
 import PublishedWithChangesIcon from '@mui/icons-material/PublishedWithChanges'
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline'
-import Rate from '../../Components/Rate/Rate'
+import Rate from '../../Components/Rate'
 
 const Demo = styled('div')(({ theme }) => ({
   backgroundColor: theme.palette.background.paper,

@@ -3,8 +3,8 @@ import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import { styled } from '@mui/material/styles';
 import Paper from '@mui/material/Paper';
-import ProductIcon2 from "../productIcon/productIcon2";
-import "./ShowProduct.css";
+import ProductIcon1 from "../productIcon/productIcon1";
+import "./ShowProduct.scss";
 
 const Item = styled(Paper)(({ theme }) => ({
     ...theme.typography.body2,
@@ -12,20 +12,20 @@ const Item = styled(Paper)(({ theme }) => ({
     textAlign: 'center'
   }));
 
-  function ShowPlants(props){
+  function ShowTools(props){
     
       return(
         <div className="showProductsBack">
         <Box className="wrapper" sx={{ width: '100%' }}>
         <div className="showProductSubs">
-          Plants
+          Tools
         </div>
         <Grid  container spacing={2}>
-          {props.data.map(
-            p => 
+        {props.tooldata.map(
+            Tool => 
             <Grid  item xs={12} sm={4} md={3}>
             <Item className="showProductsIcons">
-              <ProductIcon2 key = {p.id} product={p}/>
+              <ProductIcon1 product={Tool}/>
             </Item>
           </Grid>
           )}
@@ -35,4 +35,4 @@ const Item = styled(Paper)(({ theme }) => ({
       );
   }
   
-  export default ShowPlants;
+  export default ShowTools;

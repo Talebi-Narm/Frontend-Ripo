@@ -1,12 +1,12 @@
 import Search from '../../Images/Search/search.jpg'
-import ShowPlants from '../../Components/ShowProduct/ShowPlants'
-import ShowTools from '../../Components/ShowProduct/ShowTools'
-import SkeletonArticle from '../../Components/Cart/SkeletonArticle'
+import ShowPlants from '../ShowProduct/ShowPlants'
+import ShowTools from '../ShowProduct/ShowTools'
+import SkeletonArticle from '../Cart/SkeletonArticle'
 import SearchIcon from '@mui/icons-material/Search'
 import { TextField } from '@mui/material'
 import IconButton from '@mui/material/IconButton'
 import { Home } from '@mui/icons-material'
-import './SearchResultProduct.css'
+import './SearchResultProduct.scss'
 import history from '../../history'
 import { Chip } from '@mui/material'
 import React, { useEffect, useState, useRef } from 'react'
@@ -22,7 +22,7 @@ import Divider from '@mui/material/Divider'
 import Stack from '@mui/material/Stack'
 import Alert from '@mui/material/Alert'
 import Typography from '@mui/material/Typography'
-import Navbar2 from '../../Components/NavbarHome/Navbar2'
+import Navbar2 from '../NavbarHome'
 import List from '@mui/material/List'
 import ListItem from '@mui/material/ListItem'
 import InputLabel from '@mui/material/InputLabel'
@@ -36,14 +36,14 @@ import FilterListIcon from '@mui/icons-material/FilterList'
 import FormLabel from '@mui/material/FormLabel'
 import FormGroup from '@mui/material/FormGroup'
 import Checkbox from '@mui/material/Checkbox'
-import AppBar from '../../Components/AppBar/AppBar'
+import AppBar from '../AppBar'
 import Slider from '@mui/material/Slider'
 import Drawer from '@mui/material/Drawer'
 import CssBaseline from '@mui/material/CssBaseline'
 import SortNavBar from './SortNavBar'
 import SearchBar from './SearchBar'
 import useMediaQuery from '@mui/material/useMediaQuery'
-import ShowProduct from '../../Components/ShowProduct/ShowProduct'
+import ShowProduct from '../ShowProduct/ShowProduct'
 import Badge from '@mui/material/Badge'
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft'
 import CloseIcon from '@mui/icons-material/Close'
@@ -1046,7 +1046,7 @@ function SearchResultProduct(props) {
                             </Alert>
                           )}
                           {searchProductDataLoaded === false && (
-                            <Grid sx={{ width: '100%' }} sx={{ p: 0 }}>
+                            <Grid sx={{ width: '100%',p: 0  }}>
                               <SkeletonArticle />
                             </Grid>
                           )}
@@ -1071,7 +1071,7 @@ function SearchResultProduct(props) {
                             </Alert>
                           )}
                           {searchPlantDataLoaded === false && (
-                            <Grid sx={{ width: '100%' }} sx={{ p: 2 }}>
+                            <Grid sx={{ width: '100%', p: 2 }}>
                               <SkeletonArticle />
                             </Grid>
                           )}
@@ -1096,7 +1096,7 @@ function SearchResultProduct(props) {
                             </Alert>
                           )}
                           {searchToolDataLoaded === false && (
-                            <Grid sx={{ width: '100%' }} sx={{ p: 2 }}>
+                            <Grid sx={{ width: '100%', p: 2  }} >
                               <SkeletonArticle />
                             </Grid>
                           )}

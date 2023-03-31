@@ -4,7 +4,7 @@ import { Grid, TextField, Button, InputAdornment } from '@mui/material'
 import { EmailRounded, VpnKey } from '@mui/icons-material'
 import { useState, useEffect } from 'react'
 import history from '../../history'
-import AppBar from '../../Components/AppBar/AppBar'
+import AppBar from '../../Components/AppBar'
 import './style.scss'
 
 function SignIn() {

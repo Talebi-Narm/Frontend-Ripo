@@ -1,9 +1,9 @@
-import Chart from "../../Components/chart/Chart";
-import FeaturedInfo from "../../Components/featuredInfo/FeaturedInfo";
+import Chart from "../../Components/chart";
+import FeaturedInfo from "../../Components/featuredInfo";
 import "./style.scss";
 import { userData } from "../../dummyData";
 import WidgetSm from "../../Components/widgetSm";
-import WidgetLg from "../../Components/widgetLg/WidgetLg";
+import WidgetLg from "../../Components/widgetLg";
 
 export default function AdminHome() {
   return (

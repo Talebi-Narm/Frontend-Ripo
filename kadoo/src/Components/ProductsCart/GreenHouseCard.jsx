@@ -18,7 +18,7 @@ import NatureIcon from '@mui/icons-material/Nature'
 import OpacityIcon from '@mui/icons-material/Opacity'
 import WbSunnyIcon from '@mui/icons-material/WbSunny'
 import { Link } from 'react-router-dom'
-import './GreenHouseCard.css'
+import './GreenHouseCard.scss'
 import Fab from '@mui/material/Fab'
 import history from '../../history'
 // Import Theme Files
@@ -32,7 +32,7 @@ import DialogTitle from '@mui/material/DialogTitle'
 import DialogContent from '@mui/material/DialogContent'
 import DialogActions from '@mui/material/DialogActions'
 import Dialog from '@mui/material/Dialog'
-import Reminder from '../../Components/Reminder'
+import Reminder from '../Reminder'
 import Button from '@mui/material/Button'
 import { styled } from '@mui/material/styles'
 import PropTypes from 'prop-types'
@@ -254,7 +254,9 @@ function GreenHouseCard(props) {
             <OpacityIcon className='FabColor' />
           </Fab>
         </Avatar>
-        <CardContent className={cardStyles.content} className='FontRight'>
+        <CardContent className={cardStyles.content} 
+        // className='FontRight'
+        >
           <TextInfoContent
             className='FontRight'
             classes={textCardContentStyles}

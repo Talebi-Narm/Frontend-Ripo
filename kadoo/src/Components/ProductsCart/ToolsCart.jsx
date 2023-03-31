@@ -1,27 +1,25 @@
 import * as React from 'react'
-import './PlantsCart.css'
+import './ToolsCart.scss'
 import Card from '@mui/material/Card'
 import CardContent from '@mui/material/CardContent'
 import CardMedia from '@mui/material/CardMedia'
 import Typography from '@mui/material/Typography'
 import { CardActionArea, Grid } from '@mui/material'
 import { Link } from 'react-router-dom'
-import NatureIcon from '@mui/icons-material/Nature'
-import OpacityIcon from '@mui/icons-material/Opacity'
-import WbSunnyIcon from '@mui/icons-material/WbSunny'
+import SettingsIcon from '@mui/icons-material/Settings'
 
-export default function PlantsCart(props) {
+export default function ToolsCart(props) {
   return (
     <Card sx={{ height: '100%' }}>
       <CardActionArea sx={{ height: '100%' }}>
-        <Link to={'/ProductPlantsPage/' + props.product.id}>
+        <Link to={'/ProductToolsPage/' + props.product.id}>
           <Grid className='productIconImageContainer' sx={{ p: 1 }}>
             <CardMedia
               component='img'
               height='200'
               image={'http://127.0.0.1:8000' + props.product.image}
               alt='picture'
-              className='plantIconImage'
+              className='toolIconImage'
             />
           </Grid>
         </Link>
@@ -37,13 +35,9 @@ export default function PlantsCart(props) {
           <Typography gutterBottom variant='h6' component='div'>
             $ {props.product.price}
           </Typography>
-          <div className='featButton' sx={{ alignSelf: 'flex-end' }}>
-            <WbSunnyIcon className='lightButton' />
-            <a className='Message'> {props.product.light} </a>
-            <OpacityIcon className='waterButton' />
-            <a className='Message'> {props.product.water} </a>
-            <NatureIcon className='growButton' />
-            <a className='Message'> {props.product.growthRate} </a>
+          <div className='featButton'>
+            <SettingsIcon className='toolIcon' />
+            <a className='Message'>Tools</a>
           </div>
         </CardContent>
       </CardActionArea>

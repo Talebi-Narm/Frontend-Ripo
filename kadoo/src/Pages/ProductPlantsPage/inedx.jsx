@@ -1,6 +1,6 @@
 import * as React from 'react'
 import Grid from '@mui/material/Grid'
-import Navbar from '../../Components/Navbar/Navbar'
+import Navbar from '../../Components/Navbar'
 import Basket from '../../Components/Cart/Basket'
 import { Link } from 'react-router-dom'
 import Button from '@mui/material/Button'
@@ -14,7 +14,7 @@ import Alert from '@mui/material/Alert'
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos'
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos'
 import Card from '@mui/material/Card'
-import AppBar from '../../Components/AppBar/AppBar'
+import AppBar from '../../Components/AppBar'
 import Typography from '@mui/material/Typography'
 import Divider from '@mui/material/Divider'
 import TagIcon from '@mui/icons-material/Tag'
@@ -495,9 +495,9 @@ class ProductPlantsPage extends React.Component {
                                   justifyContent='center'
                                 >
                                   <Box
-                                    sx={{ display: 'flex' }}
+                                    
                                     className='BgChip'
-                                    sx={{ p: 1, mt: -2.75, boxShadow: 2 }}
+                                    sx={{display: 'flex' , p: 1, mt: -2.75, boxShadow: 2 }}
                                   >
                                     <Chip
                                       label={

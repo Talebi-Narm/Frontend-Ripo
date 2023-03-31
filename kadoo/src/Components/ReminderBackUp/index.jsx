@@ -249,7 +249,6 @@ export default function Reminder() {
                     <Grid
                       item
                       container
-                      sx={{ width: '100%' }}
                       justifyContent='center'
                       alignItems='center'
                       component='form'
@@ -260,6 +259,7 @@ export default function Reminder() {
                         pl: 5,
                         pt: 3,
                         pb: 3,
+                        width: '100%' ,
                       }}
                       noValidate
                       autoComplete='off'

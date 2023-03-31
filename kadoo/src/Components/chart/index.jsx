@@ -7,7 +7,7 @@ import {
   Tooltip, 
   ResponsiveContainer 
 } from 'recharts';
-import './chart.css'
+import './style.scss'
 
 export default function Chart({title , data , dataKey , grid}) {
   return (
