@@ -25,7 +25,7 @@ import Skeleton from '@mui/material/Skeleton'
 import Theme from '../../Theme/ThemeGenerator'
 import Image from 'mui-image'
 import UploadIcon from '@mui/icons-material/Upload'
-import './GreenHouseEdit.css'
+import './style.scss'
 
 const Input = styled('input')({
   display: 'none',

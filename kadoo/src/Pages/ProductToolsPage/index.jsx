@@ -1,10 +1,8 @@
 import * as React from 'react'
 import Grid from '@mui/material/Grid'
 import Navbar from '../../Components/Navbar/Navbar'
-import Basket from '../../Components/Cart/Basket'
-import { Link } from 'react-router-dom'
 import Button from '@mui/material/Button'
-import './ProductPlantsPage.css'
+import '../ProductPlantsPage/style.scss'
 import Box from '@mui/material/Box'
 import Chip from '@mui/material/Chip'
 import AddIcon from '@mui/icons-material/Add'
@@ -13,11 +11,12 @@ import IconButton from '@mui/material/IconButton'
 import Alert from '@mui/material/Alert'
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos'
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos'
-import Card from '@mui/material/Card'
 import AppBar from '../../Components/AppBar/AppBar'
 import Typography from '@mui/material/Typography'
 import Divider from '@mui/material/Divider'
+import Card from '@mui/material/Card'
 import TagIcon from '@mui/icons-material/Tag'
+import { Link } from 'react-router-dom'
 import Image from 'mui-image'
 import ThermostatIcon from '@mui/icons-material/Thermostat'
 import NatureIcon from '@mui/icons-material/Nature'
@@ -30,12 +29,12 @@ import TableContainer from '@mui/material/TableContainer'
 import TableHead from '@mui/material/TableHead'
 import TableRow from '@mui/material/TableRow'
 
-class ProductPlantsPage extends React.Component {
+class ProductToolsPage extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
       product: [],
-      tags: [],
+      tooltags: '',
       id: this.props.match.params.id,
       numberOfBuy: 1,
       totalPrice: 0,
@@ -46,8 +45,8 @@ class ProductPlantsPage extends React.Component {
   }
 
   componentDidMount() {
-    console.log('http://127.0.0.1:8000/api/plantsRUD/' + this.state.id)
-    fetch('http://127.0.0.1:8000/api/plantsRUD/' + this.state.id + '/')
+    console.log('http://127.0.0.1:8000/api/toolsRUD/' + this.state.id)
+    fetch('http://127.0.0.1:8000/api/toolsRUD/' + this.state.id + '/')
       .then((response) => response.json())
       .then((data) => this.setState({ product: data }))
       .then(() => {
@@ -56,14 +55,15 @@ class ProductPlantsPage extends React.Component {
         })
       })
 
-    fetch('http://127.0.0.1:8000/api/plantTags/' + this.state.id + '/')
+    fetch('http://127.0.0.1:8000/api/toolTags/' + this.state.id + '/')
       .then((response) => response.json())
       .then((data) => {
-        this.setState({ tags: data })
-        console.log('tag')
-        console.log(data)
+        this.setState({ tooltags: data })
+        console.log('tags')
+        console.log(this.state.tooltags)
+        console.log('http://127.0.0.1:8000/api/toolTags/' + this.state.id + '/')
       })
-    fetch('http://127.0.0.1:8000/api/plantAlbumImages/' + this.state.id + '/')
+    fetch('http://127.0.0.1:8000/api/toolAlbumImages/' + this.state.id + '/')
       .then((response) => response.json())
       .then((data) => {
         this.setState({ album: data })
@@ -121,7 +121,7 @@ class ProductPlantsPage extends React.Component {
       }
       console.log(requestOptions.body)
       fetch(
-        'http://127.0.0.1:8000/api/cart/add-plant-to-cart/',
+        'http://127.0.0.1:8000/api/cart/add-tool-to-cart/',
         requestOptions
       ).then((response) => {
         console.log(response.status)
@@ -196,7 +196,7 @@ class ProductPlantsPage extends React.Component {
                       pb: { xs: 0, md: 0 },
                     }}
                   >
-                    <Grid item container className='blurred'>
+                    <Grid item container className='blurred-tool'>
                       <Image
                         src={
                           this.state.imageName === undefined
@@ -331,12 +331,7 @@ class ProductPlantsPage extends React.Component {
                 className='BringFront'
               >
                 <Card sx={{ boxShadow: 3 }}>
-                  <Grid
-                    container
-                    spacing={1}
-                    style={{ minHeight: '75vh' }}
-                    sx={{ p: 2 }}
-                  >
+                  <Grid container spacing={1} sx={{ p: 2 }}>
                     <Grid
                       item
                       xs={12}
@@ -365,70 +360,6 @@ class ProductPlantsPage extends React.Component {
                         <Typography className='ProductPageText'>
                           {this.state.product.description}{' '}
                         </Typography>
-                        <TableContainer
-                          component={Box}
-                          className='TableContainer'
-                          sx={{ p: 1, mt: 2, mb: 2 }}
-                        >
-                          <Table aria-label='simple table'>
-                            <TableHead>
-                              <TableRow>
-                                <TableCell align='center'>
-                                  <ThermostatIcon className='tempButton1' />
-                                </TableCell>
-                                <TableCell align='center'>
-                                  <OpacityIcon className='waterButton1' />
-                                </TableCell>
-                                <TableCell align='center'>
-                                  <WbSunnyIcon className='lightButton1' />
-                                </TableCell>
-                                <TableCell align='center'>
-                                  <NatureIcon className='growButton1' />
-                                </TableCell>
-                              </TableRow>
-                            </TableHead>
-                            <TableBody>
-                              <TableRow sx={{ borderColor: 'grey.300' }}>
-                                <TableCell
-                                  align='center'
-                                  sx={{
-                                    borderBottom: 'none',
-                                    borderRight: 1,
-                                    borderColor: 'grey.300',
-                                  }}
-                                >
-                                  {this.state.product.environment}
-                                </TableCell>
-                                <TableCell
-                                  align='center'
-                                  sx={{
-                                    borderBottom: 'none',
-                                    borderRight: 1,
-                                    borderColor: 'grey.300',
-                                  }}
-                                >
-                                  {this.state.product.water}
-                                </TableCell>
-                                <TableCell
-                                  align='center'
-                                  sx={{
-                                    borderBottom: 'none',
-                                    borderRight: 1,
-                                    borderColor: 'grey.300',
-                                  }}
-                                >
-                                  {this.state.product.light}
-                                </TableCell>
-                                <TableCell
-                                  align='center'
-                                  sx={{ borderBottom: 'none' }}
-                                >
-                                  {this.state.product.growthRate}
-                                </TableCell>
-                              </TableRow>
-                            </TableBody>
-                          </Table>
-                        </TableContainer>
                       </Box>
                       <Grid container item alignItems='flex-start'>
                         <Grid
@@ -443,34 +374,38 @@ class ProductPlantsPage extends React.Component {
                                 <TagIcon color='action' />
                                 <Typography>Tags:</Typography>
                               </Box>
-                              <Box
-                                sx={{
-                                  display: 'flex',
-                                  flexWrap: 'wrap',
-                                  ml: 0.5,
-                                }}
-                              >
-                                {this.state.tags.length !== 0 && (
-                                  <Grid>
-                                    {this.state.tags.map((item) => (
-                                      <Chip
-                                        sx={{ mr: 0.5, mt: 0.5 }}
-                                        label={
-                                          <Typography>{item.name}</Typography>
-                                        }
-                                        variant='outlined'
-                                      />
-                                    ))}
-                                  </Grid>
-                                )}
-                                {this.state.tags.length === 0 && (
-                                  <Grid>
-                                    <Typography sx={{ mr: 0.5, mt: 0.5 }}>
-                                      {'NO TAGS'}
-                                    </Typography>
-                                  </Grid>
-                                )}
-                              </Box>
+                              {this.state.tooltags.length !== 0 && (
+                                <Box
+                                  sx={{
+                                    display: 'flex',
+                                    flexWrap: 'wrap',
+                                    ml: 0.5,
+                                  }}
+                                >
+                                  {this.state.tooltags.map((item) => (
+                                    <Chip
+                                      sx={{ mr: 0.5, mt: 0.5 }}
+                                      label={
+                                        <Typography>{item.name}</Typography>
+                                      }
+                                      variant='outlined'
+                                    />
+                                  ))}
+                                </Box>
+                              )}
+                              {this.state.tooltags.length === 0 && (
+                                <Box
+                                  sx={{
+                                    display: 'flex',
+                                    flexWrap: 'wrap',
+                                    ml: 0.5,
+                                  }}
+                                >
+                                  <Typography sx={{ mr: 0.5, mt: 0.5 }}>
+                                    {'NO TAGS!'}
+                                  </Typography>
+                                </Box>
+                              )}
                             </Box>
                           </Box>
                         </Grid>
@@ -495,9 +430,8 @@ class ProductPlantsPage extends React.Component {
                                   justifyContent='center'
                                 >
                                   <Box
-                                    sx={{ display: 'flex' }}
                                     className='BgChip'
-                                    sx={{ p: 1, mt: -2.75, boxShadow: 2 }}
+                                    sx={{ p: 1, mt: -2.75, boxShadow: 2 ,display: 'flex' }}
                                   >
                                     <Chip
                                       label={
@@ -622,7 +556,7 @@ class ProductPlantsPage extends React.Component {
                           sx={{ display: { xs: 'flex', md: 'none' }, mt: 1 }}
                         >
                           <Box sx={{ ml: 0, mt: 1, mb: 1.5 }}>
-                            {this.state.tags.length !== 0 && (
+                            {this.state.tooltags.length !== 0 && (
                               <Box
                                 sx={{ display: 'flex', flexDirection: 'row' }}
                               >
@@ -640,19 +574,15 @@ class ProductPlantsPage extends React.Component {
                                     ml: 0.5,
                                   }}
                                 >
-                                  {this.state.tags.length !== 0 && (
-                                    <Grid>
-                                      {this.state.tags.map((item) => (
-                                        <Chip
-                                          sx={{ mr: 0.5, mt: 0.5 }}
-                                          label={
-                                            <Typography>{item.name}</Typography>
-                                          }
-                                          variant='outlined'
-                                        />
-                                      ))}
-                                    </Grid>
-                                  )}
+                                  {this.state.tooltags.map((item) => (
+                                    <Chip
+                                      sx={{ mr: 0.5, mt: 0.5 }}
+                                      label={
+                                        <Typography>{item.name}</Typography>
+                                      }
+                                      variant='outlined'
+                                    />
+                                  ))}
                                 </Box>
                               </Box>
                             )}
@@ -671,4 +601,4 @@ class ProductPlantsPage extends React.Component {
   }
 }
 
-export default ProductPlantsPage
+export default ProductToolsPage

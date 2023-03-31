@@ -1,5 +1,5 @@
 import * as React from 'react';
-import "./LandingPage.css"
+import "./style.scss"
 import Background from '../../Images/Landing/Background.png'
 import Background2 from '../../Images/Landing/Background2.png'
 import Background3 from '../../Images/Landing/Background3.png'

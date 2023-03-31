@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import './TicketUser.css'
+import './style.scss'
 import AppBar from '../../Components/AppBar/AppBar'
 import Grid from '@mui/material/Grid'
 import Card from '@mui/material/Card'
@@ -142,8 +142,8 @@ export default function TicketUser() {
               </Box>
               {InProgress.length == '0' && (
                 <Alert
-                  sx={{ width: '100%' }}
-                  sx={{ mt: 3 }}
+                  // sx={{ width: '100%' }}
+                  sx={{ mt: 3 ,width: '100%' }}
                   severity='info'
                   color='warning'
                 >
@@ -201,8 +201,8 @@ export default function TicketUser() {
               </Box>
               {Accepted.length == '0' && (
                 <Alert
-                  sx={{ width: '100%' }}
-                  sx={{ mt: 3 }}
+                  // sx={{ width: '100%' }}
+                  sx={{ mt: 3 ,width: '100%'}}
                   severity='info'
                   color='warning'
                 >
@@ -265,8 +265,8 @@ export default function TicketUser() {
               </Box>
               {Done.length == '0' && (
                 <Alert
-                  sx={{ width: '100%' }}
-                  sx={{ mt: 3 }}
+                  // sx={{ width: '100%' }}
+                  sx={{ mt: 3 ,width: '100%' }}
                   severity='info'
                   color='warning'
                 >

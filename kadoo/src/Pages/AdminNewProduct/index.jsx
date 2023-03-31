@@ -32,7 +32,7 @@ import Theme from '../../Theme/ThemeGenerator'
 import PhotoCamera from '@mui/icons-material/PhotoCamera'
 import { styled } from '@mui/material/styles'
 
-import './AdminProduct.css'
+import '../AdminProduct/style.scss'
 
 const useStyles1 = makeStyles((theme: Theme) => ({
   root: {
@@ -138,7 +138,7 @@ export default function NewUser(props) {
     id: '',
     name: '',
     description: '',
-    count: '',
+    count: 0,
     image: '',
     price: '',
     kind: '',
@@ -171,95 +171,12 @@ export default function NewUser(props) {
   useEffect(() => {
     // create the preview
     if (formData != initialFormData) {
-      if (selectedFile === null) {
-        setPreview(formData.image)
-        setNumberOfBuy(formData.count)
-      }
+      setPreview(formData.image)
+      setNumberOfBuy(formData.count)
     }
   }, [formData])
-
-  useEffect(() => {
-    setProductId(props.match.params.productId)
-  }, [])
-
-  function srcToFile(src, fileName, mimeType) {
-    return fetch(src)
-      .then(function (res) {
-        return res.arrayBuffer()
-      })
-      .then(function (buf) {
-        return new File([buf], fileName, { type: mimeType })
-      })
-  }
-
-  useEffect(() => {
-    if (formData !== initialFormData) {
-      srcToFile(
-        'http://127.0.0.1:8000' + formData.image,
-        'file.jpg',
-        'image/jpg'
-      ).then((file) => {
-        console.log(file)
-        console.log(formData)
-        setSelectedFile(file)
-      })
-    }
-  }, [formData])
-
-  useEffect(() => {
-    console.log('dsaaaaaaaaaaa')
-    if (productId !== '') {
-      fetch(
-        'http://127.0.0.1:8000/api/plantsRUD/' +
-          props.match.params.productId +
-          '/',
-        {
-          method: 'GET',
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: 'JWT ' + localStorage.getItem('access_token'),
-          },
-        }
-      )
-        .then((res) => {
-          if (res.status === 200) {
-            res.json().then((data) => {
-              console.log(data)
-              updateFormData(data)
-            })
-          } else {
-            throw res
-          }
-        })
-        .catch((err) => {
-          if (err.status === 404) {
-            fetch(
-              'http://127.0.0.1:8000/api/toolsRUD/' +
-                props.match.params.productId +
-                '/',
-              {
-                method: 'GET',
-                headers: {
-                  'Content-Type': 'application/json',
-                  Authorization: 'JWT ' + localStorage.getItem('access_token'),
-                },
-              }
-            ).then((res) => {
-              if (res.status === 200) {
-                res.json().then((data) => {
-                  console.log(data)
-                  updateFormData(data)
-                })
-              }
-            })
-          }
-        })
-    }
-  }, [productId])
 
   const handleSubmit = () => {
-    console.log(formData.album)
-    console.log('[' + formData.tags.map((x) => '"' + x + '"').toString() + ']')
     const Data = new FormData()
     Data.append('id', formData.id)
     Data.append('name', formData.name)
@@ -272,55 +189,39 @@ export default function NewUser(props) {
     Data.append('light', formData.light)
     Data.append('growthRate', formData.growthRate)
     Data.append('image', selectedFile, selectedFile.name)
-    /*Data.append(
-      'tags',
-      '[' + formData.tags.map((x) => '"' + x + '"').toString() + ']'
-    )
-    Data.append('album', formData.album)*/
 
-    //console.log(formData)
     const requestOptions = {
-      method: 'PUT',
+      method: 'POST',
       headers: {
         Authorization: 'JWT ' + localStorage.getItem('access_token'),
       },
       body: Data,
     }
 
-    fetch(
-      'http://127.0.0.1:8000/api/plantsRUD/' +
-        props.match.params.productId +
-        '/',
-      requestOptions
-    )
-      .then(async (response) => {
-        if (response.status === 200) {
-          let isJson = response.headers
-            .get('content-type')
-            ?.includes('application/json')
-          let data = isJson ? await response.json() : null
-          alert('Updated Successfully')
-        } else {
-          throw response
+    if (formData.kind === 'Plant') {
+      fetch('http://127.0.0.1:8000/api/plants/', requestOptions).then(
+        async (response) => {
+          if (response.status === 200) {
+            let isJson = response.headers
+              .get('content-type')
+              ?.includes('application/json')
+            let data = isJson ? await response.json() : null
+            alert('Updated Successfully')
+          } else {
+            throw response
+          }
         }
-      })
-      .catch((err) => {
-        if (err.status === 404) {
-          fetch(
-            'http://127.0.0.1:8000/api/toolsRUD/' +
-              props.match.params.productId +
-              '/',
-            requestOptions
-          ).then((res) => {
-            if (res.status === 200) {
-              res.json().then((data) => {
-                console.log(data)
-                alert('Updated Successfully')
-              })
-            }
+      )
+    } else if (formData.kind === 'Tool') {
+      fetch('http://127.0.0.1:8000/api/tools/', requestOptions).then((res) => {
+        if (res.status === 200) {
+          res.json().then((data) => {
+            console.log(data)
+            alert('Updated Successfully')
           })
         }
       })
+    }
   }
   var increaseBought = () => {
     var nob = numberOfBuy
@@ -779,6 +680,29 @@ export default function NewUser(props) {
                       Product Information
                     </Typography>
                     <Divider />
+                  </Grid>
+                  <Grid
+                    container
+                    item
+                    className='ProductPageText'
+                    sx={{ m: 1 }}
+                  >
+                    <FormControl fullWidth sx={{ minWidth: '135px' }}>
+                      <InputLabel id='demo-simple-select-label'>
+                        type
+                      </InputLabel>
+                      <Select
+                        labelId='demo-simple-select-label'
+                        id='kind'
+                        name='kind'
+                        label='Kind'
+                        onChange={handleChange}
+                        value={formData.kind}
+                      >
+                        <MenuItem value={'Plant'}>Plant</MenuItem>
+                        <MenuItem value={'Tool'}>Tool</MenuItem>
+                      </Select>
+                    </FormControl>
                   </Grid>
                   <Grid
                     item

@@ -1,4 +1,4 @@
-import './AdminProductList.css'
+import './style.scss'
 import { DataGrid, GridRowsProp, GridColDef } from '@mui/x-data-grid'
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline'
 import { productRows } from '../../dummyData'

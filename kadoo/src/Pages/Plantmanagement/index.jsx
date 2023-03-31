@@ -24,9 +24,9 @@ import Fab from '@mui/material/Fab'
 import { useTheme } from '@mui/material/styles'
 import Zoom from '@mui/material/Zoom'
 import AddIcon from '@mui/icons-material/Add'
-import GreenHouseEdit from '../GreenHouseEdit/GreenHouseEdit'
+import GreenHouseEdit from '../GreenHouseEdit'
 
-import './Plantmanagement.css'
+import './style.scss'
 // Import Theme Files
 import { ThemeProvider } from '@mui/material/styles'
 import Theme from '../../Theme/ThemeGenerator'

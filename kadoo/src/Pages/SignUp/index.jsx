@@ -4,7 +4,7 @@ import { Grid, TextField, Button, InputAdornment } from '@mui/material'
 import { AccountCircle, VpnKey, EmailSharp, Create } from '@mui/icons-material'
 import AppBar from '../../Components/AppBar/AppBar'
 import history from '../../history'
-import './SignUp.css'
+import './style.scss'
 
 function SignUp() {
   const initialFormData = Object.freeze({

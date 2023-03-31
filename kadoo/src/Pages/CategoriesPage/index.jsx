@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import CategoriesList from '../Components/Catergories/Categorieslist'
+import CategoriesList from '../../Components/Catergories/Categorieslist'
 import Box from '@mui/material/Box'
 
 function CategoriesPage() {

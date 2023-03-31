@@ -1,4 +1,4 @@
-import './AdminUser.css'
+import './style.scss'
 import React from 'react'
 import AdapterDateFns from '@mui/lab/AdapterDateFns'
 import LocalizationProvider from '@mui/lab/LocalizationProvider'

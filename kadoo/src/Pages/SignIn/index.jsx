@@ -5,7 +5,7 @@ import { EmailRounded, VpnKey } from '@mui/icons-material'
 import { useState, useEffect } from 'react'
 import history from '../../history'
 import AppBar from '../../Components/AppBar/AppBar'
-import './SignIn.css'
+import './style.scss'
 
 function SignIn() {
   const initialFormData = Object.freeze({
@@ -196,8 +196,8 @@ function SignIn() {
               onChange={handleChange}
             />
             <div
-              style={{ height: 20 }}
               style={{
+                height: 20 ,
                 display: 'flex',
                 flexDirection: 'column',
                 maxWidth: 400,
