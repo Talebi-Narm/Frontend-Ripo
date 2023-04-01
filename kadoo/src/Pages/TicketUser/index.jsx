@@ -142,7 +142,6 @@ export default function TicketUser() {
               </Box>
               {InProgress.length == '0' && (
                 <Alert
-                  // sx={{ width: '100%' }}
                   sx={{ mt: 3 ,width: '100%' }}
                   severity='info'
                   color='warning'
@@ -201,7 +200,6 @@ export default function TicketUser() {
               </Box>
               {Accepted.length == '0' && (
                 <Alert
-                  // sx={{ width: '100%' }}
                   sx={{ mt: 3 ,width: '100%'}}
                   severity='info'
                   color='warning'
@@ -252,8 +250,6 @@ export default function TicketUser() {
                             <ListItemText
                               primary={<Rate rate={T.rate} id={T.id} />}
                               secondary={T.body}
-                              // className="text"
-                              // sx={{width: "100%"}}
                             />
                           </ListItem>
                           <Divider sx={{ width: '100%' }} />
@@ -265,7 +261,6 @@ export default function TicketUser() {
               </Box>
               {Done.length == '0' && (
                 <Alert
-                  // sx={{ width: '100%' }}
                   sx={{ mt: 3 ,width: '100%' }}
                   severity='info'
                   color='warning'

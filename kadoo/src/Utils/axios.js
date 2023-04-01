@@ -1,7 +1,6 @@
 import axios from 'axios'
 
 const baseURL = 'http://127.0.0.1:8000/api/'
-
 const axiosInstance = axios.create({
   baseURL: baseURL,
   timeout: 5000,
@@ -47,10 +46,7 @@ axiosInstance.interceptors.response.use(
 
       if (refreshToken) {
         const tokenParts = JSON.parse(atob(refreshToken.split('.')[1]))
-
-        // exp date in token is expressed in seconds, while now() returns milliseconds:
         const now = Math.ceil(Date.now() / 1000)
-
         if (tokenParts.exp > now) {
           return axiosInstance
             .post('/token/refresh/', { refresh: refreshToken })
@@ -76,7 +72,6 @@ axiosInstance.interceptors.response.use(
       }
     }
 
-    // specific error handling done elsewhere
     return Promise.reject(error)
   }
 )

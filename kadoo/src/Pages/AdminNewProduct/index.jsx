@@ -159,7 +159,6 @@ export default function NewUser(props) {
   }
 
   useEffect(() => {
-    // create the preview
     if (selectedFile != null) {
       const objectUrl = URL.createObjectURL(selectedFile)
       setPreview(objectUrl)
@@ -168,7 +167,6 @@ export default function NewUser(props) {
   }, [selectedFile])
 
   useEffect(() => {
-    // create the preview
     if (formData != initialFormData) {
       setPreview(formData.image)
       setNumberOfBuy(formData.count)

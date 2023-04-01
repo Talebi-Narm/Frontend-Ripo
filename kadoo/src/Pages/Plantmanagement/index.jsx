@@ -447,9 +447,7 @@ function Plantmanagment(props) {
             .get('content-type')
             ?.includes('application/json')
           const data = isJson ? await response.json() : null
-          // check for error response
           if (!response.ok) {
-            // get error message from body or default to response status
             const error = response.status
             return Promise.reject(error)
           }

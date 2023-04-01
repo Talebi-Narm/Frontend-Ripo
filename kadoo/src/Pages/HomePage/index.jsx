@@ -1,8 +1,6 @@
 import React, { useEffect, useState, useRef } from 'react'
-//import Navbar from '../../Components/Navbar/Navbar'
 import AppBar from '../../Components/AppBar'
 import ShowProduct from '../../Components/ShowProduct/ShowProduct'
-//import CategoryDrawer from '../../Components/CategoryDrawer/CategoryDrawer'
 import { styled, useTheme } from '@mui/material/styles'
 import Slide from '@mui/material/Slide'
 import Box from '@mui/material/Box'

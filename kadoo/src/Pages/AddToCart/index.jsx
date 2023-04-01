@@ -20,7 +20,6 @@ const Item = styled(Box)(({ theme }) => ({
   color: theme.palette.text.secondary,
 }))
 
-//import './AddToCart.css'
 
 function AddtoCart() {
   const [cartItems, setCartItems] = useState([])
@@ -118,7 +117,6 @@ function AddtoCart() {
         .then((res) => {
           axiosInstance.defaults.headers['Authorization'] =
             'JWT ' + localStorage.getItem('access_token')
-          //history.push('/')
         })
     }
   }
@@ -132,7 +130,6 @@ function AddtoCart() {
           Authorization: 'JWT ' + localStorage.getItem('access_token'),
         },
         data: {
-          //! Take note of the `data` keyword. This is the request body.
           id: product.id,
         },
       }
@@ -153,7 +150,6 @@ function AddtoCart() {
         .then((res) => {
           axiosInstance.defaults.headers['Authorization'] =
             'JWT ' + localStorage.getItem('access_token')
-          //history.push('/')
         })
     }
   }
@@ -167,7 +163,6 @@ function AddtoCart() {
           Authorization: 'JWT ' + localStorage.getItem('access_token'),
         },
         data: {
-          //! Take note of the `data` keyword. This is the request body.
           id: product.id,
         },
       }
