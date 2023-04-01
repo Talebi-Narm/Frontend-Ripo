@@ -161,7 +161,6 @@ export default function NewUser(props) {
   useEffect(() => {
     // create the preview
     if (selectedFile != null) {
-      console.log(selectedFile)
       const objectUrl = URL.createObjectURL(selectedFile)
       setPreview(objectUrl)
       return () => URL.revokeObjectURL(objectUrl)
@@ -199,15 +198,12 @@ export default function NewUser(props) {
         'file.jpg',
         'image/jpg'
       ).then((file) => {
-        console.log(file)
-        console.log(formData)
         setSelectedFile(file)
       })
     }
   }, [formData])
 
   useEffect(() => {
-    console.log('dsaaaaaaaaaaa')
     if (productId !== '') {
       fetch(
         'http://127.0.0.1:8000/api/plantsRUD/' +
@@ -224,7 +220,6 @@ export default function NewUser(props) {
         .then((res) => {
           if (res.status === 200) {
             res.json().then((data) => {
-              console.log(data)
               updateFormData(data)
             })
           } else {
@@ -247,8 +242,6 @@ export default function NewUser(props) {
             ).then((res) => {
               if (res.status === 200) {
                 res.json().then((data) => {
-                  console.log(data)
-                  updateFormData(data)
                 })
               }
             })
@@ -258,8 +251,6 @@ export default function NewUser(props) {
   }, [productId])
 
   const handleSubmit = () => {
-    console.log(formData.album)
-    console.log('[' + formData.tags.map((x) => '"' + x + '"').toString() + ']')
     const Data = new FormData()
     Data.append('id', formData.id)
     Data.append('name', formData.name)
@@ -272,13 +263,7 @@ export default function NewUser(props) {
     Data.append('light', formData.light)
     Data.append('growthRate', formData.growthRate)
     Data.append('image', selectedFile, selectedFile.name)
-    /*Data.append(
-      'tags',
-      '[' + formData.tags.map((x) => '"' + x + '"').toString() + ']'
-    )
-    Data.append('album', formData.album)*/
 
-    //console.log(formData)
     const requestOptions = {
       method: 'PUT',
       headers: {
@@ -314,7 +299,6 @@ export default function NewUser(props) {
           ).then((res) => {
             if (res.status === 200) {
               res.json().then((data) => {
-                console.log(data)
                 alert('Updated Successfully')
               })
             }
@@ -339,290 +323,6 @@ export default function NewUser(props) {
       [e.target.name]: e.target.value.trim(),
     })
   }
-  // const [currency, setCurrency] = React.useState("EUR");
-
-  // const [value, setValue] = React.useState(null);
-  // const initialPrimaryFormData = Object.freeze({
-  //   name: "",
-  //   lastName: "",
-  //   userName: "",
-  //   email: "",
-  //   password: "",
-  // });
-  // const initialSecondaryFormData = Object.freeze({
-  //   birth_date: "",
-  //   degree: "",
-  //   major: "",
-  //   phone_number: "",
-  //   about: "",
-  //   address: "",
-  // });
-  // const [formData, updateFormData] = useState(initialPrimaryFormData);
-  // const [secondaryFormData, updateSecondaryFormData] = useState(
-  //   initialSecondaryFormData
-  // );
-  // const [errorData, updateErrorData] = useState(initialPrimaryFormData);
-  // const [secondaryerrorData, updateSecondaryErrorData] = useState(
-  //   initialSecondaryFormData
-  // );
-  // const [refresh, setRefresh] = useState(false);
-  // const [primaryConfirmation, setPrimaryConfirmation] = useState(false);
-  // const [primaryAccepted, setPrimaryAccepted] = useState(false);
-  // const [id, setId] = useState("");
-
-  // useEffect(() => {
-  //   if (id != "") {
-  //     updateSecondaryErrorData({
-  //       ...errorData,
-  //       birth_date: "",
-  //     });
-  //     updateSecondaryErrorData({
-  //       ...errorData,
-  //       degree: "",
-  //     });
-  //     updateSecondaryErrorData({
-  //       ...errorData,
-  //       major: "",
-  //     });
-  //     updateSecondaryErrorData({
-  //       ...errorData,
-  //       phone_number: "",
-  //     });
-  //     updateSecondaryErrorData({
-  //       ...errorData,
-  //       about: "",
-  //     });
-  //     updateSecondaryErrorData({
-  //       ...errorData,
-  //       address: "",
-  //     });
-  //     console.log(errorData);
-
-  //     const requestOptions = {
-  //       method: "POST",
-  //       headers: { "Content-Type": "application/json" },
-  //       body: JSON.stringify({
-  //         id_code: "",
-  //         is_online: true,
-  //         rate: 0,
-  //         birth_date: secondaryFormData.birth_date,
-  //         degree: secondaryFormData.degree,
-  //         major: secondaryFormData.major,
-  //         phone_number: secondaryFormData.phone_number,
-  //         about: secondaryFormData.about,
-  //         address: secondaryFormData.address,
-  //       }),
-  //     };
-  //     console.log(requestOptions.body);
-  //     fetch(
-  //       "http://127.0.0.1:8000/api/specialist/update-secondary/" + id + "/",
-  //       requestOptions
-  //     )
-  //       .then((response) => {
-  //         if (response.status === 200) {
-  //           alert("Specialist registered!");
-  //         } else {
-  //           throw response;
-  //         }
-  //       })
-  //       .catch((err) => {
-  //         err.text().then((errorMessage) => {
-  //           const errors = JSON.parse(errorMessage);
-  //           console.log("e " + errors.email);
-
-  //           if (errors.birth_date !== undefined) {
-  //             updateSecondaryErrorData({
-  //               ...secondaryerrorData,
-  //               birth_date: errors.birth_date,
-  //             });
-  //             return;
-  //           }
-
-  //           if (errors.degree !== undefined) {
-  //             updateSecondaryErrorData({
-  //               ...secondaryerrorData,
-  //               degree: errors.degree,
-  //             });
-  //             return;
-  //           }
-
-  //           if (errors.major !== undefined) {
-  //             updateSecondaryErrorData({
-  //               ...secondaryerrorData,
-  //               major: errors.major,
-  //             });
-  //             return;
-  //           }
-
-  //           if (errors.phone_number !== undefined) {
-  //             updateSecondaryErrorData({
-  //               ...secondaryerrorData,
-  //               phone_number: errors.phone_number,
-  //             });
-  //             return;
-  //           }
-
-  //           if (errors.about !== undefined) {
-  //             updateSecondaryErrorData({
-  //               ...secondaryerrorData,
-  //               about: errors.about,
-  //             });
-  //             return;
-  //           }
-
-  //           if (errors.address !== undefined) {
-  //             updateSecondaryErrorData({
-  //               ...secondaryerrorData,
-  //               address: errors.address,
-  //             });
-  //             return;
-  //           }
-  //         });
-  //       });
-  //   }
-  // }, [primaryConfirmation, id]);
-
-  // const handleChange = (e) => {
-  //   updateFormData({
-  //     ...formData,
-  //     [e.target.name]: e.target.value.trim(),
-  //   });
-  //   updateErrorData({
-  //     ...errorData,
-  //     [e.target.name]: "",
-  //   });
-  //   console.log(formData);
-  // };
-
-  // useEffect(() => {
-  //   console.log(secondaryFormData);
-  // }, [secondaryFormData]);
-
-  // const handleChangeSecondary = (e) => {
-  //   updateSecondaryFormData({
-  //     ...secondaryFormData,
-  //     [e.target.name]: e.target.value.trim(),
-  //   });
-  //   updateSecondaryErrorData({
-  //     ...secondaryerrorData,
-  //     [e.target.name]: "",
-  //   });
-  // };
-
-  // const handleSubmit = (e) => {
-  //   e.preventDefault();
-  //   if (!primaryAccepted) {
-  //     console.log(formData);
-  //     console.log(
-  //       JSON.stringify({
-  //         email: formData.email,
-  //         user_name: formData.userName,
-  //         first_name: formData.name,
-  //         last_name: formData.lastName,
-  //         password: formData.password,
-  //       })
-  //     );
-
-  //     updateErrorData({
-  //       ...errorData,
-  //       name: "",
-  //     });
-  //     updateErrorData({
-  //       ...errorData,
-  //       lastName: "",
-  //     });
-  //     updateErrorData({
-  //       ...errorData,
-  //       userName: "",
-  //     });
-  //     updateErrorData({
-  //       ...errorData,
-  //       email: "",
-  //     });
-  //     updateErrorData({
-  //       ...errorData,
-  //       password: "",
-  //     });
-  //     console.log(errorData);
-
-  //     const requestOptions = {
-  //       method: "POST",
-  //       headers: { "Content-Type": "application/json" },
-  //       body: JSON.stringify({
-  //         email: formData.email,
-  //         user_name: formData.userName,
-  //         first_name: formData.name,
-  //         last_name: formData.lastName,
-  //         password: formData.password,
-  //       }),
-  //     };
-  //     fetch("http://127.0.0.1:8000/api/specialist/register/", requestOptions)
-  //       .then(async (response) => {
-  //         if (response.status === 201) {
-  //           let isJson = response.headers
-  //             .get("content-type")
-  //             ?.includes("application/json");
-  //           let data = isJson ? await response.json() : null;
-  //           console.log("1");
-  //           console.log(data);
-  //           setId(data.id);
-
-  //           setPrimaryConfirmation(primaryConfirmation ? false : true);
-  //           setPrimaryAccepted(true);
-  //         } else {
-  //           throw response;
-  //         }
-  //       })
-  //       .catch((err) => {
-  //         err.text().then((errorMessage) => {
-  //           const errors = JSON.parse(errorMessage);
-  //           console.log("e " + errors.email);
-
-  //           if (errors.email !== undefined) {
-  //             updateErrorData({
-  //               ...errorData,
-  //               email: errors.email,
-  //             });
-  //             return;
-  //           }
-
-  //           if (errors.user_name !== undefined) {
-  //             updateErrorData({
-  //               ...errorData,
-  //               userName: errors.user_name,
-  //             });
-  //             return;
-  //           }
-
-  //           if (errors.first_name !== undefined) {
-  //             updateErrorData({
-  //               ...errorData,
-  //               name: errors.first_name,
-  //             });
-  //             return;
-  //           }
-
-  //           if (errors.last_name !== undefined) {
-  //             updateErrorData({
-  //               ...errorData,
-  //               lastName: errors.last_name,
-  //             });
-  //             return;
-  //           }
-
-  //           if (errors.password !== undefined) {
-  //             updateErrorData({
-  //               ...errorData,
-  //               password: errors.password,
-  //             });
-  //             return;
-  //           }
-  //         });
-  //       });
-  //   } else {
-  //     setPrimaryConfirmation(primaryConfirmation ? false : true);
-  //   }
-  // };
 
   return (
     <Grid

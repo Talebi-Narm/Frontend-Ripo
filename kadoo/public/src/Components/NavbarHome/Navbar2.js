@@ -27,12 +27,10 @@ function Navbar(){
           }
           fetch('http://127.0.0.1:8000/api/user/userinfo/', requestOptions)
           .then((response) => {
-            console.log(localStorage.getItem('access_token'))
           if(response.status != 401)
           {
             setUserNav(true)
             setNav(false)
-            console.log("ghgjghj")
           } 
           else
           {

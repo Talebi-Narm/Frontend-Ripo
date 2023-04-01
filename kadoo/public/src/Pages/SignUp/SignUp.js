@@ -21,7 +21,6 @@ function SignUp() {
       ...formData,
       [e.target.name]: e.target.value.trim(),
     })
-    console.log(formData)
   }
 
   const errorHandle = () => {
@@ -30,16 +29,7 @@ function SignUp() {
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    console.log(formData)
-    console.log(
-      JSON.stringify({
-        email: formData.email,
-        user_name: formData.userName,
-        first_name: formData.name,
-        last_name: formData.lastName,
-        password: formData.password,
-      })
-    )
+
     
     updateErrorData({
       ...errorData,
@@ -61,7 +51,6 @@ function SignUp() {
       ...errorData,
       password: '',
     })
-    console.log(errorData);
 
     const requestOptions = {
       method: 'POST',
@@ -90,7 +79,6 @@ function SignUp() {
       .catch( err => {
         err.text().then( errorMessage => {
           const errors = JSON.parse(errorMessage)
-          console.log("e " + errors.email)
           
           if(errors.first_name !== undefined) {
             updateErrorData({

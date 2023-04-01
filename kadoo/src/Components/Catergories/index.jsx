@@ -113,14 +113,12 @@ export default function Categorieslist(props) {
       )
 
       const data = await res.json()
-      console.log('page : ' + data.pageCount)
       props.bindplants(data.data)
       props.setpageall(data.pageCount)
       props.settext('All plants')
       props.setgivenpage(1)
       props.ChangeBg(1)
       //setPlnatsDataLoaded(true)
-      console.log(data)
     }, 0)
   }
 
@@ -153,20 +151,11 @@ export default function Categorieslist(props) {
       props.setgivenpage(1)
       props.ChangeBg(2)
       //setToolsDataLoaded(true)
-      console.log(data)
     }, 0)
   }
 
   const fetchPlantsPagination = (name, page) => {
-    console.log(
-      JSON.stringify({
-        name: null,
-        price: { lower: null, higher: null },
-        tags: [`${name}`],
-        pagination: { count: '6', page: '1' },
-        sort: { kind: null, order: null },
-      })
-    )
+
     fetch('http://127.0.0.1:8000/api/plantsAdvanceSearch/', {
       method: 'Post',
       headers: {
@@ -217,7 +206,6 @@ export default function Categorieslist(props) {
         .then((response) => response.json())
         .then((data) => {
           setPlantTagsData(data)
-          console.log(data)
         })
     }
 
@@ -226,7 +214,6 @@ export default function Categorieslist(props) {
         .then((response) => response.json())
         .then((data) => {
           setToolTagsData(data)
-          console.log(data)
         })
     }
 

@@ -172,7 +172,6 @@ export default function Reminder(props) {
         setFriEnable(friEnable ? false : true)
         break
     }
-    console.log('You clicked the Chip.')
   }
 
   function SetReminder() {
@@ -205,23 +204,19 @@ export default function Reminder(props) {
               },
             }),
           }
-          console.log(requestOptions.body)
           fetch('http://127.0.0.1:8000/api/reminder/', requestOptions)
             .then(async (response) => {
               const isJson = response.headers
                 .get('content-type')
                 ?.includes('application/json')
               const data = isJson ? await response.json() : null
-              console.log(data)
               // check for error response
-              console.log(response.status)
               if (!response.ok) {
                 // get error message from body or default to response status
                 const error = response.status
 
                 return Promise.reject(error)
               }
-              console.log(data)
             })
             .catch((error) => {
               if (error === 401) {
@@ -248,8 +243,6 @@ export default function Reminder(props) {
           response.json()
         })
         .then((data) => {
-          console.log('data')
-          console.log(data)
         })
         .catch((err) => {
           console.log(err)
@@ -282,23 +275,10 @@ export default function Reminder(props) {
   }, [success])
 
   useEffect(() => {
-    console.log(infoCount)
-  }, [infoCount])
-
-  useEffect(() => {
-    console.log(count)
-  }, [count])
-
-  useEffect(() => {
-    console.log(dateTimes)
-  }, [dateTimes])
-
-  useEffect(() => {
     if (dates.length === infoCount) {
       SetTimes()
       setCount(0)
     }
-    console.log(dates)
   }, [dates])
 
   const SetTimes = () => {
@@ -431,13 +411,6 @@ export default function Reminder(props) {
   }
 
   function getNextDayOfWeek(dayOfWeek) {
-    // Code to check that date and dayOfWeek are valid left as an exercise ;)
-    /*let nowDate = new Date(Date.now())
-    console.log(nowDate.getDate() + 1)
-    console.log(nowDate.getDay())
-    return new Date(
-      nowDate.getDate() + ((7 + dayOfWeek - nowDate.getDay()) % 7)
-    )*/
     let nowDate = new Date(Date.now())
     return new Date(
       Date.now() + ((7 + dayOfWeek - nowDate.getDay()) % 7) * 86400000

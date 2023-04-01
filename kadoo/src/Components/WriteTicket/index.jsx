@@ -48,8 +48,6 @@ export default function WriteTicket() {
       )
         .then((response) => response.json())
         .then((data) => {
-          console.log(text)
-          console.log(requestOptions.body)
           window.location.reload(true)
         })
     }

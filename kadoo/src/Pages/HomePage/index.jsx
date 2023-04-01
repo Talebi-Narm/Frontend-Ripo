@@ -149,7 +149,6 @@ export default function HomePage() {
   }
 
   const handleChange = (event, value) => {
-    console.log('askfjdskjfksdfj')
     setTimeout(() => {
       window.scrollTo({ behavior: 'smooth', top: myRef.current.offsetTop })
     }, 500)
@@ -180,17 +179,7 @@ export default function HomePage() {
   }
 
   const fetchPlantsPagination = (name) => {
-    console.log(name)
     if (name !== 'All plants') {
-      console.log(
-        JSON.stringify({
-          name: null,
-          price: { lower: null, higher: null },
-          tags: [`${name}`],
-          pagination: { count: '12', page: `${page}` },
-          sort: { kind: null, order: null },
-        })
-      )
       fetch('http://127.0.0.1:8000/api/plantsAdvanceSearch/', {
         method: 'Post',
         headers: {
@@ -210,14 +199,6 @@ export default function HomePage() {
           setAllPage(data.pageCount)
         })
     } else {
-      console.log(
-        JSON.stringify({
-          name: null,
-          price: { lower: null, higher: null },
-          pagination: { count: '12', page: `${page}` },
-          sort: { kind: null, order: null },
-        })
-      )
       fetch('http://127.0.0.1:8000/api/plantsAdvanceSearch/', {
         method: 'Post',
         headers: {

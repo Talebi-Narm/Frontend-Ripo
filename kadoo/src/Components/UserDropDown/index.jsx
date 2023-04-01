@@ -37,7 +37,6 @@ function UserDropDown(props) {
   }
 
   const handleLogOut = () => {
-    console.log('logout')
     window.localStorage.removeItem('access_token')
     window.localStorage.removeItem('refresh_token')
     window.location.reload(true)
@@ -55,7 +54,6 @@ function UserDropDown(props) {
       .then((response) => response.json())
       .then((data) => {
         setCoinsNumber(data.coin_value)
-        console.log(data)
       })
   }, [])
 
@@ -75,7 +73,6 @@ function UserDropDown(props) {
         .then((response) => response.json())
         .then((data) => {
           setNumberOfItems(data)
-          console.log(data)
         })
     }
     async function FetchUserData() {
@@ -83,7 +80,6 @@ function UserDropDown(props) {
         .then((response) => response.json())
         .then((data) => {
           setUserData(data)
-          console.log(data)
         })
     }
     FetchUserData()

@@ -52,7 +52,6 @@ export default function TicketPage() {
   }, [])
 
   useEffect(() => {
-    console.log(myTicketsData, 'thiiiis')
   }, [myTicketsData])
 
   return (

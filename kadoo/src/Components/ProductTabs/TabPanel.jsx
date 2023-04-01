@@ -81,7 +81,6 @@ export default function BasicTabs() {
         .then((response) => response.json())
         .then((data) => {
           setPlantTagsData(data)
-          console.log(data)
         })
     }
 
@@ -90,7 +89,6 @@ export default function BasicTabs() {
         .then((response) => response.json())
         .then((data) => {
           setToolTagsData(data)
-          console.log(data)
         })
     }
 
@@ -99,7 +97,6 @@ export default function BasicTabs() {
       const data = await res.json()
       setPlnatsData(data)
       setPlnatsDataLoaded(true)
-      console.log(data)
     }, 0)
 
     setTimeout(async () => {
@@ -107,7 +104,6 @@ export default function BasicTabs() {
       const data = await res.json()
       setToolsData(data)
       setToolsDataLoaded(true)
-      console.log(data)
     }, 0)
 
     fetchPlantTagsData()

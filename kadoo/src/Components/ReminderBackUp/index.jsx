@@ -104,13 +104,6 @@ export default function Reminder() {
 
   useEffect(() => {
     if (finish && startDate !== null && endDate !== null) {
-      console.log(startDate)
-      console.log(endDate)
-      //console.log(clockValue)
-      console.log(freq)
-      console.log(count)
-      console.log(summaryText)
-      console.log(des)
       SetReminder()
     }
   }, [startDate, endDate, finish])
@@ -168,7 +161,6 @@ export default function Reminder() {
         },
       }),
     }
-    console.log(requestOptions.body)
     setTimeout(async () => {
       fetch('http://127.0.0.1:8000/api/reminder/', requestOptions)
         .then(async (response) => {
@@ -176,15 +168,12 @@ export default function Reminder() {
             .get('content-type')
             ?.includes('application/json')
           const data = isJson ? await response.json() : null
-          console.log(data)
           // check for error response
-          console.log(response.status)
           if (!response.ok) {
             // get error message from body or default to response status
             const error = response.status
             return Promise.reject(error)
           }
-          console.log(data)
         })
         .catch((error) => {
           if (error === 401) {

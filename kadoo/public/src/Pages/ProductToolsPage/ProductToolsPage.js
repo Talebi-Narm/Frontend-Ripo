@@ -28,7 +28,6 @@ class ProductToolsPage extends React.Component {
     }
     
     componentDidMount() {
-      console.log('http://127.0.0.1:8000/api/toolDetail/' + this.state.id)
         fetch('http://127.0.0.1:8000/api/toolDetail/' + this.state.id + '/')
           .then(response => response.json())
           .then(data => this.setState({ product: data }));
@@ -37,16 +36,13 @@ class ProductToolsPage extends React.Component {
           .then(response => response.json())
           .then(data => { 
               this.setState({ tooltags: data })
-              console.log('tags')
-              console.log(this.state.tooltags)
+
             });
         fetch('http://127.0.0.1:8000/api/toolAlbumImages/' + this.state.id + '/')
           .then(response => response.json())
           .then(data => {
               this.setState({ album: data })
               this.setState({imageName : data[0]})
-        console.log(this.state.album)
-        console.log(this.state.imageName.image)
         });
     }
     
@@ -95,22 +91,18 @@ class ProductToolsPage extends React.Component {
               'Content-Type': 'application/json' },
               body: JSON.stringify({id: this.state.product.id , count: `${this.state.numberOfBuy}`})
           }
-          console.log(requestOptions.body)
           fetch('http://127.0.0.1:8000/api/cart/add-tool-to-cart/', requestOptions)
           .then((response) => {
-            console.log(response.status)
           if(response.status === 201)
           {
             alert('successfully add!')
           } 
           else if(response.status === 401)
           {
-              console.log(response)
             alert('You are not login!')
           }
           else if(response.status === 400)
           {
-              console.log(response)
             alert('This Plant is already in the Basket!')
           }
         })

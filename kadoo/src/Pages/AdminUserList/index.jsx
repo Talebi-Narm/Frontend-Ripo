@@ -38,7 +38,6 @@ export default function UserList() {
   
   
   const handleDelete = (id) => {
-    console.log("id : " + id);
     const requestOptions = {
       method: "DELETE",
       headers: {
@@ -163,12 +162,8 @@ export default function UserList() {
 
   useEffect(()=>{
     fetchPagination();
-    console.log('1');
   },[])
 
-  useEffect(()=>{
-    console.log(products);
-  },[products])
 
   return (
     <div className="productList">

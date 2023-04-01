@@ -18,7 +18,6 @@ function SignIn() {
   
   useEffect(() => {
     updateErrorData([]);
-    console.log(errorData);
   }, [refresh])
 
   const handleChange = (e) => {
@@ -31,7 +30,6 @@ function SignIn() {
   
   const handleSubmit = (e) => {
     e.preventDefault()
-    console.log(formData)
     
     if(refresh)
       setRefresh(false);
@@ -62,7 +60,6 @@ function SignIn() {
       .catch( err => {
         err.text().then( errorMessage => {
           const errors = JSON.parse(errorMessage)
-          console.log("e " + errors.email)
           if(errors.email !== undefined) {
             updateErrorData({
               ...errorData,
@@ -152,11 +149,12 @@ function SignIn() {
               }}
               onChange={handleChange}
             />
-            <div style={{ height: 20 }} style={{
+            <div style={{
               display: 'flex',
               flexDirection: 'column',
               maxWidth: 400,
               minWidth: 300,
+              height: 20 
             }} />
             <a
               className="ButtonStyle"

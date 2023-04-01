@@ -105,7 +105,6 @@ function GreenHouseCard(props) {
   const open = Boolean(anchorEl)
 
   React.useEffect(() => {
-    console.log('reminder : ' + reminderOpen)
   }, [reminderOpen])
 
   const handleClickCalendar = () => {

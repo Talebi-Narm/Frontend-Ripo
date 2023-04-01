@@ -77,7 +77,6 @@ export default function AcceptedTicketCard(props) {
     fetch('http://127.0.0.1:8000/api/ticket/done-ticket-specialist/'+`${props.ticket.id}/`, requestOptions)
     .then((response) => response.json())
     .then((data) => {
-        console.log("hellooo")
     })
     }}, [done]);
 

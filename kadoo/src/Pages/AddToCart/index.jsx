@@ -42,7 +42,6 @@ function AddtoCart() {
         if (response.status != 401) {
           response.json().then((data) => {
             setNumberOfItems(data)
-            console.log(data)
           })
         } else {
           throw response
@@ -58,7 +57,6 @@ function AddtoCart() {
   }, [])
 
   useEffect(() => {
-    console.log('Item : ' + numberOfItems)
     if (numberOfItems !== null && numberOfItems !== 0) {
       async function fetchAllProductData() {
         await axiosInstance
@@ -67,7 +65,6 @@ function AddtoCart() {
             axiosInstance.defaults.headers['Authorization'] =
               'JWT ' + localStorage.getItem('access_token')
             setCartItems(res.data)
-            console.log(cartItems)
           })
       }
       async function fetchAllToolsData() {
@@ -93,7 +90,6 @@ function AddtoCart() {
           x.id === product.id ? { ...exist, count: exist.count + 1 } : x
         )
       )
-      console.log(cartItems)
       axiosInstance
         .post(`cart/update-plant-cart/`, {
           id: product.id,
@@ -102,9 +98,6 @@ function AddtoCart() {
         .then((res) => {
           axiosInstance.defaults.headers['Authorization'] =
             'JWT ' + localStorage.getItem('access_token')
-          //history.push('/')
-          console.log(res)
-          console.log(res.data)
         })
     }
   }
@@ -126,8 +119,6 @@ function AddtoCart() {
           axiosInstance.defaults.headers['Authorization'] =
             'JWT ' + localStorage.getItem('access_token')
           //history.push('/')
-          console.log(res)
-          console.log(res.data)
         })
     }
   }
@@ -163,8 +154,6 @@ function AddtoCart() {
           axiosInstance.defaults.headers['Authorization'] =
             'JWT ' + localStorage.getItem('access_token')
           //history.push('/')
-          console.log(res)
-          console.log(res.data)
         })
     }
   }
@@ -199,9 +188,6 @@ function AddtoCart() {
         .then((res) => {
           axiosInstance.defaults.headers['Authorization'] =
             'JWT ' + localStorage.getItem('access_token')
-          //history.push('/')
-          console.log(res)
-          console.log(res.data)
         })
     }
   }
@@ -210,9 +196,6 @@ function AddtoCart() {
     axiosInstance.post(`cart/approve-all-cart/`, {}).then((res) => {
       axiosInstance.defaults.headers['Authorization'] =
         'JWT ' + localStorage.getItem('access_token')
-      //history.push('/')
-      console.log(res)
-      console.log(res.data)
       alert('Implement Checkout!')
     })
   }

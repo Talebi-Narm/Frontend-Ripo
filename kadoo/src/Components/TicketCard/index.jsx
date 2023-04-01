@@ -64,8 +64,6 @@ export default function TicketCard(props) {
         setUsername(data.user_name)
         setEmail(data.email)
     })
-    
-    console.log(props.ticket)
     }, []);
 
 
@@ -80,7 +78,6 @@ export default function TicketCard(props) {
     fetch('http://127.0.0.1:8000/api/ticket/accept-ticket/'+`${props.ticket.id}/`, requestOptions)
     .then((response) => response.json())
     .then((data) => {
-        console.log("hiiii")
     })
     }}, [handle]);
 

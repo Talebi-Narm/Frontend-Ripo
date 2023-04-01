@@ -36,8 +36,6 @@ export default function ProductList() {
   }
 
   const handleDelete = (id1, kind, name) => {
-    console.log('Kind : ' + kind)
-    console.log('id : ' + id1)
     const requestOptions = {
       method: 'DELETE',
       headers: {
@@ -46,7 +44,6 @@ export default function ProductList() {
       },
     }
     if (kind === 'Plant') {
-      console.log('+++++++++++++++++++++++')
       fetch(
         'http://127.0.0.1:8000/api/plantsRUD/' + id1 + '/',
         requestOptions
@@ -94,7 +91,6 @@ export default function ProductList() {
       headerAlign: 'center',
       width: 80,
       renderCell: (params) => {
-        console.log(params.row.name)
         return (
           <div className='productListItem'>
             <img
@@ -199,11 +195,9 @@ export default function ProductList() {
 
   useEffect(() => {
     fetchPagination()
-    console.log('1')
   }, [])
 
   useEffect(() => {
-    console.log(products)
   }, [products])
 
   return (

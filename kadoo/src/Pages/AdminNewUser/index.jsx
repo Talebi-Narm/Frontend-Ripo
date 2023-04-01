@@ -84,7 +84,6 @@ export default function NewUser() {
         ...errorData,
         address: "",
       });
-      console.log(errorData);
   
       const requestOptions = {
         method: "POST",
@@ -101,7 +100,6 @@ export default function NewUser() {
           address: secondaryFormData.address,
         }),
       };
-      console.log(requestOptions.body);
       fetch("http://127.0.0.1:8000/api/specialist/update-secondary/" + id + "/", requestOptions)
         .then((response) => {
           if (response.status === 200) {
@@ -114,7 +112,6 @@ export default function NewUser() {
         .catch((err) => {
           err.text().then((errorMessage) => {
             const errors = JSON.parse(errorMessage);
-            console.log("e " + errors.email);
             
             if (errors.birth_date !== undefined) {
               updateSecondaryErrorData({
@@ -178,11 +175,9 @@ export default function NewUser() {
       ...errorData,
       [e.target.name]: "",
     });
-    console.log(formData);
   };
 
   useEffect(() => {
-    console.log(secondaryFormData);
   }, [secondaryFormData])
 
   const handleChangeSecondary = (e) => {
@@ -200,16 +195,7 @@ export default function NewUser() {
     e.preventDefault();
     if(!primaryAccepted)
     {
-      console.log(formData);
-      console.log(
-      JSON.stringify({
-        email: formData.email,
-        user_name: formData.userName,
-        first_name: formData.name,
-        last_name: formData.lastName,
-        password: formData.password,
-      })
-      );
+
 
       updateErrorData({
         ...errorData,
@@ -231,7 +217,6 @@ export default function NewUser() {
         ...errorData,
         password: "",
       });
-      console.log(errorData);
 
       const requestOptions = {
         method: "POST",
@@ -251,8 +236,6 @@ export default function NewUser() {
             .get('content-type')
             ?.includes('application/json')
             let data = isJson ? await response.json() : null
-            console.log('1')
-            console.log(data);
             setId(data.id);
             
             setPrimaryConfirmation(primaryConfirmation ? false : true);
@@ -265,7 +248,6 @@ export default function NewUser() {
         .catch((err) => {
           err.text().then((errorMessage) => {
             const errors = JSON.parse(errorMessage);
-            console.log("e " + errors.email);
 
             if (errors.email !== undefined) {
               updateErrorData({

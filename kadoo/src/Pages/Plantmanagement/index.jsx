@@ -101,7 +101,6 @@ function Plantmanagment(props) {
   useEffect(() => {
     // create the preview
     if (selectedFile != null) {
-      console.log(selectedFile)
       const objectUrl = URL.createObjectURL(selectedFile)
       setPreview(objectUrl)
       return () => URL.revokeObjectURL(objectUrl)
@@ -123,7 +122,6 @@ function Plantmanagment(props) {
   }
 
   const handleUpdate = () => {
-    console.log(newPlantInfo)
 
     updateErrorData({
       ...errorData,
@@ -141,8 +139,6 @@ function Plantmanagment(props) {
       ...errorData,
       image: '',
     })
-    console.log('----------------')
-    console.log(newPlantInfo)
     const formData = new FormData()
     if (newPlantInfo.name != '') {
       formData.append('name', newPlantInfo.name)
@@ -158,13 +154,11 @@ function Plantmanagment(props) {
       formData.append('image', '')
     }
 
-    //console.log(formData)
     const requestOptions = {
       method: 'PUT',
       headers: { Authorization: 'JWT ' + localStorage.getItem('access_token') },
       body: formData,
     }
-    console.log(requestOptions.body)
     fetch(
       'http://127.0.0.1:8000/api/myPlantsRUD/' + plantInfo.id + '/',
       requestOptions
@@ -181,7 +175,6 @@ function Plantmanagment(props) {
       .catch((err) => {
         err.text().then((errorMessage) => {
           const errors = JSON.parse(errorMessage)
-          console.log('e ' + errors.email)
 
           if (errors.first_name !== undefined) {
             updateErrorData({
@@ -219,7 +212,6 @@ function Plantmanagment(props) {
   }
 
   const handleCreate = () => {
-    console.log(newPlantInfo)
 
     updateErrorData({
       ...errorData,
@@ -237,8 +229,6 @@ function Plantmanagment(props) {
       ...errorData,
       image: '',
     })
-    console.log('----------------')
-    console.log(selectedFile)
     const formData = new FormData()
     if (newPlantInfo.name != '') {
       formData.append('name', newPlantInfo.name)
@@ -255,13 +245,11 @@ function Plantmanagment(props) {
     formData.append('description', newPlantInfo.description)
     formData.append('location', newPlantInfo.location)
 
-    //console.log(formData)
     const requestOptions = {
       method: 'POST',
       headers: { Authorization: 'JWT ' + localStorage.getItem('access_token') },
       body: formData,
     }
-    console.log(requestOptions.body)
     fetch('http://127.0.0.1:8000/api/myPlants/', requestOptions)
       .then((response) => {
         if (response.status === 401 || response.status === 400) {
@@ -275,7 +263,6 @@ function Plantmanagment(props) {
       .catch((err) => {
         err.text().then((errorMessage) => {
           const errors = JSON.parse(errorMessage)
-          console.log('e ' + errors.email)
 
           if (errors.first_name !== undefined) {
             updateErrorData({
@@ -321,7 +308,6 @@ function Plantmanagment(props) {
   }
 
   const handleClickOpen = () => {
-    console.log('s111111111')
     const requestOptions = {
       method: 'GET',
       headers: {
@@ -334,8 +320,7 @@ function Plantmanagment(props) {
         .then((response) => response.json())
         .then((data) => {
           setCoinsNumber(data.coin_value)
-          console.log('Coin')
-          console.log(data.coin_value)
+
           if (data.coin_value >= 50) {
             setPlantInfo(initialData)
             setNewPlant(true)
@@ -344,7 +329,6 @@ function Plantmanagment(props) {
             alert('You dont have enough coin!')
             return
           }
-          console.log(data)
         })
     }
     ReloadCoin()
@@ -357,7 +341,6 @@ function Plantmanagment(props) {
   }
 
   const handleClickOpenEdit = (data) => {
-    console.log('1')
     setPlantInfo(data)
     setNewPlantInfo(data)
     setNewPlant(false)
@@ -373,8 +356,7 @@ function Plantmanagment(props) {
             'file.jpg',
             'image/jpg'
           ).then((file) => {
-            console.log('herwr')
-            console.log(file)
+
             setSelectedFile(file)
           })
         }
@@ -407,7 +389,6 @@ function Plantmanagment(props) {
       ...errorData,
       [e.target.name]: '',
     })
-    console.log(newPlantInfo)
   }
 
   const handleReload = () => {
@@ -435,7 +416,6 @@ function Plantmanagment(props) {
     setTimeout(async () => {
       setPlantData([])
       plantId.map((p) => {
-        console.log('plant Id' + p.id)
         fetch(
           'http://127.0.0.1:8000/api/myPlantsRUD/' + p.id + '/',
           requestOptions
@@ -444,11 +424,8 @@ function Plantmanagment(props) {
             .get('content-type')
             ?.includes('application/json')
           let data = isJson ? await response.json() : null
-          console.log('1')
-          console.log(plantData)
 
           setPlantData((prestate) => [...prestate, data])
-          console.log(data)
         })
       })
     }, 3000)
@@ -470,9 +447,7 @@ function Plantmanagment(props) {
             .get('content-type')
             ?.includes('application/json')
           const data = isJson ? await response.json() : null
-          console.log(data)
           // check for error response
-          console.log(response.status)
           if (!response.ok) {
             // get error message from body or default to response status
             const error = response.status
@@ -481,12 +456,9 @@ function Plantmanagment(props) {
 
           if (data === null) {
             setPlantDataLoaded(true)
-            console.log('sadasd')
           } else {
             setPlantId(data)
           }
-          console.log('1111')
-          console.log(data.lenght)
         })
         .catch((error) => {
           if (error === 401) {

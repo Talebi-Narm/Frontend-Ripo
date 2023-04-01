@@ -116,23 +116,17 @@ function SearchResultProduct(props) {
       }),
     }
 
-    console.log(requestOptions.body)
-    console.log(1)
     setSearchPlantData([])
     setSearchPlantDataLoaded(false)
-    console.log(2)
     setTimeout(async () => {
       const res = await fetch(
         'http://127.0.0.1:8000/api/plantsAdvanceSearch/',
         requestOptions
       )
       const data = await res.json()
-      console.log(3)
       setSearchPlantData(data.data)
       setResultPaginationPagePlants(data.pageCount)
       setSearchPlantDataLoaded(true)
-      console.log('plantsData')
-      console.log(data)
     }, 3000)
   }
   function ToolsAdvanceSearch() {
@@ -158,7 +152,6 @@ function SearchResultProduct(props) {
         },
       }),
     }
-    console.log(requestOptions.body)
     setSearchToolData([])
     setSearchToolDataLoaded(false)
     setTimeout(async () => {
@@ -170,7 +163,6 @@ function SearchResultProduct(props) {
       setSearchToolData(data.data)
       setResultPaginationPageTools(data.pageCount)
       setSearchToolDataLoaded(true)
-      console.log(data)
     }, 3000)
   }
 
@@ -189,7 +181,6 @@ function SearchResultProduct(props) {
         .then((response) => response.json())
         .then((data) => {
           setSearchPlantData(data)
-          console.log(data)
         })
     }
     async function fetchToolData() {
@@ -197,20 +188,17 @@ function SearchResultProduct(props) {
         .then((response) => response.json())
         .then((data) => {
           setSearchToolData(data)
-          console.log(data)
         })
     }
     fetchProductData()
     fetchToolData()
   }
   const handleSearch = (name) => {
-    console.log('0')
     function fetchSearchProductData() {
       fetch('http://127.0.0.1:8000/api/plantsByName/' + name + '/')
         .then((response) => response.json())
         .then((data) => {
           setSearchPlantData(data)
-          console.log(data)
         })
     }
     function fetchSearchToolData() {
@@ -218,7 +206,6 @@ function SearchResultProduct(props) {
         .then((response) => response.json())
         .then((data) => {
           setSearchToolData(data)
-          console.log(data)
         })
     }
     fetchSearchProductData()
@@ -308,7 +295,6 @@ function SearchResultProduct(props) {
   }
   // 2) Filter By Water Plants
   const handleFilterWater = (value) => {
-    console.log('sara eshghe mne')
     setFilterWaterPlants(value)
   }
   // 3) Filter By Light Plants
@@ -421,7 +407,6 @@ function SearchResultProduct(props) {
         .then((response) => response.json())
         .then((data) => {
           setSearchPlantData(data)
-          console.log(data)
         })
     }
     async function fetchToolData() {
@@ -429,7 +414,6 @@ function SearchResultProduct(props) {
         .then((response) => response.json())
         .then((data) => {
           setSearchToolData(data)
-          console.log(data)
         })
     }
     fetchProductData()

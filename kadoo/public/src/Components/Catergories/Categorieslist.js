@@ -51,8 +51,6 @@ export default function SelectedListItem(props) {
   }
   const handlePlantListItemClick = (event, Id , name) => {
     setPlantSelectedId(Id )
-    //setPlnatsData([])
-    //setPlnatsDataLoaded(false)
     setTimeout(async () => {
       const res = await fetch(
         'http://127.0.0.1:8000/api/plantsWithTag/' + Id + '/'
@@ -60,14 +58,10 @@ export default function SelectedListItem(props) {
       const data = await res.json()
       props.bindplants(data)
       props.settext(name) 
-      //setPlnatsDataLoaded(true)
-      console.log(data)
     }, 0)
   }
   const handleToolListItemClick = (event, Id , name) => {
     setToolSelectedId(Id )
-    //setToolsData([])
-    //setToolsDataLoaded(false)
     setTimeout(async () => {
       const res = await fetch(
         'http://127.0.0.1:8000/api/toolsWithTag/' + Id + '/'
@@ -75,36 +69,26 @@ export default function SelectedListItem(props) {
       const data = await res.json()
       props.bindtools(data)
        props.settext(name) 
-      //setToolsDataLoaded(true)
-      console.log(data)
     }, 0)
   }
 
   const handlePlantListItemClickAll = () => {
-    //setPlnatsData([])
-    //setPlnatsDataLoaded(false)
     setPlantSelectedId(1)
     setTimeout(async () => {
       const res = await fetch('http://127.0.0.1:8000/api/plantsList/')
       const data = await res.json()
       props.bindplants(data)
        props.settext('All plants')
-      //setPlnatsDataLoaded(true)
-      console.log(data)
     }, 0)
   }
 
   const handleToolListItemClickAll = () => {
-    //setToolsData([])
-    //setToolsDataLoaded(false)
     setToolSelectedId(1)
     setTimeout(async () => {
       const res = await fetch('http://127.0.0.1:8000/api/toolsList/')
       const data = await res.json()
       props.bindtools(data)
       props.settext('All tools')
-      //setToolsDataLoaded(true)
-      console.log(data)
     }, 0)
   }
 
@@ -114,7 +98,6 @@ export default function SelectedListItem(props) {
         .then((response) => response.json())
         .then((data) => {
           setPlantTagsData(data)
-          console.log(data)
         })
     }
 
@@ -123,26 +106,8 @@ export default function SelectedListItem(props) {
         .then((response) => response.json())
         .then((data) => {
           setToolTagsData(data)
-          console.log(data)
         })
     }
-
-   /* setTimeout(async () => {
-      const res = await fetch('http://127.0.0.1:8000/api/plantsList/')
-      const data = await res.json()
-      setPlnatsData(data)
-      setPlnatsDataLoaded(true)
-      console.log(data)
-    }, 3000)*/
-
-    /*setTimeout(async () => {
-      const res = await fetch('http://127.0.0.1:8000/api/toolsList/')
-      const data = await res.json()
-      setToolsData(data)
-      setToolsDataLoaded(true)
-      console.log(data)
-    }, 3000)*/
-
     fetchPlantTagsData()
     fetchToolTagsData()
   }, [])

@@ -70,10 +70,6 @@ export default function NewUser(props) {
   const [userId, setUserId] = useState('')
 
   useEffect(() => {
-    console.log(value)
-  }, [value])
-
-  useEffect(() => {
     setUserId(props.match.params.userId)
   }, [])
 
@@ -88,7 +84,6 @@ export default function NewUser(props) {
       })
         .then((res) => res.json())
         .then((data) => {
-          console.log(data)
           updateFormData(data)
         })
       fetch('http://127.0.0.1:8000/api/specialist/secondary/' + userId + '/', {
@@ -100,7 +95,6 @@ export default function NewUser(props) {
       })
         .then((res) => res.json())
         .then((data) => {
-          console.log(data)
           updateSecondaryFormData(data)
         })
     }
@@ -131,7 +125,6 @@ export default function NewUser(props) {
       ...secondaryerrorData,
       address: '',
     })
-    console.log('errorData')
 
     const requestOptions = {
       method: 'POST',
@@ -148,9 +141,6 @@ export default function NewUser(props) {
         address: secondaryFormData.address,
       }),
     }
-    console.log('ine')
-    console.log(requestOptions.body)
-    console.log('id :' + id)
     fetch(
       'http://127.0.0.1:8000/api/specialist/update-secondary/' + userId + '/',
       requestOptions
@@ -165,7 +155,6 @@ export default function NewUser(props) {
       .catch((err) => {
         err.text().then((errorMessage) => {
           const errors = JSON.parse(errorMessage)
-          console.log('e ' + errors.email)
 
           if (errors.birth_date !== undefined) {
             updateSecondaryErrorData({
@@ -227,11 +216,9 @@ export default function NewUser(props) {
       ...errorData,
       [e.target.name]: '',
     })
-    console.log(formData)
   }
 
   useEffect(() => {
-    console.log(secondaryFormData)
   }, [secondaryFormData])
 
   const handleChangeSecondary = (e) => {

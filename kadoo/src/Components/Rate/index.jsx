@@ -28,7 +28,6 @@ export default function Rate(props) {
     fetch('http://127.0.0.1:8000/api/ticket/rate-ticket-member/', requestOptions)
     .then((response) => response.json())
     .then((data) => {
-        console.log(requestOptions.body)
     }).catch((res)=>{
         if(res.status==401){
             alert("You must Login first!")

@@ -37,7 +37,6 @@ export default function WateringUpdate() {
     .then((response) => response.json())
     .then((data) => {
       setCoinsNumber(data.coin_value)
-      console.log(data)
     })
     }
     useEffect(() => {
@@ -59,7 +58,6 @@ export default function WateringUpdate() {
     fetch('http://127.0.0.1:8000/api/coin/new-watering/', requestOptions)
     .then((response) => response.json())
     .then((data) => {
-        console.log(data)
         setWatering(watering? false:true)
     })
     }, [handle]);
@@ -76,7 +74,6 @@ export default function WateringUpdate() {
     .then((response) => response.json())
     .then((data) => {
       setText(data)
-      console.log(data)
       setLoad(load? false:true)
     })}
     }, [watering]);

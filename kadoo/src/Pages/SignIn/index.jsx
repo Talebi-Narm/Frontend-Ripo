@@ -18,8 +18,6 @@ function SignIn() {
   const [refresh, setRefresh] = useState(false)
 
   useEffect(() => {
-    console.log('access_token Come')
-    console.log(localStorage.getItem('access_token'))
     const requestOptions = {
       method: 'GET',
       headers: {
@@ -29,10 +27,8 @@ function SignIn() {
     }
     fetch('http://127.0.0.1:8000/api/user/userinfo/', requestOptions)
       .then((response) => {
-        console.log(localStorage.getItem('access_token'))
         if (response.status != 401) {
           response.json().then((data) => {
-            console.log(data.type)
             if (data.type === 'MEMBER') {
               history.push('/HomePage')
               window.location.reload(true)
@@ -53,7 +49,6 @@ function SignIn() {
 
   useEffect(() => {
     updateErrorData(initialFormData)
-    console.log(errorData)
   }, [refresh])
 
   const handleChange = (e) => {
@@ -69,7 +64,6 @@ function SignIn() {
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    console.log(formData)
 
     if (refresh) setRefresh(false)
     else setRefresh(true)
@@ -84,15 +78,12 @@ function SignIn() {
     fetch('http://127.0.0.1:8000/api/user/token/', requestOptions)
       .then((response) => {
         if (response.status == 200) {
-          console.log('response')
           response.json().then((data) => {
-            console.log(data)
             localStorage.setItem('access_token', data.access)
             localStorage.setItem('refresh_token', data.refresh)
             setFlagData(flagData ? false : true)
           })
 
-          //console.log(data)
         } else {
           throw response
         }
@@ -103,7 +94,6 @@ function SignIn() {
         }
         err.text().then((errorMessage) => {
           const errors = JSON.parse(errorMessage)
-          console.log('e ' + errors.email)
           if (errors.email !== undefined) {
             updateErrorData({
               ...errorData,

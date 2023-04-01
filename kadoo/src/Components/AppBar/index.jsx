@@ -95,7 +95,6 @@ const KadooAppBar = forwardRef((props, ref) => {
           .then((response) => response.json())
           .then((data) => {
             setCoinsNumber(data.coin_value)
-            console.log(data)
           })
       }
       async function RealodCountCart() {
@@ -106,7 +105,6 @@ const KadooAppBar = forwardRef((props, ref) => {
           .then((response) => response.json())
           .then((data) => {
             setNumberOfItems(data)
-            console.log(data)
           })
       }
       RealodCountCart()
@@ -130,7 +128,6 @@ const KadooAppBar = forwardRef((props, ref) => {
       .then((response) => response.json())
       .then((data) => {
         setCoinsNumber(data.coin_value)
-        console.log(data)
       })
   }
   useEffect(() => {
@@ -147,13 +144,11 @@ const KadooAppBar = forwardRef((props, ref) => {
     }
     fetch('http://127.0.0.1:8000/api/user/userinfo/', requestOptions)
       .then((response) => {
-        console.log(localStorage.getItem('access_token'))
         if (response.status != 401) {
           setAuthorized(true)
           response.json().then((data) => {
             setKind(data.type)
           })
-          console.log('User has been Authorized')
         } else {
           throw response
         }
@@ -178,7 +173,6 @@ const KadooAppBar = forwardRef((props, ref) => {
           .then((response) => response.json())
           .then((data) => {
             setNumberOfItems(data)
-            console.log(data)
           })
       }
       async function FetchUserData() {
@@ -187,7 +181,6 @@ const KadooAppBar = forwardRef((props, ref) => {
           .then((data) => {
             setUserData(data)
             setUserType(data.type)
-            console.log(data)
           })
       }
       FetchUserData()
