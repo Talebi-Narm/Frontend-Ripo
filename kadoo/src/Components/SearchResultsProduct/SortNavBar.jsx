@@ -27,9 +27,7 @@ function SortNavBar(props) {
     handleSortKindProducts,
     handleSortOrderProducts,
   } = props
-  useEffect(() => {
-    //setSortSelectMenu(1)
-  }, [])
+
   useEffect(() => {
     switch (sortSelectMenu) {
       case 1:

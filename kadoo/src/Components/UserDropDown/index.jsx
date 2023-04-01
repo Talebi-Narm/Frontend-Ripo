@@ -150,19 +150,6 @@ function UserDropDown(props) {
             Cart
           </Box>
         </MenuItem>
-        {/*<MenuItem sx={{ display: { xs: 'flex', md: 'none' } }}>
-          <Box>
-            <ListItemIcon>
-              {numberOfTicket !== 0 && (
-                <Badge badgeContent={numberOfTicket} color='secondary'>
-                  <ForumIcon fontSize='small' />
-                </Badge>
-              )}
-              {numberOfTicket === 0 && <ForumIcon fontSize='small' />}
-            </ListItemIcon>
-            Tickets
-          </Box>
-              </MenuItem>*/}
         {props.kind === 'MEMBER' && (
           <Link to='/greenHouse' className='textDecoration'>
             <MenuItem>
@@ -210,18 +197,6 @@ function UserDropDown(props) {
           </ListItemIcon>
           Logout
         </MenuItem>
-        {/*<MenuItem>
-          <ListItemIcon>
-            <ShoppingCartIcon fontSize='small' />
-          </ListItemIcon>
-          Ongoing Orders
-        </MenuItem>
-        <MenuItem>
-          <ListItemIcon>
-            <HistoryIcon fontSize='small' />
-          </ListItemIcon>
-          Purchase History
-        </MenuItem>*/}
       </Menu>
     </React.Fragment>
   )

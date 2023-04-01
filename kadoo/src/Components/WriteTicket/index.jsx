@@ -79,7 +79,6 @@ export default function WriteTicket() {
             variant='standard'
             value={text}
             onChange={(e) => setText(e.target.value)}
-            // disabled={disable}
           />
         </DialogContent>
         <DialogActions>

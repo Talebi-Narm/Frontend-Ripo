@@ -66,8 +66,6 @@ export default function Categorieslist(props) {
     if (props.hasClose) {
       props.CloseScroll()
     }
-    //setPlnatsData([])
-    //setPlnatsDataLoaded(false)
     setTimeout(async () => {
       fetchPlantsPagination(name, props.givenpage)
       props.ChangeBg(1)
@@ -76,8 +74,6 @@ export default function Categorieslist(props) {
   const handleToolListItemClick = (event, Id, name) => {
     setPlantSelectedId(0)
     setToolSelectedId(Id)
-    //setToolsData([])
-    //setToolsDataLoaded(false)
     if (props.hasClose) {
       props.CloseScroll()
     }
@@ -88,9 +84,7 @@ export default function Categorieslist(props) {
   }
 
   const handlePlantListItemClickAll = () => {
-    //setPlnatsData([])
     setToolSelectedId(0)
-    //setPlnatsDataLoaded(false)
     setPlantSelectedId(1)
     if (props.hasClose) {
       props.CloseScroll()
@@ -118,13 +112,10 @@ export default function Categorieslist(props) {
       props.settext('All plants')
       props.setgivenpage(1)
       props.ChangeBg(1)
-      //setPlnatsDataLoaded(true)
     }, 0)
   }
 
   const handleToolListItemClickAll = () => {
-    //setToolsData([])
-    //setToolsDataLoaded(false)
     setPlantSelectedId(0)
     setToolSelectedId(1)
     if (props.hasClose) {
@@ -150,7 +141,6 @@ export default function Categorieslist(props) {
       props.settext('All tools')
       props.setgivenpage(1)
       props.ChangeBg(2)
-      //setToolsDataLoaded(true)
     }, 0)
   }
 

@@ -21,7 +21,6 @@ import { Link } from 'react-router-dom'
 import './GreenHouseCard.scss'
 import Fab from '@mui/material/Fab'
 import history from '../../history'
-// Import Theme Files
 import { ThemeProvider } from '@mui/material/styles'
 import Theme from '../../Theme/ThemeGenerator'
 import Menu from '@mui/material/Menu'
@@ -253,9 +252,7 @@ function GreenHouseCard(props) {
             <OpacityIcon className='FabColor' />
           </Fab>
         </Avatar>
-        <CardContent className={cardStyles.content} 
-        // className='FontRight'
-        >
+        <CardContent className={cardStyles.content} >
           <TextInfoContent
             className='FontRight'
             classes={textCardContentStyles}

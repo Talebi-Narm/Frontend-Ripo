@@ -85,8 +85,6 @@ export default function Reminder() {
 
   const handleSkip = () => {
     if (!isStepOptional(activeStep)) {
-      // You probably want to guard against something like this,
-      // it should never occur unless someone's actively trying to break something.
       throw new Error("You can't skip a step that isn't optional.")
     }
 
@@ -168,9 +166,7 @@ export default function Reminder() {
             .get('content-type')
             ?.includes('application/json')
           const data = isJson ? await response.json() : null
-          // check for error response
           if (!response.ok) {
-            // get error message from body or default to response status
             const error = response.status
             return Promise.reject(error)
           }

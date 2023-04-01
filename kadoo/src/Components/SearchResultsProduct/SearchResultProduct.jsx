@@ -72,7 +72,6 @@ const DrawerHeader = styled('div')(({ theme }) => ({
   display: 'flex',
   alignItems: 'center',
   padding: theme.spacing(0, 1),
-  // necessary for content to be below app bar
   ...theme.mixins.toolbar,
   justifyContent: 'left',
 }))
@@ -88,30 +87,6 @@ const marks = [
     value: 0,
     label: '0$',
   },
-  // {
-  //   value: 5,
-  //   label: "5$",
-  // },
-  // {
-  //   value: 10,
-  //   label: "10$",
-  // },
-  // {
-  //   value: 15,
-  //   label: "15$",
-  // },
-  // {
-  //   value: 20,
-  //   label: "20$",
-  // },
-  // {
-  //   value: 25,
-  //   label: "25$",
-  // },
-  // {
-  //   value: 30,
-  //   label: "30$",
-  // },
   {
     value: 35,
     label: '35$',
@@ -134,9 +109,7 @@ function SearchResultProduct(props) {
   const [searchToolData, setSearchToolData] = useState([])
   const [openDrawer, setOpenDrawer] = React.useState(false)
   const [isFilterd, setIsFilterd] = React.useState(true)
-  ///////////////////// Advance Search States /////////////////////
-  //#########Plants
-  //Search
+  //search
   const [searchTextPlants, setSearchTextPlants] = useState('')
   //Sort
   const [sortKindPlants, setSortKindPlants] = useState('name')
@@ -234,7 +207,6 @@ function SearchResultProduct(props) {
     const requestOptions = {
       method: 'POST',
       headers: {
-        // 'Authorization': 'JWT ' + localStorage.getItem('access_token'),
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
@@ -281,7 +253,6 @@ function SearchResultProduct(props) {
     const requestOptions = {
       method: 'POST',
       headers: {
-        // 'Authorization': 'JWT ' + localStorage.getItem('access_token'),
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
@@ -323,7 +294,6 @@ function SearchResultProduct(props) {
     const requestOptions = {
       method: 'POST',
       headers: {
-        // 'Authorization': 'JWT ' + localStorage.getItem('access_token'),
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
@@ -728,10 +698,6 @@ function SearchResultProduct(props) {
             </Typography>
           </DrawerHeader>
           <Grid className='scrollHide' item style={{ padding: 2 }}>
-            {/* ////////////////////////// Slidbar For Filter ////////////////////////// */}
-            {/* /////// Filter /////// */}
-            {/* <Button onClick={() => handleFilterEnvironment(VALUEFROMUSER)}></Button> */}
-
             <FormControl component='fieldset' sx={{ mb: 1, ml: 1 }}>
               <FormLabel component='sort'>Categories</FormLabel>
               <RadioGroup
@@ -839,62 +805,6 @@ function SearchResultProduct(props) {
             </Grid>
           </Grid>
         </Drawer>
-        {/* <br />
-      <Grid container style={{ minHeight: '100vh' }} xs={24}>
-        <Grid item xs={6} sm={3} style={{ padding: 10 }}>
-        <Grid
-          item
-          xs={20} 
-          sm={10}
-          display='flex'
-          marginLeft={0}
-          direction='column'
-        >
-          <Grid>
-          <TextField
-            onChange={(e) => handleChange(e)}
-            size='small'
-            id='outlined-search'
-            name='SearchField'
-            label='Search..'
-            type='search'>
-          </TextField>
-          
-          <IconButton onClick={() => {handleSearchPlantsByName(searchText) ;handleSearchToolsByName(searchText) }}>
-            <SearchIcon className='Searchicon' fontSize='large' />
-          </IconButton>
-          </Grid>
-          
-          <Chip
-            width="10px"
-            label={'You searched for ' + searchTextPlants}
-            variant='outlined'
-          />
-        </Grid>
-        </Grid>
-        <Grid
-          container
-          item
-          xs={18}
-          sm={9}
-          alignItems='flex-start'
-          justify='space-between'
-          style={{ padding: 10 }}
-        >
-        <Grid
-          item
-          xs={4}
-          sm={2}
-          alignItems='flex-end'
-          justifyContent='flex-end'
-          className='searchBox'
-        >
-          <IconButton href='/' onClick={() => history.push('/')}>
-            <Home fontSize='large' />
-            Home
-          </IconButton>
-        </Grid>
-      </div> */}
         <Main open={openDrawer}>
           <Box>
             <AppBar
@@ -928,7 +838,6 @@ function SearchResultProduct(props) {
                   style={{ minHeight: '100vh' }}
                 >
                   <Box sx={{ width: '100%' }}>
-                    {/* ////////////////////////// NavBar Sort ////////////////////////// */}
                     <Grid
                       container
                       alignItems={xsScreen ? 'center' : 'left'}
@@ -1003,15 +912,9 @@ function SearchResultProduct(props) {
                         )}
                       </Grid>
                     </Grid>
-
-                    {/* ////////////////////////// Samples ////////////////////////// */}
-                    {/* /////// Sort /////// */}
-                    {/* <Button onClick={() => handleToolsSortBy_Name_ASC()}></Button> */}
                     <Box sx={{ width: '100%' }} ref={myRef0}>
                       {searchProductData.length != 0 && filterType === 0 && (
                         <Grid sx={{ display: 'flex', ml: 2 }}>
-                          {/*<div className='showProductSubs'>Products</div>
-                          <Divider variant='middle' />*/}
                           <Grid container item spacing={2} sx={{ p: 2 }}>
                             <ShowProduct data={searchProductData} />
                           </Grid>
@@ -1035,8 +938,6 @@ function SearchResultProduct(props) {
                     <Box sx={{ width: '100%' }} ref={myRef1}>
                       {searchPlantData.length != 0 && filterType === 1 && (
                         <Grid sx={{ display: 'flex', ml: 2 }}>
-                          {/*<div className='showProductSubs'>Plants</div>
-                          <Divider variant='middle' />*/}
                           <Grid container spacing={2} sx={{ p: 2 }}>
                             <ShowProduct data={searchPlantData} />
                           </Grid>
@@ -1060,8 +961,6 @@ function SearchResultProduct(props) {
                     <Box sx={{ width: '100%' }} ref={myRef2}>
                       {searchToolData.length != 0 && filterType === 2 && (
                         <Grid sx={{ display: 'flex', ml: 2 }}>
-                          {/*<div className='showProductSubs'>Tools</div>
-                          <Divider variant='middle' />*/}
                           <Grid container spacing={2} sx={{ p: 2 }}>
                             <ShowProduct data={searchToolData} />
                           </Grid>
@@ -1114,10 +1013,6 @@ function SearchResultProduct(props) {
             </Grid>
           </Box>
         </Main>
-
-        {/* ////////////////////////// Samples ////////////////////////// */}
-        {/* /////// Pagination /////// */}
-        {/* <Button onClick={() => handlePaginationPlants(Count, Page)}></Button> */}
       </Box>
     </div>
   )
