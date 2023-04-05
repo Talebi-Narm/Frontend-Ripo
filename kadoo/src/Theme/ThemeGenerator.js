@@ -1,32 +1,42 @@
-import { createTheme } from '@mui/material/styles'
+import  createTheme  from '@mui/material/styles'
 
-const varelaRound = {
-  fontFamily: 'Quicksand',
-  fontStyle: 'Regular',
-  fontDisplay: 'swap',
-  src: `
-   local('VarelaRound-Regular'),
-   url(./../assets/Fonts/VarelaRound-Regular.ttf) format('ttf')
- `,
-  unicodeRange:
-    'U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF',
-}
+// const varelaRound = {
+//   fontFamily: 'Quicksand',
+//   fontStyle: 'Regular',
+//   fontDisplay: 'swap',
+//   src: `
+//    local('VarelaRound-Regular'),
+//    url(./../assets/Fonts/VarelaRound-Regular.ttf) format('ttf')
+//  `,
+//   unicodeRange:
+//     'U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF',
+// }
 
 const Theme = createTheme({
   palette: {
-    type: 'light',
+    mode: 'dark',
     primary: {
-      main: '#009688',
-      light: '#26a69a',
-      dark: '#00796b',
-      contrastText: '#f0f5f4',
+      main: '#00c853',
     },
     secondary: {
-      main: '#ffb300',
-      light: '#ffca28',
-      dark: '#ffa000',
-      contrastText: '#303030',
+      main: '#ffeb3b',
     },
+    info: {
+      main: '#0091ea',
+    },
+  },
+  typography: {
+    fontFamily: 'Comic Neue',
+    fontWeightRegular: 600,
+  },
+  shape: {
+    borderRadius: 14,
+  },
+  props: {
+    MuiTooltip: {
+      arrow: true,
+    },
+  },
     warning: {
       main: '#ffa726',
       light: '#ffb74d',
@@ -40,33 +50,6 @@ const Theme = createTheme({
     text: {
       primary: '#005046',
     },
-  },
-  typography: {
-    fontFamily: "Quicksand",
-    fontWeightLight: 400,
-    fontWeightRegular: 800,
-    fontWeightMedium: 500,
-    fontWeightBold: 800,
-    h1: {
-      fontWeight: 800,
-    },
-    h2: {
-      fontWeight: 800,
-    },
-    h3: {
-      fontWeight: 800,
-    },
-    h4: {
-      fontWeight: 800,
-    },
-    h5: {
-      fontWeight: 800,
-      fontSize: '1.4rem',
-    },
-    subtitle1: {
-      fontWeight: 800,
-    },
-  },
   transitions: {
     duration: {
       Long: 1000,

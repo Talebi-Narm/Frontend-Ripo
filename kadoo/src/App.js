@@ -33,6 +33,7 @@ import AdminProductList from './Pages/AdminProductList'
 import TicketPage from './Pages/TicketPage'
 import WriteTicket from './Components/WriteTicket'
 import TicketUser from './Pages/TicketUser'
+import TestButton from './Pages/TestButton/TestButton'
 
 function App() {
   return (
@@ -66,6 +67,7 @@ function App() {
               <Route path='/Reminder' exact component={Reminder} />
               <Route path='/greenhouse' exact component={Plantmanagement} />
               <Route exact path='/AdminPage' component={AdminPage} />
+              <Route exact path='/testButton' component={TestButton} />
               <Route
                 exact
                 path='/ProductPlantsPage/:id'
