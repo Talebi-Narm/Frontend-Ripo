@@ -50,7 +50,6 @@ const CustomProductCard = (props) => {
             <CardMedia>
               <img
                 src={props.product.image}
-                className="productIconImage1"
               />
             </CardMedia>
           </Grid>

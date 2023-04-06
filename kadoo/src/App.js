@@ -36,6 +36,8 @@ import TicketUser from './Pages/TicketUser'
 import TestButton from './Pages/TestButton/TestButton'
 import TestProductCard from './Pages/TestCard/TestCard'
 
+import TestToolCard from './Pages/TestCard/TestToolCard'
+
 function App() {
   return (
     <React.Fragment className='no-select'>
@@ -70,6 +72,8 @@ function App() {
               <Route exact path='/AdminPage' component={AdminPage} />
               <Route exact path='/TestButton' component={TestButton} />
               <Route exact path='/TestProductCard' component={TestProductCard} />
+              <Route exact path='/TestToolCard' component={TestToolCard} />
+
               <Route
                 exact
                 path='/ProductPlantsPage/:id'
