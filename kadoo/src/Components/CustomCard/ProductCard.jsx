@@ -31,14 +31,8 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const CustomCard = (props) => {
+const CustomProductCard = (props) => {
   const classes = useStyles();
-
-  //   const { product, onAddPlant, onRemovePlant } = props;
-
-  useEffect(() => {
-    console.log("kiaaaa");
-  }, []);
 
   return (
     <Card className={classes.card} sx={{ mb: 2, p: 2 }}>
@@ -246,4 +240,4 @@ const CustomCard = (props) => {
   );
 };
 
-export default CustomCard;
+export default CustomProductCard;
