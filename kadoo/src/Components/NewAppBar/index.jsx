@@ -1,8 +1,9 @@
 import * as React from 'react'
-import AppBar from '@mui/material/AppBar'
+// import AppBar from '@mui/material/AppBar'
 import Box from '@mui/material/Box'
 import Grid from '@mui/material/Grid'
 import Toolbar from '@mui/material/Toolbar'
+import { styled } from '@mui/material/styles'
 import IconButton from '@mui/material/IconButton'
 import Typography from '@mui/material/Typography'
 import Menu from '@mui/material/Menu'
@@ -16,16 +17,46 @@ import AdbIcon from '@mui/icons-material/Adb'
 import { ReactComponent as Logo } from '../../assets/Images/Main/Logo-01.svg'
 import DefualtAvatar from '../../assets/Images/Main/Defualt-Avatar-01.svg'
 import useScrollTrigger from '@mui/material/useScrollTrigger'
+import MuiAppBar from '@mui/material/AppBar'
 import './style.css'
 import { useTheme } from '@mui/material/styles'
 
 const pages = ['Top Sales', 'Offers', 'Special Sales', 'Any question?']
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout']
 
+
+
 function MainAppBar(props) {
   const theme = useTheme()
   const [anchorElNav, setAnchorElNav] = React.useState(null)
   const [anchorElUser, setAnchorElUser] = React.useState(null)
+
+  
+const AppBar = styled(MuiAppBar, {
+  shouldForwardProp: (prop) => prop !== 'open',
+})(({ theme, open }) => ({
+  zIndex: theme.zIndex.drawer + 1,
+  transition: theme.transitions.create(['width', 'margin'], {
+    easing: theme.transitions.easing.sharp,
+    duration: theme.transitions.duration.leavingScreen,
+  }),
+  ...(open && {
+    marginLeft: '240px',
+    width: `calc(100% - ${286}px) !important`,
+    transition: theme.transitions.create(['width', 'margin'], {
+      easing: theme.transitions.easing.sharp,
+      duration: theme.transitions.duration.enteringScreen,
+    }),
+  }),
+  ...(!open && {
+    marginLeft: '240px',
+    width: `calc(100% - ${111}px) !important`,
+    transition: theme.transitions.create(['width', 'margin'], {
+      easing: theme.transitions.easing.sharp,
+      duration: theme.transitions.duration.enteringScreen,
+    }),
+  }),
+}))
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget)
@@ -62,7 +93,6 @@ function MainAppBar(props) {
       backgroundColor: 'rgba(255, 255, 255, 0.2)',
       backdropFilter: 'blur(5px)',
       top: 24,
-      mt: 3,
       mx: 3,
     },
   }
@@ -72,7 +102,8 @@ function MainAppBar(props) {
       <AppBar
         sx={AppBarStyles.header}
         className='bg'
-        position='sticky'
+        position='fixed'
+        open={props.open}
       >
         <Container maxWidth='xl'>
           <Toolbar disableGutters>
