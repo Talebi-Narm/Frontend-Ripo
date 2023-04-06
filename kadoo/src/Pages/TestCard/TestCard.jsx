@@ -3,7 +3,7 @@ import CustomProductCard  from '../../Components/CustomCard/ProductCard';
 
 const TestProductCard = () => {
     const product = {
-        image: 'https://bornakombucha.com/wp-content/uploads/2020/12/%D9%85%D8%B5%D8%B1%D9%81-%DA%AF%DB%8C%D8%A7%D9%87-%DA%AF%D8%B2%D9%86%D9%87.jpg',
+        image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQTlT6OCf8Vil8Wqt2TiS2lMKy0mDC7R_2BEp7Fei8Z&s',
         name: 'product',
         count: 2,
         water: 1,
