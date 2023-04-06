@@ -1,11 +1,15 @@
 import { styled } from '@mui/system'
-import { Button, colors, Grid, IconButton } from '@mui/material'
-import { Theme } from '../Assests/Theme/ThemeGenerator'
+// import colors from '@mui/material/colors'
+import Button from '@mui/material/Button'
+import Grid from '@mui/material/Grid'
+import IconButton from '@mui/material/IconButton'
+import  Theme  from '../../Theme/ThemeGenerator'
+
 
 export const CustomButton = styled(Button)(
     ({error, talebiKind}) => ({
         backgroundColor: error ? talebiKind === 'primary'
-        ? colors.palette.error.main
+        ? error.main
         : talebiKind === 'text'
         : talebiKind === 'primary'
     })
