@@ -34,12 +34,6 @@ const useStyles = makeStyles((theme) => ({
 const CustomCard = (props) => {
   const classes = useStyles();
 
-  //   const { product, onAddPlant, onRemovePlant } = props;
-
-  useEffect(() => {
-    console.log("kiaaaa");
-  }, []);
-
   return (
     <Card className={classes.card} sx={{ mb: 2, p: 2 }}>
       <Grid container sx={{ display: "flex" }}>
@@ -56,7 +50,6 @@ const CustomCard = (props) => {
             <CardMedia>
               <img
                 src={props.product.image}
-                className="productIconImage1"
               />
             </CardMedia>
           </Grid>
