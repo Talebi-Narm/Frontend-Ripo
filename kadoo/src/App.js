@@ -33,6 +33,7 @@ import AdminProductList from './Pages/AdminProductList'
 import TicketPage from './Pages/TicketPage'
 import WriteTicket from './Components/WriteTicket'
 import TicketUser from './Pages/TicketUser'
+import Test from './Test'
 
 function App() {
   return (
@@ -42,6 +43,7 @@ function App() {
         <LocalizationProvider dateAdapter={AdapterDateFns}>
           <Router>
             <Switch>
+              <Route exact path='/testredux' component={Test}/>
               <Route exact path='/TicketPage' component={TicketPage} />
               <Route exact path='/TicketUser' component={TicketUser} />
               <Route exact path='/WriteTicket' component={WriteTicket} />

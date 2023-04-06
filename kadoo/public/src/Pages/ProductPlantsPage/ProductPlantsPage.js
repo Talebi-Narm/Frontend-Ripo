@@ -50,7 +50,7 @@ class ProductPlantsPage extends React.Component {
     
 
     render() {
-          var increaseBought=()=>{
+    var increaseBought=()=>{
         var nob=this.state.numberOfBuy
             this.setState({
                 numberOfBuy:nob+1,
