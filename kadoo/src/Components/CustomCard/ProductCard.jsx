@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { makeStyles } from "@mui/styles";
 import Box from "@mui/material/Box";
 import Card from "@mui/material/Card";
@@ -21,7 +21,6 @@ import TextField from "@mui/material/TextField";
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
 
-
 const useStyles = makeStyles((theme) => ({
   card: {
     maxWidth: 500,
@@ -34,7 +33,12 @@ const useStyles = makeStyles((theme) => ({
 
 const CustomCard = (props) => {
   const classes = useStyles();
-  const { product, onAddPlant, onRemovePlant } = props;
+
+  //   const { product, onAddPlant, onRemovePlant } = props;
+
+  useEffect(() => {
+    console.log("kiaaaa");
+  }, []);
 
   return (
     <Card className={classes.card} sx={{ mb: 2, p: 2 }}>
@@ -49,9 +53,9 @@ const CustomCard = (props) => {
           alignItems="center"
         >
           <Grid sx={{ p: 1 }}>
-            <CardMedia> 
+            <CardMedia>
               <img
-                src={"http://127.0.0.1:8000" + product.image}
+                src={props.product.image}
                 className="productIconImage1"
               />
             </CardMedia>
@@ -84,7 +88,7 @@ const CustomCard = (props) => {
                     }}
                   >
                     <Typography component="div" variant="h5" sx={{ flex: 1 }}>
-                      {product.name.trim()}
+                      {props.product.name.trim()}
                     </Typography>
                   </Box>
 
@@ -114,9 +118,13 @@ const CustomCard = (props) => {
                           xs: 1,
                         },
                       }}
-                      onClick={() => onRemovePlant(product)}
+                      onClick={() => props.onRemovePlant(props.product)}
                     >
-                      {product.count === 1 ? <DeleteIcon /> : <RemoveIcon />}
+                      {props.product.count === 1 ? (
+                        <DeleteIcon />
+                      ) : (
+                        <RemoveIcon />
+                      )}
                     </IconButton>
                     <TextField
                       id="outlined-number"
@@ -132,7 +140,9 @@ const CustomCard = (props) => {
                           xs: 2,
                         },
                       }}
-                      value={product.count < 100 ? product.count : 100}
+                      value={
+                        props.product.count < 100 ? props.product.count : 100
+                      }
                       inputProps={{
                         style: { textAlign: "center" },
                         maxLength: 2,
@@ -153,8 +163,8 @@ const CustomCard = (props) => {
                         },
                       }}
                       onClick={() => {
-                        if (product.count < 100) {
-                          onAddPlant(product);
+                        if (props.product.count < 100) {
+                          props.onAddPlant(props.product);
                         }
                       }}
                     >
@@ -192,16 +202,18 @@ const CustomCard = (props) => {
                       <ListItemIcon>
                         <InvertColorsIcon style={{ fill: "#1976d2" }} />
                       </ListItemIcon>
-                      <ListItemText sx={{ m: -3 }} 
-                      primary={product.water} 
+                      <ListItemText
+                        sx={{ m: -3 }}
+                        primary={props.product.water}
                       />
                     </ListItem>
                     <ListItem sx={{ color: "#ed6c02" }}>
                       <ListItemIcon>
                         <LightModeIcon style={{ fill: "#ed6c02" }} />
                       </ListItemIcon>
-                      <ListItemText sx={{ m: -3 }} 
-                      primary={product.light} 
+                      <ListItemText
+                        sx={{ m: -3 }}
+                        primary={props.product.light}
                       />
                     </ListItem>
                     <ListItem sx={{ color: "#4caf50" }}>
@@ -210,12 +222,12 @@ const CustomCard = (props) => {
                       </ListItemIcon>
                       <ListItemText
                         sx={{ m: -3 }}
-                        primary={product.growthRate}
+                        primary={props.product.growthRate}
                       />
                     </ListItem>
                     <ListItem>
                       <Chip
-                        label={product.price + "$"}
+                        label={props.product.price + "$"}
                         color="success"
                         variant="outlined"
                         style={{ fontSize: "1.1rem" }}
