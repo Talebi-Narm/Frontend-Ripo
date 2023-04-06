@@ -2,7 +2,7 @@ import Sidebar from '../../Components/sidebar'
 import AppBar from '../../Components/AppBar'
 import './style.scss'
 import AdminHome from '../AdminHome'
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import AdminUserList from '../AdminUserList'
 import AdminUser from '../AdminUser'
 import AdminNewUser from '../AdminNewUser'
@@ -18,14 +18,14 @@ function App() {
       <AppBar />
       <div className='containerAdmin'>
         <Sidebar />
-        <Switch>
+        <Routes>
           <Route exact path='/AdminPage/AdminHome'>
             <AdminHome />
           </Route>
           <Route path='/AdminPage/specialist'>
             <UserList />
           </Route>
-          <Route path='/AdminPage/user/:userId/' component={AdminUser} />
+          <Route path='/AdminPage/user/:userId/' element={<AdminUser/>} />
           <Route path='/AdminPage/newUser'>
             <AdminNewUser />
           </Route>
@@ -39,7 +39,7 @@ function App() {
             path='/AdminPage/product/:productId/'
             component={AdminProduct}
           />
-        </Switch>
+        </Routes>
       </div>
     </Router>
   )

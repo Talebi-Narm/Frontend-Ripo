@@ -5,7 +5,7 @@ import './App.css'
 import { ThemeProvider } from '@mui/material/styles'
 import Theme from './Theme/ThemeGenerator'
 // Import Dom And React Components
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
 import CssBaseline from '@mui/material/CssBaseline'
 // Import Pages
 import SignIn from './Pages/SignIn'
@@ -34,6 +34,7 @@ import TicketPage from './Pages/TicketPage'
 import WriteTicket from './Components/WriteTicket'
 import TicketUser from './Pages/TicketUser'
 import Test from './Test'
+import AppRoutes from './AppRoutes'
 
 function App() {
   return (
@@ -42,54 +43,55 @@ function App() {
       <ThemeProvider theme={Theme}>
         <LocalizationProvider dateAdapter={AdapterDateFns}>
           <Router>
-            <Switch>
-              <Route exact path='/testredux' component={Test}/>
-              <Route exact path='/TicketPage' component={TicketPage} />
-              <Route exact path='/TicketUser' component={TicketUser} />
-              <Route exact path='/WriteTicket' component={WriteTicket} />
+            <Routes>
+            {/* <Route path="/*" element={<AppRoutes />} /> */}
+              <Route exact path='/testredux' element={<Test/>}/>
+              <Route exact path='/TicketPage' element={<TicketPage/>} />
+              <Route exact path='/TicketUser' element={<TicketUser/>} />
+              <Route exact path='/WriteTicket' element={<WriteTicket/>} />
               <Route
                 exact
                 path='/WateringUpdateTest'
-                component={WateringUpdate}
+                element={<WateringUpdate/>}
               />
-              <Route exact path='/Coins' component={ShowCoins} />
-              <Route exact path='/' component={LandingPage} />
-              <Route exact path='/signin' component={SignIn} />
-              <Route exact path='/signup' component={SignUp} />
+              <Route exact path='/Coins' element={<ShowCoins/>} />
+              <Route exact path='/' element={<LandingPage/>} />
+              <Route exact path='/signin' element={<SignIn/>} />
+              <Route exact path='/signup' element={<SignUp/>} />
               <Route
                 exact
                 path='/search/:text'
-                component={SearchResultProduct}
+                element={<SearchResultProduct/>}
               />
-              <Route exact path='/search/' component={SearchResultProduct} />
-              <Route exact path='/Homepage' component={HomePage} />
-              <Route path='/cart' exact component={Cart} />
-              <Route path='/categories' exact component={CategoriesPage} />
-              <Route path='/Reminder' exact component={Reminder} />
-              <Route path='/greenhouse' exact component={Plantmanagement} />
-              <Route exact path='/AdminPage' component={AdminPage} />
+              <Route exact path='/search/' element={<SearchResultProduct/>} />
+              <Route exact path='/Homepage' element={<HomePage/>} />
+              <Route path='/cart' exact element={<Cart/>} />
+              <Route path='/categories' exact element={<CategoriesPage/>} />
+              <Route path='/Reminder' exact element={<Reminder/>} />
+              <Route path='/greenhouse' exact element={<Plantmanagement/>} />
+              <Route exact path='/AdminPage' element={<AdminPage/>} />
               <Route
                 exact
                 path='/ProductPlantsPage/:id'
-                component={ProductPlantsPage}
+                element={<ProductPlantsPage/>}
               />
               <Route
                 exact
                 path='/ProductToolsPage/:id'
-                component={ProductToolsPage}
+                element={<ProductToolsPage/>}
               />
               <Route
                 exact
                 path='/greenHouseEdit/:id'
-                component={GreenHouseEdit}
+                element={<GreenHouseEdit/>}
               />
               <Route
                 exact
                 path='/greenHouseCreate/'
-                component={GreenHouseEdit}
+                element={GreenHouseEdit}
               />
-              <Route component={NotFound} />
-            </Switch>
+              <Route element={<NotFound/>} />
+            </Routes>
           </Router>
         </LocalizationProvider>
       </ThemeProvider>
