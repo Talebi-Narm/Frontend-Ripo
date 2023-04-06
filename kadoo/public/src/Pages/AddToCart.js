@@ -34,7 +34,6 @@ function AddtoCart() {
           axiosInstance.defaults.headers['Authorization'] =
             'JWT ' + localStorage.getItem('access_token')
           setCartItems(res.data)
-          console.log(cartItems)
         })
     }
 
@@ -60,9 +59,6 @@ function AddtoCart() {
           axiosInstance.defaults.headers['Authorization'] =
             'JWT ' + localStorage.getItem('access_token')
           //history.push('/')
-          console.log('Register')
-          console.log(res)
-          console.log(res.data)
         })
     }
 
@@ -80,7 +76,6 @@ function AddtoCart() {
           x.id === product.id ? { ...exist, count: exist.count + 1 } : x
         )
       )
-      console.log(cartItems)
       axiosInstance
         .post(`cart/update-plant-cart/`, {
           id: product.id,
@@ -89,9 +84,6 @@ function AddtoCart() {
         .then((res) => {
           axiosInstance.defaults.headers['Authorization'] =
             'JWT ' + localStorage.getItem('access_token')
-          //history.push('/')
-          console.log(res)
-          console.log(res.data)
         })
     }
   }
@@ -112,9 +104,6 @@ function AddtoCart() {
         .then((res) => {
           axiosInstance.defaults.headers['Authorization'] =
             'JWT ' + localStorage.getItem('access_token')
-          //history.push('/')
-          console.log(res)
-          console.log(res.data)
         })
     }
   }
@@ -147,9 +136,6 @@ function AddtoCart() {
         .then((res) => {
           axiosInstance.defaults.headers['Authorization'] =
             'JWT ' + localStorage.getItem('access_token')
-          //history.push('/')
-          console.log(res)
-          console.log(res.data)
         })
     }
   }
@@ -182,9 +168,6 @@ function AddtoCart() {
         .then((res) => {
           axiosInstance.defaults.headers['Authorization'] =
             'JWT ' + localStorage.getItem('access_token')
-          //history.push('/')
-          console.log(res)
-          console.log(res.data)
         })
     }
   }
@@ -193,9 +176,6 @@ function AddtoCart() {
     axiosInstance.post(`cart/approve-all-cart/`, {}).then((res) => {
       axiosInstance.defaults.headers['Authorization'] =
         'JWT ' + localStorage.getItem('access_token')
-      //history.push('/')
-      console.log(res)
-      console.log(res.data)
       alert('Implement Checkout!')
     })
   }

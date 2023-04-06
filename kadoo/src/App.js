@@ -8,31 +8,31 @@ import Theme from './Theme/ThemeGenerator'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import CssBaseline from '@mui/material/CssBaseline'
 // Import Pages
-import SignIn from './Pages/SignIn/SignIn'
-import SignUp from './Pages/SignUp/SignUp'
-import HomePage from './Pages/HomePage/HomePage'
+import SignIn from './Pages/SignIn'
+import SignUp from './Pages/SignUp'
+import HomePage from './Pages/HomePage'
 import SearchResultProduct from './Components/SearchResultsProduct/SearchResultProduct'
 import Cart from './Pages/AddToCart'
 import NotFound from './Pages/NotFound'
 import CategoriesPage from './Pages/CategoriesPage'
-import ProductPlantsPage from './Pages/ProductPlantsPage/ProductPlantsPage'
-import ProductToolsPage from './Pages/ProductToolsPage/ProductToolsPage'
-import LandingPage from './Pages/LandingPage/LandingPage'
-import AdminPage from './Pages/AdminPage/AdminPage'
-import Reminder from './Pages/ReminderTest/ReminderTest'
-import GreenHouseEdit from './Pages/GreenHouseEdit/GreenHouseEdit'
+import ProductPlantsPage from './Pages/ProductPlantsPage/inedx'
+import ProductToolsPage from './Pages/ProductToolsPage'
+import LandingPage from './Pages/LandingPage'
+import AdminPage from './Pages/AdminPage'
+import Reminder from './Pages/ReminderTest'
+import GreenHouseEdit from './Pages/GreenHouseEdit'
 import AdapterDateFns from '@mui/lab/AdapterDateFns'
-import Plantmanagement from './Pages/Plantmanagement/Plantmanagement'
+import Plantmanagement from './Pages/Plantmanagement'
 import LocalizationProvider from '@mui/lab/LocalizationProvider'
-import ShowCoins from './Components/ShowCoins/ShowCoins'
+import ShowCoins from './Components/ShowCoins'
 import WateringUpdate from './Components/UpdateCoins/WateringUpdate'
-import AdminHome from './Pages/AdminHome/AdminHome'
-import UserList from './Pages/AdminUserList/AdminUserList'
-import AdminProduct from './Pages/AdminProduct/AdminProduct'
-import AdminProductList from './Pages/AdminProductList/AdminProductList'
-import TicketPage from './Pages/TicketPage/TicketPage'
-import WriteTicket from './Components/WriteTicket/WriteTicket'
-import TicketUser from './Pages/TicketUser/TicketUser'
+import AdminHome from './Pages/AdminHome'
+import UserList from './Pages/AdminUserList'
+import AdminProduct from './Pages/AdminProduct'
+import AdminProductList from './Pages/AdminProductList'
+import TicketPage from './Pages/TicketPage'
+import WriteTicket from './Components/WriteTicket'
+import TicketUser from './Pages/TicketUser'
 
 function App() {
   return (
@@ -60,7 +60,7 @@ function App() {
                 component={SearchResultProduct}
               />
               <Route exact path='/search/' component={SearchResultProduct} />
-              <Route exact path='/Homepage' exact component={HomePage} />
+              <Route exact path='/Homepage' component={HomePage} />
               <Route path='/cart' exact component={Cart} />
               <Route path='/categories' exact component={CategoriesPage} />
               <Route path='/Reminder' exact component={Reminder} />

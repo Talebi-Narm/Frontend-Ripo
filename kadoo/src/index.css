@@ -4,7 +4,7 @@ body {
   font-family: 'Quicksand';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  cursor: url('tree-leaf.png'), auto;
+  cursor: url('./assets/Images/Cursor/tree-leaf.png'), auto;
   background-color: whitesmoke !important;
   overflow-x: hidden;
 }
