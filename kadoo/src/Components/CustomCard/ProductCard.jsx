@@ -23,7 +23,7 @@ import RemoveIcon from "@mui/icons-material/Remove";
 
 const useStyles = makeStyles((theme) => ({
   card: {
-    maxWidth: 500,
+    maxWidth: 650,
     margin: "auto",
   },
   avatar: {
