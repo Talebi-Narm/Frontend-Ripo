@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import './style.scss'
 import AppBar from '../../Components/AppBar'
 import Grid from '@mui/material/Grid'
@@ -140,7 +140,7 @@ export default function TicketUser() {
                   </List>
                 </Demo>
               </Box>
-              {InProgress.length == '0' && (
+              {InProgress.length === '0' && (
                 <Alert
                   sx={{ mt: 3 ,width: '100%' }}
                   severity='info'
@@ -180,7 +180,7 @@ export default function TicketUser() {
                 <Typography variant='h4' gutterBottom component='div'>
                   Accepted
                 </Typography>
-                {Accepted.length != '0' && (
+                {Accepted.length !== '0' && (
                   <Demo>
                     <List>
                       {Accepted.map((T) => (
@@ -198,7 +198,7 @@ export default function TicketUser() {
                   </Demo>
                 )}
               </Box>
-              {Accepted.length == '0' && (
+              {Accepted.length === '0' && (
                 <Alert
                   sx={{ mt: 3 ,width: '100%'}}
                   severity='info'
@@ -238,7 +238,7 @@ export default function TicketUser() {
                 <Typography variant='h4' gutterBottom component='div'>
                   Done
                 </Typography>
-                {Done.length != '0' && (
+                {Done.length !== '0' && (
                   <Demo>
                     <List>
                       {Done.map((T) => (
@@ -259,7 +259,7 @@ export default function TicketUser() {
                   </Demo>
                 )}
               </Box>
-              {Done.length == '0' && (
+              {Done.length === '0' && (
                 <Alert
                   sx={{ mt: 3 ,width: '100%' }}
                   severity='info'

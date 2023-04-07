@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import AppBar from '../../Components/AppBar'
 import Grid from '@mui/material/Grid'
 import Card from '@mui/material/Card'
@@ -84,7 +84,7 @@ export default function TicketPage() {
         >
           <Grid container item>
             <ShowMyTickets data={myTicketsData} />
-            {myTicketsData.length == '0' && (
+            {myTicketsData.length === '0' && (
               <Alert sx={{ mt: 3 }} severity='info' color='warning'>
                 No Tickets Yet
               </Alert>
@@ -114,7 +114,7 @@ export default function TicketPage() {
         >
           <Grid container item>
             <ShowAllTickets data={ticketsData} />
-            {ticketsData.length == '0' && (
+            {ticketsData.length === '0' && (
               <Alert sx={{ mt: 3 }} severity='info' color='warning'>
                 No Tickets Yet
               </Alert>

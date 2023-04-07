@@ -3,20 +3,14 @@ import Grid from '@mui/material/Grid'
 import Typography from '@mui/material/Typography'
 import Slide from '@mui/material/Slide'
 import Box from '@mui/material/Box'
-import { styled } from '@mui/material/styles'
-import PropTypes from 'prop-types'
-import Paper from '@mui/material/Paper'
-import ProductIcon2 from '../../Components/productIcon/productIcon2'
 import AppBar from '../../Components/AppBar'
 import DefAppBar from '@mui/material/AppBar'
 import Stack from '@mui/material/Stack'
 import Button from '@mui/material/Button'
 import IconButton from '@mui/material/IconButton'
 import Alert from '@mui/material/Alert'
-import ShowProduct from '../../Components/ShowProduct/ShowProduct'
 import SkeletonArticle from '../../Components/Cart/SkeletonArticle'
 import Dialog from '@mui/material/Dialog'
-import GreenHouseCard from '../../Components/ProductsCart/GreenHouseCard'
 import ShowGreenHouse from '../../Components/ShowProduct/ShowGreenHouse'
 import CloseIcon from '@mui/icons-material/Close'
 import Toolbar from '@mui/material/Toolbar'
@@ -30,7 +24,7 @@ import './style.scss'
 // Import Theme Files
 import { ThemeProvider } from '@mui/material/styles'
 import Theme from '../../Theme/ThemeGenerator'
-import { SignalCellularNullOutlined } from '@material-ui/icons'
+
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction='up' ref={ref} {...props} />
@@ -140,7 +134,7 @@ function Plantmanagment(props) {
       image: '',
     })
     const formData = new FormData()
-    if (newPlantInfo.name != '') {
+    if (newPlantInfo.name !== '') {
       formData.append('name', newPlantInfo.name)
     } else {
       alert('Enter the name of plant!')
@@ -230,7 +224,7 @@ function Plantmanagment(props) {
       image: '',
     })
     const formData = new FormData()
-    if (newPlantInfo.name != '') {
+    if (newPlantInfo.name !== '') {
       formData.append('name', newPlantInfo.name)
     } else {
       alert('Enter the name of plant!')
@@ -373,7 +367,7 @@ function Plantmanagment(props) {
   }
 
   useEffect(() => {
-    if (JSON.stringify(plantInfo) == JSON.stringify(newPlantInfo)) {
+    if (JSON.stringify(plantInfo) === JSON.stringify(newPlantInfo)) {
       setEnable(false)
     } else {
       setEnable(true)
@@ -492,13 +486,12 @@ function Plantmanagment(props) {
         >
           <Grid item sx={{ width: '100%' }}>
             <Box sx={{ width: '100%' }}>
-              {plantData.length != 0 && (
+              {plantData.length !== 0 && (
                 <Grid
                   container
                   spacing={2}
                   xs={12}
-                  sx={{ mt: 2 }}
-                  sx={{ width: '100%' }}
+                  sx={{ mt: 2 , width: '100%'}}
                 >
                   <Grid item sx={{ width: '100%' }}>
                     <ShowGreenHouse

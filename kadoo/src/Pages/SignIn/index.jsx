@@ -1,6 +1,6 @@
 import React from 'react'
 import Background from '../../assets/Images/SignIn/signInBG.png'
-import { Grid, TextField, Button, InputAdornment } from '@mui/material'
+import { Grid, TextField, InputAdornment } from '@mui/material'
 import { EmailRounded, VpnKey } from '@mui/icons-material'
 import { useState, useEffect } from 'react'
 import history from '../../history'
@@ -27,7 +27,7 @@ function SignIn() {
     }
     fetch('http://127.0.0.1:8000/api/user/userinfo/', requestOptions)
       .then((response) => {
-        if (response.status != 401) {
+        if (response.status !== 401) {
           response.json().then((data) => {
             if (data.type === 'MEMBER') {
               history.push('/HomePage')
@@ -47,9 +47,9 @@ function SignIn() {
       .catch((err) => {})
   }, [flagData])
 
-  useEffect(() => {
-    updateErrorData(initialFormData)
-  }, [refresh])
+  // useEffect(() => {
+  //   updateErrorData(initialFormData)
+  // }, [refresh])
 
   const handleChange = (e) => {
     updateFormData({
@@ -77,7 +77,7 @@ function SignIn() {
     }
     fetch('http://127.0.0.1:8000/api/user/token/', requestOptions)
       .then((response) => {
-        if (response.status == 200) {
+        if (response.status === 200) {
           response.json().then((data) => {
             localStorage.setItem('access_token', data.access)
             localStorage.setItem('refresh_token', data.refresh)
@@ -157,7 +157,7 @@ function SignIn() {
               name='email'
               label='Email'
               margin='normal'
-              helperText={errorData.email != '' ? errorData.email : ''}
+              helperText={errorData.email !== '' ? errorData.email : ''}
               InputProps={{
                 startAdornment: (
                   <InputAdornment position='start'>
@@ -174,7 +174,7 @@ function SignIn() {
               name='password'
               label='Password'
               margin='normal'
-              helperText={errorData.password != '' ? errorData.password : ''}
+              helperText={errorData.password !== '' ? errorData.password : ''}
               InputProps={{
                 startAdornment: (
                   <InputAdornment position='start'>

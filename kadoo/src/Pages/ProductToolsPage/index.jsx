@@ -1,6 +1,5 @@
 import * as React from 'react'
 import Grid from '@mui/material/Grid'
-import Navbar from '../../Components/Navbar'
 import Button from '@mui/material/Button'
 import '../ProductPlantsPage/style.scss'
 import Box from '@mui/material/Box'
@@ -8,7 +7,6 @@ import Chip from '@mui/material/Chip'
 import AddIcon from '@mui/icons-material/Add'
 import RemoveIcon from '@mui/icons-material/Remove'
 import IconButton from '@mui/material/IconButton'
-import Alert from '@mui/material/Alert'
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos'
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos'
 import AppBar from '../../Components/AppBar'
@@ -18,16 +16,6 @@ import Card from '@mui/material/Card'
 import TagIcon from '@mui/icons-material/Tag'
 import { Link } from 'react-router-dom'
 import Image from 'mui-image'
-import ThermostatIcon from '@mui/icons-material/Thermostat'
-import NatureIcon from '@mui/icons-material/Nature'
-import OpacityIcon from '@mui/icons-material/Opacity'
-import WbSunnyIcon from '@mui/icons-material/WbSunny'
-import Table from '@mui/material/Table'
-import TableBody from '@mui/material/TableBody'
-import TableCell from '@mui/material/TableCell'
-import TableContainer from '@mui/material/TableContainer'
-import TableHead from '@mui/material/TableHead'
-import TableRow from '@mui/material/TableRow'
 
 class ProductToolsPage extends React.Component {
   constructor(props) {
@@ -87,7 +75,7 @@ class ProductToolsPage extends React.Component {
       }
     }
     var backWardImageClick = () => {
-      if (this.state.currentImage == 0) {
+      if (this.state.currentImage === 0) {
         this.setState({ currentImage: this.state.album.length - 1 })
       } else {
         this.setState({ currentImage: this.state.currentImage - 1 })
@@ -95,7 +83,7 @@ class ProductToolsPage extends React.Component {
       this.setState({ imageName: this.state.album[this.state.currentImage] })
     }
     var forWardImageClick = () => {
-      if (this.state.currentImage == this.state.album.length - 1) {
+      if (this.state.currentImage === this.state.album.length - 1) {
         this.setState({ currentImage: 0 })
       } else {
         this.setState({ currentImage: this.state.currentImage + 1 })

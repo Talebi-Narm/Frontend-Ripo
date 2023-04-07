@@ -1,8 +1,6 @@
 import "./style.scss";
 import { DataGrid } from '@mui/x-data-grid';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
-import { productRows } from "../../Constant/dummyData";
-import { userRows } from "../../Constant/dummyData";
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { IconButton } from "@mui/material";
@@ -20,10 +18,7 @@ import * as React from 'react';
 import Button from '@mui/material/Button';
 
 export default function UserList() {
-  const [page, setPage] = useState(1)
-  const [allPage, setAllPage] = useState(1)
   const [products, setProducts] = useState([])
-  const [data, setData] = useState(productRows);
   const [open, setOpen] = React.useState(false);
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down('md'));

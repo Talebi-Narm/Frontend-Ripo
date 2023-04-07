@@ -5,9 +5,7 @@ import LocalizationProvider from '@mui/lab/LocalizationProvider'
 import DatePicker from '@mui/lab/DatePicker'
 import { Link } from 'react-router-dom'
 import { useState, useEffect } from 'react'
-import Box from '@mui/material/Box'
 import TextField from '@mui/material/TextField'
-import MenuItem from '@mui/material/MenuItem'
 import moment from 'moment'
 
 const currencies = [
@@ -30,7 +28,6 @@ const currencies = [
 ]
 
 export default function NewUser(props) {
-  const [currency, setCurrency] = React.useState('EUR')
 
   const [value, setValue] = React.useState(null)
   const initialPrimaryFormData = Object.freeze({
@@ -63,10 +60,8 @@ export default function NewUser(props) {
   const [secondaryerrorData, updateSecondaryErrorData] = useState(
     initialSecondaryFormData
   )
-  const [refresh, setRefresh] = useState(false)
   const [primaryConfirmation, setPrimaryConfirmation] = useState(false)
   const [primaryAccepted, setPrimaryAccepted] = useState(false)
-  const [id, setId] = useState('')
   const [userId, setUserId] = useState('')
 
   useEffect(() => {
@@ -74,7 +69,7 @@ export default function NewUser(props) {
   }, [])
 
   useEffect(() => {
-    if (userId != '') {
+    if (userId !== '') {
       fetch('http://127.0.0.1:8000/api/specialist/primary/' + userId + '/', {
         method: 'GET',
         headers: {
@@ -252,7 +247,7 @@ export default function NewUser(props) {
             label='Email'
             variant='standard'
             type='email'
-            helperText={errorData.email != '' ? errorData.email : ''}
+            helperText={errorData.email !== '' ? errorData.email : ''}
             onChange={handleChange}
             value={formData.email}
             disabled={true}
@@ -265,7 +260,7 @@ export default function NewUser(props) {
             label='user_name'
             variant='standard'
             type='text'
-            helperText={errorData.user_name != '' ? errorData.user_name : ''}
+            helperText={errorData.user_name !== '' ? errorData.user_name : ''}
             onChange={handleChange}
             value={formData.user_name}
             disabled={true}
@@ -278,7 +273,7 @@ export default function NewUser(props) {
             label='First Name'
             variant='standard'
             type='text'
-            helperText={errorData.first_name != '' ? errorData.first_name : ''}
+            helperText={errorData.first_name !== '' ? errorData.first_name : ''}
             onChange={handleChange}
             value={formData.first_name}
             disabled={true}
@@ -291,7 +286,7 @@ export default function NewUser(props) {
             label='Last Name'
             variant='standard'
             type='text'
-            helperText={errorData.last_name != '' ? errorData.last_name : ''}
+            helperText={errorData.last_name !== '' ? errorData.last_name : ''}
             value={formData.last_name}
             onChange={handleChange}
             disabled={true}
@@ -319,7 +314,7 @@ export default function NewUser(props) {
                   {...params}
                   name='birth_date'
                   helperText={
-                    secondaryerrorData.birth_date != ''
+                    secondaryerrorData.birth_date !== ''
                       ? secondaryerrorData.birth_date
                       : ''
                   }
@@ -346,7 +341,6 @@ export default function NewUser(props) {
               native: true,
             }}
             variant='standard'
-            value={secondaryFormData.degree}
           >
             {currencies.map((option) => (
               <option key={option.value} value={option.value}>
@@ -363,7 +357,7 @@ export default function NewUser(props) {
             label='Major'
             variant='standard'
             helperText={
-              secondaryerrorData.major != '' ? secondaryerrorData.major : ''
+              secondaryerrorData.major !== '' ? secondaryerrorData.major : ''
             }
             value={secondaryFormData.major}
             onChange={handleChangeSecondary}
@@ -376,7 +370,7 @@ export default function NewUser(props) {
             label='Phone number'
             variant='standard'
             helperText={
-              secondaryerrorData.phone_number != ''
+              secondaryerrorData.phone_number !== ''
                 ? secondaryerrorData.phone_number
                 : ''
             }
@@ -391,7 +385,7 @@ export default function NewUser(props) {
             label='About'
             variant='standard'
             helperText={
-              secondaryerrorData.about != '' ? secondaryerrorData.about : ''
+              secondaryerrorData.about !== '' ? secondaryerrorData.about : ''
             }
             value={secondaryFormData.about}
             onChange={handleChangeSecondary}
@@ -404,7 +398,7 @@ export default function NewUser(props) {
             label='Address'
             variant='standard'
             helperText={
-              secondaryerrorData.address != '' ? secondaryerrorData.address : ''
+              secondaryerrorData.address !== '' ? secondaryerrorData.address : ''
             }
             value={secondaryFormData.address}
             onChange={handleChangeSecondary}

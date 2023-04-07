@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import CategoriesList from '../../Components/Catergories'
 import Box from '@mui/material/Box'
 

@@ -1,7 +1,5 @@
 import * as React from 'react'
 import Grid from '@mui/material/Grid'
-import Navbar from '../../Components/Navbar'
-import Basket from '../../Components/Cart/Basket'
 import { Link } from 'react-router-dom'
 import Button from '@mui/material/Button'
 import './style.scss'
@@ -10,7 +8,6 @@ import Chip from '@mui/material/Chip'
 import AddIcon from '@mui/icons-material/Add'
 import RemoveIcon from '@mui/icons-material/Remove'
 import IconButton from '@mui/material/IconButton'
-import Alert from '@mui/material/Alert'
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos'
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos'
 import Card from '@mui/material/Card'
@@ -88,7 +85,7 @@ class ProductPlantsPage extends React.Component {
       }
     }
     var backWardImageClick = () => {
-      if (this.state.currentImage == 0) {
+      if (this.state.currentImage === 0) {
         this.setState({ currentImage: this.state.album.length - 1 })
       } else {
         this.setState({ currentImage: this.state.currentImage - 1 })
@@ -96,7 +93,7 @@ class ProductPlantsPage extends React.Component {
       this.setState({ imageName: this.state.album[this.state.currentImage] })
     }
     var forWardImageClick = () => {
-      if (this.state.currentImage == this.state.album.length - 1) {
+      if (this.state.currentImage === this.state.album.length - 1) {
         this.setState({ currentImage: 0 })
       } else {
         this.setState({ currentImage: this.state.currentImage + 1 })

@@ -14,7 +14,7 @@ import Sara from '../../assets/Images/Landing/Sara.jpg';
 import Deniz from '../../assets/Images/Landing/Deniz.jpg';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
-import { Container, Icon, List, ListItem, Tooltip } from '@mui/material';
+import { Container, Tooltip } from '@mui/material';
 import { Fade } from "react-awesome-reveal";
 import AppBar from "../../Components/AppBar";
 import { Grid } from '@mui/material';
@@ -28,11 +28,8 @@ import WhatsAppIcon from '@mui/icons-material/WhatsApp';
 import EmailIcon from '@mui/icons-material/Email';
 import TwitterIcon from '@mui/icons-material/Twitter';
 import PhoneIcon from '@mui/icons-material/Phone';
-import FacebookIcon from '@mui/icons-material/Facebook';
-import InstagramIcon from '@mui/icons-material/Instagram';
 import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
-import { grid } from '@mui/system';
 
 export default function LandingPage() {
 

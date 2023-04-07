@@ -1,37 +1,22 @@
-import React, { useEffect, useState, useRef } from 'react'
+import React from 'react'
 import Grid from '@mui/material/Grid'
 import Card from '@mui/material/Card'
-import Box from '@mui/material/Box'
-import AppBar from '../../Components/AppBar'
 import TextField from '@mui/material/TextField'
 import Button from '@mui/material/Button'
-import Chip from '@mui/material/Chip'
-import AddIcon from '@mui/icons-material/Add'
-import RemoveIcon from '@mui/icons-material/Remove'
-import IconButton from '@mui/material/IconButton'
-import Alert from '@mui/material/Alert'
-import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos'
-import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos'
 import Divider from '@mui/material/Divider'
 import Typography from '@mui/material/Typography'
 import InputLabel from '@mui/material/InputLabel'
 import MenuItem from '@mui/material/MenuItem'
 import FormControl from '@mui/material/FormControl'
 import Select from '@mui/material/Select'
-import { styled } from '@mui/material/styles'
 import Tooltip from '@mui/material/Tooltip'
 import { makeStyles } from '@mui/styles'
-import Skeleton from '@mui/material/Skeleton'
-import Theme from '../../Theme/ThemeGenerator'
 import Image from 'mui-image'
 import UploadIcon from '@mui/icons-material/Upload'
 import './style.scss'
 
-const Input = styled('input')({
-  display: 'none',
-})
 
-const useStyles = makeStyles((theme: Theme) => ({
+const useStyles = makeStyles((theme) => ({
   root: {
     '& > *': {
       margin: theme.spacing(1),
@@ -43,11 +28,6 @@ const useStyles = makeStyles((theme: Theme) => ({
 }))
 
 function GreenHouseEdit(props) {
-  const [openDrawer, setOpenDrawer] = React.useState([false])
-  const [plantData, setPlantData] = React.useState([])
-  const [plantId, setPlantId] = React.useState([])
-  const [plantDataLoaded, setPlantDataLoaded] = React.useState(false)
-  const [value, setValue] = React.useState(0)
 
   const classes = useStyles()
 
@@ -234,7 +214,7 @@ function GreenHouseEdit(props) {
                       name='name'
                       defaultValue={props.data.name}
                       helperText={
-                        props.errorData.name != '' ? props.errorData.name : ''
+                        props.errorData.name !== '' ? props.errorData.name : ''
                       }
                       onChange={handleChange}
                     />

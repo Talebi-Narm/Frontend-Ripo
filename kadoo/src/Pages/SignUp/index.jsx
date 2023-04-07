@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import Background from '../../assets/Images/SignUp/SignUpBG.png'
-import { Grid, TextField, Button, InputAdornment } from '@mui/material'
+import { Grid, TextField, InputAdornment } from '@mui/material'
 import { AccountCircle, VpnKey, EmailSharp, Create } from '@mui/icons-material'
 import AppBar from '../../Components/AppBar'
 import history from '../../history'
@@ -16,7 +16,6 @@ function SignUp() {
   })
   const [formData, updateFormData] = useState(initialFormData)
   const [errorData, updateErrorData] = useState(initialFormData)
-  const [refresh, setRefresh] = useState(false)
 
   const handleChange = (e) => {
     updateFormData({
@@ -167,7 +166,7 @@ function SignUp() {
               variant='standard'
               label='Name'
               margin='normal'
-              helperText={errorData.name != '' ? errorData.name : ''}
+              helperText={errorData.name !== '' ? errorData.name : ''}
               required
               InputProps={{
                 startAdornment: (
@@ -186,7 +185,7 @@ function SignUp() {
               label='Last name'
               margin='normal'
               required
-              helperText={errorData.lastName != '' ? errorData.lastName : ''}
+              helperText={errorData.lastName !== '' ? errorData.lastName : ''}
               InputProps={{
                 startAdornment: (
                   <InputAdornment position='start'>
@@ -204,7 +203,7 @@ function SignUp() {
               label='Username'
               margin='normal'
               required
-              helperText={errorData.userName != '' ? errorData.userName : ''}
+              helperText={errorData.userName !== '' ? errorData.userName : ''}
               InputProps={{
                 startAdornment: (
                   <InputAdornment position='start'>
@@ -222,7 +221,7 @@ function SignUp() {
               label='Email'
               margin='normal'
               required
-              helperText={errorData.email != '' ? errorData.email : ''}
+              helperText={errorData.email !== '' ? errorData.email : ''}
               InputProps={{
                 startAdornment: (
                   <InputAdornment position='start'>
@@ -241,7 +240,7 @@ function SignUp() {
               label='Password'
               margin='normal'
               required
-              helperText={errorData.password != '' ? errorData.password : ''}
+              helperText={errorData.password !== '' ? errorData.password : ''}
               InputProps={{
                 startAdornment: (
                   <InputAdornment position='start'>

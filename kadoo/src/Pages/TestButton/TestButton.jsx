@@ -1,4 +1,4 @@
-import {CustomButton , TalebiButton} from '../../Components/CustomButton/Button';
+import {TalebiButton} from '../../Components/CustomButton/Button';
 
 const TestButton = (props) => {
     return(
