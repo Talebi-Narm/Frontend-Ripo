@@ -66,7 +66,7 @@ function App() {
               />
               <Route exact path='/search/' element={<SearchResultProduct />} />
               <Route exact path='/Homepage' element={<HomePage />} />
-              <Route exact path='/test-layout/' element={<MainLayout />} />
+              <Route exact path='/test-layout/test1/test2' element={<MainLayout />} />
               <Route path='/cart' exact element={<Cart />} />
               <Route path='/categories' exact element={<CategoriesPage />} />
               <Route path='/Reminder' exact element={<Reminder />} />

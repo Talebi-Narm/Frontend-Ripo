@@ -19,6 +19,35 @@ import ListItemText from '@mui/material/ListItemText'
 import InboxIcon from '@mui/icons-material/MoveToInbox'
 import MailIcon from '@mui/icons-material/Mail'
 import MainAppBar from '../../Components/NewAppBar'
+import HistoryIcon from '@mui/icons-material/History'
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart'
+import PaymentIcon from '@mui/icons-material/Payment'
+import ForumIcon from '@mui/icons-material/Forum'
+import ParkIcon from '@mui/icons-material/Park'
+import MenuOpenIcon from '@mui/icons-material/MenuOpen'
+import DashboardIcon from '@mui/icons-material/Dashboard'
+import AddIcon from '@mui/icons-material/Add'
+import SearchIcon from '@mui/icons-material/Search'
+import MoreIcon from '@mui/icons-material/MoreVert'
+import AppBar from '@mui/material/AppBar'
+import Fab from '@mui/material/Fab'
+import Tabs from '@mui/material/Tabs'
+import Tab from '@mui/material/Tab'
+import PhoneIcon from '@mui/icons-material/Phone'
+import FavoriteIcon from '@mui/icons-material/Favorite'
+import PersonPinIcon from '@mui/icons-material/PersonPin'
+import MainBreadcrumbs from '../../Components/BreadCrumbs'
+
+
+
+const StyledFab = styled(Fab)({
+  position: 'absolute',
+  zIndex: 1,
+  top: -30,
+  left: 0,
+  right: 0,
+  margin: '0 auto',
+})
 
 const drawerWidth = 240
 
@@ -52,7 +81,6 @@ const DrawerHeader = styled('div')(({ theme }) => ({
   ...theme.mixins.toolbar,
 }))
 
-
 const Drawer = styled(MuiDrawer, {
   shouldForwardProp: (prop) => prop !== 'open',
 })(({ theme, open }) => ({
@@ -73,6 +101,12 @@ const Drawer = styled(MuiDrawer, {
 export default function MainLayout() {
   const theme = useTheme()
   const [open, setOpen] = React.useState(false)
+  const [selectedIndex, setSelectedIndex] = React.useState(0)
+  const [value, setValue] = React.useState(0)
+
+  const handleChange = (event: React.SyntheticEvent, newValue: number) => {
+    setValue(newValue)
+  }
 
   const handleDrawerOpen = () => {
     setOpen(true)
@@ -87,48 +121,75 @@ export default function MainLayout() {
       <CssBaseline />
       <MainAppBar open={open} />
       <Drawer
-        sx={{ '& .MuiPaper-root':{backgroundColor: 'black'} }}
+        sx={{
+          '& .MuiPaper-root': { backgroundColor: 'black' },
+          display: { xs: 'none', sm: 'inherit' },
+        }}
         variant='permanent'
         open={open}
         drawerWidth={drawerWidth}
       >
-        <DrawerHeader>
+        <DrawerHeader
+          sx={{ justifyContent: open ? 'flex-end' : 'center', p: '0', mt: 3 }}
+        >
           <IconButton
             onClick={() => (open ? handleDrawerClose() : handleDrawerOpen())}
           >
-            {theme.direction === 'rtl' ? (
-              <ChevronRightIcon />
-            ) : (
-              <ChevronLeftIcon />
-            )}
+            {open === false ? <MenuOpenIcon /> : <ChevronLeftIcon />}
           </IconButton>
         </DrawerHeader>
         <Divider />
         <List>
-          {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-            <ListItem key={text} disablePadding sx={{ display: 'block' }}>
-              <ListItemButton
+          {[`Let's Shop`, 'Green House', 'Dashboard', 'Tickets'].map(
+            (text, index) => (
+              <ListItem
+                key={text}
+                disablePadding
                 sx={{
-                  minHeight: 48,
-                  justifyContent: open ? 'initial' : 'center',
-                  px: 2.5,
+                  display: 'block',
+                  m: 1,
+                  borderRadius: '12px',
+                  width: 'auto !important',
+                  boxShadow:
+                    selectedIndex === index
+                      ? '0 8px 32px 0 ' +
+                        theme.palette.primary.main +
+                        '60 !important'
+                      : 0,
+                  backgroundColor:
+                    selectedIndex === index
+                      ? theme.palette.primary.main + '90 !important'
+                      : 'transparent',
                 }}
+                selected={selectedIndex === index}
               >
-                <ListItemIcon
+                <ListItemButton
                   sx={{
-                    minWidth: 0,
-                    mr: open ? 3 : 'auto',
-                    justifyContent: 'center',
+                    minHeight: 48,
+                    justifyContent: open ? 'initial' : 'center',
+                    px: 2.5,
                   }}
+                  onClick={() => setSelectedIndex(index)}
                 >
-                  {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                </ListItemIcon>
-                <ListItemText primary={text} sx={{ opacity: open ? 1 : 0 }} />
-              </ListItemButton>
-            </ListItem>
-          ))}
+                  <ListItemIcon
+                    sx={{
+                      minWidth: 0,
+                      mr: open ? 3 : 'auto',
+                      justifyContent: 'center',
+                    }}
+                  >
+                    {index === 0 && <ShoppingCartIcon fontSize='small' />}
+                    {index === 1 && <ParkIcon fontSize='small' />}
+                    {index === 2 && <DashboardIcon fontSize='small' />}
+                    {index === 3 && <ForumIcon fontSize='small' />}
+                  </ListItemIcon>
+                  <ListItemText primary={text} sx={{ opacity: open ? 1 : 0 }} />
+                </ListItemButton>
+              </ListItem>
+            )
+          )}
         </List>
-        <Divider />
+        {/* <Divider />
         <List>
           {['All mail', 'Trash', 'Spam'].map((text, index) => (
             <ListItem key={text} disablePadding sx={{ display: 'block' }}>
@@ -152,10 +213,11 @@ export default function MainLayout() {
               </ListItemButton>
             </ListItem>
           ))}
-        </List>
+        </List> */}
       </Drawer>
-      <Box component='main' sx={{ flexGrow: 1, p: 3 }}>
+      <Box component='main' sx={{ flexGrow: 1, p: 3, pt: 5 }}>
         <DrawerHeader />
+        <MainBreadcrumbs style={{marginBottom: '8px'}} />
         <Typography paragraph>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
           eiusmod tempor incididunt ut labore et dolore magna aliqua. Rhoncus
@@ -186,6 +248,25 @@ export default function MainLayout() {
           posuere sollicitudin aliquam ultrices sagittis orci a.
         </Typography>
       </Box>
+      <AppBar
+        position='fixed'
+        color='primary'
+        sx={{ top: 'auto', bottom: 0, display: { xs: 'inherite', sm: 'none' } }}
+      >
+        <Toolbar>
+          <Tabs
+            value={value}
+            onChange={handleChange}
+            aria-label='icon label tabs example'
+            variant='fullWidth'
+          >
+            <Tab icon={<ShoppingCartIcon />}  />
+            <Tab icon={<ParkIcon />}  />
+            <Tab icon={<DashboardIcon />}  />
+            <Tab icon={<ForumIcon />}  />
+          </Tabs>
+        </Toolbar>
+      </AppBar>
     </Box>
   )
 }

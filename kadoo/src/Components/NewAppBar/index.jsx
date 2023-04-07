@@ -51,6 +51,9 @@ const AppBar = styled(MuiAppBar, {
   ...(!open && {
     marginLeft: '240px',
     width: `calc(100% - ${111}px) !important`,
+    [theme.breakpoints.down('sm')]: {
+      width: `calc(100% - ${40}px) !important`,
+    },
     transition: theme.transitions.create(['width', 'margin'], {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.enteringScreen,
