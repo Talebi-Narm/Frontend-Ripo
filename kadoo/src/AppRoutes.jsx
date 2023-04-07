@@ -1,12 +1,8 @@
 // Import Initial Files
 import React from 'react';
 import './App.css';
-// Import Theme Files
-import { ThemeProvider } from '@mui/material/styles';
-import Theme from './Theme/ThemeGenerator';
 // Import Dom And React Components
-import { BrowserRouter as Router, Route,Routes } from 'react-router-dom';
-import CssBaseline from '@mui/material/CssBaseline';
+import {  Route,Routes } from 'react-router-dom';
 // Import Pages
 import SignIn from './Pages/SignIn';
 import SignUp from './Pages/SignUp';
@@ -21,9 +17,7 @@ import LandingPage from './Pages/LandingPage';
 import AdminPage from './Pages/AdminPage';
 import Reminder from './Pages/ReminderTest';
 import GreenHouseEdit from './Pages/GreenHouseEdit';
-import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import Plantmanagement from './Pages/Plantmanagement';
-import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import ShowCoins from './Components/ShowCoins';
 import WateringUpdate from './Components/UpdateCoins/WateringUpdate';
 import TicketPage from './Pages/TicketPage';
@@ -31,38 +25,33 @@ import WriteTicket from './Components/WriteTicket';
 import TicketUser from './Pages/TicketUser';
 import Test from './Test'
 
-function AppRoutes() {
-    return (
-
-      <Router>
-        <Routes>
-          <Route path='/testredux'  element={<Test/>}></Route>
-          {/* <Route   path='/TicketPage' element={<TicketPage/>} />
-          <Route   path='/TicketUser' element={<TicketUser/>} />
-          <Route   path='/WriteTicket' element={<WriteTicket/>} />
-          <Route   path='/WateringUpdateTest' element={<WateringUpdate/>} />
-          <Route   path='/Coins' element={<ShowCoins/>} />
-          <Route   path='/' element={<LandingPage/>} />
-          <Route   path='/signin' element={<SignIn/>} />
-          <Route   path='/signup' element={<SignUp/>} />
-          <Route   path='/search/:text' element={<SearchResultProduct/>} />
-          <Route   path='/search/' element={<SearchResultProduct/>} />
-          <Route   path='/Homepage' element={<HomePage/>} />
-          <Route  path='/cart'   element={<Cart/>} />
-          <Route  path='/categories'   element={<CategoriesPage/>} />
-          <Route  path='/Reminder'   element={<Reminder/>} />
-          <Route  path='/greenhouse'   element={<Plantmanagement/>} />
-          <Route   path='/AdminPage' element={<AdminPage/>} />
-          <Route   path='/ProductPlantsPage/:id' element={<ProductPlantsPage/>}/>
-          <Route   path='/ProductToolsPage/:id' element={<ProductToolsPage/>} />
-          <Route   path='/greenHouseEdit/:id' element={<GreenHouseEdit/>} />
-          <Route   path='/greenHouseCreate/' element={<GreenHouseEdit/>} />
-          <Route element={<NotFound/>} /> */}
-        </Routes>
-      </Router>
-
-    );
-  }
-  
-  export default AppRoutes;
+function AppRoutes() {  
+  return (
+      <Routes>
+        <Route   path='/testredux' exact element={<Test/>}></Route>
+        <Route   path='/TicketPage' exact element={<TicketPage/>} />
+        <Route   path='/TicketUser' exact element={<TicketUser/>} />
+        <Route   path='/WriteTicket' exact element={<WriteTicket/>} />
+        <Route   path='/WateringUpdateTest' exact element={<WateringUpdate/>} />
+        <Route   path='/Coins' exact element={<ShowCoins/>} />
+        <Route   path='/' exact element={<LandingPage/>} />
+        <Route   path='/signin' exact element={<SignIn/>} />
+        <Route   path='/signup' exact element={<SignUp/>} />
+        <Route   path='/search/:text' exact element={<SearchResultProduct/>} />
+        <Route   path='/search/' exact element={<SearchResultProduct/>} />
+        <Route   path='/Homepage' exact element={<HomePage/>} />
+        <Route   path='/cart' exact  element={<Cart/>} />
+        <Route   path='/categories' exact  element={<CategoriesPage/>} />
+        <Route   path='/Reminder' exact  element={<Reminder/>} />
+        <Route   path='/greenhouse' exact  element={<Plantmanagement/>} />
+        <Route   path='/AdminPage' exact element={<AdminPage/>} />
+        <Route   path='/ProductPlantsPage/:id' exact element={<ProductPlantsPage/>}/>
+        <Route   path='/ProductToolsPage/:id' exact element={<ProductToolsPage/>} />
+        <Route   path='/greenHouseEdit/:id' exact element={<GreenHouseEdit/>} />
+        <Route   path='/greenHouseCreate/' exact element={<GreenHouseEdit/>} />
+        <Route  exact element={<NotFound/>} />
+      </Routes>
+  );
+}  
+export default AppRoutes;
   
