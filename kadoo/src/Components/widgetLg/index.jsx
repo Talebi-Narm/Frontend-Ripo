@@ -1,5 +1,4 @@
 import "./style.scss";
-import { Button } from "@mui/material";
 
 export default function WidgetLg() {
   const Button = ({ type }) => {

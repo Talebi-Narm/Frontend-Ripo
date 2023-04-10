@@ -1,16 +1,6 @@
 import './style.scss'
-import LineStyleIcon from '@mui/icons-material/LineStyle'
-import TimelineIcon from '@mui/icons-material/Timeline'
-import TrendingUpIcon from '@mui/icons-material/TrendingUp'
 import PermIdentityIcon from '@mui/icons-material/PermIdentity'
 import StorefrontIcon from '@mui/icons-material/Storefront'
-import AttachMoneyIcon from '@mui/icons-material/AttachMoney'
-import BarChartIcon from '@mui/icons-material/BarChart'
-import MailOutlineIcon from '@mui/icons-material/MailOutline'
-import DynamicFeedIcon from '@mui/icons-material/DynamicFeed'
-import ChatBubbleOutlineIcon from '@mui/icons-material/ChatBubbleOutline'
-import WorkOutlineIcon from '@mui/icons-material/WorkOutline'
-import ReportIcon from '@mui/icons-material/Report'
 import { Link } from 'react-router-dom'
 
 export default function Sidebar() {

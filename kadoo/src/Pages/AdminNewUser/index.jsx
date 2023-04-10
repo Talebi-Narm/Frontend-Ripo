@@ -5,9 +5,7 @@ import LocalizationProvider from "@mui/lab/LocalizationProvider";
 import DatePicker from "@mui/lab/DatePicker";
 import { Link } from "react-router-dom";
 import { useState , useEffect } from "react";
-import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
-import MenuItem from '@mui/material/MenuItem';
 import moment from "moment";
 
 const currencies = [
@@ -30,7 +28,6 @@ const currencies = [
 ];
 
 export default function NewUser() {
-  const [currency, setCurrency] = React.useState('EUR');
 
   const [value, setValue] = React.useState(null);
   const initialPrimaryFormData = Object.freeze({
@@ -52,13 +49,12 @@ export default function NewUser() {
   const [secondaryFormData, updateSecondaryFormData] = useState(initialSecondaryFormData);
   const [errorData, updateErrorData] = useState(initialPrimaryFormData);
   const [secondaryerrorData, updateSecondaryErrorData] = useState(initialSecondaryFormData);
-  const [refresh, setRefresh] = useState(false);
   const [primaryConfirmation, setPrimaryConfirmation] = useState(false);
   const [primaryAccepted, setPrimaryAccepted] = useState(false);
   const [id, setId] = useState('');
 
   useEffect(() => {
-    if(id != '')
+    if(id !== '')
     {
       updateSecondaryErrorData({
         ...errorData,
@@ -309,7 +305,7 @@ export default function NewUser() {
             label="Email"
             variant="standard"
             type="email"
-            helperText={errorData.email != '' ? errorData.email : ''}
+            helperText={errorData.email !== '' ? errorData.email : ''}
             onChange={handleChange}
             required
           />
@@ -321,7 +317,7 @@ export default function NewUser() {
             label="Username"
             variant="standard"
             type="text"
-            helperText={errorData.userName != '' ? errorData.userName : ''}
+            helperText={errorData.userName !== '' ? errorData.userName : ''}
             onChange={handleChange}
             required
           />
@@ -333,7 +329,7 @@ export default function NewUser() {
             label="Fisrt Name"
             variant="standard"
             type="text"
-            helperText={errorData.name != '' ? errorData.name : ''}
+            helperText={errorData.name !== '' ? errorData.name : ''}
             onChange={handleChange}
             required
           />
@@ -345,7 +341,7 @@ export default function NewUser() {
             label="Last Name"
             variant="standard"
             type="text"
-            helperText={errorData.lastName != '' ? errorData.lastName : ''}
+            helperText={errorData.lastName !== '' ? errorData.lastName : ''}
             onChange={handleChange}
             required
           />
@@ -358,7 +354,7 @@ export default function NewUser() {
             variant="standard"
             type="password"
             autoComplete="current-password"
-            helperText={errorData.password != '' ? errorData.password : ''}
+            helperText={errorData.password !== '' ? errorData.password : ''}
             onChange={handleChange}
             required
           />
@@ -382,7 +378,7 @@ export default function NewUser() {
                 variant="standard" 
                 {...params} 
                 name="birth_date"
-                helperText={secondaryerrorData.birth_date != '' ? secondaryerrorData.birth_date : ''}
+                helperText={secondaryerrorData.birth_date !== '' ? secondaryerrorData.birth_date : ''}
                 onChange={handleChangeSecondary}/>
               )}
             />
@@ -415,7 +411,7 @@ export default function NewUser() {
           id="standard-basic" 
           label="Major" 
           variant="standard" 
-          helperText={secondaryerrorData.major != '' ? secondaryerrorData.major : ''}
+          helperText={secondaryerrorData.major !== '' ? secondaryerrorData.major : ''}
           onChange={handleChangeSecondary}/>
         </div>
         <div className="newUserItem">
@@ -424,7 +420,7 @@ export default function NewUser() {
             id="standard-basic"
             label="Phone number"
             variant="standard"
-            helperText={secondaryerrorData.phone_number != '' ? secondaryerrorData.phone_number : ''}
+            helperText={secondaryerrorData.phone_number !== '' ? secondaryerrorData.phone_number : ''}
             onChange={handleChangeSecondary}
           />
         </div>
@@ -434,7 +430,7 @@ export default function NewUser() {
           id="standard-basic" 
           label="About" 
           variant="standard" 
-          helperText={secondaryerrorData.about != '' ? secondaryerrorData.about : ''}
+          helperText={secondaryerrorData.about !== '' ? secondaryerrorData.about : ''}
           onChange={handleChangeSecondary}/>
         </div>
         <div className="newUserItem">
@@ -443,7 +439,7 @@ export default function NewUser() {
           id="standard-basic" 
           label="Address" 
           variant="standard" 
-          helperText={secondaryerrorData.address != '' ? secondaryerrorData.address : ''}
+          helperText={secondaryerrorData.address !== '' ? secondaryerrorData.address : ''}
           onChange={handleChangeSecondary}/>
         </div>
       </form>
