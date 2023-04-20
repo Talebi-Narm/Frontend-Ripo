@@ -22,7 +22,7 @@ import AddIcon from '@mui/icons-material/Add'
 
 import './style.scss'
 
-const useStyles1 = makeStyles((theme) => ({
+const useStyles1 = makeStyles((theme: Theme) => ({
   root: {
     '& > *': {
       margin: theme.spacing(1),
@@ -42,6 +42,7 @@ export default function NewUser(props) {
     count: '',
     image: '',
     price: '',
+    kind: '',
     environment: '',
     water: '',
     light: '',
@@ -60,7 +61,7 @@ export default function NewUser(props) {
 
   useEffect(() => {
     // create the preview
-    if (selectedFile !== null) {
+    if (selectedFile != null) {
       const objectUrl = URL.createObjectURL(selectedFile)
       setPreview(objectUrl)
       return () => URL.revokeObjectURL(objectUrl)
@@ -69,7 +70,7 @@ export default function NewUser(props) {
 
   useEffect(() => {
     // create the preview
-    if (formData !== initialFormData) {
+    if (formData != initialFormData) {
       if (selectedFile === null) {
         setPreview(formData.image)
         setNumberOfBuy(formData.count)
