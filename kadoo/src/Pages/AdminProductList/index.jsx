@@ -1,5 +1,5 @@
 import './style.scss'
-import { DataGrid} from '@mui/x-data-grid'
+import { DataGrid, GridRowsProp, GridColDef } from '@mui/x-data-grid'
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline'
 import { productRows } from '../../Constant/dummyData'
 import { Link } from 'react-router-dom'
@@ -35,7 +35,7 @@ export default function ProductList() {
     setOpen(false)
   }
 
-  const handleDelete = (id1, kind) => {
+  const handleDelete = (id1, kind, name) => {
     const requestOptions = {
       method: 'DELETE',
       headers: {

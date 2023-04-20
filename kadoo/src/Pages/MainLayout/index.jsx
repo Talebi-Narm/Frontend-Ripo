@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { styled, useTheme} from '@mui/material/styles'
+import { styled, useTheme, Theme, CSSObject } from '@mui/material/styles'
 import Box from '@mui/material/Box'
 import MuiDrawer from '@mui/material/Drawer'
 import Toolbar from '@mui/material/Toolbar'
@@ -27,7 +27,7 @@ import MainBreadcrumbs from '../../Components/BreadCrumbs'
 const drawerWidth = 240
 
 
-const openedMixin = (theme) => ({
+const openedMixin = (theme): CSSObject => ({
   width: drawerWidth,
   transition: theme.transitions.create('width', {
     easing: theme.transitions.easing.sharp,
@@ -36,7 +36,7 @@ const openedMixin = (theme) => ({
   overflowX: 'hidden',
 })
 
-const closedMixin = (theme) => ({
+const closedMixin = (theme: Theme): CSSObject => ({
   transition: theme.transitions.create('width', {
     easing: theme.transitions.easing.sharp,
     duration: theme.transitions.duration.leavingScreen,
@@ -80,7 +80,7 @@ export default function MainLayout() {
   const [selectedIndex, setSelectedIndex] = React.useState(0)
   const [value, setValue] = React.useState(0)
 
-  const handleChange = (event, newValue) => {
+  const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue)
   }
 

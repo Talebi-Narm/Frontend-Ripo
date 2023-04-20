@@ -1,3 +1,4 @@
+import Header from '../../Components/Cart/Header'
 import Main from '../../Components/Cart/Main'
 import Basket from '../../Components/Cart/Basket'
 import React, { useEffect, useState } from 'react'
@@ -7,6 +8,7 @@ import 'react-router-dom'
 import { Link } from 'react-router-dom'
 import { styled } from '@mui/material/styles'
 import Box from '@mui/material/Box'
+import Paper from '@mui/material/Paper'
 import Grid from '@mui/material/Grid'
 import Button from '@mui/material/Button'
 import Typography from '@mui/material/Typography'
@@ -36,7 +38,7 @@ function AddtoCart() {
       requestOptions
     )
       .then((response) => {
-        if (response.status !== 401) {
+        if (response.status != 401) {
           response.json().then((data) => {
             setNumberOfItems(data)
           })

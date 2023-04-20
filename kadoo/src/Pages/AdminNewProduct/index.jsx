@@ -1,26 +1,40 @@
-import React, { useEffect} from 'react'
+import React, { useEffect, useState, useRef } from 'react'
 import Grid from '@mui/material/Grid'
 import Card from '@mui/material/Card'
+import Box from '@mui/material/Box'
+import AppBar from '../../Components/AppBar'
 import TextField from '@mui/material/TextField'
 import Button from '@mui/material/Button'
+import Chip from '@mui/material/Chip'
+
 import RemoveIcon from '@mui/icons-material/Remove'
 import IconButton from '@mui/material/IconButton'
-
+import Alert from '@mui/material/Alert'
+import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos'
+import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos'
 import Divider from '@mui/material/Divider'
 import Typography from '@mui/material/Typography'
 import InputLabel from '@mui/material/InputLabel'
 import MenuItem from '@mui/material/MenuItem'
 import FormControl from '@mui/material/FormControl'
 import Select from '@mui/material/Select'
+
 import Tooltip from '@mui/material/Tooltip'
 import { makeStyles } from '@mui/styles'
+import Skeleton from '@mui/material/Skeleton'
 
 import Image from 'mui-image'
 import UploadIcon from '@mui/icons-material/Upload'
+import PublishIcon from '@mui/icons-material/Publish'
+
 import AddIcon from '@mui/icons-material/Add'
+import Theme from '../../Theme/ThemeGenerator'
+import PhotoCamera from '@mui/icons-material/PhotoCamera'
+import { styled } from '@mui/material/styles'
+
 import '../AdminProduct/style.scss'
 
-const useStyles1 = makeStyles((theme) => ({
+const useStyles1 = makeStyles((theme: Theme) => ({
   root: {
     '& > *': {
       margin: theme.spacing(1),
@@ -31,6 +45,92 @@ const useStyles1 = makeStyles((theme) => ({
   },
 }))
 
+const kind = [
+  {
+    value: 'none',
+    label: 'None',
+  },
+  {
+    value: 'plant',
+    label: 'Plant',
+  },
+  {
+    value: 'tool',
+    label: 'Tool',
+  },
+]
+
+const light = [
+  {
+    value: 'none',
+    label: 'None',
+  },
+  {
+    value: 'low',
+    label: 'Low',
+  },
+  {
+    value: 'medium',
+    label: 'Medium',
+  },
+  {
+    value: 'much',
+    label: 'Much',
+  },
+]
+
+const water = [
+  {
+    value: 'none',
+    label: 'None',
+  },
+  {
+    value: 'low',
+    label: 'Low',
+  },
+  {
+    value: 'medium',
+    label: 'Medium',
+  },
+  {
+    value: 'much',
+    label: 'Much',
+  },
+]
+
+const growthRate = [
+  {
+    value: 'none',
+    label: 'None',
+  },
+  {
+    value: 'low',
+    label: 'Low',
+  },
+  {
+    value: 'medium',
+    label: 'Medium',
+  },
+  {
+    value: 'much',
+    label: 'Much',
+  },
+]
+
+const environment = [
+  {
+    value: 'none',
+    label: 'None',
+  },
+  {
+    value: 'tropical',
+    label: 'Tropical',
+  },
+  {
+    value: 'cold',
+    label: 'Cold',
+  },
+]
 
 export default function NewUser(props) {
   const initialFormData = Object.freeze({
@@ -41,12 +141,14 @@ export default function NewUser(props) {
     count: 0,
     image: '',
     price: '',
+    kind: '',
     environment: '',
     water: '',
     light: '',
     growthRate: '',
   })
   const [numberOfBuy, setNumberOfBuy] = React.useState(0)
+  const [productId, setProductId] = React.useState('')
   const [selectedFile, setSelectedFile] = React.useState(null)
   const [formData, updateFormData] = React.useState(initialFormData)
   const classes = useStyles1()
@@ -57,7 +159,7 @@ export default function NewUser(props) {
   }
 
   useEffect(() => {
-    if (selectedFile !== null) {
+    if (selectedFile != null) {
       const objectUrl = URL.createObjectURL(selectedFile)
       setPreview(objectUrl)
       return () => URL.revokeObjectURL(objectUrl)
@@ -65,7 +167,7 @@ export default function NewUser(props) {
   }, [selectedFile])
 
   useEffect(() => {
-    if (formData !== initialFormData) {
+    if (formData != initialFormData) {
       setPreview(formData.image)
       setNumberOfBuy(formData.count)
     }
