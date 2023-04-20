@@ -88,7 +88,7 @@ function ProductPlantsPage(props) {
     }
 
     function forWardImageClick(){
-        if (currentImage == album.length - 1) {
+        if (currentImage === album.length - 1) {
             setCurrentImage(0)
           } else {
             setCurrentImage(currentImage + 1)
