@@ -64,10 +64,10 @@ function ProductPlantsPage(props) {
       })
     }, [])
     function increaseBought() {
-        if (NumberOfBuy < 9) {
+        if (numberOfBuy < 9) {
         setNumberOfBuy({
-          numberOfBuy: NumberOfBuy + 1,
-          totalPrice: (NumberOfBuy + 1) * product.price,
+          numberOfBuy: numberOfBuy + 1,
+          totalPrice: (numberOfBuy + 1) * product.price,
         })
       }
     }
