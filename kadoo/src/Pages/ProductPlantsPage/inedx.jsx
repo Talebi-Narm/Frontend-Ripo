@@ -30,7 +30,7 @@ import TableRow from "@mui/material/TableRow";
 function ProductPlantsPage(props) {
   const [product, setProduct] = useState([]);
   const [tags, setTags] = useState([]);
-  const [id, setId] = useState();
+  const [id, setId] = useState(null);
   const [numberOfBuy, setNumberOfBuy] = useState(1);
   const [totalPrice, setTotalPrice] = useState(0);
   const [album, setAlbum] = useState([]);
