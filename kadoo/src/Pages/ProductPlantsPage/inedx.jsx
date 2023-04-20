@@ -1,4 +1,4 @@
-import * as React from 'react'
+import React, { useEffect, useState } from "react";
 import Grid from '@mui/material/Grid'
 import Navbar from '../../Components/Navbar'
 import Basket from '../../Components/Cart/Basket'
@@ -30,105 +30,100 @@ import TableContainer from '@mui/material/TableContainer'
 import TableHead from '@mui/material/TableHead'
 import TableRow from '@mui/material/TableRow'
 
-class ProductPlantsPage extends React.Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      product: [],
-      tags: [],
-      id: this.props.match.params.id,
-      numberOfBuy: 1,
-      totalPrice: 0,
-      album: [],
-      currentImage: 0,
-      imageName: [],
-    }
-  }
+function ProductPlantsPage(props) {
+    const [product, setProduct] = useState();
+    const [tags, setTags] = useState();
+    const [id,  setId] = useState();
+    const [numberOfBuy, setNumberOfBuy] = useState();
+    const [totalPrice, setTotalPrice] = useState();
+    const [album, setAlbum] = useState();
+    const [currentImage, setCurrentImage] = useState();
+    const [imageName, setImageName] = useState();
+    useEffect(() => {
+        setProduct(props.match.params.id)
+    }, [props.match])
 
-  componentDidMount() {
-    fetch('http://127.0.0.1:8000/api/plantsRUD/' + this.state.id + '/')
+    useEffect(() => {
+        fetch('http://127.0.0.1:8000/api/plantsRUD/' + id + '/')
       .then((response) => response.json())
-      .then((data) => this.setState({ product: data }))
+      .then((data) => setProduct(data))
       .then(() => {
-        this.setState({
-          totalPrice: this.state.product.price,
-        })
+        setTotalPrice(product.price)
       })
 
-    fetch('http://127.0.0.1:8000/api/plantTags/' + this.state.id + '/')
+    fetch('http://127.0.0.1:8000/api/plantTags/' + id + '/')
       .then((response) => response.json())
       .then((data) => {
-        this.setState({ tags: data })
+        setTags(data)
       })
-    fetch('http://127.0.0.1:8000/api/plantAlbumImages/' + this.state.id + '/')
+    fetch('http://127.0.0.1:8000/api/plantAlbumImages/' + id + '/')
       .then((response) => response.json())
       .then((data) => {
-        this.setState({ album: data })
-        this.setState({ imageName: data[0] })
+        setAlbum(data)
+        setImageName(data[0])
       })
-  }
-
-  render() {
-    var increaseBought = () => {
-      var nob = this.state.numberOfBuy
-      if (nob < 9) {
-        this.setState({
-          numberOfBuy: nob + 1,
-          totalPrice: (nob + 1) * this.state.product.price,
+    }, [])
+    function increaseBought() {
+        if (NumberOfBuy < 9) {
+        setNumberOfBuy({
+          numberOfBuy: NumberOfBuy + 1,
+          totalPrice: (NumberOfBuy + 1) * product.price,
         })
       }
     }
-    var decreaseBought = () => {
-      var nob = this.state.numberOfBuy
-      if (nob > 1) {
-        this.setState({
-          numberOfBuy: nob - 1,
-          totalPrice: (nob - 1) * this.state.product.price,
-        })
-      }
-    }
-    var backWardImageClick = () => {
-      if (this.state.currentImage == 0) {
-        this.setState({ currentImage: this.state.album.length - 1 })
-      } else {
-        this.setState({ currentImage: this.state.currentImage - 1 })
-      }
-      this.setState({ imageName: this.state.album[this.state.currentImage] })
-    }
-    var forWardImageClick = () => {
-      if (this.state.currentImage == this.state.album.length - 1) {
-        this.setState({ currentImage: 0 })
-      } else {
-        this.setState({ currentImage: this.state.currentImage + 1 })
-      }
-      this.setState({ imageName: this.state.album[this.state.currentImage] })
-    }
-    var addToBasket = () => {
-      const requestOptions = {
-        method: 'POST',
-        headers: {
-          Authorization: 'JWT ' + localStorage.getItem('access_token'),
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          id: this.state.product.id,
-          count: `${this.state.numberOfBuy}`,
-        }),
-      }
-      fetch(
-        'http://127.0.0.1:8000/api/cart/add-plant-to-cart/',
-        requestOptions
-      ).then((response) => {
-        if (response.status === 401) {
-          alert('You are not login!')
-        } else if (response.status === 400) {
-          alert('This Plant is already in the Basket!')
-        }
-      })
+
+    function decreaseBought(){
+        if (numberOfBuy > 1) {
+            setNumberOfBuy({
+              numberOfBuy: numberOfBuy - 1,
+              totalPrice: (numberOfBuy - 1) * product.price,
+            })
+          }
     }
 
-    return (
-      <Grid container style={{ minHeight: '100vh' }} sx={{ pb: 2 }}>
+    function backWardImageClick(){
+        if (currentImage == 0) {
+            setCurrentImage(album.length - 1)
+          } else {
+            setCurrentImage(currentImage - 1)
+          }
+          setImageName(album[currentImage])
+    }
+
+    function forWardImageClick(){
+        if (currentImage == album.length - 1) {
+            setCurrentImage(0)
+          } else {
+            setCurrentImage(currentImage + 1)
+          }
+          setImageName(album[currentImage])
+    }
+    
+    function addToBasket(){
+        const requestOptions = {
+            method: 'POST',
+            headers: {
+              Authorization: 'JWT ' + localStorage.getItem('access_token'),
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              id: product.id,
+              count: `${numberOfBuy}`,
+            }),
+          }
+          fetch(
+            'http://127.0.0.1:8000/api/cart/add-plant-to-cart/',
+            requestOptions
+          ).then((response) => {
+            if (response.status === 401) {
+              alert('You are not login!')
+            } else if (response.status === 400) {
+              alert('This Plant is already in the Basket!')
+            }
+          })
+    }
+    return (                                             
+        <Grid container style={{ minHeight: '100vh' }} sx={{ pb: 2 }}>
         <Box style={{ width: '100%' }}>
           <AppBar
             SearchOption={true}
@@ -191,10 +186,10 @@ class ProductPlantsPage extends React.Component {
                     <Grid item container className='blurred'>
                       <Image
                         src={
-                          this.state.imageName === undefined
-                            ? 'http://127.0.0.1:8000' + this.state.product.image
+                          imageName === undefined
+                            ? 'http://127.0.0.1:8000' + product.image
                             : 'http://127.0.0.1:8000' +
-                              this.state.imageName.image
+                              imageName.image
                         }
                         width='100%'
                         height='100%'
@@ -246,11 +241,11 @@ class ProductPlantsPage extends React.Component {
                         >
                           <Image
                             src={
-                              this.state.imageName === undefined
+                              imageName === undefined
                                 ? 'http://127.0.0.1:8000' +
-                                  this.state.product.image
+                                  product.image
                                 : 'http://127.0.0.1:8000' +
-                                  this.state.imageName.image
+                                  imageName.image
                             }
                             className='mainImage'
                             shift='bottom'
@@ -341,7 +336,7 @@ class ProductPlantsPage extends React.Component {
                         sx={{ pb: 2 }}
                         className='productPageTitle'
                       >
-                        {this.state.product.name}
+                        {product.name}
                       </Typography>
                       <Divider />
                     </Grid>
@@ -355,7 +350,7 @@ class ProductPlantsPage extends React.Component {
                     >
                       <Box sx={{ p: 2, mt: 1, mb: 0.5 }} className='BgText'>
                         <Typography className='ProductPageText'>
-                          {this.state.product.description}{' '}
+                          {product.description}{' '}
                         </Typography>
                         <TableContainer
                           component={Box}
@@ -389,7 +384,7 @@ class ProductPlantsPage extends React.Component {
                                     borderColor: 'grey.300',
                                   }}
                                 >
-                                  {this.state.product.environment}
+                                  {product.environment}
                                 </TableCell>
                                 <TableCell
                                   align='center'
@@ -399,7 +394,7 @@ class ProductPlantsPage extends React.Component {
                                     borderColor: 'grey.300',
                                   }}
                                 >
-                                  {this.state.product.water}
+                                  {product.water}
                                 </TableCell>
                                 <TableCell
                                   align='center'
@@ -409,13 +404,13 @@ class ProductPlantsPage extends React.Component {
                                     borderColor: 'grey.300',
                                   }}
                                 >
-                                  {this.state.product.light}
+                                  {product.light}
                                 </TableCell>
                                 <TableCell
                                   align='center'
                                   sx={{ borderBottom: 'none' }}
                                 >
-                                  {this.state.product.growthRate}
+                                  {product.growthRate}
                                 </TableCell>
                               </TableRow>
                             </TableBody>
@@ -442,9 +437,9 @@ class ProductPlantsPage extends React.Component {
                                   ml: 0.5,
                                 }}
                               >
-                                {this.state.tags.length !== 0 && (
+                                {tags.length !== 0 && (
                                   <Grid>
-                                    {this.state.tags.map((item) => (
+                                    {tags.map((item) => (
                                       <Chip
                                         sx={{ mr: 0.5, mt: 0.5 }}
                                         label={
@@ -455,7 +450,7 @@ class ProductPlantsPage extends React.Component {
                                     ))}
                                   </Grid>
                                 )}
-                                {this.state.tags.length === 0 && (
+                                {tags.length === 0 && (
                                   <Grid>
                                     <Typography sx={{ mr: 0.5, mt: 0.5 }}>
                                       {'NO TAGS'}
@@ -494,7 +489,7 @@ class ProductPlantsPage extends React.Component {
                                     <Chip
                                       label={
                                         <Typography variant='h6'>
-                                          {this.state.product.price + '$'}
+                                          {product.price + '$'}
                                         </Typography>
                                       }
                                       color='success'
@@ -564,7 +559,7 @@ class ProductPlantsPage extends React.Component {
                                       >
                                         {
                                           <Typography>
-                                            {this.state.numberOfBuy}
+                                            {numberOfBuy}
                                           </Typography>
                                         }
                                       </Box>
@@ -597,7 +592,7 @@ class ProductPlantsPage extends React.Component {
                                         onClick={addToBasket}
                                       >
                                         {'Add To Cart (' +
-                                          this.state.totalPrice +
+                                          totalPrice +
                                           '$)'}
                                       </Button>
                                     </Link>
@@ -614,7 +609,7 @@ class ProductPlantsPage extends React.Component {
                           sx={{ display: { xs: 'flex', md: 'none' }, mt: 1 }}
                         >
                           <Box sx={{ ml: 0, mt: 1, mb: 1.5 }}>
-                            {this.state.tags.length !== 0 && (
+                            {tags.length !== 0 && (
                               <Box
                                 sx={{ display: 'flex', flexDirection: 'row' }}
                               >
@@ -632,9 +627,9 @@ class ProductPlantsPage extends React.Component {
                                     ml: 0.5,
                                   }}
                                 >
-                                  {this.state.tags.length !== 0 && (
+                                  {tags.length !== 0 && (
                                     <Grid>
-                                      {this.state.tags.map((item) => (
+                                      {tags.map((item) => (
                                         <Chip
                                           sx={{ mr: 0.5, mt: 0.5 }}
                                           label={
@@ -660,7 +655,5 @@ class ProductPlantsPage extends React.Component {
         </Grid>
       </Grid>
     )
-  }
 }
-
 export default ProductPlantsPage
