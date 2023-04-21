@@ -49,7 +49,7 @@ function AppRoutes() {
       <Route path='/AdminPage' exact element={<AdminPage />} />
       <Route path='/FAQsPage' exact element={<FAQsPage />} />
       <Route
-        path='/ProductPlantsPage/:id'
+        path='/ProductPlantsPage'
         exact
         element={<ProductPlantsPage />}
       />
