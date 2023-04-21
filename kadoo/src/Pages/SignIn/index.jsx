@@ -1,117 +1,116 @@
-import React from 'react'
-import Background from '../../assets/Images/SignIn/signInBG.png'
-import { Grid, TextField, InputAdornment } from '@mui/material'
-import { EmailRounded, VpnKey } from '@mui/icons-material'
-import { useState, useEffect } from 'react'
-import history from '../../history'
-import AppBar from '../../Components/AppBar'
-import './style.scss'
+import React from "react";
+import Background from "../../assets/Images/SignIn/signInBG.png";
+import { Grid, TextField, InputAdornment } from "@mui/material";
+import { EmailRounded, VpnKey } from "@mui/icons-material";
+import { useState, useEffect } from "react";
+import history from "../../history";
+import AppBar from "../../Components/AppBar";
+import { CustomButton } from "../../Components/CustomButton/Button";
+import Text from "../../Components/Text";
+import "./style.scss";
 
 function SignIn() {
   const initialFormData = Object.freeze({
-    email: '',
-    password: '',
-  })
-  const [formData, updateFormData] = useState(initialFormData)
-  const [flagData, setFlagData] = useState(false)
-  const [errorData, updateErrorData] = useState(initialFormData)
-  const [refresh, setRefresh] = useState(false)
-
-  useEffect(() => {
-    const requestOptions = {
-      method: 'GET',
-      headers: {
-        Authorization: 'JWT ' + localStorage.getItem('access_token'),
-        'Content-Type': 'application/json',
-      },
-    }
-    fetch('http://127.0.0.1:8000/api/user/userinfo/', requestOptions)
-      .then((response) => {
-        if (response.status !== 401) {
-          response.json().then((data) => {
-            if (data.type === 'MEMBER') {
-              history.push('/HomePage')
-              window.location.reload(true)
-            } else if (data.type === 'SPECIALIST') {
-              history.push('/TicketPage')
-              window.location.reload(true)
-            } else if (data.type === 'ADMIN') {
-              history.push('/AdminPage')
-              window.location.reload(true)
-            }
-          })
-        } else {
-          throw response
-        }
-      })
-      .catch((err) => {})
-  }, [flagData])
+    email: "",
+    password: "",
+  });
+  const [formData, updateFormData] = useState(initialFormData);
+  const [flagData, setFlagData] = useState(false);
+  const [errorData, updateErrorData] = useState(initialFormData);
+  const [refresh, setRefresh] = useState(false);
 
   // useEffect(() => {
-  //   updateErrorData(initialFormData)
-  // }, [refresh])
+  //   const requestOptions = {
+  //     method: 'GET',
+  //     headers: {
+  //       Authorization: 'JWT ' + localStorage.getItem('access_token'),
+  //       'Content-Type': 'application/json',
+  //     },
+  //   }
+  //   fetch('http://127.0.0.1:8000/api/user/userinfo/', requestOptions)
+  //     .then((response) => {
+  //       if (response.status !== 401) {
+  //         response.json().then((data) => {
+  //           if (data.type === 'MEMBER') {
+  //             history.push('/HomePage')
+  //             window.location.reload(true)
+  //           } else if (data.type === 'SPECIALIST') {
+  //             history.push('/TicketPage')
+  //             window.location.reload(true)
+  //           } else if (data.type === 'ADMIN') {
+  //             history.push('/AdminPage')
+  //             window.location.reload(true)
+  //           }
+  //         })
+  //       } else {
+  //         throw response
+  //       }
+  //     })
+  //     .catch((err) => {})
+  // }, [flagData])
 
   const handleChange = (e) => {
     updateFormData({
       ...formData,
       [e.target.name]: e.target.value.trim(),
-    })
+    });
     updateErrorData({
       ...errorData,
-      [e.target.name]: '',
-    })
-  }
+      [e.target.name]: "",
+    });
+  };
 
   const handleSubmit = (e) => {
-    e.preventDefault()
+    e.preventDefault();
 
-    if (refresh) setRefresh(false)
-    else setRefresh(true)
+    // if (refresh) setRefresh(false)
+    // else setRefresh(true)
     const requestOptions = {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         email: formData.email,
         password: formData.password,
       }),
-    }
-    fetch('http://127.0.0.1:8000/api/user/token/', requestOptions)
+    };
+    fetch("http://0.0.0.0:8000/api/v1/user/jwt/create/", requestOptions)
       .then((response) => {
         if (response.status === 200) {
           response.json().then((data) => {
-            localStorage.setItem('access_token', data.access)
-            localStorage.setItem('refresh_token', data.refresh)
-            setFlagData(flagData ? false : true)
-          })
-
+            localStorage.setItem("access_token", data.access);
+            localStorage.setItem("refresh_token", data.refresh);
+            setFlagData(flagData ? false : true);
+          });
+          alert("User logined!");
+          history.push("/Homepage");
         } else {
-          throw response
+          throw response;
         }
       })
       .catch((err) => {
         if (err.status === 401) {
-          alert('Your email or password is incorrect!')
+          alert("Your email or password is incorrect!");
         }
         err.text().then((errorMessage) => {
-          const errors = JSON.parse(errorMessage)
+          const errors = JSON.parse(errorMessage);
           if (errors.email !== undefined) {
             updateErrorData({
               ...errorData,
               email: errors.email,
-            })
-            return
+            });
+            return;
           }
 
           if (errors.password !== undefined) {
             updateErrorData({
               ...errorData,
               password: errors.password,
-            })
-            return
+            });
+            return;
           }
-        })
-      })
-  }
+        });
+      });
+  };
   return (
     <div>
       <AppBar
@@ -123,63 +122,57 @@ function SignIn() {
       />
       <Grid
         container
-        style={{ minHeight: '100vh' }}
+        style={{ minHeight: "100vh" }}
         sx={{ pl: { sm: 20, xs: 0 }, pr: { sm: 20, xs: 0 } }}
       >
-        <Grid item xs={12} sm={6}>
-          <img
-            src={Background}
-            style={{ width: '100%', height: '100%', objectFit: 'contain' }}
-            alt='Background'
-          />
-        </Grid>
         <Grid
           container
           item
           xs={12}
           sm={6}
-          alignItems='center'
-          direction='column'
-          justify='space-between'
-          className='centerElement'
+          alignItems="center"
+          direction="column"
+          justify="space-between"
+          className="centerElement"
         >
           <div />
           <div
             style={{
-              display: 'flex',
-              flexDirection: 'column',
+              display: "flex",
+              flexDirection: "column",
               maxWidth: 400,
               minWidth: 300,
             }}
           >
             <TextField
-              variant='standard'
-              name='email'
-              label='Email'
-              margin='normal'
-              helperText={errorData.email !== '' ? errorData.email : ''}
+              variant="standard"
+              name="email"
+              label="Email"
+              margin="normal"
+              helperText={errorData.email !== "" ? errorData.email : ""}
               InputProps={{
                 startAdornment: (
-                  <InputAdornment position='start'>
-                    {' '}
-                    <EmailRounded />{' '}
+                  <InputAdornment position="start">
+                    {" "}
+                    <EmailRounded />{" "}
                   </InputAdornment>
                 ),
               }}
               onChange={handleChange}
             />
             <TextField
-              variant='standard'
-              type='password'
-              name='password'
-              label='Password'
-              margin='normal'
-              helperText={errorData.password !== '' ? errorData.password : ''}
+              id="password"
+              variant="standard"
+              type="password"
+              name="password"
+              label="Password"
+              margin="normal"
+              helperText={errorData.password !== "" ? errorData.password : ""}
               InputProps={{
                 startAdornment: (
-                  <InputAdornment position='start'>
-                    {' '}
-                    <VpnKey />{' '}
+                  <InputAdornment position="start">
+                    {" "}
+                    <VpnKey />{" "}
                   </InputAdornment>
                 ),
               }}
@@ -187,32 +180,36 @@ function SignIn() {
             />
             <div
               style={{
-                height: 20 ,
-                display: 'flex',
-                flexDirection: 'column',
+                height: 20,
+                display: "flex",
+                flexDirection: "column",
                 maxWidth: 400,
                 minWidth: 300,
               }}
             />
-            <a
-              className='ButtonStyle'
-              variant='contained'
-              href='/HomePage'
-              onClick={handleSubmit}
-            >
-              Sign In
-            </a>
-            <div style={{ height: 30 }} className='Buttons' />
-            <div className='divSignUp'>
-              <a href='/signup' className='aSignUp'>
-                Sign Up
-              </a>
+            <CustomButton onClick={handleSubmit}>Sign In</CustomButton>
+            <div style={{ height: 30 }}  />
+            <div className="divSignUp">
+              <Text 
+              text={"Creacte account now"} 
+              underline={true} 
+              link={"signup"} 
+              fontSize={16}
+              />
             </div>
           </div>
         </Grid>
+        <Grid item xs={12} sm={6}>
+          <img
+            src={Background}
+            style={{ width: "100%", height: "100%", objectFit: "contain" }}
+            alt="Background"
+          />
+        </Grid>
       </Grid>
     </div>
-  )
+  );
 }
 
-export default SignIn
+export default SignIn;
+ 
