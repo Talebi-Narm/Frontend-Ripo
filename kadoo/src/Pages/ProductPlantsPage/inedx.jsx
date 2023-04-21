@@ -28,16 +28,16 @@ import TableHead from '@mui/material/TableHead'
 import TableRow from '@mui/material/TableRow'
 
 function ProductPlantsPage(props) {
-    const [product, setProduct] = useState();
-    const [tags, setTags] = useState();
-    const [id,  setId] = useState();
-    const [numberOfBuy, setNumberOfBuy] = useState();
-    const [totalPrice, setTotalPrice] = useState();
-    const [album, setAlbum] = useState();
-    const [currentImage, setCurrentImage] = useState();
-    const [imageName, setImageName] = useState();
+    const [product, setProduct] = useState([]);
+    const [tags, setTags] = useState([]);
+    const [id,  setId] = useState(null);
+    const [numberOfBuy, setNumberOfBuy] = useState(1);
+    const [totalPrice, setTotalPrice] = useState(0);
+    const [album, setAlbum] = useState([]);
+    const [currentImage, setCurrentImage] = useState(0);
+    const [imageName, setImageName] = useState([]);
     useEffect(() => {
-        setProduct(props.match.params.id)
+        setId(props.match.params.id)
     }, [props.match])
 
     useEffect(() => {
