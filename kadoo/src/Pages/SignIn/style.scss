@@ -9,20 +9,9 @@
     align-items: center !important;
     justify-content: center !important;
 }
-// #password{
-//     &::-moz-placeholder{
-//         background-color: aqua  ;
-//     }
-//     background-color: aqua  ;
-//   &:focus{
-//     // border: 1.5px solid #2d08a9;
-//     background-color: purple;
-//   }
-//   &:active{
-//     background-color: #212121;
-//   }
-//   &:focus-visible{
-//     background-color: #212121;
-//   }
-// }
-
+.input:-internal-autofill-selected #password{
+    background-color: black !important;
+}
+#mui-1{
+    background-color: black !important;
+}
