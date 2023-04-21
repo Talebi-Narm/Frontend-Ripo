@@ -26,6 +26,7 @@ import TicketUser from './Pages/TicketUser';
 import Test from './Test'
 import MainLayout from './Pages/MainLayout';
 import FAQsPage from './Pages/FAQs/FAQ';
+import TestButton from './Pages/TestButton/TestButton';
 
 function AppRoutes() {  
   return (
@@ -48,6 +49,7 @@ function AppRoutes() {
       <Route path='/greenhouse' exact element={<Plantmanagement />} />
       <Route path='/AdminPage' exact element={<AdminPage />} />
       <Route path='/FAQsPage' exact element={<FAQsPage />} />
+      <Route path='/testButton' exact element={<TestButton />} />
       <Route
         path='/ProductPlantsPage/:id'
         exact

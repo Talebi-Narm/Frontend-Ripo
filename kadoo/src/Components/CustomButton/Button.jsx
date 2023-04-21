@@ -8,10 +8,60 @@ import  Theme  from '../../Theme/ThemeGenerator'
 
 export const CustomButton = styled(Button)(
     ({error, talebiKind}) => ({
-        backgroundColor: error ? talebiKind === 'primary'
-        ? error.main
+       backgroundColor: error
+      ? talebiKind === 'primary'
+        ? Theme.palette.error.main
         : talebiKind === 'text'
-        : talebiKind === 'primary'
+        ? 'transparent'
+        : Theme.palette.error.main
+      : talebiKind === 'primary'
+      ? Theme.palette.primary.main
+      : talebiKind === 'text'
+      ? 'transparent'
+      : Theme.palette.text.primary,
+      color: error
+      ? talebiKind === 'primary'
+        ? 'white'
+        : Theme.palette.error.main
+      : talebiKind === 'primary'
+      ? 'white'
+      : talebiKind === 'text'
+      ? Theme.palette.primary.main
+      : Theme.palette.text.primary,
+      ':hover': {
+        backgroundColor: error
+          ? talebiKind === 'primary'
+            ? Theme.palette.error.dark
+            : talebiKind === 'text'
+            ? 'transparent'
+            : Theme.palette.error.p10
+          : talebiKind === 'primary'
+          ? Theme.palette.primary.dark
+          : talebiKind === 'text'
+          ? 'transparent'
+          : Theme.palette.text.p10,
+        color: error
+          ? talebiKind === 'primary'
+            ? 'white'
+            : Theme.palette.error.dark
+          : talebiKind === 'primary'
+          ? 'white'
+          : talebiKind === 'text'
+          ? Theme.palette.primary.main
+          : Theme.palette.text.p160,
+        },
+        '& .Mui-disabled': {
+          backgroundColor:
+            talebiKind === 'primary'
+              ? Theme.palette.text.p10 + '!important'
+              : 'transparent !important',
+          color:
+            talebiKind === 'primary'
+              ? Theme.palette.text.p50
+              : talebiKind === 'text'
+              ? Theme.palette.text.p100
+              : Theme.palette.text.p100,
+        },    
     })
   )
 export const TalebiButton = (props) => {
