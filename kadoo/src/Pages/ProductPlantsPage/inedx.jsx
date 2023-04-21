@@ -28,17 +28,17 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 
 function ProductPlantsPage(props) {
-  const [product, setProduct] = useState([]);
-  const [tags, setTags] = useState([]);
-  const [id, setId] = useState();
-  const [numberOfBuy, setNumberOfBuy] = useState(1);
-  const [totalPrice, setTotalPrice] = useState(0);
-  const [album, setAlbum] = useState([]);
-  const [currentImage, setCurrentImage] = useState(0);
-  const [imageName, setImageName] = useState([]);
-  useEffect(() => {
-    setId(props.match.params.id);
-  }, [props.match]);
+    const [product, setProduct] = useState([]);
+    const [tags, setTags] = useState([]);
+    const [id,  setId] = useState(null);
+    const [numberOfBuy, setNumberOfBuy] = useState(1);
+    const [totalPrice, setTotalPrice] = useState(0);
+    const [album, setAlbum] = useState([]);
+    const [currentImage, setCurrentImage] = useState(0);
+    const [imageName, setImageName] = useState([]);
+    useEffect(() => {
+        setId(props.match.params.id)
+    }, [props.match])
 
   useEffect(() => {
     fetch("http://127.0.0.1:8000/api/plantsRUD/" + id + "/")
