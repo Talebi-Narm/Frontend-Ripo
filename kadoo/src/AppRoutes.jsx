@@ -56,7 +56,7 @@ function AppRoutes() {
         element={<ProductPlantsPage />}
       />
       <Route
-        path='/ProductToolsPage/:id'
+        path='/ProductToolsPage'
         exact
         element={<ProductToolsPage />}
       />
