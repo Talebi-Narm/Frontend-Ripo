@@ -1,24 +1,17 @@
-import React, { useEffect, useState, useRef } from 'react'
-import Grid from '@mui/material/Grid'
-import Typography from '@mui/material/Typography'
-import Slide from '@mui/material/Slide'
-import Box from '@mui/material/Box'
-import { styled } from '@mui/material/styles'
-import Paper from '@mui/material/Paper'
-import Button from '@mui/material/Button'
-import InputLabel from '@mui/material/InputLabel'
-import MenuItem from '@mui/material/MenuItem'
-import FormControl from '@mui/material/FormControl'
-import Select from '@mui/material/Select'
-import CloseIcon from '@mui/icons-material/Close'
-import IconButton from '@mui/material/IconButton'
-import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward'
-import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward'
-import Stack from '@mui/material/Stack'
-import ProductIcon2 from '../productIcon/productIcon2'
+import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
+import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
+import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
+import FormControl from "@mui/material/FormControl";
+import Grid from "@mui/material/Grid";
+import InputLabel from "@mui/material/InputLabel";
+import MenuItem from "@mui/material/MenuItem";
+import Select from "@mui/material/Select";
+import Typography from "@mui/material/Typography";
+import React, { useEffect, useState } from "react";
 
 function SortNavBar(props) {
-  const [sortSelectMenu, setSortSelectMenu] = useState(1)
+  const [sortSelectMenu, setSortSelectMenu] = useState(1);
   const {
     handleSortKindPlants,
     handleSortOrderPlants,
@@ -26,155 +19,163 @@ function SortNavBar(props) {
     handleSortOrderTools,
     handleSortKindProducts,
     handleSortOrderProducts,
-  } = props
+  } = props;
+
+  /// /////////////////// Sort Functions //////////////////////
+  // 1) Sort By Name Plants
+  const handlePlantsSortByNameASC = () => {
+    handleSortKindPlants("name");
+    handleSortOrderPlants("ASC");
+  };
+  const handlePlantsSortByNameDES = () => {
+    handleSortKindPlants("name");
+    handleSortOrderPlants("DES");
+  };
+  // 2) Sort By Price Plants
+  const handlePlantsSortByPriceASC = () => {
+    handleSortKindPlants("price");
+    handleSortOrderPlants("ASC");
+  };
+  const handlePlantsSortByPriceDES = () => {
+    handleSortKindPlants("price");
+    handleSortOrderPlants("DES");
+  };
+  // 3) Sort By Time Plants
+  const handlePlantsSortByTimeASC = () => {
+    handleSortKindPlants("time");
+    handleSortOrderPlants("ASC");
+  };
+  const handlePlantsSortByTimeDES = () => {
+    handleSortKindPlants("time");
+    handleSortOrderPlants("DES");
+  };
+  // 4) Sort By Name Tools
+  const handleToolsSortByNameASC = () => {
+    handleSortKindTools("name");
+    handleSortOrderTools("ASC");
+  };
+  const handleToolsSortByNameDES = () => {
+    handleSortKindTools("name");
+    handleSortOrderTools("DES");
+  };
+  // 5) Sort By Price Tools
+  const handleToolsSortByPriceASC = () => {
+    handleSortKindTools("price");
+    handleSortOrderTools("ASC");
+  };
+  const handleToolsSortByPriceDES = () => {
+    handleSortKindTools("price");
+    handleSortOrderTools("DES");
+  };
+  // 6) Sort By Time Tools
+  const handleToolsSortByTimeASC = () => {
+    handleSortKindTools("time");
+    handleSortOrderTools("ASC");
+  };
+  const handleToolsSortByTimeDES = () => {
+    handleSortKindTools("time");
+    handleSortOrderTools("DES");
+  };
+
+  const handleProductsSortByNameASC = () => {
+    handleSortKindProducts("name");
+    handleSortOrderProducts("ASC");
+  };
+  const handleProductsSortByNameDES = () => {
+    handleSortKindProducts("name");
+    handleSortOrderProducts("DES");
+  };
+  // 5) Sort By Price Products
+  const handleProductsSortByPriceASC = () => {
+    handleSortKindProducts("price");
+    handleSortOrderProducts("ASC");
+  };
+  const handleProductsSortByPriceDES = () => {
+    handleSortKindProducts("price");
+    handleSortOrderProducts("DES");
+  };
+  // 6) Sort By Time Products
+  const handleProductsSortByTimeASC = () => {
+    handleSortKindProducts("time");
+    handleSortOrderProducts("ASC");
+  };
+  const handleProductsSortByTimeDES = () => {
+    handleSortKindProducts("time");
+    handleSortOrderProducts("DES");
+  };
 
   useEffect(() => {
     switch (sortSelectMenu) {
       case 1:
-        handlePlantsSortBy_Name_ASC()
-        handleToolsSortBy_Name_ASC()
-        handleProductsSortBy_Name_ASC()
-        break
+        handlePlantsSortByNameASC();
+        handleToolsSortByNameASC();
+        handleProductsSortByNameASC();
+        break;
       case 2:
-        handlePlantsSortBy_Name_DES()
-        handleToolsSortBy_Name_DES()
-        handleProductsSortBy_Name_DES()
-        break
+        handlePlantsSortByNameDES();
+        handleToolsSortByNameDES();
+        handleProductsSortByNameDES();
+        break;
       case 3:
-        handlePlantsSortBy_Price_ASC()
-        handleToolsSortBy_Price_ASC()
-        handleProductsSortBy_Price_ASC()
-        break
+        handlePlantsSortByPriceASC();
+        handleToolsSortByPriceASC();
+        handleProductsSortByPriceASC();
+        break;
       case 4:
-        handlePlantsSortBy_Price_DES()
-        handleToolsSortBy_Price_DES()
-        handleProductsSortBy_Price_DES()
-        break
+        handlePlantsSortByPriceDES();
+        handleToolsSortByPriceDES();
+        handleProductsSortByPriceDES();
+        break;
       case 5:
-        handlePlantsSortBy_Time_ASC()
-        handleToolsSortBy_Time_ASC()
-        handleProductsSortBy_Time_ASC()
-        break
+        handlePlantsSortByTimeASC();
+        handleToolsSortByTimeASC();
+        handleProductsSortByTimeASC();
+        break;
       case 6:
-        handlePlantsSortBy_Time_DES()
-        handleToolsSortBy_Time_DES()
-        handleProductsSortBy_Time_DES()
-        break
+        handlePlantsSortByTimeDES();
+        handleToolsSortByTimeDES();
+        handleProductsSortByTimeDES();
+        break;
+      default:
+        break;
     }
-  }, [sortSelectMenu])
+  }, [sortSelectMenu]);
   const handleChangeSelect = (event) => {
-    setSortSelectMenu(event.target.value)
-  }
+    setSortSelectMenu(event.target.value);
+  };
   const handleChangeButtonMenu = (value) => {
-    setSortSelectMenu(value)
-  }
-  ////////////////////// Sort Functions //////////////////////
-  // 1) Sort By Name Plants
-  const handlePlantsSortBy_Name_ASC = () => {
-    handleSortKindPlants('name')
-    handleSortOrderPlants('ASC')
-  }
-  const handlePlantsSortBy_Name_DES = () => {
-    handleSortKindPlants('name')
-    handleSortOrderPlants('DES')
-  }
-  // 2) Sort By Price Plants
-  const handlePlantsSortBy_Price_ASC = () => {
-    handleSortKindPlants('price')
-    handleSortOrderPlants('ASC')
-  }
-  const handlePlantsSortBy_Price_DES = () => {
-    handleSortKindPlants('price')
-    handleSortOrderPlants('DES')
-  }
-  // 3) Sort By Time Plants
-  const handlePlantsSortBy_Time_ASC = () => {
-    handleSortKindPlants('time')
-    handleSortOrderPlants('ASC')
-  }
-  const handlePlantsSortBy_Time_DES = () => {
-    handleSortKindPlants('time')
-    handleSortOrderPlants('DES')
-  }
-  // 4) Sort By Name Tools
-  const handleToolsSortBy_Name_ASC = () => {
-    handleSortKindTools('name')
-    handleSortOrderTools('ASC')
-  }
-  const handleToolsSortBy_Name_DES = () => {
-    handleSortKindTools('name')
-    handleSortOrderTools('DES')
-  }
-  // 5) Sort By Price Tools
-  const handleToolsSortBy_Price_ASC = () => {
-    handleSortKindTools('price')
-    handleSortOrderTools('ASC')
-  }
-  const handleToolsSortBy_Price_DES = () => {
-    handleSortKindTools('price')
-    handleSortOrderTools('DES')
-  }
-  // 6) Sort By Time Tools
-  const handleToolsSortBy_Time_ASC = () => {
-    handleSortKindTools('time')
-    handleSortOrderTools('ASC')
-  }
-  const handleToolsSortBy_Time_DES = () => {
-    handleSortKindTools('time')
-    handleSortOrderTools('DES')
-  }
+    setSortSelectMenu(value);
+  };
 
-  const handleProductsSortBy_Name_ASC = () => {
-    handleSortKindProducts('name')
-    handleSortOrderProducts('ASC')
-  }
-  const handleProductsSortBy_Name_DES = () => {
-    handleSortKindProducts('name')
-    handleSortOrderProducts('DES')
-  }
-  // 5) Sort By Price Products
-  const handleProductsSortBy_Price_ASC = () => {
-    handleSortKindProducts('price')
-    handleSortOrderProducts('ASC')
-  }
-  const handleProductsSortBy_Price_DES = () => {
-    handleSortKindProducts('price')
-    handleSortOrderProducts('DES')
-  }
-  // 6) Sort By Time Products
-  const handleProductsSortBy_Time_ASC = () => {
-    handleSortKindProducts('time')
-    handleSortOrderProducts('ASC')
-  }
-  const handleProductsSortBy_Time_DES = () => {
-    handleSortKindProducts('time')
-    handleSortOrderProducts('DES')
-  }
   return (
     <Grid container xs={12}>
       <Grid container item xs={12}>
         <Grid
           item
           container
-          direction='row'
-          alignContent='center'
-          justifyContent='center'
-          sx={{ minWidth: 240 }}
-          sx={{ display: { xs: 'block', sm: 'none' }, mt: 2, mb: 2 }}
+          direction="row"
+          alignContent="center"
+          justifyContent="center"
+          sx={{
+            display: { xs: "block", sm: "none" },
+            mt: 2,
+            mb: 2,
+            minWidth: 240,
+          }}
           xs={12}
         >
           <Grid container item xs={12}>
             <Grid item xs={12}>
               <FormControl
-                component='div'
-                display='flex'
-                sx={{ width: '100%' }}
+                component="div"
+                display="flex"
+                sx={{ width: "100%" }}
               >
-                <InputLabel id='demo-simple-select-label'>Sort by</InputLabel>
+                <InputLabel id="demo-simple-select-label">Sort by</InputLabel>
                 <Select
-                  labelId='demo-simple-select-label'
-                  id='demo-simple-select'
-                  label='Sort by'
+                  labelId="demo-simple-select-label"
+                  id="demo-simple-select"
+                  label="Sort by"
                   value={sortSelectMenu}
                   onChange={handleChangeSelect}
                   xs={12}
@@ -194,92 +195,92 @@ function SortNavBar(props) {
         <Box
           block
           sx={{
-            justifyContent: 'flex-start',
-            alignItems: 'center',
-            display: { xs: 'none', sm: 'block' },
+            justifyContent: "flex-start",
+            alignItems: "center",
+            display: { xs: "none", sm: "block" },
             mt: 2,
             mb: 2,
           }}
         >
-          <Typography variant='body' gutterBottom sx={{ mr: 2 }}>
+          <Typography variant="body" gutterBottom sx={{ mr: 2 }}>
             Sort By:
           </Typography>
           <Button
             sx={{ mr: 1 }}
-            variant={sortSelectMenu == 1 ? 'contained' : 'text'}
+            variant={sortSelectMenu === 1 ? "contained" : "text"}
             onClick={() => {
-              handleChangeButtonMenu(1)
+              handleChangeButtonMenu(1);
             }}
-            size='small'
+            size="small"
             startIcon={<ArrowUpwardIcon />}
           >
-            {' '}
-            A to Z{' '}
+            {" "}
+            A to Z{" "}
           </Button>
           <Button
             sx={{ mr: 1 }}
-            variant={sortSelectMenu == 2 ? 'contained' : 'text'}
+            variant={sortSelectMenu === 2 ? "contained" : "text"}
             onClick={() => {
-              handleChangeButtonMenu(2)
+              handleChangeButtonMenu(2);
             }}
-            size='small'
+            size="small"
             startIcon={<ArrowDownwardIcon />}
           >
-            {' '}
-            Z to A{' '}
+            {" "}
+            Z to A{" "}
           </Button>
           <Button
             sx={{ mr: 1 }}
-            variant={sortSelectMenu == 3 ? 'contained' : 'text'}
+            variant={sortSelectMenu === 3 ? "contained" : "text"}
             onClick={() => {
-              handleChangeButtonMenu(3)
+              handleChangeButtonMenu(3);
             }}
-            size='small'
+            size="small"
             startIcon={<ArrowUpwardIcon />}
           >
-            {' '}
-            ACS Price{' '}
+            {" "}
+            ACS Price{" "}
           </Button>
           <Button
             sx={{ mr: 1 }}
-            variant={sortSelectMenu == 4 ? 'contained' : 'text'}
+            variant={sortSelectMenu === 4 ? "contained" : "text"}
             onClick={() => {
-              handleChangeButtonMenu(4)
+              handleChangeButtonMenu(4);
             }}
-            size='small'
+            size="small"
             startIcon={<ArrowDownwardIcon />}
           >
-            {' '}
-            DES Price{' '}
+            {" "}
+            DES Price{" "}
           </Button>
           <Button
             sx={{ mr: 1 }}
-            variant={sortSelectMenu == 5 ? 'contained' : 'text'}
+            variant={sortSelectMenu === 5 ? "contained" : "text"}
             onClick={() => {
-              handleChangeButtonMenu(5)
+              handleChangeButtonMenu(5);
             }}
-            size='small'
+            size="small"
             startIcon={<ArrowUpwardIcon />}
           >
-            {' '}
-            ACS time{' '}
+            {" "}
+            ACS time{" "}
           </Button>
           <Button
             sx={{ mr: 1 }}
-            variant={sortSelectMenu == 6 ? 'contained' : 'text'}
+            variant={sortSelectMenu === 6 ? "contained" : "text"}
             onClick={() => {
-              handleChangeButtonMenu(6)
+              handleChangeButtonMenu(6);
             }}
-            size='small'
+            size="small"
             startIcon={<ArrowDownwardIcon />}
           >
-            {' '}
-            DES time{' '}
+            {" "}
+            DES time{" "}
           </Button>
         </Box>
       </Grid>
     </Grid>
-  )
+  );
 }
 
-export default SortNavBar
+export default SortNavBar;

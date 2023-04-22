@@ -1,9 +1,9 @@
-import {TalebiButton} from '../../Components/CustomButton/Button';
+import * as React from "react";
 
-const TestButton = (props) => {
-    return(
-        <TalebiButton text='test Button'/>
-    )
+import { TalebiButton } from "../../Components/CustomButton/Button";
+
+function TestButton() {
+  return <TalebiButton text="test Button" />;
 }
 
 export default TestButton;

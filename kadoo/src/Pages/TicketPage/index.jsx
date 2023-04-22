@@ -1,58 +1,58 @@
-import React, { useEffect } from 'react'
-import AppBar from '../../Components/AppBar'
-import Grid from '@mui/material/Grid'
-import Card from '@mui/material/Card'
-import ShowAllTickets from '../../Components/ShowTickets/ShowAllTickets'
-import ShowMyTickets from '../../Components/ShowTickets/ShowMyTickets'
-import Alert from '@mui/material/Alert'
+import Alert from "@mui/material/Alert";
+import Card from "@mui/material/Card";
+import Grid from "@mui/material/Grid";
+import React, { useEffect } from "react";
+
+import AppBar from "../../Components/AppBar";
+import ShowAllTickets from "../../Components/ShowTickets/ShowAllTickets";
+import ShowMyTickets from "../../Components/ShowTickets/ShowMyTickets";
 
 export default function TicketPage() {
-  const [ticketsData, setTicketsData] = React.useState([])
-  const [myTicketsData, setMyTicketsData] = React.useState([])
+  const [ticketsData, setTicketsData] = React.useState([]);
+  const [myTicketsData, setMyTicketsData] = React.useState([]);
 
   const allTickets = () => {
     const requestOptions = {
-      method: 'GET',
+      method: "GET",
       headers: {
-        Authorization: 'JWT ' + localStorage.getItem('access_token'),
-        'Content-Type': 'application/json',
+        Authorization: `JWT ${localStorage.getItem("access_token")}`,
+        "Content-Type": "application/json",
       },
-    }
+    };
     fetch(
-      'http://127.0.0.1:8000/api/ticket/inprogress-tickets/',
+      "http://127.0.0.1:8000/api/ticket/inprogress-tickets/",
       requestOptions
     )
       .then((response) => response.json())
       .then((data) => {
-        setTicketsData(data)
-      })
-  }
+        setTicketsData(data);
+      });
+  };
 
   const myTickets = () => {
     const requestOptions = {
-      method: 'GET',
+      method: "GET",
       headers: {
-        Authorization: 'JWT ' + localStorage.getItem('access_token'),
-        'Content-Type': 'application/json',
+        Authorization: `JWT ${localStorage.getItem("access_token")}`,
+        "Content-Type": "application/json",
       },
-    }
+    };
     fetch(
-      'http://127.0.0.1:8000/api/ticket/specialist-accepted-tickets/',
+      "http://127.0.0.1:8000/api/ticket/specialist-accepted-tickets/",
       requestOptions
     )
       .then((response) => response.json())
       .then((data) => {
-        setMyTicketsData(data)
-      })
-  }
+        setMyTicketsData(data);
+      });
+  };
 
   useEffect(() => {
-    allTickets()
-    myTickets()
-  }, [])
+    allTickets();
+    myTickets();
+  }, []);
 
-  useEffect(() => {
-  }, [myTicketsData])
+  useEffect(() => {}, [myTicketsData]);
 
   return (
     <div>
@@ -60,11 +60,11 @@ export default function TicketPage() {
         SearchOption={false}
         TicketOption={false}
         CartOption={false}
-        AuthorizationOption={true}
-        DrawerOption={true}
+        AuthorizationOption
+        DrawerOption
       />
       <Card
-        style={{ backgroundColor: '#f5f4f4' }}
+        style={{ backgroundColor: "#f5f4f4" }}
         sx={{
           mt: { xs: 3, sm: 5 },
           mb: { xs: 3, sm: 5 },
@@ -78,14 +78,14 @@ export default function TicketPage() {
       >
         <Grid
           container
-          direction='row'
-          justifyContent='center'
-          alignItems='flex-start'
+          direction="row"
+          justifyContent="center"
+          alignItems="flex-start"
         >
           <Grid container item>
             <ShowMyTickets data={myTicketsData} />
-            {myTicketsData.length === '0' && (
-              <Alert sx={{ mt: 3 }} severity='info' color='warning'>
+            {myTicketsData.length === "0" && (
+              <Alert sx={{ mt: 3 }} severity="info" color="warning">
                 No Tickets Yet
               </Alert>
             )}
@@ -94,7 +94,7 @@ export default function TicketPage() {
       </Card>
 
       <Card
-        style={{ backgroundColor: '#f5f4f4' }}
+        style={{ backgroundColor: "#f5f4f4" }}
         sx={{
           mt: { xs: 3, sm: 5 },
           mb: { xs: 3, sm: 5 },
@@ -108,14 +108,14 @@ export default function TicketPage() {
       >
         <Grid
           container
-          direction='row'
-          justifyContent='center'
-          alignItems='flex-start'
+          direction="row"
+          justifyContent="center"
+          alignItems="flex-start"
         >
           <Grid container item>
             <ShowAllTickets data={ticketsData} />
-            {ticketsData.length === '0' && (
-              <Alert sx={{ mt: 3 }} severity='info' color='warning'>
+            {ticketsData.length === "0" && (
+              <Alert sx={{ mt: 3 }} severity="info" color="warning">
                 No Tickets Yet
               </Alert>
             )}
@@ -123,5 +123,5 @@ export default function TicketPage() {
         </Grid>
       </Card>
     </div>
-  )
+  );
 }

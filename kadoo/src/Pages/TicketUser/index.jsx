@@ -1,90 +1,92 @@
-import React, { useEffect } from 'react'
-import './style.scss'
-import AppBar from '../../Components/AppBar'
-import Grid from '@mui/material/Grid'
-import Card from '@mui/material/Card'
-import Alert from '@mui/material/Alert'
-import List from '@mui/material/List'
-import ListItem from '@mui/material/ListItem'
-import Divider from '@mui/material/Divider'
-import ListItemIcon from '@mui/material/ListItemIcon'
-import ListItemText from '@mui/material/ListItemText'
-import Box from '@mui/material/Box'
-import Typography from '@mui/material/Typography'
-import { styled } from '@mui/material/styles'
-import CachedIcon from '@mui/icons-material/Cached'
-import PublishedWithChangesIcon from '@mui/icons-material/PublishedWithChanges'
-import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline'
-import Rate from '../../Components/Rate'
+import "./style.scss";
 
-const Demo = styled('div')(({ theme }) => ({
+import CachedIcon from "@mui/icons-material/Cached";
+import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
+import PublishedWithChangesIcon from "@mui/icons-material/PublishedWithChanges";
+import Alert from "@mui/material/Alert";
+import Box from "@mui/material/Box";
+import Card from "@mui/material/Card";
+import Divider from "@mui/material/Divider";
+import Grid from "@mui/material/Grid";
+import List from "@mui/material/List";
+import ListItem from "@mui/material/ListItem";
+import ListItemIcon from "@mui/material/ListItemIcon";
+import ListItemText from "@mui/material/ListItemText";
+import { styled } from "@mui/material/styles";
+import Typography from "@mui/material/Typography";
+import React, { useEffect } from "react";
+
+import AppBar from "../../Components/AppBar";
+import Rate from "../../Components/Rate";
+
+const Demo = styled("div")(({ theme }) => ({
   backgroundColor: theme.palette.background.paper,
-}))
+}));
 
 export default function TicketUser() {
-  const [InProgress, setInProgress] = React.useState([])
-  const [Accepted, setAccepted] = React.useState([])
-  const [Done, setDone] = React.useState([])
+  const [InProgress, setInProgress] = React.useState([]);
+  const [Accepted, setAccepted] = React.useState([]);
+  const [Done, setDone] = React.useState([]);
 
   const InProgressTickets = () => {
     const requestOptions = {
-      method: 'GET',
+      method: "GET",
       headers: {
-        Authorization: 'JWT ' + localStorage.getItem('access_token'),
-        'Content-Type': 'application/json',
+        Authorization: `JWT ${localStorage.getItem("access_token")}`,
+        "Content-Type": "application/json",
       },
-    }
+    };
     fetch(
-      'http://127.0.0.1:8000/api/ticket/member-inprogress-tickets/',
+      "http://127.0.0.1:8000/api/ticket/member-inprogress-tickets/",
       requestOptions
     )
       .then((response) => response.json())
       .then((data) => {
-        setInProgress(data)
-      })
-  }
+        setInProgress(data);
+      });
+  };
 
   const AcceptedTickets = () => {
     const requestOptions = {
-      method: 'GET',
+      method: "GET",
       headers: {
-        Authorization: 'JWT ' + localStorage.getItem('access_token'),
-        'Content-Type': 'application/json',
+        Authorization: `JWT ${localStorage.getItem("access_token")}`,
+        "Content-Type": "application/json",
       },
-    }
+    };
     fetch(
-      'http://127.0.0.1:8000/api/ticket/member-accepted-tickets/',
+      "http://127.0.0.1:8000/api/ticket/member-accepted-tickets/",
       requestOptions
     )
       .then((response) => response.json())
       .then((data) => {
-        setAccepted(data)
-      })
-  }
+        setAccepted(data);
+      });
+  };
 
   const DoneTickets = () => {
     const requestOptions = {
-      method: 'GET',
+      method: "GET",
       headers: {
-        Authorization: 'JWT ' + localStorage.getItem('access_token'),
-        'Content-Type': 'application/json',
+        Authorization: `JWT ${localStorage.getItem("access_token")}`,
+        "Content-Type": "application/json",
       },
-    }
+    };
     fetch(
-      'http://127.0.0.1:8000/api/ticket/member-done-tickets/',
+      "http://127.0.0.1:8000/api/ticket/member-done-tickets/",
       requestOptions
     )
       .then((response) => response.json())
       .then((data) => {
-        setDone(data)
-      })
-  }
+        setDone(data);
+      });
+  };
 
   useEffect(() => {
-    InProgressTickets()
-    AcceptedTickets()
-    DoneTickets()
-  }, [])
+    InProgressTickets();
+    AcceptedTickets();
+    DoneTickets();
+  }, []);
 
   return (
     <div>
@@ -92,17 +94,17 @@ export default function TicketUser() {
         SearchOption={false}
         TicketOption={false}
         CartOption={false}
-        AuthorizationOption={true}
-        DrawerOption={true}
-        AddTicketOption={true}
+        AuthorizationOption
+        DrawerOption
+        AddTicketOption
       />
-      <Grid display='flex' flex-flexDirection='row'>
+      <Grid display="flex" flex-flexDirection="row">
         <Card
-          xs='12'
-          sm='6'
-          md='4'
+          xs="12"
+          sm="6"
+          md="4"
           sx={{
-            width: { xs: '100%', sm: '100%', md: '30%' },
+            width: { xs: "100%", sm: "100%", md: "30%" },
             mt: { xs: 10, sm: 5 },
             mb: { xs: 3, sm: 5 },
             ml: { xs: 3, sm: 10 },
@@ -115,13 +117,13 @@ export default function TicketUser() {
         >
           <Grid
             container
-            direction='row'
-            justifyContent='left'
-            alignItems='flex-start'
+            direction="row"
+            justifyContent="left"
+            alignItems="flex-start"
           >
-            <Grid container sx={{ width: '100%' }}>
-              <Box sx={{ width: '100%' }}>
-                <Typography variant='h4' gutterBottom component='div'>
+            <Grid container sx={{ width: "100%" }}>
+              <Box sx={{ width: "100%" }}>
+                <Typography variant="h4" gutterBottom component="div">
                   InProgress
                 </Typography>
                 <Demo>
@@ -134,17 +136,17 @@ export default function TicketUser() {
                           </ListItemIcon>
                           <ListItemText primary={T.body} />
                         </ListItem>
-                        <Divider sx={{ width: '100%' }} />
+                        <Divider sx={{ width: "100%" }} />
                       </Grid>
                     ))}
                   </List>
                 </Demo>
               </Box>
-              {InProgress.length === '0' && (
+              {InProgress.length === "0" && (
                 <Alert
-                  sx={{ mt: 3 ,width: '100%' }}
-                  severity='info'
-                  color='warning'
+                  sx={{ mt: 3, width: "100%" }}
+                  severity="info"
+                  color="warning"
                 >
                   No Tickets Yet
                 </Alert>
@@ -154,11 +156,11 @@ export default function TicketUser() {
         </Card>
 
         <Card
-          xs='12'
-          sm='6'
-          md='4'
+          xs="12"
+          sm="6"
+          md="4"
           sx={{
-            width: { xs: '100%', sm: '50%', md: '30%' },
+            width: { xs: "100%", sm: "50%", md: "30%" },
             mt: { xs: 10, sm: 5 },
             mb: { xs: 3, sm: 5 },
             ml: { xs: 3, sm: 3 },
@@ -171,16 +173,16 @@ export default function TicketUser() {
         >
           <Grid
             container
-            direction='row'
-            justifyContent='left'
-            alignItems='flex-start'
+            direction="row"
+            justifyContent="left"
+            alignItems="flex-start"
           >
-            <Grid container sx={{ width: '100%' }}>
-              <Box sx={{ width: '100%' }}>
-                <Typography variant='h4' gutterBottom component='div'>
+            <Grid container sx={{ width: "100%" }}>
+              <Box sx={{ width: "100%" }}>
+                <Typography variant="h4" gutterBottom component="div">
                   Accepted
                 </Typography>
-                {Accepted.length !== '0' && (
+                {Accepted.length !== "0" && (
                   <Demo>
                     <List>
                       {Accepted.map((T) => (
@@ -191,18 +193,18 @@ export default function TicketUser() {
                             </ListItemIcon>
                             <ListItemText primary={T.body} />
                           </ListItem>
-                          <Divider sx={{ width: '100%' }} />
+                          <Divider sx={{ width: "100%" }} />
                         </Grid>
                       ))}
                     </List>
                   </Demo>
                 )}
               </Box>
-              {Accepted.length === '0' && (
+              {Accepted.length === "0" && (
                 <Alert
-                  sx={{ mt: 3 ,width: '100%'}}
-                  severity='info'
-                  color='warning'
+                  sx={{ mt: 3, width: "100%" }}
+                  severity="info"
+                  color="warning"
                 >
                   No Tickets Yet
                 </Alert>
@@ -212,11 +214,11 @@ export default function TicketUser() {
         </Card>
 
         <Card
-          xs='12'
-          sm='6'
-          md='4'
+          xs="12"
+          sm="6"
+          md="4"
           sx={{
-            width: { xs: '100%', sm: '50%', md: '30%' },
+            width: { xs: "100%", sm: "50%", md: "30%" },
             mt: { xs: 10, sm: 5 },
             mb: { xs: 3, sm: 5 },
             ml: { xs: 3, sm: 3 },
@@ -229,16 +231,16 @@ export default function TicketUser() {
         >
           <Grid
             container
-            direction='row'
-            justifyContent='left'
-            alignItems='flex-start'
+            direction="row"
+            justifyContent="left"
+            alignItems="flex-start"
           >
-            <Grid container sx={{ width: '100%' }}>
-              <Box sx={{ width: '100%' }}>
-                <Typography variant='h4' gutterBottom component='div'>
+            <Grid container sx={{ width: "100%" }}>
+              <Box sx={{ width: "100%" }}>
+                <Typography variant="h4" gutterBottom component="div">
                   Done
                 </Typography>
-                {Done.length !== '0' && (
+                {Done.length !== "0" && (
                   <Demo>
                     <List>
                       {Done.map((T) => (
@@ -252,18 +254,18 @@ export default function TicketUser() {
                               secondary={T.body}
                             />
                           </ListItem>
-                          <Divider sx={{ width: '100%' }} />
+                          <Divider sx={{ width: "100%" }} />
                         </Grid>
                       ))}
                     </List>
                   </Demo>
                 )}
               </Box>
-              {Done.length === '0' && (
+              {Done.length === "0" && (
                 <Alert
-                  sx={{ mt: 3 ,width: '100%' }}
-                  severity='info'
-                  color='warning'
+                  sx={{ mt: 3, width: "100%" }}
+                  severity="info"
+                  color="warning"
                 >
                   No Tickets Yet
                 </Alert>
@@ -273,5 +275,5 @@ export default function TicketUser() {
         </Card>
       </Grid>
     </div>
-  )
+  );
 }

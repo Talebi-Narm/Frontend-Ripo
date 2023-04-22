@@ -1,5 +1,6 @@
 import "./style.scss";
-import VisibilityIcon from '@mui/icons-material/Visibility';
+import VisibilityIcon from "@mui/icons-material/Visibility";
+import React from "react";
 
 export default function WidgetSm() {
   return (
@@ -16,7 +17,7 @@ export default function WidgetSm() {
             <span className="widgetSmUsername">Anna Keller</span>
             <span className="widgetSmUserTitle">Software Engineer</span>
           </div>
-          <button className="widgetSmButton">
+          <button type="button" className="widgetSmButton">
             <VisibilityIcon className="widgetSmIcon" />
             Display
           </button>
@@ -31,7 +32,7 @@ export default function WidgetSm() {
             <span className="widgetSmUsername">Anna Keller</span>
             <span className="widgetSmUserTitle">Software Engineer</span>
           </div>
-          <button className="widgetSmButton">
+          <button type="button" className="widgetSmButton">
             <VisibilityIcon className="widgetSmIcon" />
             Display
           </button>
@@ -46,7 +47,7 @@ export default function WidgetSm() {
             <span className="widgetSmUsername">Anna Keller</span>
             <span className="widgetSmUserTitle">Software Engineer</span>
           </div>
-          <button className="widgetSmButton">
+          <button type="button" className="widgetSmButton">
             <VisibilityIcon className="widgetSmIcon" />
             Display
           </button>
@@ -61,7 +62,7 @@ export default function WidgetSm() {
             <span className="widgetSmUsername">Anna Keller</span>
             <span className="widgetSmUserTitle">Software Engineer</span>
           </div>
-          <button className="widgetSmButton">
+          <button type="button" className="widgetSmButton">
             <VisibilityIcon className="widgetSmIcon" />
             Display
           </button>
@@ -76,7 +77,7 @@ export default function WidgetSm() {
             <span className="widgetSmUsername">Anna Keller</span>
             <span className="widgetSmUserTitle">Software Engineer</span>
           </div>
-          <button className="widgetSmButton">
+          <button type="button" className="widgetSmButton">
             <VisibilityIcon className="widgetSmIcon" />
             Display
           </button>
