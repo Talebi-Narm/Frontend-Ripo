@@ -1,80 +1,77 @@
-import * as React from 'react'
+import AddIcon from "@mui/icons-material/Add";
+import DeleteIcon from "@mui/icons-material/Delete";
+import RemoveIcon from "@mui/icons-material/Remove";
+import Box from "@mui/material/Box";
+import Card from "@mui/material/Card";
+import CardContent from "@mui/material/CardContent";
+import CardMedia from "@mui/material/CardMedia";
+import Chip from "@mui/material/Chip";
+import Divider from "@mui/material/Divider";
+import Grid from "@mui/material/Grid";
+import IconButton from "@mui/material/IconButton";
+import TextField from "@mui/material/TextField";
+import Typography from "@mui/material/Typography";
 import { makeStyles } from "@mui/styles";
-import Box from '@mui/material/Box'
-import Card from '@mui/material/Card'
-import CardContent from '@mui/material/CardContent'
-import CardMedia from '@mui/material/CardMedia'
-import IconButton from '@mui/material/IconButton'
-import Typography from '@mui/material/Typography'
-import Divider from '@mui/material/Divider'
-import Chip from '@mui/material/Chip'
-import Grid from '@mui/material/Grid'
-import TextField from '@mui/material/TextField'
-import AddIcon from '@mui/icons-material/Add'
-import RemoveIcon from '@mui/icons-material/Remove'
-import DeleteIcon from '@mui/icons-material/Delete'
-
+import * as React from "react";
 
 const useStyles = makeStyles((theme) => ({
-    card: {
-      maxWidth: 500,
-      margin: "auto",
-    },
-    avatar: {
-      backgroundColor: theme.palette.secondary.main,
-    },
-  }));
+  card: {
+    maxWidth: 500,
+    margin: "auto",
+  },
+  avatar: {
+    backgroundColor: theme.palette.secondary.main,
+  },
+}));
 
-const CustomToolCard = (props) => {
-    const classes = useStyles();
+function CustomToolCard(props) {
+  const classes = useStyles();
 
   return (
-    <Card className= {classes.card} sx={{ mb: 2, p: 2 }}>
-      <Grid container sx={{ display: 'flex' }}>
+    <Card className={classes.card} sx={{ mb: 2, p: 2 }}>
+      <Grid container sx={{ display: "flex" }}>
         <Grid
           item
           container
           xs={12}
           sm={6}
           md={4}
-          justifyContent='center'
-          alignItems='center'
+          justifyContent="center"
+          alignItems="center"
         >
           <Grid sx={{ p: 1 }}>
             <CardMedia>
-              <img
-                src={props.toolProduct.image}
-              />
+              <img src={props.toolProduct.image} alt="" />
             </CardMedia>
           </Grid>
         </Grid>
         <Grid item xs={12} sm={6} md={8}>
-          <CardContent align='Left'>
-            <Grid container justifyContent='center' alignItems='center'>
+          <CardContent align="Left">
+            <Grid container justifyContent="center" alignItems="center">
               <Grid item md={12}>
                 <Box
                   xs={12}
                   sx={{
                     flex: 1,
                     display: {
-                      md: 'flex',
-                      sm: 'inline',
-                      xs: 'inline',
+                      md: "flex",
+                      sm: "inline",
+                      xs: "inline",
                     },
-                    justifyContent: 'center',
-                    alignItems: 'center',
+                    justifyContent: "center",
+                    alignItems: "center",
                   }}
                 >
                   <Box
                     sx={{
                       flex: 1,
                       textAlign: {
-                        md: 'left',
-                        xs: 'center',
+                        md: "left",
+                        xs: "center",
                       },
                     }}
                   >
-                    <Typography component='div' variant='h5' sx={{ flex: 1 }}>
+                    <Typography component="div" variant="h5" sx={{ flex: 1 }}>
                       {props.toolProduct.name.trim()}
                     </Typography>
                   </Box>
@@ -82,20 +79,20 @@ const CustomToolCard = (props) => {
                   <Box
                     sx={{
                       display: {
-                        md: 'flex',
-                        sm: 'inline',
-                        xs: 'inline',
+                        md: "flex",
+                        sm: "inline",
+                        xs: "inline",
                       },
-                      alignItems: 'center',
-                      justifyContent: 'center',
+                      alignItems: "center",
+                      justifyContent: "center",
                     }}
                   >
                     <IconButton
-                      size='large'
-                      aria-label='show 4 new mails'
-                      color='inherit'
+                      size="large"
+                      aria-label="show 4 new mails"
+                      color="inherit"
                       sx={{
-                        color: 'error.main',
+                        color: "error.main",
                         mt: {
                           md: 0,
                           xs: 1,
@@ -107,11 +104,15 @@ const CustomToolCard = (props) => {
                       }}
                       onClick={() => props.onRemoveTool(props.toolProduct)}
                     >
-                      {props.toolProduct.count === 1 ? <DeleteIcon /> : <RemoveIcon />}
+                      {props.toolProduct.count === 1 ? (
+                        <DeleteIcon />
+                      ) : (
+                        <RemoveIcon />
+                      )}
                     </IconButton>
                     <TextField
-                      id='outlined-number'
-                      size='small'
+                      id="outlined-number"
+                      size="small"
                       sx={{
                         width: 50,
                         mt: {
@@ -123,17 +124,21 @@ const CustomToolCard = (props) => {
                           xs: 2,
                         },
                       }}
-                      value={props.toolProduct.count < 100 ? props.toolProduct.count : 100}
+                      value={
+                        props.toolProduct.count < 100
+                          ? props.toolProduct.count
+                          : 100
+                      }
                       inputProps={{
-                        style: { textAlign: 'center' },
+                        style: { textAlign: "center" },
                         maxLength: 2,
                       }}
                     />
                     <IconButton
-                      size='large'
-                      color='inherit'
+                      size="large"
+                      color="inherit"
                       sx={{
-                        color: 'success.main',
+                        color: "success.main",
                         mt: {
                           md: 0,
                           xs: 1,
@@ -145,7 +150,7 @@ const CustomToolCard = (props) => {
                       }}
                       onClick={() => {
                         if (props.toolProduct.count < 100) {
-                          props.onAddTool(props.toolProduct)
+                          props.onAddTool(props.toolProduct);
                         }
                       }}
                     >
@@ -155,39 +160,39 @@ const CustomToolCard = (props) => {
                 </Box>
               </Grid>
             </Grid>
-            <Divider sx={{ mt: 1.5, mb: 1.5 }}></Divider>
-            <Grid container justifyContent='center' alignItems='center'>
-              <Grid item justifyContent='space-between' md={12}>
+            <Divider sx={{ mt: 1.5, mb: 1.5 }} />
+            <Grid container justifyContent="center" alignItems="center">
+              <Grid item justifyContent="space-between" md={12}>
                 <Box
                   xs={12}
-                  sx={{ justifyContent: 'center', alignItems: 'center' }}
+                  sx={{ justifyContent: "center", alignItems: "center" }}
                 >
                   <Typography
-                    component='div'
+                    component="div"
                     sx={{ flex: 1, mt: 1 }}
-                    overflow='hidden'
-                    whiteSpace='pre-line'
-                    textOverflow='ellipsis'
+                    overflow="hidden"
+                    whiteSpace="pre-line"
+                    textOverflow="ellipsis"
                   >
-                    {props.toolProduct.description.split('\n')[0] + '..'}
+                    {`${props.toolProduct.description.split("\n")[0]}..`}
                   </Typography>
                 </Box>
                 <Grid
                   container
-                  direction='row'
+                  direction="row"
                   sx={{
                     justifyContent: {
-                      sm: 'flex-end',
-                      xs: 'center',
+                      sm: "flex-end",
+                      xs: "center",
                     },
                     mt: 1,
                   }}
                 >
                   <Chip
-                    label={props.toolProduct.price + '$'}
-                    color='success'
-                    variant='outlined'
-                    style={{ fontSize: '1.1rem' }}
+                    label={`${props.toolProduct.price}$`}
+                    color="success"
+                    variant="outlined"
+                    style={{ fontSize: "1.1rem" }}
                     sx={{
                       pt: 0.5,
                       pb: 0.5,
@@ -207,10 +212,10 @@ const CustomToolCard = (props) => {
               </Grid>
             </Grid>
           </CardContent>
-          <Box sx={{ display: 'flex' }}></Box>
+          <Box sx={{ display: "flex" }} />
         </Grid>
       </Grid>
     </Card>
-  )
+  );
 }
 export default CustomToolCard;

@@ -1,6 +1,6 @@
 import { createTheme } from "@mui/material/styles";
 
-const font = "'Comic Neue', sans-serif"
+const font = "'Comic Neue', sans-serif";
 
 const Theme = createTheme({
   // palette: {
@@ -87,7 +87,7 @@ const Theme = createTheme({
       primary: "#005046",
     },
     background: {
-      default: '#141414',
+      default: "#141414",
     },
   },
   typography: {
@@ -95,7 +95,7 @@ const Theme = createTheme({
     fontWeightRegular: 600,
   },
   shape: {
-    borderRadius: '14px',
+    borderRadius: "14px",
   },
   props: {
     MuiTooltip: {

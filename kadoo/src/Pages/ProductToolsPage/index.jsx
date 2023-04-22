@@ -18,11 +18,11 @@ import { Link } from "react-router-dom";
 import Image from "mui-image";
 import { useState } from "react";
 import { useEffect } from "react";
-import axiosInstance from "../../Utils/axios";
 
 function ProductToolsPage(props) {
   const [product, setProduct] = useState([]);
   const [toolTags, setToolTags] = useState("");
+  const [id, setId] = useState();
   const [numberOfBuy, setNumberOfBuy] = useState(1);
   const [totalPrice, setTotalPrice] = useState(0);
   const [album, setAlbum] = useState([]);
@@ -30,57 +30,29 @@ function ProductToolsPage(props) {
   const [imageName, setImageName] = useState([]);
 
   useEffect(() => {
-    axiosInstance
-      .get("/v1/store/tools/", {
-        params: {
-          count: 0,
-          name: 'toolTest',
-          page: 2,
-          page_size: 1,
-          price: 5,
-          tags: '7&tags=3fa85f64-5717-4562-b3fc-2c963f66afa6',
-          water: 1,
-        },
-      })
-      .then((response) => {
-        console.log("ghoo" , response)
-        setProduct(response.data);
-      })
-      // .then(() => {
-      //   setTotalPrice(product.price);
-      // })
-      // .then((data) => {
-      //   setTags(data);
-      // })
-      // .then((data) => {
-      //   setAlbum(data);
-      //   setImageName(data[0]);
-      // })
-      .catch((error) => {
-        console.error(error);
+    setId(props.match.params.id);
+  }, [props.match]);
+
+  useEffect(() => {
+    fetch("http://127.0.0.1:8000/api/toolsRUD/" + id + "/")
+      .then((response) => response.json())
+      .then((data) => setProduct(data))
+      .then(() => {
+        setTotalPrice(product.price);
+      });
+
+    fetch("http://127.0.0.1:8000/api/toolTags/" + id + "/")
+      .then((response) => response.json())
+      .then((data) => {
+        setToolTags(data);
+      });
+    fetch("http://127.0.0.1:8000/api/toolAlbumImages/" + id + "/")
+      .then((response) => response.json())
+      .then((data) => {
+        setAlbum(data);
+        setImageName(data[0]);
       });
   }, []);
-
-  // useEffect(() => {
-  //   fetch("http://127.0.0.1:8000/api/toolsRUD/" + id + "/")
-  //     .then((response) => response.json())
-  //     .then((data) => setProduct(data))
-  //     .then(() => {
-  //       setTotalPrice(product.price);
-  //     });
-
-  //   fetch("http://127.0.0.1:8000/api/toolTags/" + id + "/")
-  //     .then((response) => response.json())
-  //     .then((data) => {
-  //       setToolTags(data);
-  //     });
-  //   fetch("http://127.0.0.1:8000/api/toolAlbumImages/" + id + "/")
-  //     .then((response) => response.json())
-  //     .then((data) => {
-  //       setAlbum(data);
-  //       setImageName(data[0]);
-  //     });
-  // }, []);
 
   function increaseBought() {
     if (numberOfBuy < 9) {

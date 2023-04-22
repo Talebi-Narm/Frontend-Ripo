@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Grid from "@mui/material/Grid";
-import { Link, useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 import Button from "@mui/material/Button";
 import "./style.scss";
 import Box from "@mui/material/Box";
@@ -26,54 +26,40 @@ import TableCell from "@mui/material/TableCell";
 import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
-import axiosInstance from "../../Utils/axios";
 
 function ProductPlantsPage(props) {
     const [product, setProduct] = useState([]);
     const [tags, setTags] = useState([]);
+    const [id,  setId] = useState(null);
     const [numberOfBuy, setNumberOfBuy] = useState(1);
     const [totalPrice, setTotalPrice] = useState(0);
     const [album, setAlbum] = useState([]);
     const [currentImage, setCurrentImage] = useState(0);
     const [imageName, setImageName] = useState([]);
-    // const { id } = useParams()
-
-
     useEffect(() => {
-      axiosInstance
-        .get("v1/store/plants/", {
-          params: {
-            count: 0,
-            environment: 2,
-            growth_rate: 0,
-            light: 1,
-            name: 'test',
-            page: 2,
-            page_size: 1,
-            price: 5,
-            tags: '3fa85f64-5717-4562-b3fc-2c963f66afa6',
-            water: 1,
-          },
-        })
-        .then((response) => {
-          console.log("ghoo" , response)
-          setProduct(response.data);
-        })
-        // .then(() => {
-        //   setTotalPrice(product.price);
-        // })
-        // .then((data) => {
-        //   setTags(data);
-        // })
-        // .then((data) => {
-        //   setAlbum(data);
-        //   setImageName(data[0]);
-        // })
-        .catch((error) => {
-          console.error(error);
-        });
-    }, []);
-  
+        setId(props.match.params.id)
+    }, [props.match])
+
+  useEffect(() => {
+    fetch("http://127.0.0.1:8000/api/plantsRUD/" + id + "/")
+      .then((response) => response.json())
+      .then((data) => setProduct(data))
+      .then(() => {
+        setTotalPrice(product.price);
+      });
+
+    fetch("http://127.0.0.1:8000/api/plantTags/" + id + "/")
+      .then((response) => response.json())
+      .then((data) => {
+        setTags(data);
+      });
+    fetch("http://127.0.0.1:8000/api/plantAlbumImages/" + id + "/")
+      .then((response) => response.json())
+      .then((data) => {
+        setAlbum(data);
+        setImageName(data[0]);
+      });
+  }, []);
   function increaseBought() {
     if (numberOfBuy < 9) {
       setNumberOfBuy(numberOfBuy + 1);

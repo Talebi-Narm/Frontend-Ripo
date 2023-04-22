@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import Grid from '@mui/material/Grid'
 import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
-import AcceptedTicketCard from '../AcceptedTicketCard/AcceptedTicketCard'
+import AcceptedTicketCard from '../AcceptedTicketCard/index'
 
 function ShowMyTickets(props) {
   return (
