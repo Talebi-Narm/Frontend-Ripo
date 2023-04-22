@@ -75,7 +75,7 @@ function FAQsPage() {
           id="panel1a-header"
         >
           <Typography>
-            I don't have much light in my home. Which plants should I try?
+            I don{`'`}t have much light in my home. Which plants should I try?
           </Typography>
         </AccordionSummary>
         <AccordionDetails>
