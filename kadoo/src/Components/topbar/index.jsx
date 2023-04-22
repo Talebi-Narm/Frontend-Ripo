@@ -1,9 +1,10 @@
+/* eslint-disable no-bitwise */
+import "./style.scss";
+import LanguageIcon from "@mui/icons-material/Language";
+import NotificationsNoneIcon from "@mui/icons-material/NotificationsNone";
+import SettingsIcon from "@mui/icons-material/Settings";
+import Avatar from "@mui/material/Avatar";
 import React from "react";
-import Avatar from '@mui/material/Avatar';
-import "./rtyle.scss";
-import NotificationsNoneIcon from '@mui/icons-material/NotificationsNone';
-import LanguageIcon from '@mui/icons-material/Language';
-import SettingsIcon from '@mui/icons-material/Settings';
 
 function stringToColor(string) {
   let hash = 0;
@@ -13,7 +14,7 @@ function stringToColor(string) {
     hash = string.charCodeAt(i) + ((hash << 5) - hash);
   }
 
-  let color = '#';
+  let color = "#";
 
   for (i = 0; i < 3; i += 1) {
     const value = (hash >> (i * 8)) & 0xff;
@@ -28,10 +29,9 @@ function stringAvatar(name) {
     sx: {
       bgcolor: stringToColor(name),
     },
-    children: `${name.split(' ')[0][0]}${name.split(' ')[1][0]}`,
+    children: `${name.split(" ")[0][0]}${name.split(" ")[1][0]}`,
   };
 }
-
 
 export default function Topbar() {
   return (
@@ -52,7 +52,7 @@ export default function Topbar() {
           <div className="topbarIconContainer">
             <SettingsIcon />
           </div>
-          <Avatar {...stringAvatar('Hasti Karamdel')} />
+          <Avatar {...stringAvatar("Hasti Karamdel")} />
         </div>
       </div>
     </div>
