@@ -34,7 +34,7 @@ const Theme = createTheme({
     fontWeightRegular: 600,
   },
   shape: {
-    borderRadius: "14px",
+    borderRadius: 14,
   },
   props: {
     MuiTooltip: {
