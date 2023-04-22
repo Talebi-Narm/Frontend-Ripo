@@ -3,6 +3,7 @@ import Grid from "@mui/material/Grid";
 import IconButton from "@mui/material/IconButton";
 import InputBase from "@mui/material/InputBase";
 import { styled, alpha } from "@mui/material/styles";
+import React, { useState } from "react";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
