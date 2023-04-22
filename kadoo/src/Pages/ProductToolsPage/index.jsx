@@ -1,28 +1,28 @@
-import * as React from "react";
-import Grid from "@mui/material/Grid";
-import Button from "@mui/material/Button";
 import "../ProductPlantsPage/style.scss";
-import Box from "@mui/material/Box";
-import Chip from "@mui/material/Chip";
 import AddIcon from "@mui/icons-material/Add";
-import RemoveIcon from "@mui/icons-material/Remove";
-import IconButton from "@mui/material/IconButton";
-import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
-import AppBar from "../../Components/AppBar";
-import Typography from "@mui/material/Typography";
-import Divider from "@mui/material/Divider";
-import Card from "@mui/material/Card";
+import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
+import RemoveIcon from "@mui/icons-material/Remove";
 import TagIcon from "@mui/icons-material/Tag";
-import { Link } from "react-router-dom";
+import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
+import Card from "@mui/material/Card";
+import Chip from "@mui/material/Chip";
+import Divider from "@mui/material/Divider";
+import Grid from "@mui/material/Grid";
+import IconButton from "@mui/material/IconButton";
+import Typography from "@mui/material/Typography";
 import Image from "mui-image";
-import { useState } from "react";
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
+import * as React from "react";
+import { Link } from "react-router-dom";
 import axiosInstance from "../../Utils/axios";
+import AppBar from "../../Components/AppBar";
 
 function ProductToolsPage(props) {
   const [product, setProduct] = useState([]);
   const [toolTags, setToolTags] = useState("");
+  const [id, setId] = useState();
   const [numberOfBuy, setNumberOfBuy] = useState(1);
   const [totalPrice, setTotalPrice] = useState(0);
   const [album, setAlbum] = useState([]);
@@ -61,37 +61,16 @@ function ProductToolsPage(props) {
       });
   }, []);
 
-  // useEffect(() => {
-  //   fetch("http://127.0.0.1:8000/api/toolsRUD/" + id + "/")
-  //     .then((response) => response.json())
-  //     .then((data) => setProduct(data))
-  //     .then(() => {
-  //       setTotalPrice(product.price);
-  //     });
-
-  //   fetch("http://127.0.0.1:8000/api/toolTags/" + id + "/")
-  //     .then((response) => response.json())
-  //     .then((data) => {
-  //       setToolTags(data);
-  //     });
-  //   fetch("http://127.0.0.1:8000/api/toolAlbumImages/" + id + "/")
-  //     .then((response) => response.json())
-  //     .then((data) => {
-  //       setAlbum(data);
-  //       setImageName(data[0]);
-  //     });
-  // }, []);
-
   function increaseBought() {
     if (numberOfBuy < 9) {
-      setNumberOfBuy(numberOfBuy + 1)
-      setTotalPrice(( numberOfBuy + 1) * product.price);
+      setNumberOfBuy(numberOfBuy + 1);
+      setTotalPrice((numberOfBuy + 1) * product.price);
     }
   }
-  function decreaseBought(){
+  function decreaseBought() {
     if (numberOfBuy > 1) {
-        setNumberOfBuy(numberOfBuy - 1)
-        setTotalPrice((numberOfBuy - 1) * product.price)
+      setNumberOfBuy(numberOfBuy - 1);
+      setTotalPrice((numberOfBuy - 1) * product.price);
     }
   }
 
@@ -115,7 +94,7 @@ function ProductToolsPage(props) {
     const requestOptions = {
       method: "POST",
       headers: {
-        Authorization: "JWT " + localStorage.getItem("access_token"),
+        Authorization: `JWT ${localStorage.getItem("access_token")}`,
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
@@ -236,10 +215,10 @@ function ProductToolsPage(props) {
     <Grid container style={{ minHeight: "100vh" }} sx={{ pb: 2 }}>
       <Box style={{ width: "100%" }}>
         <AppBar
-          SearchOption={true}
-          TicketOption={true}
-          CartOption={true}
-          AuthorizationOption={true}
+          SearchOption
+          TicketOption
+          CartOption
+          AuthorizationOption
           DrawerOption={false}
         />
       </Box>
@@ -297,8 +276,8 @@ function ProductToolsPage(props) {
                     <Image
                       src={
                         imageName === undefined
-                          ? "http://127.0.0.1:8000" + product.image
-                          : "http://127.0.0.1:8000" + imageName.image
+                          ? `http://127.0.0.1:8000${product.image}`
+                          : `http://127.0.0.1:8000${imageName.image}`
                       }
                       width="100%"
                       height="100%"
@@ -351,10 +330,8 @@ function ProductToolsPage(props) {
                         <Image
                           src={
                             imageName === undefined
-                              ? "http://127.0.0.1:8000" +
-                                product.image
-                              : "http://127.0.0.1:8000" +
-                                imageName.image
+                              ? `http://127.0.0.1:8000${product.image}`
+                              : `http://127.0.0.1:8000${imageName.image}`
                           }
                           className="mainImage"
                           shift="bottom"
@@ -496,7 +473,7 @@ function ProductToolsPage(props) {
                                 }}
                               >
                                 <Typography sx={{ mr: 0.5, mt: 0.5 }}>
-                                  {"NO TAGS!"}
+                                  NO TAGS!
                                 </Typography>
                               </Box>
                             )}
@@ -535,7 +512,7 @@ function ProductToolsPage(props) {
                                   <Chip
                                     label={
                                       <Typography variant="h6">
-                                        {product.price + "$"}
+                                        {`${product.price}$`}
                                       </Typography>
                                     }
                                     color="success"
@@ -603,11 +580,7 @@ function ProductToolsPage(props) {
                                         boxShadow: 1,
                                       }}
                                     >
-                                      {
-                                        <Typography>
-                                          {numberOfBuy}
-                                        </Typography>
-                                      }
+                                      <Typography>{numberOfBuy}</Typography>
                                     </Box>
                                     <IconButton
                                       size="large"
@@ -631,15 +604,13 @@ function ProductToolsPage(props) {
                                   }}
                                   className="ProductPageTitle"
                                 >
-                                  <Link to={"/cart/"}>
+                                  <Link to="/cart/">
                                     <Button
                                       variant="contained"
                                       className="productsPageAdd"
                                       onClick={addToBasket}
                                     >
-                                      {"Add To Cart (" +
-                                        totalPrice +
-                                        "$)"}
+                                      {`Add To Cart (${totalPrice}$)`}
                                     </Button>
                                   </Link>
                                 </Grid>
@@ -690,7 +661,6 @@ function ProductToolsPage(props) {
       </Grid>
     </Grid>
   );
-                                
 }
 
 export default ProductToolsPage;
