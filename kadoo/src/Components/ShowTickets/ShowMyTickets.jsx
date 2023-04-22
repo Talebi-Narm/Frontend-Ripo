@@ -1,8 +1,8 @@
-import Box from "@mui/material/Box";
-import Grid from "@mui/material/Grid";
-import Typography from "@mui/material/Typography";
-import React from "react";
-import AcceptedTicketCard from "../AcceptedTicketCard/index";
+import React from 'react'
+import Grid from '@mui/material/Grid'
+import Box from '@mui/material/Box'
+import Typography from '@mui/material/Typography'
+import AcceptedTicketCard from '../AcceptedTicketCard/AcceptedTicketCard'
 
 function ShowMyTickets(props) {
   return (

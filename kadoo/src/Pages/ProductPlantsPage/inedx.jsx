@@ -57,16 +57,16 @@ function ProductPlantsPage(props) {
         .then((response) => {
           setProduct(response.data);
         })
-        // .then(() => {
-        //   setTotalPrice(product.price);
-        // })
-        // .then((data) => {
-        //   setTags(data);
-        // })
-        // .then((data) => {
-        //   setAlbum(data);
-        //   setImageName(data[0]);
-        // })
+        .then(() => {
+          setTotalPrice(product.price);
+        })
+        .then((data) => {
+          setTags(data);
+        })
+        .then((data) => {
+          setAlbum(data);
+          setImageName(data[0]);
+        })
         .catch((error) => {
           console.error(error);
         });
