@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Grid from "@mui/material/Grid";
-import { Link, useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 import Button from "@mui/material/Button";
 import "./style.scss";
 import Box from "@mui/material/Box";
@@ -59,16 +59,16 @@ function ProductPlantsPage(props) {
           console.log("ghoo" , response)
           setProduct(response.data);
         })
-        // .then(() => {
-        //   setTotalPrice(product.price);
-        // })
-        // .then((data) => {
-        //   setTags(data);
-        // })
-        // .then((data) => {
-        //   setAlbum(data);
-        //   setImageName(data[0]);
-        // })
+        .then(() => {
+          setTotalPrice(product.price);
+        })
+        .then((data) => {
+          setTags(data);
+        })
+        .then((data) => {
+          setAlbum(data);
+          setImageName(data[0]);
+        })
         .catch((error) => {
           console.error(error);
         });
