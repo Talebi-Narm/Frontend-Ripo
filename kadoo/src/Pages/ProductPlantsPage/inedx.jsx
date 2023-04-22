@@ -27,6 +27,7 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 import AppBar from "../../Components/AppBar";
+import axiosInstance from "../../Utils/axios";
 
 function ProductPlantsPage(props) {
     const [product, setProduct] = useState([]);
@@ -37,27 +38,65 @@ function ProductPlantsPage(props) {
     const [currentImage, setCurrentImage] = useState(0);
     const [imageName, setImageName] = useState([]);
 
-
-  useEffect(() => {
-    fetch(`http://127.0.0.1:8000/api/plantsRUD/${id}/`)
-      .then((response) => response.json())
-      .then((data) => setProduct(data))
-      .then(() => {
-        setTotalPrice(product.price);
-      });
-
-    fetch(`http://127.0.0.1:8000/api/plantTags/${id}/`)
-      .then((response) => response.json())
-      .then((data) => {
-        setTags(data);
-      });
-    fetch(`http://127.0.0.1:8000/api/plantAlbumImages/${id}/`)
-      .then((response) => response.json())
-      .then((data) => {
-        setAlbum(data);
-        setImageName(data[0]);
-      });
-  }, []);
+    useEffect(() => {
+      axiosInstance
+        .get("v1/store/plants/", {
+          params: {
+            count: 0,
+            environment: 2,
+            growth_rate: 0,
+            light: 1,
+            name: 'test',
+            page: 2,
+            page_size: 1,
+            price: 5,
+            tags: '3fa85f64-5717-4562-b3fc-2c963f66afa6',
+            water: 1,
+          },
+        })
+        .then((response) => {
+          setProduct(response.data);
+        })
+        // .then(() => {
+        //   setTotalPrice(product.price);
+        // })
+        // .then((data) => {
+        //   setTags(data);
+        // })
+        // .then((data) => {
+        //   setAlbum(data);
+        //   setImageName(data[0]);
+        // })
+        .catch((error) => {
+          console.error(error);
+        });
+    }, []);
+  
+    // useEffect(() => {
+    // fetch("http://146.190.205.127:443/api/v1/store/plants" + id + "/")
+    //   // .then((response) => response.json())
+    //   .then((response) => console.log(response,"ghoooo"))
+    //   .catch((error) => {console.error(error)
+    //   });
+      // .then((data) => setProduct(data))
+      // .then(() => {
+      //   setTotalPrice(product.price);
+      // });
+      // }, []);
+  
+    // fetch("http://127.0.0.1:8000/api/plantTags/" + id + "/")
+    //   .then((response) => response.json())
+    //   .then((data) => {
+    //     setTags(data);
+    //   });
+    // fetch("http://127.0.0.1:8000/api/plantAlbumImages/" + id + "/")
+    //   .then((response) => response.json())
+    // .then((data) => {
+    //   setAlbum(data);
+    //   setImageName(data[0]);
+    // });
+    // }, []);
+  
   function increaseBought() {
     if (numberOfBuy < 9) {
       setNumberOfBuy(numberOfBuy + 1);
