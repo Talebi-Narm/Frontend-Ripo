@@ -1,20 +1,17 @@
-import React, { useEffect, useState } from 'react'
-import Grid from '@mui/material/Grid'
-import Box from '@mui/material/Box'
-import { styled } from '@mui/material/styles'
-import Paper from '@mui/material/Paper'
-import ProductIcon1 from '../productIcon/productIcon1'
-import ToolsCart from '../ProductsCart/ToolsCart'
+import Box from "@mui/material/Box";
+import Grid from "@mui/material/Grid";
+import React from "react";
 
+import ToolsCart from "../ProductsCart/ToolsCart";
 
 function ShowToolsOneRow(props) {
   return (
     <div>
-      <Box sx={{ width: '100%' }}>
+      <Box sx={{ width: "100%" }}>
         <Grid
           container
           spacing={2}
-          sx={{ display: { xs: 'flex', sm: 'none' } }}
+          sx={{ display: { xs: "flex", sm: "none" } }}
         >
           {props.data.slice(0, 3).map((p) => (
             <Grid item xs={12}>
@@ -25,7 +22,7 @@ function ShowToolsOneRow(props) {
         <Grid
           container
           spacing={2}
-          sx={{ display: { xs: 'none', sm: 'flex', md: 'none' } }}
+          sx={{ display: { xs: "none", sm: "flex", md: "none" } }}
         >
           {props.data.slice(0, 2).map((p) => (
             <Grid item xs={6}>
@@ -35,9 +32,9 @@ function ShowToolsOneRow(props) {
         </Grid>
         <Grid
           container
-          direction='row'
+          direction="row"
           spacing={2}
-          sx={{ display: { xs: 'none', sm: 'none', md: 'flex' } }}
+          sx={{ display: { xs: "none", sm: "none", md: "flex" } }}
         >
           {props.data.slice(0, 3).map((p) => (
             <Grid item xs={4}>
@@ -47,7 +44,7 @@ function ShowToolsOneRow(props) {
         </Grid>
       </Box>
     </div>
-  )
+  );
 }
 
-export default ShowToolsOneRow
+export default ShowToolsOneRow;
