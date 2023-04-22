@@ -36,7 +36,6 @@ function ProductPlantsPage(props) {
     const [album, setAlbum] = useState([]);
     const [currentImage, setCurrentImage] = useState(0);
     const [imageName, setImageName] = useState([]);
-    // const { id } = useParams()
 
 
     useEffect(() => {
