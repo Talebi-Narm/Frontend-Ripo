@@ -1,46 +1,39 @@
+import AddAlarmIcon from "@mui/icons-material/AddAlarm";
+import CloseIcon from "@mui/icons-material/Close";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
-import NatureIcon from "@mui/icons-material/Nature";
+import MoreVertIcon from "@mui/icons-material/MoreVert";
 import OpacityIcon from "@mui/icons-material/Opacity";
-import WbSunnyIcon from "@mui/icons-material/WbSunny";
-import Avatar from "@mui/material/Avatar";
+import { Avatar, Dialog } from "@mui/material";
 import Box from "@mui/material/Box";
 import Card from "@mui/material/Card";
-import Grid from "@mui/material/Grid";
-import { makeStyles } from "@mui/styles";
-import cx from 'clsx'
-import React from 'react'
-import CardMedia from "@mui/material/CardMedia";
 import CardContent from "@mui/material/CardContent";
-import IconButton from "@mui/material/IconButton";
-import { useSoftRiseShadowStyles } from "@mui-treasury/styles/shadow/softRise";
-import { useSlopeCardMediaStyles } from "@mui-treasury/styles/cardMedia/slope";
-import { useN01TextInfoContentStyles } from "@mui-treasury/styles/textInfoContent/n01";
-import TextInfoContent from "@mui-treasury/components/content/textInfo";
-import { Link } from "react-router-dom";
-import "./GreenHouseCard.scss";
+import CardMedia from "@mui/material/CardMedia";
+import DialogContent from "@mui/material/DialogContent";
+import DialogTitle from "@mui/material/DialogTitle";
 import Fab from "@mui/material/Fab";
-
-import history from "../../history";
-
-import { ThemeProvider, styled } from "@mui/material/styles";
-
-import Theme from "../../Theme/ThemeGenerator";
-
+import Grid from "@mui/material/Grid";
+import IconButton from "@mui/material/IconButton";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
-import MoreVertIcon from "@mui/icons-material/MoreVert";
-import AddAlarmIcon from "@mui/icons-material/AddAlarm";
-import DialogTitle from "@mui/material/DialogTitle";
-import DialogContent from "@mui/material/DialogContent";
-import DialogActions from "@mui/material/DialogActions";
-import Dialog from "@mui/material/Dialog";
-
-import Reminder from "../Reminder";
-
-import Button from "@mui/material/Button";
+import { ThemeProvider, styled } from "@mui/material/styles";
+import { makeStyles } from "@mui/styles";
+import TextInfoContent from "@mui-treasury/components/content/textInfo";
+// eslint-disable-next-line import/no-extraneous-dependencies
+import { useSlopeCardMediaStyles } from "@mui-treasury/styles/cardMedia/slope";
+// eslint-disable-next-line import/no-extraneous-dependencies
+import { useSoftRiseShadowStyles } from "@mui-treasury/styles/shadow/softRise";
+// eslint-disable-next-line import/no-extraneous-dependencies
+import { useN01TextInfoContentStyles } from "@mui-treasury/styles/textInfoContent/n01";
+// eslint-disable-next-line import/no-extraneous-dependencies
+import cx from "clsx";
+// eslint-disable-next-line import/no-extraneous-dependencies
 import PropTypes from "prop-types";
-import CloseIcon from "@mui/icons-material/Close";
+import React from "react";
+
+import "./GreenHouseCard.scss";
+import Theme from "../../Theme/ThemeGenerator";
+import Reminder from "../Reminder/index";
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   "& .MuiDialogContent-root": {
@@ -76,6 +69,7 @@ function BootstrapDialogTitle(props) {
 }
 
 BootstrapDialogTitle.propTypes = {
+  // eslint-disable-next-line react/require-default-props
   children: PropTypes.node,
   onClose: PropTypes.func.isRequired,
 };
@@ -110,9 +104,13 @@ function GreenHouseCard(props) {
 
   React.useEffect(() => {}, [reminderOpen]);
 
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
   const handleClickCalendar = () => {
     if (props.data.haveCalendar) {
-      history.push("https://calendar.google.com/");
+      // history.push("https://calendar.google.com/");
       window.location.reload(true);
     } else {
       setReminderOpen(true);
@@ -131,9 +129,6 @@ function GreenHouseCard(props) {
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
 
   const handleDelete = () => {
     const requestOptions = {
@@ -148,11 +143,7 @@ function GreenHouseCard(props) {
       fetch(
         `http://127.0.0.1:8000/api/myPlantsRUD/${props.data.id}/`,
         requestOptions
-      ).then(async (response) => {
-        const isJson = response.headers
-          .get("content-type")
-          .includes("application/json");
-        const data = isJson ? await response.json() : null;
+      ).then(async () => {
         props.reloadFunc();
       });
     }, 500);
