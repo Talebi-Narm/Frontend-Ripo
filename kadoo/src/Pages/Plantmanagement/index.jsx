@@ -1,475 +1,468 @@
-import React, { useEffect, useState, useRef } from 'react'
-import Grid from '@mui/material/Grid'
-import Typography from '@mui/material/Typography'
-import Slide from '@mui/material/Slide'
-import Box from '@mui/material/Box'
-import AppBar from '../../Components/AppBar'
-import DefAppBar from '@mui/material/AppBar'
-import Stack from '@mui/material/Stack'
-import Button from '@mui/material/Button'
-import IconButton from '@mui/material/IconButton'
-import Alert from '@mui/material/Alert'
-import SkeletonArticle from '../../Components/Cart/SkeletonArticle'
-import Dialog from '@mui/material/Dialog'
-import ShowGreenHouse from '../../Components/ShowProduct/ShowGreenHouse'
-import CloseIcon from '@mui/icons-material/Close'
-import Toolbar from '@mui/material/Toolbar'
-import Fab from '@mui/material/Fab'
-import { useTheme } from '@mui/material/styles'
-import Zoom from '@mui/material/Zoom'
-import AddIcon from '@mui/icons-material/Add'
-import GreenHouseEdit from '../GreenHouseEdit'
+import AddIcon from "@mui/icons-material/Add";
+import CloseIcon from "@mui/icons-material/Close";
+import Alert from "@mui/material/Alert";
+import DefAppBar from "@mui/material/AppBar";
+import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
+import Dialog from "@mui/material/Dialog";
+import Fab from "@mui/material/Fab";
+import Grid from "@mui/material/Grid";
+import IconButton from "@mui/material/IconButton";
+import Slide from "@mui/material/Slide";
+import Stack from "@mui/material/Stack";
+import { useTheme, ThemeProvider } from "@mui/material/styles";
+import Toolbar from "@mui/material/Toolbar";
+import Typography from "@mui/material/Typography";
+import Zoom from "@mui/material/Zoom";
+import React, { useEffect, useState, useRef } from "react";
 
-import './style.scss'
+import AppBar from "../../Components/AppBar";
+import SkeletonArticle from "../../Components/Cart/SkeletonArticle";
+import ShowGreenHouse from "../../Components/ShowProduct/ShowGreenHouse";
+import Theme from "../../Theme/ThemeGenerator";
+import GreenHouseEdit from "../GreenHouseEdit";
+
+import "./style.scss";
 // Import Theme Files
-import { ThemeProvider } from '@mui/material/styles'
-import Theme from '../../Theme/ThemeGenerator'
-
 
 const Transition = React.forwardRef(function Transition(props, ref) {
-  return <Slide direction='up' ref={ref} {...props} />
-})
+  return <Slide direction="up" ref={ref} {...props} />;
+});
 
-function Plantmanagment(props) {
-  const theme = useTheme()
+function Plantmanagment() {
+  const theme = useTheme();
   const fabStyle = {
-    position: 'fixed',
+    position: "fixed",
     bottom: 16,
     right: 16,
-  }
+  };
 
   const transitionDuration = {
     enter: theme.transitions.duration.enteringScreen,
     exit: theme.transitions.duration.leavingScreen,
-  }
+  };
 
   const fabs = [
     {
-      color: 'primary',
+      color: "primary",
       sx: fabStyle,
       icon: <AddIcon />,
-      label: 'Add',
+      label: "Add",
     },
-  ]
-  ///const containerRef = React.useRef(null)
+  ];
+  /// const containerRef = React.useRef(null)
   const initialData = Object.freeze({
-    id: '',
-    name: '',
-    description: '',
-    image: '',
-    location: '',
+    id: "",
+    name: "",
+    description: "",
+    image: "",
+    location: "",
     isArchived: false,
-    created: '',
-    modified: '',
+    created: "",
+    modified: "",
     user: 0,
-  })
-  const [openDrawer, setOpenDrawer] = React.useState([false])
-  const [plantData, setPlantData] = React.useState([])
-  const [plantId, setPlantId] = React.useState([])
-  const [plantDataLoaded, setPlantDataLoaded] = React.useState(false)
-  const [value, setValue] = React.useState(0)
-  const [reload, setReload] = React.useState(false)
-  const [open, setOpen] = React.useState(false)
-  const [enable, setEnable] = React.useState(false)
-  const [newPlant, setNewPlant] = React.useState(true)
-  const [plantInfo, setPlantInfo] = React.useState(initialData)
-  const [newPlantInfo, setNewPlantInfo] = React.useState(initialData)
-  const [errorData, updateErrorData] = useState(initialData)
-  const [selectedFile, setSelectedFile] = React.useState(null)
-  const [preview, setPreview] = React.useState(null)
-  const [imageChange, setImageChange] = React.useState(false)
-  const [coins, setCoinsNumber] = useState(0)
+  });
+  const value = 0;
+  const reload = false;
+  const [openDrawer, setOpenDrawer] = React.useState([false]);
+  const [plantData, setPlantData] = React.useState([]);
+  const [plantId, setPlantId] = React.useState([]);
+  const [plantDataLoaded, setPlantDataLoaded] = React.useState(false);
+  const [open, setOpen] = React.useState(false);
+  const [enable, setEnable] = React.useState(false);
+  const [newPlant, setNewPlant] = React.useState(true);
+  const [plantInfo, setPlantInfo] = React.useState(initialData);
+  const [newPlantInfo, setNewPlantInfo] = React.useState(initialData);
+  const [errorData, updateErrorData] = useState(initialData);
+  const [selectedFile, setSelectedFile] = React.useState(null);
+  const [preview, setPreview] = React.useState(null);
+  const [imageChange, setImageChange] = React.useState(false);
 
-  const childRef = useRef()
+  const childRef = useRef();
+
+  const handleReload = () => {
+    window.location.reload(true);
+  };
+
+  const handleCapture = (event) => {
+    setSelectedFile(event.target.files[0]);
+    setImageChange(true);
+  };
+
+  const handleReset = () => {
+    setSelectedFile(null);
+    setImageChange(false);
+    setPreview(null);
+    setPlantInfo(initialData);
+    setNewPlantInfo(initialData);
+  };
+
+  const handleClose = () => {
+    handleReset();
+    setNewPlant(true);
+    setOpen(false);
+  };
+
+  const handleCreate = () => {
+    updateErrorData({
+      ...errorData,
+      name: "",
+    });
+    updateErrorData({
+      ...errorData,
+      description: "",
+    });
+    updateErrorData({
+      ...errorData,
+      location: "",
+    });
+    updateErrorData({
+      ...errorData,
+      image: "",
+    });
+    const formData = new FormData();
+    if (newPlantInfo.name !== "") {
+      formData.append("name", newPlantInfo.name);
+    } else {
+      alert("Enter the name of plant!");
+      return;
+    }
+    if (selectedFile !== null) {
+      formData.append("image", selectedFile, selectedFile.name);
+    } else {
+      alert("Select Image for the plant!");
+      return;
+    }
+    formData.append("description", newPlantInfo.description);
+    formData.append("location", newPlantInfo.location);
+
+    const requestOptions = {
+      method: "POST",
+      headers: { Authorization: `JWT ${localStorage.getItem("access_token")}` },
+      body: formData,
+    };
+    fetch("http://127.0.0.1:8000/api/myPlants/", requestOptions)
+      .then((response) => {
+        if (response.status === 401 || response.status === 400) {
+          throw response;
+        } else {
+          alert("Plant Added!");
+          handleReload();
+          handleClose();
+        }
+      })
+      .catch((err) => {
+        err.text().then((errorMessage) => {
+          const errors = JSON.parse(errorMessage);
+
+          if (errors.first_name !== undefined) {
+            updateErrorData({
+              ...errorData,
+              name: errors.name,
+            });
+            return;
+          }
+
+          if (errors.last_name !== undefined) {
+            updateErrorData({
+              ...errorData,
+              description: errors.description,
+            });
+            return;
+          }
+
+          if (errors.user_name !== undefined) {
+            updateErrorData({
+              ...errorData,
+              location: errors.location,
+            });
+            return;
+          }
+
+          if (errors.email !== undefined) {
+            updateErrorData({
+              ...errorData,
+              image: errors.image,
+            });
+          }
+        });
+      });
+  };
+
+  const handleUpdate = () => {
+    updateErrorData({
+      ...errorData,
+      name: "",
+    });
+    updateErrorData({
+      ...errorData,
+      description: "",
+    });
+    updateErrorData({
+      ...errorData,
+      location: "",
+    });
+    updateErrorData({
+      ...errorData,
+      image: "",
+    });
+    const formData = new FormData();
+    if (newPlantInfo.name !== "") {
+      formData.append("name", newPlantInfo.name);
+    } else {
+      alert("Enter the name of plant!");
+      return;
+    }
+    formData.append("description", newPlantInfo.description);
+    formData.append("location", newPlantInfo.location);
+    if (selectedFile !== null) {
+      formData.append("image", selectedFile, selectedFile.name);
+    } else {
+      formData.append("image", "");
+    }
+
+    const requestOptions = {
+      method: "PUT",
+      headers: { Authorization: `JWT ${localStorage.getItem("access_token")}` },
+      body: formData,
+    };
+    fetch(
+      `http://127.0.0.1:8000/api/myPlantsRUD/${plantInfo.id}/`,
+      requestOptions
+    )
+      .then((response) => {
+        if (response.status === 401 || response.status === 400) {
+          throw response;
+        } else {
+          alert("Plant Updated!");
+          handleReload();
+          handleClose();
+        }
+      })
+      .catch((err) => {
+        err.text().then((errorMessage) => {
+          const errors = JSON.parse(errorMessage);
+
+          if (errors.first_name !== undefined) {
+            updateErrorData({
+              ...errorData,
+              name: errors.name,
+            });
+            return;
+          }
+
+          if (errors.last_name !== undefined) {
+            updateErrorData({
+              ...errorData,
+              description: errors.description,
+            });
+            return;
+          }
+
+          if (errors.user_name !== undefined) {
+            updateErrorData({
+              ...errorData,
+              location: errors.location,
+            });
+            return;
+          }
+
+          if (errors.email !== undefined) {
+            updateErrorData({
+              ...errorData,
+              image: errors.image,
+            });
+          }
+        });
+      });
+  };
+
+  const handleSubmit = () => {
+    if (newPlant) {
+      handleCreate();
+    } else {
+      handleUpdate();
+    }
+    childRef.current.reloadAll();
+  };
+
+  const handleClickOpen = () => {
+    const requestOptions = {
+      method: "GET",
+      headers: {
+        Authorization: `JWT ${localStorage.getItem("access_token")}`,
+        "Content-Type": "application/json",
+      },
+    };
+    async function ReloadCoin() {
+      await fetch("http://127.0.0.1:8000/api/coin/get/", requestOptions)
+        .then((response) => response.json())
+        .then((data) => {
+          if (data.coin_value >= 50) {
+            setPlantInfo(initialData);
+            setNewPlant(true);
+            setOpen(true);
+          } else {
+            alert("You dont have enough coin!");
+          }
+        });
+    }
+    ReloadCoin();
+  };
+
+  const handleClickOpenEdit = (data) => {
+    setPlantInfo(data);
+    setNewPlantInfo(data);
+    setNewPlant(false);
+    setOpen(true);
+  };
 
   function srcToFile(src, fileName, mimeType) {
     return fetch(src)
-      .then(function (res) {
-        return res.arrayBuffer()
+      .then((res) => {
+        return res.arrayBuffer();
       })
-      .then(function (buf) {
-        return new File([buf], fileName, { type: mimeType })
-      })
+      .then((buf) => {
+        return new File([buf], fileName, { type: mimeType });
+      });
   }
 
   useEffect(() => {
     // create the preview
     if (selectedFile != null) {
-      const objectUrl = URL.createObjectURL(selectedFile)
-      setPreview(objectUrl)
-      return () => URL.revokeObjectURL(objectUrl)
+      const objectUrl = URL.createObjectURL(selectedFile);
+      setPreview(objectUrl);
+      return () => URL.revokeObjectURL(objectUrl);
     }
-  }, [selectedFile])
-
-  const handleCapture = (event) => {
-    setSelectedFile(event.target.files[0])
-    setImageChange(true)
-  }
-
-  const handleSubmit = () => {
-    if (newPlant) {
-      handleCreate()
-    } else {
-      handleUpdate()
-    }
-    childRef.current.reloadAll()
-  }
-
-  const handleUpdate = () => {
-
-    updateErrorData({
-      ...errorData,
-      name: '',
-    })
-    updateErrorData({
-      ...errorData,
-      description: '',
-    })
-    updateErrorData({
-      ...errorData,
-      location: '',
-    })
-    updateErrorData({
-      ...errorData,
-      image: '',
-    })
-    const formData = new FormData()
-    if (newPlantInfo.name !== '') {
-      formData.append('name', newPlantInfo.name)
-    } else {
-      alert('Enter the name of plant!')
-      return
-    }
-    formData.append('description', newPlantInfo.description)
-    formData.append('location', newPlantInfo.location)
-    if (selectedFile !== null) {
-      formData.append('image', selectedFile, selectedFile.name)
-    } else {
-      formData.append('image', '')
-    }
-
-    const requestOptions = {
-      method: 'PUT',
-      headers: { Authorization: 'JWT ' + localStorage.getItem('access_token') },
-      body: formData,
-    }
-    fetch(
-      'http://127.0.0.1:8000/api/myPlantsRUD/' + plantInfo.id + '/',
-      requestOptions
-    )
-      .then((response) => {
-        if (response.status === 401 || response.status === 400) {
-          throw response
-        } else {
-          alert('Plant Updated!')
-          handleReload()
-          handleClose()
-        }
-      })
-      .catch((err) => {
-        err.text().then((errorMessage) => {
-          const errors = JSON.parse(errorMessage)
-
-          if (errors.first_name !== undefined) {
-            updateErrorData({
-              ...errorData,
-              name: errors.name,
-            })
-            return
-          }
-
-          if (errors.last_name !== undefined) {
-            updateErrorData({
-              ...errorData,
-              description: errors.description,
-            })
-            return
-          }
-
-          if (errors.user_name !== undefined) {
-            updateErrorData({
-              ...errorData,
-              location: errors.location,
-            })
-            return
-          }
-
-          if (errors.email !== undefined) {
-            updateErrorData({
-              ...errorData,
-              image: errors.image,
-            })
-            return
-          }
-        })
-      })
-  }
-
-  const handleCreate = () => {
-
-    updateErrorData({
-      ...errorData,
-      name: '',
-    })
-    updateErrorData({
-      ...errorData,
-      description: '',
-    })
-    updateErrorData({
-      ...errorData,
-      location: '',
-    })
-    updateErrorData({
-      ...errorData,
-      image: '',
-    })
-    const formData = new FormData()
-    if (newPlantInfo.name !== '') {
-      formData.append('name', newPlantInfo.name)
-    } else {
-      alert('Enter the name of plant!')
-      return
-    }
-    if (selectedFile !== null) {
-      formData.append('image', selectedFile, selectedFile.name)
-    } else {
-      alert('Select Image for the plant!')
-      return
-    }
-    formData.append('description', newPlantInfo.description)
-    formData.append('location', newPlantInfo.location)
-
-    const requestOptions = {
-      method: 'POST',
-      headers: { Authorization: 'JWT ' + localStorage.getItem('access_token') },
-      body: formData,
-    }
-    fetch('http://127.0.0.1:8000/api/myPlants/', requestOptions)
-      .then((response) => {
-        if (response.status === 401 || response.status === 400) {
-          throw response
-        } else {
-          alert('Plant Added!')
-          handleReload()
-          handleClose()
-        }
-      })
-      .catch((err) => {
-        err.text().then((errorMessage) => {
-          const errors = JSON.parse(errorMessage)
-
-          if (errors.first_name !== undefined) {
-            updateErrorData({
-              ...errorData,
-              name: errors.name,
-            })
-            return
-          }
-
-          if (errors.last_name !== undefined) {
-            updateErrorData({
-              ...errorData,
-              description: errors.description,
-            })
-            return
-          }
-
-          if (errors.user_name !== undefined) {
-            updateErrorData({
-              ...errorData,
-              location: errors.location,
-            })
-            return
-          }
-
-          if (errors.email !== undefined) {
-            updateErrorData({
-              ...errorData,
-              image: errors.image,
-            })
-            return
-          }
-        })
-      })
-  }
-
-  const handleReset = () => {
-    setSelectedFile(null)
-    setImageChange(false)
-    setPreview(null)
-    setPlantInfo(initialData)
-    setNewPlantInfo(initialData)
-  }
-
-  const handleClickOpen = () => {
-    const requestOptions = {
-      method: 'GET',
-      headers: {
-        Authorization: 'JWT ' + localStorage.getItem('access_token'),
-        'Content-Type': 'application/json',
-      },
-    }
-    async function ReloadCoin() {
-      await fetch('http://127.0.0.1:8000/api/coin/get/', requestOptions)
-        .then((response) => response.json())
-        .then((data) => {
-          setCoinsNumber(data.coin_value)
-
-          if (data.coin_value >= 50) {
-            setPlantInfo(initialData)
-            setNewPlant(true)
-            setOpen(true)
-          } else {
-            alert('You dont have enough coin!')
-            return
-          }
-        })
-    }
-    ReloadCoin()
-  }
-
-  const handleClose = () => {
-    handleReset()
-    setNewPlant(true)
-    setOpen(false)
-  }
-
-  const handleClickOpenEdit = (data) => {
-    setPlantInfo(data)
-    setNewPlantInfo(data)
-    setNewPlant(false)
-    setOpen(true)
-  }
+    return null;
+  }, [selectedFile]);
 
   useEffect(() => {
     if (plantInfo !== initialData) {
       if (selectedFile === null) {
         if (!newPlant) {
           srcToFile(
-            'http://127.0.0.1:8000' + plantInfo.image,
-            'file.jpg',
-            'image/jpg'
+            `http://127.0.0.1:8000${plantInfo.image}`,
+            "file.jpg",
+            "image/jpg"
           ).then((file) => {
-
-            setSelectedFile(file)
-          })
+            setSelectedFile(file);
+          });
         }
       }
     }
-  }, [plantInfo])
+  }, [plantInfo]);
 
   const handleDrawerOpen = () => {
-    setOpenDrawer(true)
-  }
+    setOpenDrawer(true);
+  };
 
   const handleDrawerClose = () => {
-    setOpenDrawer(false)
-  }
+    setOpenDrawer(false);
+  };
 
   useEffect(() => {
     if (JSON.stringify(plantInfo) === JSON.stringify(newPlantInfo)) {
-      setEnable(false)
+      setEnable(false);
     } else {
-      setEnable(true)
+      setEnable(true);
     }
-  }, [newPlantInfo])
+  }, [newPlantInfo]);
 
   const handleChangeInfo = (e) => {
     setNewPlantInfo({
       ...newPlantInfo,
       [e.target.name]: e.target.value.trim(),
-    })
+    });
     updateErrorData({
       ...errorData,
-      [e.target.name]: '',
-    })
-  }
-
-  const handleReload = () => {
-    window.location.reload(true)
-  }
+      [e.target.name]: "",
+    });
+  };
 
   useEffect(() => {
     if (plantData.length === plantId.length) {
-      setPlantDataLoaded(true)
+      setPlantDataLoaded(true);
     } else {
-      setPlantDataLoaded(false)
+      setPlantDataLoaded(false);
     }
-  }, [plantData])
+  }, [plantData]);
 
   useEffect(() => {
     const requestOptions = {
-      method: 'GET',
+      method: "GET",
       headers: {
-        Authorization: 'JWT ' + localStorage.getItem('access_token'),
-        'Content-Type': 'application/json',
+        Authorization: `JWT ${localStorage.getItem("access_token")}`,
+        "Content-Type": "application/json",
       },
-    }
+    };
 
-    setPlantDataLoaded(false)
+    setPlantDataLoaded(false);
     setTimeout(async () => {
-      setPlantData([])
+      setPlantData([]);
       plantId.map((p) => {
         fetch(
-          'http://127.0.0.1:8000/api/myPlantsRUD/' + p.id + '/',
+          `http://127.0.0.1:8000/api/myPlantsRUD/${p.id}/`,
           requestOptions
         ).then(async (response) => {
-          let isJson = response.headers
-            .get('content-type')
-            ?.includes('application/json')
-          let data = isJson ? await response.json() : null
+          const isJson = response.headers
+            .get("content-type")
+            .includes("application/json");
+          const data = isJson ? await response.json() : null;
 
-          setPlantData((prestate) => [...prestate, data])
-        })
-      })
-    }, 3000)
-  }, [plantId])
+          setPlantData((prestate) => [...prestate, data]);
+        });
+        return null;
+      });
+    }, 3000);
+  }, [plantId]);
 
   useEffect(() => {
     const requestOptions = {
-      method: 'GET',
+      method: "GET",
       headers: {
-        Authorization: 'JWT ' + localStorage.getItem('access_token'),
-        'Content-Type': 'application/json',
+        Authorization: `JWT ${localStorage.getItem("access_token")}`,
+        "Content-Type": "application/json",
       },
-    }
+    };
     setTimeout(async () => {
-      setPlantDataLoaded(false)
-      fetch('http://127.0.0.1:8000/api/myPlants/', requestOptions)
+      setPlantDataLoaded(false);
+      fetch("http://127.0.0.1:8000/api/myPlants/", requestOptions)
         .then(async (response) => {
           const isJson = response.headers
-            .get('content-type')
-            ?.includes('application/json')
-          const data = isJson ? await response.json() : null
+            .get("content-type")
+            .includes("application/json");
+          const data = isJson ? await response.json() : null;
           if (!response.ok) {
-            const error = response.status
-            return Promise.reject(error)
+            const error = response.status;
+            return Promise.reject(error);
           }
 
           if (data === null) {
-            setPlantDataLoaded(true)
+            setPlantDataLoaded(true);
           } else {
-            setPlantId(data)
+            setPlantId(data);
           }
+          return null;
         })
         .catch((error) => {
           if (error === 401) {
-            alert('You should login first!')
+            alert("You should login first!");
           }
-          console.error('There was an error!', error)
-          setPlantDataLoaded(true)
-        })
-    }, 0)
-  }, [reload])
+          console.error("There was an error!", error);
+          setPlantDataLoaded(true);
+        });
+    }, 0);
+  }, [reload]);
   return (
-    <div className='FontRight'>
+    <div className="FontRight">
       <ThemeProvider theme={Theme}>
         <AppBar
-          SearchOption={true}
-          TicketOption={true}
-          CartOption={true}
+          SearchOption
+          TicketOption
+          CartOption
           DrawerOption={false}
-          AuthorizationOption={true}
+          AuthorizationOption
           isopen={openDrawer}
           OpenMenu={handleDrawerOpen}
           CloseMenu={handleDrawerClose}
@@ -479,21 +472,21 @@ function Plantmanagment(props) {
           container
           item
           xs={24}
-          alignItems='center'
-          justify='center'
-          direction='column'
+          alignItems="center"
+          justify="center"
+          direction="column"
           sx={{ p: 3.5, pt: 4 }}
         >
-          <Grid item sx={{ width: '100%' }}>
-            <Box sx={{ width: '100%' }}>
+          <Grid item sx={{ width: "100%" }}>
+            <Box sx={{ width: "100%" }}>
               {plantData.length !== 0 && (
                 <Grid
                   container
                   spacing={2}
                   xs={12}
-                  sx={{ mt: 2 , width: '100%'}}
+                  sx={{ mt: 2, width: "100%" }}
                 >
-                  <Grid item sx={{ width: '100%' }}>
+                  <Grid item sx={{ width: "100%" }}>
                     <ShowGreenHouse
                       data={plantData}
                       reloadFunc={handleReload}
@@ -506,7 +499,7 @@ function Plantmanagment(props) {
                 <div>
                   {plantDataLoaded === true && (
                     <Grid container spacing={2} xs={12} sx={{ p: 3 }}>
-                      <Alert severity='error' sx={{ width: '100%' }}>
+                      <Alert severity="error" sx={{ width: "100%" }}>
                         There is NO plant right now! Come Back soon ...
                       </Alert>
                     </Grid>
@@ -549,29 +542,29 @@ function Plantmanagment(props) {
           onClose={handleClose}
           TransitionComponent={Transition}
         >
-          <DefAppBar sx={{ position: 'relative' }}>
+          <DefAppBar sx={{ position: "relative" }}>
             <Toolbar>
               <IconButton
-                edge='start'
-                color='inherit'
+                edge="start"
+                color="inherit"
                 onClick={handleClose}
-                aria-label='close'
+                aria-label="close"
                 sx={{ mr: 1 }}
               >
                 <CloseIcon />
               </IconButton>
-              <Typography sx={{ ml: 2, flex: 1 }} variant='h6' component='div'>
-                {newPlant ? 'New plant' : 'Edit'}
+              <Typography sx={{ ml: 2, flex: 1 }} variant="h6" component="div">
+                {newPlant ? "New plant" : "Edit"}
               </Typography>
               <Button
                 autoFocus
-                color='inherit'
+                color="inherit"
                 onClick={() => {
-                  handleSubmit()
+                  handleSubmit();
                 }}
                 disabled={!newPlant && !enable}
               >
-                {newPlant ? 'Add' : 'Edit'}
+                {newPlant ? "Add" : "Edit"}
               </Button>
             </Toolbar>
           </DefAppBar>
@@ -590,7 +583,7 @@ function Plantmanagment(props) {
         </Dialog>
       </ThemeProvider>
     </div>
-  )
+  );
 }
 
-export default Plantmanagment
+export default Plantmanagment;

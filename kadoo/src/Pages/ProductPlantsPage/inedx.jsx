@@ -1,59 +1,60 @@
-import React, { useEffect, useState } from "react";
-import Grid from "@mui/material/Grid";
-import { Link } from "react-router-dom";
-import Button from "@mui/material/Button";
 import "./style.scss";
-import Box from "@mui/material/Box";
-import Chip from "@mui/material/Chip";
 import AddIcon from "@mui/icons-material/Add";
-import RemoveIcon from "@mui/icons-material/Remove";
-import IconButton from "@mui/material/IconButton";
-import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
-import Card from "@mui/material/Card";
-import AppBar from "../../Components/AppBar";
-import Typography from "@mui/material/Typography";
-import Divider from "@mui/material/Divider";
-import TagIcon from "@mui/icons-material/Tag";
-import Image from "mui-image";
-import ThermostatIcon from "@mui/icons-material/Thermostat";
+import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import NatureIcon from "@mui/icons-material/Nature";
 import OpacityIcon from "@mui/icons-material/Opacity";
+import RemoveIcon from "@mui/icons-material/Remove";
+import TagIcon from "@mui/icons-material/Tag";
+import ThermostatIcon from "@mui/icons-material/Thermostat";
 import WbSunnyIcon from "@mui/icons-material/WbSunny";
+import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
+import Card from "@mui/material/Card";
+import Chip from "@mui/material/Chip";
+import Divider from "@mui/material/Divider";
+import Grid from "@mui/material/Grid";
+import IconButton from "@mui/material/IconButton";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
 import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
+import Typography from "@mui/material/Typography";
+import Image from "mui-image";
+import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+
+import AppBar from "../../Components/AppBar";
 
 function ProductPlantsPage(props) {
-    const [product, setProduct] = useState([]);
-    const [tags, setTags] = useState([]);
-    const [id,  setId] = useState(null);
-    const [numberOfBuy, setNumberOfBuy] = useState(1);
-    const [totalPrice, setTotalPrice] = useState(0);
-    const [album, setAlbum] = useState([]);
-    const [currentImage, setCurrentImage] = useState(0);
-    const [imageName, setImageName] = useState([]);
-    useEffect(() => {
-        setId(props.match.params.id)
-    }, [props.match])
+  const [product, setProduct] = useState([]);
+  const [tags, setTags] = useState([]);
+  const [id, setId] = useState(null);
+  const [numberOfBuy, setNumberOfBuy] = useState(1);
+  const [totalPrice, setTotalPrice] = useState(0);
+  const [album, setAlbum] = useState([]);
+  const [currentImage, setCurrentImage] = useState(0);
+  const [imageName, setImageName] = useState([]);
+  useEffect(() => {
+    setId(props.match.params.id);
+  }, [props.match]);
 
   useEffect(() => {
-    fetch("http://127.0.0.1:8000/api/plantsRUD/" + id + "/")
+    fetch(`http://127.0.0.1:8000/api/plantsRUD/${id}/`)
       .then((response) => response.json())
       .then((data) => setProduct(data))
       .then(() => {
         setTotalPrice(product.price);
       });
 
-    fetch("http://127.0.0.1:8000/api/plantTags/" + id + "/")
+    fetch(`http://127.0.0.1:8000/api/plantTags/${id}/`)
       .then((response) => response.json())
       .then((data) => {
         setTags(data);
       });
-    fetch("http://127.0.0.1:8000/api/plantAlbumImages/" + id + "/")
+    fetch(`http://127.0.0.1:8000/api/plantAlbumImages/${id}/`)
       .then((response) => response.json())
       .then((data) => {
         setAlbum(data);
@@ -96,7 +97,7 @@ function ProductPlantsPage(props) {
     const requestOptions = {
       method: "POST",
       headers: {
-        Authorization: "JWT " + localStorage.getItem("access_token"),
+        Authorization: `JWT ${localStorage.getItem("access_token")}`,
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
@@ -119,10 +120,10 @@ function ProductPlantsPage(props) {
     <Grid container style={{ minHeight: "100vh" }} sx={{ pb: 2 }}>
       <Box style={{ width: "100%" }}>
         <AppBar
-          SearchOption={true}
-          TicketOption={true}
-          CartOption={true}
-          AuthorizationOption={true}
+          SearchOption
+          TicketOption
+          CartOption
+          AuthorizationOption
           DrawerOption={false}
         />
       </Box>
@@ -180,8 +181,8 @@ function ProductPlantsPage(props) {
                     <Image
                       src={
                         imageName === undefined
-                          ? "http://127.0.0.1:8000" + product.image
-                          : "http://127.0.0.1:8000" + imageName.image
+                          ? `http://127.0.0.1:8000${product.image}`
+                          : `http://127.0.0.1:8000${imageName.image}`
                       }
                       width="100%"
                       height="100%"
@@ -234,8 +235,8 @@ function ProductPlantsPage(props) {
                         <Image
                           src={
                             imageName === undefined
-                              ? "http://127.0.0.1:8000" + product.image
-                              : "http://127.0.0.1:8000" + imageName.image
+                              ? `http://127.0.0.1:8000${product.image}`
+                              : `http://127.0.0.1:8000${imageName.image}`
                           }
                           className="mainImage"
                           shift="bottom"
@@ -443,7 +444,7 @@ function ProductPlantsPage(props) {
                               {tags.length === 0 && (
                                 <Grid>
                                   <Typography sx={{ mr: 0.5, mt: 0.5 }}>
-                                    {"NO TAGS"}
+                                    NO TAGS
                                   </Typography>
                                 </Grid>
                               )}
@@ -483,7 +484,7 @@ function ProductPlantsPage(props) {
                                   <Chip
                                     label={
                                       <Typography variant="h6">
-                                        {product.price + "$"}
+                                        {`${product.price}$`}
                                       </Typography>
                                     }
                                     color="success"
@@ -551,7 +552,7 @@ function ProductPlantsPage(props) {
                                         boxShadow: 1,
                                       }}
                                     >
-                                      {<Typography>{numberOfBuy}</Typography>}
+                                      <Typography>{numberOfBuy}</Typography>
                                     </Box>
                                     <IconButton
                                       size="large"
@@ -575,13 +576,13 @@ function ProductPlantsPage(props) {
                                   }}
                                   className="ProductPageTitle"
                                 >
-                                  <Link to={"/cart/"}>
+                                  <Link to="/cart/">
                                     <Button
                                       variant="contained"
                                       className="productsPageAdd"
                                       onClick={addToBasket}
                                     >
-                                      {"Add To Cart (" + totalPrice + "$)"}
+                                      {`Add To Cart (${totalPrice}$)`}
                                     </Button>
                                   </Link>
                                 </Grid>

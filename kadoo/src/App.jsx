@@ -7,7 +7,6 @@ import React from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
 import AppRoutes from "./AppRoutes";
-import MainLayout from "./Pages/MainLayout/index";
 import Theme from "./Theme/ThemeGenerator";
 
 function App() {
