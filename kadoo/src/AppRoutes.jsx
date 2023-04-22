@@ -49,7 +49,7 @@ function AppRoutes() {
       <Route path="/FAQsPage" exact element={<FAQsPage />} />
       <Route path="/testButton" exact element={<TestButton />} />
       <Route
-        path="/ProductPlantsPage/:id"
+        path="/ProductPlantsPage"
         exact
         element={<ProductPlantsPage />}
       />
