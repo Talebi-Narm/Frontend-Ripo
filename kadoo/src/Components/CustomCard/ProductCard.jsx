@@ -1,25 +1,25 @@
-import React, { useEffect } from "react";
-import { makeStyles } from "@mui/styles";
+import AddIcon from "@mui/icons-material/Add";
+import DeleteIcon from "@mui/icons-material/Delete";
+import InvertColorsIcon from "@mui/icons-material/InvertColors";
+import LightModeIcon from "@mui/icons-material/LightMode";
+import NatureIcon from "@mui/icons-material/Nature";
+import RemoveIcon from "@mui/icons-material/Remove";
 import Box from "@mui/material/Box";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
-import IconButton from "@mui/material/IconButton";
-import Typography from "@mui/material/Typography";
-import DeleteIcon from "@mui/icons-material/Delete";
+import Chip from "@mui/material/Chip";
 import Divider from "@mui/material/Divider";
+import Grid from "@mui/material/Grid";
+import IconButton from "@mui/material/IconButton";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
-import InvertColorsIcon from "@mui/icons-material/InvertColors";
-import LightModeIcon from "@mui/icons-material/LightMode";
-import NatureIcon from "@mui/icons-material/Nature";
-import Chip from "@mui/material/Chip";
-import Grid from "@mui/material/Grid";
 import TextField from "@mui/material/TextField";
-import AddIcon from "@mui/icons-material/Add";
-import RemoveIcon from "@mui/icons-material/Remove";
+import Typography from "@mui/material/Typography";
+import { makeStyles } from "@mui/styles";
+import React from "react";
 
 const useStyles = makeStyles((theme) => ({
   card: {
@@ -31,7 +31,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const CustomProductCard = (props) => {
+function CustomProductCard(props) {
   const classes = useStyles();
 
   return (
@@ -48,9 +48,7 @@ const CustomProductCard = (props) => {
         >
           <Grid sx={{ p: 1 }}>
             <CardMedia>
-              <img
-                src={props.product.image}
-              />
+              <img src={props.product.image} alt="" />
             </CardMedia>
           </Grid>
         </Grid>
@@ -220,7 +218,7 @@ const CustomProductCard = (props) => {
                     </ListItem>
                     <ListItem>
                       <Chip
-                        label={props.product.price + "$"}
+                        label={`${props.product.price}$`}
                         color="success"
                         variant="outlined"
                         style={{ fontSize: "1.1rem" }}
@@ -237,6 +235,6 @@ const CustomProductCard = (props) => {
       </Grid>
     </Card>
   );
-};
+}
 
 export default CustomProductCard;

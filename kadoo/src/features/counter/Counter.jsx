@@ -1,5 +1,7 @@
-import React, { useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import React, { useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
+
+import styles from "./Counter.module.css";
 import {
   decrement,
   increment,
@@ -7,13 +9,12 @@ import {
   incrementAsync,
   incrementIfOdd,
   selectCount,
-} from './counterSlice';
-import styles from './Counter.module.css';
+} from "./counterSlice";
 
 export function Counter() {
   const count = useSelector(selectCount);
   const dispatch = useDispatch();
-  const [incrementAmount, setIncrementAmount] = useState('2');
+  const [incrementAmount, setIncrementAmount] = useState("2");
 
   const incrementValue = Number(incrementAmount) || 0;
 
@@ -22,6 +23,7 @@ export function Counter() {
       <div className={styles.row}>
         <button
           className={styles.button}
+          type="button"
           aria-label="Decrement value"
           onClick={() => dispatch(decrement())}
         >
@@ -30,6 +32,7 @@ export function Counter() {
         <span className={styles.value}>{count}</span>
         <button
           className={styles.button}
+          type="button"
           aria-label="Increment value"
           onClick={() => dispatch(increment())}
         >
@@ -45,18 +48,21 @@ export function Counter() {
         />
         <button
           className={styles.button}
+          type="button"
           onClick={() => dispatch(incrementByAmount(incrementValue))}
         >
           Add Amount
         </button>
         <button
           className={styles.asyncButton}
+          type="button"
           onClick={() => dispatch(incrementAsync(incrementValue))}
         >
           Add Async
         </button>
         <button
           className={styles.button}
+          type="button"
           onClick={() => dispatch(incrementIfOdd(incrementValue))}
         >
           Add If Odd

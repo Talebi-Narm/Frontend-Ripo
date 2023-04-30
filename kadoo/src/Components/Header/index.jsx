@@ -1,37 +1,27 @@
-import React, { useEffect, useState, useRef } from 'react'
-import Grid from '@mui/material/Grid'
-import Typography from '@mui/material/Typography'
-import Slide from '@mui/material/Slide'
-import Box from '@mui/material/Box'
-import { styled } from '@mui/material/styles'
-import Paper from '@mui/material/Paper'
-import ProductIcon2 from '../productIcon/productIcon2'
+import Grid from "@mui/material/Grid";
+import Slide from "@mui/material/Slide";
+import Typography from "@mui/material/Typography";
+import React from "react";
 
-function ContentHeader(props) {
-  const containerRef = React.useRef(null)
+function ContentHeader() {
+  const containerRef = React.useRef(null);
   return (
     <div>
       <Grid
         container
-        direction='column'
-        justifyContent='center'
-        alignItems='center'
+        direction="column"
+        justifyContent="center"
+        alignItems="center"
         sx={{ pt: 15, pb: 15, pl: 2, pr: 2 }}
         ref={containerRef}
       >
         <Grid item>
-          <Slide
-            direction='right'
-            in={true}
-            mountOnEnter
-            unmountOnExit
-            timeout={700}
-          >
+          <Slide direction="right" in mountOnEnter unmountOnExit timeout={700}>
             <Typography
-              variant='h3'
+              variant="h3"
               gutterBottom
-              component='div'
-              align='center'
+              component="div"
+              align="center"
               noWra
             >
               What do you need ...?
@@ -39,19 +29,13 @@ function ContentHeader(props) {
           </Slide>
         </Grid>
         <Grid item>
-          <Slide
-            direction='right'
-            in={true}
-            mountOnEnter
-            unmountOnExit
-            timeout={900}
-          >
+          <Slide direction="right" in mountOnEnter unmountOnExit timeout={900}>
             <Typography
-              variant='h5'
+              variant="h5"
               gutterBottom
-              component='div'
+              component="div"
               sx={{ mt: 1 }}
-              align='center'
+              align="center"
             >
               For every need there is a solution ... Find yours easly in our
               categorized products
@@ -60,7 +44,7 @@ function ContentHeader(props) {
         </Grid>
       </Grid>
     </div>
-  )
+  );
 }
 
-export default ContentHeader
+export default ContentHeader;

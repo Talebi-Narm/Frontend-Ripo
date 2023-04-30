@@ -1,134 +1,127 @@
-import './style.scss'
-import { DataGrid} from '@mui/x-data-grid'
-import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline'
-import { productRows } from '../../Constant/dummyData'
-import { Link } from 'react-router-dom'
-import { useEffect, useState } from 'react'
-import { IconButton } from '@mui/material'
-import AddIcon from '@mui/icons-material/Add'
-import EditIcon from '@mui/icons-material/Edit'
-import { Fab } from '@mui/material'
-import Dialog from '@mui/material/Dialog'
-import DialogActions from '@mui/material/DialogActions'
-import DialogContent from '@mui/material/DialogContent'
-import DialogContentText from '@mui/material/DialogContentText'
-import DialogTitle from '@mui/material/DialogTitle'
-import useMediaQuery from '@mui/material/useMediaQuery'
-import { useTheme } from '@mui/material/styles'
-import * as React from 'react'
-import Button from '@mui/material/Button'
+import "./style.scss";
+import AddIcon from "@mui/icons-material/Add";
+import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
+import EditIcon from "@mui/icons-material/Edit";
+import { IconButton, Fab } from "@mui/material";
+import Button from "@mui/material/Button";
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import DialogContentText from "@mui/material/DialogContentText";
+import DialogTitle from "@mui/material/DialogTitle";
+import { useTheme } from "@mui/material/styles";
+import useMediaQuery from "@mui/material/useMediaQuery";
+import { DataGrid } from "@mui/x-data-grid";
+import * as React from "react";
+import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
 export default function ProductList() {
-  const [page, setPage] = useState(1)
-  const [allPage, setAllPage] = useState(1)
-  const [products, setProducts] = useState([])
-  const [data, setData] = useState(productRows)
-  const [open, setOpen] = React.useState(false)
-  const theme = useTheme()
-  const fullScreen = useMediaQuery(theme.breakpoints.down('md'))
+  const [products, setProducts] = useState([]);
+  const [open, setOpen] = React.useState(false);
+  const theme = useTheme();
+  const fullScreen = useMediaQuery(theme.breakpoints.down("md"));
 
   const handleClickOpen = () => {
-    setOpen(true)
-  }
+    setOpen(true);
+  };
 
   const handleClose = () => {
-    setOpen(false)
-  }
+    setOpen(false);
+  };
 
   const handleDelete = (id1, kind) => {
     const requestOptions = {
-      method: 'DELETE',
+      method: "DELETE",
       headers: {
-        'Content-Type': 'application/json',
-        Authorization: 'JWT ' + localStorage.getItem('access_token'),
+        "Content-Type": "application/json",
+        Authorization: `JWT ${localStorage.getItem("access_token")}`,
       },
-    }
-    if (kind === 'Plant') {
-      fetch(
-        'http://127.0.0.1:8000/api/plantsRUD/' + id1 + '/',
-        requestOptions
-      ).then((res) => {
-        if (res.status === 200) {
-          alert('Delete successful')
-          handleClose()
+    };
+    if (kind === "Plant") {
+      fetch(`http://127.0.0.1:8000/api/plantsRUD/${id1}/`, requestOptions).then(
+        (res) => {
+          if (res.status === 200) {
+            alert("Delete successful");
+            handleClose();
+          }
         }
-      })
+      );
     } else {
-      fetch(
-        'http://127.0.0.1:8000/api/toolsRUD/' + id1 + '/',
-        requestOptions
-      ).then((res) => {
-        if (res.status === 200) {
-          alert('Delete successful')
-          handleClose()
+      fetch(`http://127.0.0.1:8000/api/toolsRUD/${id1}/`, requestOptions).then(
+        (res) => {
+          if (res.status === 200) {
+            alert("Delete successful");
+            handleClose();
+          }
         }
-      })
+      );
     }
-  }
+  };
 
   const columns = [
     {
-      field: 'id',
-      headerName: 'ID',
+      field: "id",
+      headerName: "ID",
       width: 80,
-      headerAlign: 'center',
+      headerAlign: "center",
       renderCell: (params) => {
-        return <div className='productListItem'>{params.row.id}</div>
+        return <div className="productListItem">{params.row.id}</div>;
       },
     },
     {
-      field: 'name',
-      headerName: 'Name',
+      field: "name",
+      headerName: "Name",
       width: 180,
-      headerAlign: 'center',
+      headerAlign: "center",
       renderCell: (params) => {
-        return <div className='productListItem'>{params.row.name}</div>
+        return <div className="productListItem">{params.row.name}</div>;
       },
     },
     {
-      field: 'image',
-      headerName: 'Image',
-      headerAlign: 'center',
+      field: "image",
+      headerName: "Image",
+      headerAlign: "center",
       width: 80,
       renderCell: (params) => {
         return (
-          <div className='productListItem'>
+          <div className="productListItem">
             <img
-              className='productListImg'
-              src={'http://127.0.0.1:8000' + params.row.image}
-              alt=''
+              className="productListImg"
+              src={`http://127.0.0.1:8000${params.row.image}`}
+              alt=""
             />
           </div>
-        )
+        );
       },
     },
     {
-      field: 'price',
-      headerName: 'Price',
+      field: "price",
+      headerName: "Price",
       width: 70,
-      headerAlign: 'center',
+      headerAlign: "center",
       renderCell: (params) => {
-        return <div className='productListItem'>${params.row.price}</div>
+        return <div className="productListItem">${params.row.price}</div>;
       },
     },
     {
-      field: 'count',
-      headerName: 'Count',
+      field: "count",
+      headerName: "Count",
       width: 80,
-      headerAlign: 'center',
+      headerAlign: "center",
       renderCell: (params) => {
-        return <div className='productListItem'>{params.row.count}</div>
+        return <div className="productListItem">{params.row.count}</div>;
       },
     },
     {
-      field: 'Actions',
-      headerName: 'Actions',
+      field: "Actions",
+      headerName: "Actions",
       width: 100,
-      headerAlign: 'center',
+      headerAlign: "center",
       renderCell: (params) => {
         return (
           <div>
-            <Link to={'/AdminPage/product/' + params.row.id + '/'}>
+            <Link to={`/AdminPage/product/${params.row.id}/`}>
               <IconButton>
                 <EditIcon />
               </IconButton>
@@ -140,10 +133,10 @@ export default function ProductList() {
               fullScreen={fullScreen}
               open={open}
               onClose={handleClose}
-              aria-labelledby='responsive-dialog-title'
+              aria-labelledby="responsive-dialog-title"
             >
-              <DialogTitle id='responsive-dialog-title'>
-                {'Delete confirmation'}
+              <DialogTitle id="responsive-dialog-title">
+                Delete confirmation
               </DialogTitle>
               <DialogContent>
                 <DialogContentText>
@@ -155,13 +148,7 @@ export default function ProductList() {
                   No
                 </Button>
                 <Button
-                  onClick={() =>
-                    handleDelete(
-                      params.row.id,
-                      params.row.kind,
-                      params.row.name
-                    )
-                  }
+                  onClick={() => handleDelete(params.row.id, params.row.kind)}
                   autoFocus
                 >
                   Yes
@@ -169,44 +156,42 @@ export default function ProductList() {
               </DialogActions>
             </Dialog>
           </div>
-        )
+        );
       },
     },
-  ]
+  ];
   const fetchPagination = () => {
-    fetch('http://127.0.0.1:8000/api/allPagination/', {
-      method: 'Post',
+    fetch("http://127.0.0.1:8000/api/allPagination/", {
+      method: "Post",
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
-      body: JSON.stringify({ count: '999', page: `${page}` }),
+      body: JSON.stringify({ count: "999", page: `1` }),
     })
       .then((res) => res.json())
       .then((data) => {
-        setProducts(data.data)
-        setAllPage(data.pageCount)
-      })
-  }
+        setProducts(data.data);
+      });
+  };
 
   useEffect(() => {
-    fetchPagination()
-  }, [])
+    fetchPagination();
+  }, []);
 
-  useEffect(() => {
-  }, [products])
+  useEffect(() => {}, [products]);
 
   return (
-    <div className='productList'>
-      <Link to='/AdminPage/newProduct' className='LinkFab'>
-        <Fab variant='extended' className='userAddButton'>
+    <div className="productList">
+      <Link to="/AdminPage/newProduct" className="LinkFab">
+        <Fab variant="extended" className="userAddButton">
           <AddIcon sx={{ mr: 1 }} />
           Add Product
         </Fab>
       </Link>
       <DataGrid
-        align='center'
+        align="center"
         textCenter
-        className='DataTable'
+        className="DataTable"
         rows={products}
         disableSelectionOnClick
         columns={columns}
@@ -214,5 +199,5 @@ export default function ProductList() {
         checkboxSelection
       />
     </div>
-  )
+  );
 }

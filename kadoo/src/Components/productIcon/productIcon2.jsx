@@ -1,23 +1,23 @@
-import React from "react";
 import "./style.scss";
-import Grid from "@mui/material/Grid";
-import Box from "@mui/material/Box";
-import { Link } from "react-router-dom";
+import NatureIcon from "@mui/icons-material/Nature";
 import OpacityIcon from "@mui/icons-material/Opacity";
 import WbSunnyIcon from "@mui/icons-material/WbSunny";
-import NatureIcon from "@mui/icons-material/Nature";
+import Box from "@mui/material/Box";
+import Grid from "@mui/material/Grid";
+import React from "react";
+import { Link } from "react-router-dom";
 
 function ProductIcon2(props) {
   return (
     <Box className="productIconLink" sx={{ width: "100%" }}>
       <Grid container rowSpacing={1}>
         <Grid className="container" item xs={12}>
-          <Link to={"/ProductPlantsPage/" + props.product.id}>
+          <Link to={`/ProductPlantsPage/${props.product.id}`}>
             <div className="productIconImageContainer">
               <img
                 className="productIconImage"
                 src={props.product.image}
-                alt="Product"
+                alt=""
               />
             </div>
             <div className="overlay">
@@ -29,35 +29,21 @@ function ProductIcon2(props) {
           </Link>
         </Grid>
         <Grid item xs={12}>
-          <div
-            style={{
-              color: "blue",
-              textDecoration: "underline",
-              cursor: "pointer",
-            }}
-            className="productIconName"
-          >
-            {props.product.name}
+          <div className="productIconName">
+            <p>{props.product.name}</p>
           </div>
         </Grid>
         <Grid item xs={12}>
           <div className="productIconPrice">$ {props.product.price}</div>
         </Grid>
         <Grid item xs={12}>
-          <div
-            style={{
-              color: "blue",
-              textDecoration: "underline",
-              cursor: "pointer",
-            }}
-            className="featButton"
-          >
+          <div className="featButton">
             <WbSunnyIcon className="lightButton" />
-            {props.product.light}
+            <p className="Message"> {props.product.light} </p>
             <OpacityIcon className="waterButton" />
-            {props.product.water}
+            <p className="Message"> {props.product.water} </p>
             <NatureIcon className="growButton" />
-            {props.product.growthRate}
+            <p className="Message"> {props.product.growthRate} </p>
           </div>
         </Grid>
       </Grid>

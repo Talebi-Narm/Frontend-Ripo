@@ -1,9 +1,15 @@
 import "./style.scss";
+import React from "react";
+
+function Button({ type }) {
+  return (
+    <button type="button" className={`widgetLgButton ${type}`}>
+      {type}
+    </button>
+  );
+}
 
 export default function WidgetLg() {
-  const Button = ({ type }) => {
-    return <button className={"widgetLgButton " + type}>{type}</button>;
-  };
   return (
     <div className="widgetLg">
       <h3 className="widgetLgTitle">Latest transactions</h3>

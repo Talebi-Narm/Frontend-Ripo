@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import Grid from '@mui/material/Grid'
 import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
@@ -7,8 +7,8 @@ import AcceptedTicketCard from '../AcceptedTicketCard/AcceptedTicketCard'
 function ShowMyTickets(props) {
   return (
     <Grid container>
-      <Box sx={{ width: '100%' }}>
-        <Typography variant='h4' gutterBottom component='div'>
+      <Box sx={{ width: "100%" }}>
+        <Typography variant="h4" gutterBottom component="div">
           My Tickets
         </Typography>
         <Grid container rowSpacing={2} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
@@ -20,7 +20,7 @@ function ShowMyTickets(props) {
         </Grid>
       </Box>
     </Grid>
-  )
+  );
 }
 
-export default ShowMyTickets
+export default ShowMyTickets;
