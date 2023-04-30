@@ -4,6 +4,8 @@ import React, { useState } from "react";
 
 import Background from "../../assets/Images/SignUp/SignUpBG.png";
 import AppBar from "../../Components/AppBar";
+import { CustomButton } from "../../Components/CustomButton/Button";
+import Text from "../../Components/Text";
 import "./style.scss";
 
 function SignUp() {
@@ -13,6 +15,7 @@ function SignUp() {
     userName: "",
     email: "",
     password: "",
+    about: "",
   });
   const [formData, updateFormData] = useState(initialFormData);
   const [errorData, updateErrorData] = useState(initialFormData);
@@ -55,18 +58,19 @@ function SignUp() {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        email: formData.email,
-        user_name: formData.userName,
+        password: formData.password,
+        username: formData.userName,
         first_name: formData.name,
         last_name: formData.lastName,
-        password: formData.password,
+        email: formData.email,
+        about: formData.about,
       }),
     };
-    fetch("http://127.0.0.1:8000/api/user/register/", requestOptions)
+    fetch("http://0.0.0.0:8000/api/v1/user/register", requestOptions)
       .then((response) => {
         if (response.status === 201) {
           alert("User registered!");
-          window.location.replace("/signin");
+          // history.push("/signin");
           window.location.reload(true);
         } else {
           throw response;
@@ -75,7 +79,8 @@ function SignUp() {
       .catch((err) => {
         err.text().then((errorMessage) => {
           const errors = JSON.parse(errorMessage);
-
+          console.log(errors);
+          console.log(`last name : ${formData.last_name}`);
           if (errors.first_name !== undefined) {
             updateErrorData({
               ...errorData,
@@ -92,10 +97,10 @@ function SignUp() {
             return;
           }
 
-          if (errors.user_name !== undefined) {
+          if (errors.username !== undefined) {
             updateErrorData({
               ...errorData,
-              userName: errors.user_name,
+              userName: errors.username,
             });
             return;
           }
@@ -251,18 +256,17 @@ function SignUp() {
               onChange={handleChange}
             />
             <div style={{ height: 20 }} />
-            <a className="ButtonStyle" onClick={handleSubmit} href="/">
-              Sign Up
-            </a>
+            <CustomButton text="signUp" onClick={handleSubmit}>
+              Sing Up
+            </CustomButton>
             <div style={{ height: 30 }} className="Buttons" />
             <div className="divSignUp">
-              <a
-                href="/signin"
-                onClick={() => window.location.replace("/signin")}
-                className="aSignUp"
-              >
-                Have an account ?
-              </a>
+              <Text
+                text="Have an account?"
+                underline
+                link="signin"
+                fontSize={16}
+              />
             </div>
           </div>
           <div style={{ height: 40 }} />

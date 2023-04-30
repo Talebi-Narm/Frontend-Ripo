@@ -1,0 +1,14 @@
+// _library.scss
+$primary: #00c853 !default;
+$secondary: #ffeb3b !default;
+
+.text_underline_true{
+    text-decoration: underline !important;
+}
+.text_main{
+    color: $secondary;
+    &:hover{
+        color: $primary !important;
+    }
+    
+} 
