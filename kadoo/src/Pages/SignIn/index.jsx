@@ -1,9 +1,8 @@
-import React from "react";
-import Background from "../../assets/Images/SignIn/signInBG.png";
-import { Grid, TextField, InputAdornment } from "@mui/material";
 import { EmailRounded, VpnKey } from "@mui/icons-material";
-import { useState, useEffect } from "react";
-import history from "../../history";
+import { Grid, TextField, InputAdornment } from "@mui/material";
+import React, { useState } from "react";
+
+import Background from "../../assets/Images/SignIn/signInBG.png";
 import AppBar from "../../Components/AppBar";
 import { CustomButton } from "../../Components/CustomButton/Button";
 import Text from "../../Components/Text";
@@ -33,8 +32,8 @@ function SignIn() {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    if (refresh) setRefresh(false)
-    else setRefresh(true)
+    if (refresh) setRefresh(false);
+    else setRefresh(true);
     const requestOptions = {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -49,10 +48,10 @@ function SignIn() {
           response.json().then((data) => {
             localStorage.setItem("access_token", data.access);
             localStorage.setItem("refresh_token", data.refresh);
-            setFlagData(flagData ? false : true);
+            setFlagData(!flagData);
           });
           alert("User logined!");
-          history.push("/Homepage");
+          // history.push("/Homepage");
         } else {
           throw response;
         }
@@ -76,7 +75,6 @@ function SignIn() {
               ...errorData,
               password: errors.password,
             });
-            return;
           }
         });
       });
@@ -84,7 +82,7 @@ function SignIn() {
   return (
     <div>
       <AppBar
-        SearchOption={true}
+        SearchOption
         TicketOption={false}
         CartOption={false}
         DrawerOption={false}
@@ -158,13 +156,13 @@ function SignIn() {
               }}
             />
             <CustomButton onClick={handleSubmit}>Sign In</CustomButton>
-            <div style={{ height: 30 }}  />
+            <div style={{ height: 30 }} />
             <div className="divSignUp">
-              <Text 
-              text={"Creacte account now"} 
-              underline={true} 
-              link={"signup"} 
-              fontSize={16}
+              <Text
+                text="Creacte account now"
+                underline
+                link="signup"
+                fontSize={16}
               />
             </div>
           </div>
@@ -182,4 +180,3 @@ function SignIn() {
 }
 
 export default SignIn;
- 
