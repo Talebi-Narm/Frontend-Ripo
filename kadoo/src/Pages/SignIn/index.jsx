@@ -19,36 +19,6 @@ function SignIn() {
   const [errorData, updateErrorData] = useState(initialFormData);
   const [refresh, setRefresh] = useState(false);
 
-  // useEffect(() => {
-  //   const requestOptions = {
-  //     method: 'GET',
-  //     headers: {
-  //       Authorization: 'JWT ' + localStorage.getItem('access_token'),
-  //       'Content-Type': 'application/json',
-  //     },
-  //   }
-  //   fetch('http://127.0.0.1:8000/api/user/userinfo/', requestOptions)
-  //     .then((response) => {
-  //       if (response.status !== 401) {
-  //         response.json().then((data) => {
-  //           if (data.type === 'MEMBER') {
-  //             history.push('/HomePage')
-  //             window.location.reload(true)
-  //           } else if (data.type === 'SPECIALIST') {
-  //             history.push('/TicketPage')
-  //             window.location.reload(true)
-  //           } else if (data.type === 'ADMIN') {
-  //             history.push('/AdminPage')
-  //             window.location.reload(true)
-  //           }
-  //         })
-  //       } else {
-  //         throw response
-  //       }
-  //     })
-  //     .catch((err) => {})
-  // }, [flagData])
-
   const handleChange = (e) => {
     updateFormData({
       ...formData,
@@ -63,8 +33,8 @@ function SignIn() {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    // if (refresh) setRefresh(false)
-    // else setRefresh(true)
+    if (refresh) setRefresh(false)
+    else setRefresh(true)
     const requestOptions = {
       method: "POST",
       headers: { "Content-Type": "application/json" },
