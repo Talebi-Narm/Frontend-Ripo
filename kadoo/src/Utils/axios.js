@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const baseURL = "http://146.190.205.127:443/api/";
+const baseURL = "http://Talebi-narm.ir/api/";
 const axiosInstance = axios.create({
   baseURL,
   timeout: 5000,
@@ -8,8 +8,6 @@ const axiosInstance = axios.create({
     Authorization: localStorage.getItem("access_token")
       ? `JWT ${localStorage.getItem("access_token")}`
       : null,
-    "Content-Type": "application/json",
-    accept: "application/json",
   },
 });
 
