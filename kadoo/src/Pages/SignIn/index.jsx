@@ -1,10 +1,11 @@
 import { EmailRounded, VpnKey } from "@mui/icons-material";
 import { Grid, TextField, InputAdornment } from "@mui/material";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 
 import Background from "../../assets/Images/SignIn/signInBG.png";
 import AppBar from "../../Components/AppBar";
-// import history from "../../history";
+import { CustomButton } from "../../Components/CustomButton/Button";
+import Text from "../../Components/Text";
 import "./style.scss";
 
 function SignIn() {
@@ -16,40 +17,6 @@ function SignIn() {
   const [flagData, setFlagData] = useState(false);
   const [errorData, updateErrorData] = useState(initialFormData);
   const [refresh, setRefresh] = useState(false);
-
-  useEffect(() => {
-    const requestOptions = {
-      method: "GET",
-      headers: {
-        Authorization: `JWT ${localStorage.getItem("access_token")}`,
-        "Content-Type": "application/json",
-      },
-    };
-    fetch("http://127.0.0.1:8000/api/user/userinfo/", requestOptions).then(
-      (response) => {
-        if (response.status !== 401) {
-          response.json().then((data) => {
-            if (data.type === "MEMBER") {
-              window.location.replace("/HomePage");
-              window.location.reload(true);
-            } else if (data.type === "SPECIALIST") {
-              window.location.replace("/HomePage");
-              window.location.reload(true);
-            } else if (data.type === "ADMIN") {
-              window.location.replace("/HomePage");
-              window.location.reload(true);
-            }
-          });
-        } else {
-          throw response;
-        }
-      }
-    );
-  }, [flagData]);
-
-  // useEffect(() => {
-  //   updateErrorData(initialFormData)
-  // }, [refresh])
 
   const handleChange = (e) => {
     updateFormData({
@@ -75,7 +42,7 @@ function SignIn() {
         password: formData.password,
       }),
     };
-    fetch("http://127.0.0.1:8000/api/user/token/", requestOptions)
+    fetch("http://0.0.0.0:8000/api/v1/user/jwt/create/", requestOptions)
       .then((response) => {
         if (response.status === 200) {
           response.json().then((data) => {
@@ -83,6 +50,8 @@ function SignIn() {
             localStorage.setItem("refresh_token", data.refresh);
             setFlagData(!flagData);
           });
+          alert("User logined!");
+          // history.push("/Homepage");
         } else {
           throw response;
         }
@@ -124,13 +93,6 @@ function SignIn() {
         style={{ minHeight: "100vh" }}
         sx={{ pl: { sm: 20, xs: 0 }, pr: { sm: 20, xs: 0 } }}
       >
-        <Grid item xs={12} sm={6}>
-          <img
-            src={Background}
-            style={{ width: "100%", height: "100%", objectFit: "contain" }}
-            alt="Background"
-          />
-        </Grid>
         <Grid
           container
           item
@@ -167,6 +129,7 @@ function SignIn() {
               onChange={handleChange}
             />
             <TextField
+              id="password"
               variant="standard"
               type="password"
               name="password"
@@ -192,16 +155,24 @@ function SignIn() {
                 minWidth: 300,
               }}
             />
-            <a className="ButtonStyle" href="/HomePage" onClick={handleSubmit}>
-              Sign In
-            </a>
-            <div style={{ height: 30 }} className="Buttons" />
+            <CustomButton onClick={handleSubmit}>Sign In</CustomButton>
+            <div style={{ height: 30 }} />
             <div className="divSignUp">
-              <a href="/signup" className="aSignUp">
-                Sign Up
-              </a>
+              <Text
+                text="Creacte account now"
+                underline
+                link="signup"
+                fontSize={16}
+              />
             </div>
           </div>
+        </Grid>
+        <Grid item xs={12} sm={6}>
+          <img
+            src={Background}
+            style={{ width: "100%", height: "100%", objectFit: "contain" }}
+            alt="Background"
+          />
         </Grid>
       </Grid>
     </div>
