@@ -49,19 +49,8 @@ export default function LandingPage() {
 
   return (
     <div>
-      {/* <Box>
-        <AppBar
-          SearchOption={false}
-          TicketOption={false}
-          CartOption={false}
-          DrawerOption={false}
-          AuthorizationOption
-        />
-      </Box> */}
       <Grid container className="Landing-appbar">
-        <Grid xs={9}>
-          {/* <Typography className="Landing-appbar-title"> Talebi</Typography> */}
-        </Grid>
+        <Grid xs={9} />
         <Grid xs={1}>
           <a className="Landing-appbar-item" href="Homepage">
             Home
