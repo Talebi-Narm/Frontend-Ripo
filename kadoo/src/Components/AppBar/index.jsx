@@ -206,14 +206,14 @@ const KadooAppBar = forwardRef((props, ref) => {
                 sx={{ display: { xs: "none", sm: "block" } }}
                 className="Title"
               >
-                Kadoo
+                Talebi
               </Typography>
             </Link>
           )}
           {!props.DrawerOption && (
             <Link to="/Homepage">
               <Typography variant="h4" noWrap component="div" className="Title">
-                Kadoo
+                Talebi
               </Typography>
             </Link>
           )}
