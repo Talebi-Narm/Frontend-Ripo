@@ -17,7 +17,6 @@ import Carousel from "react-multi-carousel";
 import Amir from "../../assets/Images/Landing/Amirmohammad.jpg";
 import apartmentPlants from "../../assets/Images/Landing/apartmentPlants.jpg";
 import Background from "../../assets/Images/Landing/Background.png";
-import Background2 from "../../assets/Images/Landing/Background2.png";
 import Background3 from "../../assets/Images/Landing/Background3.png";
 import Deniz from "../../assets/Images/Landing/Deniz.jpg";
 import GardenPlants from "../../assets/Images/Landing/GardenPlants.jpg";
@@ -59,7 +58,26 @@ export default function LandingPage() {
           AuthorizationOption
         />
       </Box> */}
-
+      <Grid container className="Landing-appbar">
+        <Grid xs={9}>
+          {/* <Typography className="Landing-appbar-title"> Talebi</Typography> */}
+        </Grid>
+        <Grid xs={1}>
+          <a className="Landing-appbar-item" href="Homepage">
+            Home
+          </a>
+        </Grid>
+        <Grid xs={1}>
+          <a className="Landing-appbar-item" href="signin">
+            Log In
+          </a>
+        </Grid>
+        <Grid xs={1}>
+          <a className="Landing-appbar-item" href="signup">
+            Sign Up
+          </a>
+        </Grid>
+      </Grid>
       <Box
         style={{
           backgroundImage: `url(${Background})`,
@@ -75,26 +93,6 @@ export default function LandingPage() {
         }}
         alt="Background"
       >
-        <Grid container className="Landing-appbar">
-          <Grid xs={9}>
-            {/* <Typography className="Landing-appbar-title"> Talebi</Typography> */}
-          </Grid>
-          <Grid xs={1}>
-            <a className="Landing-appbar-item" href="Homepage">
-              Home
-            </a>
-          </Grid>
-          <Grid xs={1}>
-            <a className="Landing-appbar-item" href="signin">
-              Log In
-            </a>
-          </Grid>
-          <Grid xs={1}>
-            <a className="Landing-appbar-item" href="signup">
-              Sign Up
-            </a>
-          </Grid>
-        </Grid>
         <Grid container spacing={2}>
           <Grid xs={4} />
           <Grid xs={8} className="Landing-title">
@@ -118,7 +116,7 @@ export default function LandingPage() {
       <Grid
         className="BlackBackground"
         style={{
-          backgroundImage: `url(${Background2})`,
+          backgroundImage: `url(${Background3})`,
           backgroundPosition: "center",
           minHeight: "100vh",
           backgroundRepeat: "no-repeat",
@@ -138,9 +136,7 @@ export default function LandingPage() {
               paddingBottom: { sm: "5%", xs: "15%", md: "5%" },
             }}
           >
-            <h4>
-              Why<span className="Span"> Talebi</span> :
-            </h4>
+            <Typography fontSize={40}>Why Talebi</Typography>
           </Typography>
           <Carousel
             fade
@@ -178,7 +174,7 @@ export default function LandingPage() {
                   >
                     Apartment plants
                   </Typography>
-                  <Typography color="#7FC7AD" variant="body2" component="p">
+                  <Typography color="#00c853" variant="body2" component="p">
                     Fill your living space with beautiful houseplants to making
                     your apartment feel more welcoming and also for help clean
                     the air.
@@ -206,7 +202,7 @@ export default function LandingPage() {
                   >
                     Garden plants
                   </Typography>
-                  <Typography color="#7FC7AD" variant="body2" component="p">
+                  <Typography color="#00c853" variant="body2" component="p">
                     Buying Garden Plants online is easy from Talebi, as the
                     leading online garden nursery, our plant selection is first
                     to none.
@@ -234,7 +230,7 @@ export default function LandingPage() {
                   >
                     Yard plants
                   </Typography>
-                  <Typography color="#7FC7AD" variant="body2" component="p">
+                  <Typography color="#00c853" variant="body2" component="p">
                     With a pinch of effort , you can have the lush, beautiful
                     garden of your dreams. The secret is to choose your plants
                     from Talebi.
@@ -265,21 +261,14 @@ export default function LandingPage() {
             className="GridContactUs"
             sx={{ marginTop: { sm: 20, xs: 10, md: 10 } }}
           >
-            <Typography
-              variant="h4"
-              className="TypographyContactUs"
-              align="center"
-            >
-              <h4>
-                Meet The<span className="Span"> Team</span> :
-              </h4>
-            </Typography>
+            <Typography fontSize={40}>About Us</Typography>
             <Typography
               align="center"
               marginLeft={4}
               marginRight={4}
               sx={{ marginTop: { sm: 20, xs: 5, md: 8 } }}
               color="black"
+              width={600}
             >
               We were founded to transform spaces into attractive plantscapes
               that improve the quality of people’s lives. Research shows that
@@ -310,7 +299,7 @@ export default function LandingPage() {
             itemClass="carousel-item-padding-40-px"
           >
             <div>
-              <Tooltip title="Amirmohammad Sohrabi" arrow>
+              <Tooltip title="Backend Developer" arrow>
                 <Avatar
                   alt="Amirmohammad Sohrabi"
                   src={Amir}
@@ -321,9 +310,10 @@ export default function LandingPage() {
                   }}
                 />
               </Tooltip>
+              <Typography align="center">Amirmohammad Sohrabi</Typography>
             </div>
             <div>
-              <Tooltip title="Hamed FeizAbadi" arrow>
+              <Tooltip title="Backend Developer" arrow>
                 <Avatar
                   alt="Hamed FeizAbadi"
                   src={Hamed}
@@ -334,9 +324,10 @@ export default function LandingPage() {
                   }}
                 />
               </Tooltip>
+              <Typography align="center">Hamed Feizabadi</Typography>
             </div>
             <div>
-              <Tooltip title="Navid Moosavizade" arrow>
+              <Tooltip title="Frontend Developer" arrow>
                 <Avatar
                   alt="Navid Moosavizade"
                   src={Navid}
@@ -347,9 +338,10 @@ export default function LandingPage() {
                   }}
                 />
               </Tooltip>
+              <Typography align="center">Navid Moosavizade</Typography>
             </div>
             <div>
-              <Tooltip title="Narges Mashayekhi" arrow>
+              <Tooltip title="Frontend Developer" arrow>
                 <Avatar
                   alt="Narges Mashayekhi"
                   src={narges}
@@ -360,9 +352,10 @@ export default function LandingPage() {
                   }}
                 />
               </Tooltip>
+              <Typography align="center">Narges Mashayekhi</Typography>
             </div>
             <div>
-              <Tooltip title="Deniz Ahmadi" arrow>
+              <Tooltip title="Frontend Developer" arrow>
                 <Avatar
                   alt="Deniz Ahmadi"
                   src={Deniz}
@@ -373,6 +366,7 @@ export default function LandingPage() {
                   }}
                 />
               </Tooltip>
+              <Typography align="center">Deniz Ahmadi</Typography>
             </div>
           </Carousel>
           <Grid

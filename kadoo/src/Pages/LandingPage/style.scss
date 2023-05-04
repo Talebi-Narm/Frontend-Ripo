@@ -285,8 +285,8 @@ $landingGreen:#708b2c ;
     background-color: white !important;
     padding: 20px;
     padding-bottom: 5px;
-    padding-top: 0px;
-    margin-top: 0px !important;
+    // padding-top: 0px;
+    // margin-top: 0px !important;
 }
 .Landing-appbar-item{
     font-size:20px !important;
@@ -310,3 +310,6 @@ $landingGreen:#708b2c ;
     font-size: 30px !important;
     padding-left: 30px;
 }
+// .landing-titles{
+//     font-size: 30px ;
+// }
