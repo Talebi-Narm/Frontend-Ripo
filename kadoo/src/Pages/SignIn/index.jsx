@@ -1,14 +1,30 @@
 import { EmailRounded, VpnKey } from "@mui/icons-material";
 import { Grid, TextField, InputAdornment } from "@mui/material";
-import React, { useState } from "react";
+// eslint-disable-next-line import/no-extraneous-dependencies
+import { gapi } from "gapi-script";
+import React, { useState, useEffect } from "react";
 
 import Background from "../../assets/Images/SignIn/signInBG.png";
 import AppBar from "../../Components/AppBar";
 import { CustomButton } from "../../Components/CustomButton/Button";
 import Text from "../../Components/Text";
+
 import "./style.scss";
+// eslint-disable-next-line import/no-extraneous-dependencies, import/order
+import { GoogleLogin } from "react-google-login";
 
 function SignIn() {
+  useEffect(() => {
+    function start() {
+      gapi.client.init({
+        // eslint-disable-next-line no-use-before-define
+        clientId,
+        scope: "",
+      });
+    }
+
+    gapi.load("client:auth2", start);
+  });
   const initialFormData = Object.freeze({
     email: "",
     password: "",
@@ -27,6 +43,15 @@ function SignIn() {
       ...errorData,
       [e.target.name]: "",
     });
+  };
+  const clientId =
+    "366353975327-hd0rk6pht4full5preapee5gainbh7pb.apps.googleusercontent.com";
+  const onSuccess = (res) => {
+    console.log("Login Success: currentUser:", res.profileObj);
+    console.log("Login Success: res:", res);
+  };
+  const onFailure = (res) => {
+    console.log("Login failed: res:", res);
   };
 
   const handleSubmit = (e) => {
@@ -145,6 +170,13 @@ function SignIn() {
                 ),
               }}
               onChange={handleChange}
+            />
+            <GoogleLogin
+              clientId={clientId}
+              buttonText="Login"
+              onSuccess={onSuccess}
+              onFailure={onFailure}
+              cookiePolicy="single_host_origin"
             />
             <div
               style={{
