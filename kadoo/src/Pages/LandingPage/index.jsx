@@ -11,7 +11,7 @@ import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 import * as React from "react";
-import { Fade } from "react-awesome-reveal";
+// import { Fade } from "react-awesome-reveal";
 import Carousel from "react-multi-carousel";
 
 import Amir from "../../assets/Images/Landing/Amirmohammad.jpg";
@@ -20,13 +20,12 @@ import Background from "../../assets/Images/Landing/Background.png";
 import Background2 from "../../assets/Images/Landing/Background2.png";
 import Background3 from "../../assets/Images/Landing/Background3.png";
 import Deniz from "../../assets/Images/Landing/Deniz.jpg";
-import Elnaz from "../../assets/Images/Landing/Elnaz.jpg";
 import GardenPlants from "../../assets/Images/Landing/GardenPlants.jpg";
-import Hooriye from "../../assets/Images/Landing/Hoorie.jpg";
+import Hamed from "../../assets/Images/Landing/Hamed.jpg";
+import narges from "../../assets/Images/Landing/Narges.jpg";
 import Navid from "../../assets/Images/Landing/Navid.jpg";
-import Sara from "../../assets/Images/Landing/Sara.jpg";
 import YardPlants from "../../assets/Images/Landing/YardPlants.jpg";
-import AppBar from "../../Components/AppBar";
+// import AppBar from "../../Components/AppBar";
 
 import "react-multi-carousel/lib/styles.css";
 
@@ -51,7 +50,7 @@ export default function LandingPage() {
 
   return (
     <div>
-      <Box sx={{ flexGrow: 1 }}>
+      {/* <Box>
         <AppBar
           SearchOption={false}
           TicketOption={false}
@@ -59,7 +58,8 @@ export default function LandingPage() {
           DrawerOption={false}
           AuthorizationOption
         />
-      </Box>
+      </Box> */}
+
       <Box
         style={{
           backgroundImage: `url(${Background})`,
@@ -75,29 +75,44 @@ export default function LandingPage() {
         }}
         alt="Background"
       >
-        <Box className="Box1" flexDirection="column">
-          <Fade>
-            <h6 data-text="Talebi" className="KadooAnimation">
-              Talebi
-            </h6>
-            <a href="/Homepage" className="Button">
-              <span />
-              <span />
-              <span />
-              <span />
-              Click here to start
+        <Grid container className="Landing-appbar">
+          <Grid xs={9}>
+            {/* <Typography className="Landing-appbar-title"> Talebi</Typography> */}
+          </Grid>
+          <Grid xs={1}>
+            <a className="Landing-appbar-item" href="Homepage">
+              Home
             </a>
-          </Fade>
-        </Box>
-        <Grid
-          className="Introduction"
-          sx={{ display: { xs: "flex", sm: "none", md: "none" } }}
-        >
-          <Typography align="center">
-            We often don{`'`}t think to buy plant online. But what if we tell
-            you that you can now order the most beautiful plants right from
-            home?
-          </Typography>
+          </Grid>
+          <Grid xs={1}>
+            <a className="Landing-appbar-item" href="signin">
+              Log In
+            </a>
+          </Grid>
+          <Grid xs={1}>
+            <a className="Landing-appbar-item" href="signup">
+              Sign Up
+            </a>
+          </Grid>
+        </Grid>
+        <Grid container spacing={2}>
+          <Grid xs={4} />
+          <Grid xs={8} className="Landing-title">
+            <Grid>
+              <p className="Landing-title-name text-center">TALEBI</p>
+            </Grid>
+            <Grid className="Introduction">
+              <Typography align="center" color="black" fontSize={20}>
+                {" "}
+                We often don{`'`}t think to buy plant online. But what if we
+                tell you that you can now order the most beautiful plants right
+                from home?
+              </Typography>
+              <a href="Homepage" className="Landing-Button">
+                Click here to start
+              </a>
+            </Grid>
+          </Grid>
         </Grid>
       </Box>
       <Grid
@@ -264,7 +279,7 @@ export default function LandingPage() {
               marginLeft={4}
               marginRight={4}
               sx={{ marginTop: { sm: 20, xs: 5, md: 8 } }}
-              color="white"
+              color="black"
             >
               We were founded to transform spaces into attractive plantscapes
               that improve the quality of people’s lives. Research shows that
@@ -308,23 +323,10 @@ export default function LandingPage() {
               </Tooltip>
             </div>
             <div>
-              <Tooltip title="Hoorie Sabzevari" arrow>
+              <Tooltip title="Hamed FeizAbadi" arrow>
                 <Avatar
-                  alt="Hoorie Sabzevari"
-                  src={Hooriye}
-                  sx={{
-                    width: { sm: 200, xs: 150 },
-                    height: { sm: 200, xs: 150 },
-                    marginTop: { sm: 2, xs: 8, md: 4 },
-                  }}
-                />
-              </Tooltip>
-            </div>
-            <div>
-              <Tooltip title="Elnaz Rezaee" arrow>
-                <Avatar
-                  alt="Elnaz Rezaee"
-                  src={Elnaz}
+                  alt="Hamed FeizAbadi"
+                  src={Hamed}
                   sx={{
                     width: { sm: 200, xs: 150 },
                     height: { sm: 200, xs: 150 },
@@ -347,10 +349,10 @@ export default function LandingPage() {
               </Tooltip>
             </div>
             <div>
-              <Tooltip title="Sara Yoonesi" arrow>
+              <Tooltip title="Narges Mashayekhi" arrow>
                 <Avatar
-                  alt="Sara Yoonesi"
-                  src={Sara}
+                  alt="Narges Mashayekhi"
+                  src={narges}
                   sx={{
                     width: { sm: 200, xs: 150 },
                     height: { sm: 200, xs: 150 },
