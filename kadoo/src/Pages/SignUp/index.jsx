@@ -126,7 +126,7 @@ function SignUp() {
   return (
     <div>
       <AppBar
-        SearchOption
+        SearchOption={false}
         TicketOption={false}
         CartOption={false}
         DrawerOption={false}

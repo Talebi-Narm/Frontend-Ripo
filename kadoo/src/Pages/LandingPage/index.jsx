@@ -77,8 +77,8 @@ export default function LandingPage() {
       >
         <Box className="Box1" flexDirection="column">
           <Fade>
-            <h6 data-text="kadoo" className="KadooAnimation">
-              kadoo
+            <h6 data-text="Talebi" className="KadooAnimation">
+              Talebi
             </h6>
             <a href="/Homepage" className="Button">
               <span />
@@ -124,7 +124,7 @@ export default function LandingPage() {
             }}
           >
             <h4>
-              Why<span className="Span"> kadoo</span> :
+              Why<span className="Span"> Talebi</span> :
             </h4>
           </Typography>
           <Carousel
@@ -192,7 +192,7 @@ export default function LandingPage() {
                     Garden plants
                   </Typography>
                   <Typography color="#7FC7AD" variant="body2" component="p">
-                    Buying Garden Plants online is easy from Kadoo, as the
+                    Buying Garden Plants online is easy from Talebi, as the
                     leading online garden nursery, our plant selection is first
                     to none.
                   </Typography>
@@ -222,7 +222,7 @@ export default function LandingPage() {
                   <Typography color="#7FC7AD" variant="body2" component="p">
                     With a pinch of effort , you can have the lush, beautiful
                     garden of your dreams. The secret is to choose your plants
-                    from Kadoo.
+                    from Talebi.
                   </Typography>
                 </CardContent>
               </Card>
