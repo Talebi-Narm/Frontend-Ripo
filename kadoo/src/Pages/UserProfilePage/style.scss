@@ -1,0 +1,167 @@
+.userDetail .card-main {
+  display        : flex;
+  align-items    : flex-start;
+  justify-content: center;
+}
+
+.userDetail .cardHeaderText {
+  font-weight: bold !important;
+}
+
+.userDetail .card {
+  width           : 100%;
+  background-color: #fff !important;
+  border          : 1px solid #ececec;
+  min-height      : 220px;
+  border-radius   : 15px !important;
+  box-shadow      : 5px 5px 15px 5px rgba(0, 0, 0, 0.03) !important;
+}
+
+.userDetail .card-1 {
+  color     : #fff !important;
+  background: linear-gradient(61deg, #84d9d2, #06c072);
+}
+
+.userDetail .card-2 {
+  color     : #fff !important;
+  background: linear-gradient(90deg, #90caf9, #047edf 99%);
+
+}
+
+.userDetail .card-3 {
+  color     : #fff !important;
+  background: linear-gradient(90deg, rgba(34, 236, 57, 1) 0%, rgba(191, 241, 132, 1) 0%, rgba(118, 195, 58, 1) 100%);
+
+
+}
+
+.userDetail .card-4 {
+  color     : #fff !important;
+  background: linear-gradient(61deg, rgba(34, 177, 236, 1) 0%, rgba(176, 251, 233, 1) 0%, rgb(57, 173, 177) 93%);
+
+}
+
+.userDetail .cardIcon {
+  width: 8%;
+}
+
+.userDetail .cardHeader {
+  display        : flex;
+  align-items    : center;
+  justify-content: space-evenly;
+  margin-top     : 0.5rem;
+  margin-right   : 0.5rem;
+  margin-left    : 0.5rem;
+}
+
+.userDetail .cardContent {
+  margin-right: 0.5rem;
+  margin-left : 0.5rem;
+}
+
+.userDetail .cardValue {
+  font-size      : 35px !important;
+  font-weight    : bolder !important;
+  display        : flex;
+  align-items    : center;
+  justify-content: center;
+}
+
+.userDetail .noCardDataMsg {
+  margin-right   : 1rem;
+  margin-left    : 1rem;
+  display        : flex;
+  align-items    : center;
+  justify-content: center;
+}
+
+.userDetail .userDetailMap {
+  width: 100% !important;
+}
+
+.userDetail .reLineChart {
+  height: 100% !important;
+  width : 100% !important;
+}
+
+.userDetail .title {
+  background-color: #c5cce7;
+  display         : flex;
+  justify-content : center;
+  align-items     : center;
+  width           : 100%;
+}
+
+/* .userDetail .cards{
+    background-color: #fff;
+  } */
+
+.userDetail .title h2 {
+  font-size: 24px;
+}
+
+.userDetail .chartHelpDialogText {
+  color       : rgb(73, 73, 73);
+  text-align  : justify;
+  text-justify: inter-word;
+}
+
+.userDetail .noDataMessageCard {
+  display        : flex;
+  align-items    : center;
+  justify-content: center;
+}
+
+.userDetail .cardTitle {
+  display         : flex;
+  align-items     : center;
+  justify-content : center;
+  background-color: #fff;
+  height          : 3rem;
+  border-bottom   : 2px solid #a7aab3;
+}
+
+.userDetail .profile-detail-header {
+  padding         : 1rem;
+  margin-top      : 1rem;
+  margin-bottom   : 1rem;
+  display         : flex;
+  align-items     : center;
+  justify-content : space-around;
+  background-color: #d0d4e6;
+  border-radius   : 4px;
+  font-size       : 18px;
+  /* font-weight  : 500 */
+  font-weight     : 600;
+}
+
+.userDetail .backBtn-area {
+  color          : #3a83ff !important;
+  display        : flex !important;
+  align-items    : center !important;
+  justify-content: space-between !important;
+}
+
+.userDetail .speedLocMapBtn {
+  padding: 0 !important;
+}
+
+.userDetail .colorBar {
+  height: 385px;
+}
+
+
+.userDetail .color2 {
+  min-height     : 200px;
+  background     : linear-gradient(0deg, rgba(34, 113, 195, 1) 13%, rgba(198, 102, 83, 1) 84%, rgba(253, 55, 45, 1) 100%);
+  display        : flex;
+  align-items    : flex-end;
+  justify-content: center;
+  color          : #fff;
+  font-size      : 28px;
+}
+
+.userDetail .color3 {
+  min-height: 200px;
+  background: linear-gradient(0deg, rgba(253, 55, 45, 1) 0%, rgba(198, 102, 83, 1) 14%, rgba(34, 113, 195, 1) 75%);
+}
