@@ -134,7 +134,7 @@ function ProductPlantsPage() {
     const requestOptions = {
       method: "POST",
       headers: {
-        Authorization: `JWT ${localStorage.getItem("access_token")}`,
+        Authorization: `Bearer ${localStorage.getItem("access_token")}`,
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
@@ -143,7 +143,7 @@ function ProductPlantsPage() {
       }),
     };
     fetch(
-      "http://127.0.0.1:8000/api/cart/add-plant-to-cart/",
+      "https://service.talebi-narm.ir/api/cart/add-plant-to-cart/",
       requestOptions
     ).then((response) => {
       if (response.status === 401) {
