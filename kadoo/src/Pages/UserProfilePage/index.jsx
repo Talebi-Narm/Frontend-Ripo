@@ -8,6 +8,7 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
+import { TalebiButton } from "../../Components/CustomButton/Button";
 import { Box, style, ThemeProvider } from "@mui/system";
 import React, { useRef, useState } from "react";
 import { toast } from "react-toastify";
@@ -135,12 +136,12 @@ function UserProfilePage() {
                     )}
 
                     <Box className="add-user-center-element">
-                      <Button
+                      <TalebiButton
+                        text="ChoosePicture"
                         sx={{ width: "100%" }}
                         variant="contained"
                         component="label"
                       >
-                        ChoosePicture
                         <input
                           onChange={(e) => setAvatar(e)}
                           hidden
@@ -148,7 +149,7 @@ function UserProfilePage() {
                           multiple
                           type="file"
                         />
-                      </Button>
+                      </TalebiButton>
                     </Box>
                     <Box className="add-user-center-element">
                       <Button
@@ -324,9 +325,11 @@ function UserProfilePage() {
                     </Grid>
                   </Grid>
                   <Grid>
-                    <Button variant="contained" onClick={handelEdit}>
-                      {isEditing ? "Save" : "Edit"}
-                    </Button>
+                    <TalebiButton
+                      variant="contained"
+                      onClick={handelEdit}
+                      text={isEditing ? "Save" : "Edit"}
+                    />
                   </Grid>
                 </Grid>
               </Grid>
