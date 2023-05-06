@@ -24,6 +24,7 @@ import SignUp from "./Pages/SignUp";
 import TestButton from "./Pages/TestButton/TestButton";
 import TicketPage from "./Pages/TicketPage";
 import TicketUser from "./Pages/TicketUser";
+import UserProfilePage from "./Pages/UserProfilePage";
 import Test from "./Test";
 
 function AppRoutes() {
@@ -60,6 +61,7 @@ function AppRoutes() {
       />
       <Route path="/greenHouseEdit/:id" exact element={<GreenHouseEdit />} />
       <Route path="/greenHouseCreate/" exact element={<GreenHouseEdit />} />
+      <Route path="/UserProfilePage" exact element={<UserProfilePage />} />
       <Route path="/test-layout/test1/test2" element={<MainLayout />} />
       <Route exact element={<NotFound />} />
     </Routes>
