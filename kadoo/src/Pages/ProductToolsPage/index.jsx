@@ -16,13 +16,13 @@ import Image from "mui-image";
 import { useState, useEffect } from "react";
 import * as React from "react";
 import { Link } from "react-router-dom";
-import axiosInstance from "../../Utils/axios";
-import AppBar from "../../Components/AppBar";
 
-function ProductToolsPage(props) {
+import AppBar from "../../Components/AppBar";
+import axiosInstance from "../../Utils/axios";
+
+function ProductToolsPage() {
   const [product, setProduct] = useState([]);
   const [toolTags, setToolTags] = useState("");
-  const [id, setId] = useState();
   const [numberOfBuy, setNumberOfBuy] = useState(1);
   const [totalPrice, setTotalPrice] = useState(0);
   const [album, setAlbum] = useState([]);
@@ -34,16 +34,16 @@ function ProductToolsPage(props) {
       .get("/v1/store/tools/", {
         params: {
           count: 0,
-          name: 'toolTest',
+          name: "toolTest",
           page: 2,
           page_size: 1,
           price: 5,
-          tags: '7&tags=3fa85f64-5717-4562-b3fc-2c963f66afa6',
+          tags: "7&tags=3fa85f64-5717-4562-b3fc-2c963f66afa6",
           water: 1,
         },
       })
       .then((response) => {
-        console.log("ghoo" , response)
+        console.log("ghoo", response);
         setProduct(response.data);
       })
       .then(() => {
