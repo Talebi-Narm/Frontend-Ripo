@@ -20,13 +20,13 @@ function App() {
       <ThemeProvider theme={Theme}>
         <CssBaseline />
         <LocalizationProvider dateAdapter={AdapterDayjs}>
-          <MainLayout>
-            <Router>
+          <Router>
+            <MainLayout>
               <Routes>
                 <Route path="/*" element={<AppRoutes />} />
               </Routes>
-            </Router>
-          </MainLayout>
+            </MainLayout>
+          </Router>
         </LocalizationProvider>
       </ThemeProvider>
     </>
