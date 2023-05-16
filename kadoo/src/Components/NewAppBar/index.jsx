@@ -75,6 +75,7 @@ function MainAppBar(props) {
     header: {
       width: "auto",
       borderRadius: theme.shape.borderRadius,
+      backgroundColor: "#00c85370",
       backdropFilter: "blur(5px)",
       top: 24,
       mx: 3,

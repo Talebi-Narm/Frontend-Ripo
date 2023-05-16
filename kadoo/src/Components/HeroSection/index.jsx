@@ -7,6 +7,8 @@ import React, { useState, useEffect, useRef } from "react";
 // eslint-disable-next-line import/no-extraneous-dependencies
 import Typed from "react-typed";
 
+import SearchBar from "../SearchBar";
+
 export default function HeroSection() {
   const theme = useTheme();
   const [heightImage, setHeightImage] = useState(0);
@@ -42,24 +44,32 @@ export default function HeroSection() {
         <Grid
           container
           alignItems="center"
-          sx={{ height: `calc(${heightImage}px - 400px)` }}
+          sx={{
+            height: `calc(${heightImage}px - 400px)`,
+            mt: { xs: `calc(${heightImage}px - 120px)`, md: 0 },
+          }}
         >
-          <Grid item>
-            <Typography variant="h3">
-              You Wanna <br /> feel the{" "}
-              <Typed
-                component="span"
-                variant="h3"
-                style={{
-                  color: theme.palette.primary.main,
-                }}
-                strings={["Nature", "Joy", "Life", "Oxygen"]}
-                typeSpeed={150}
-                backSpeed={100}
-                loop
-              />
-              ?
-            </Typography>
+          <Grid container item>
+            <Grid item>
+              <Typography variant="h3">
+                You Wanna <br /> feel the{" "}
+                <Typed
+                  component="span"
+                  variant="h3"
+                  style={{
+                    color: theme.palette.primary.main,
+                  }}
+                  strings={["Nature", "Joy", "Life", "Oxygen"]}
+                  typeSpeed={150}
+                  backSpeed={100}
+                  loop
+                />
+                ?
+              </Typography>
+            </Grid>
+            <Grid container item>
+              <SearchBar />
+            </Grid>
           </Grid>
         </Grid>
       </Slide>

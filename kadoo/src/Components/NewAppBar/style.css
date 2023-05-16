@@ -14,7 +14,7 @@
   align-items: center;
   justify-content: center;
   background-size: 300% 300%;
-  background-image: linear-gradient(-45deg, #ffeb3b40 0%, #ffffff30 25%, #ffeb3b80 51%, #ffffff00 100%) !important;
+  background-image: linear-gradient(-45deg, #00c85390 0%, #ffeb3b30 25%, #00c85380 51%, #ffffff90 100%) !important;
   -webkit-animation: AnimateBG 20s ease infinite !important;
           animation: AnimateBG 20s ease infinite !important;
 }

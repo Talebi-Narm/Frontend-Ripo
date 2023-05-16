@@ -23,7 +23,6 @@ export default function MainBreadcrumbs() {
             fontWeight: 600,
             fontSize: "1rem",
             lineHeight: 1.5,
-            color: "rgba(255, 255, 255, 0.7)",
           }}
         >
           Home
@@ -35,9 +34,7 @@ export default function MainBreadcrumbs() {
         const routeTo = `/${pathnames.slice(0, index + 1).join("/")}`;
         const isLast = index === pathnames.length - 1;
         return isLast ? (
-          <Typography sx={{ color: "rgb(255, 255, 255)" }} key={name}>
-            {name}
-          </Typography>
+          <Typography key={name}>{name}</Typography>
         ) : (
           <Button
             sx={{
@@ -46,7 +43,6 @@ export default function MainBreadcrumbs() {
               fontWeight: 600,
               fontSize: "1rem",
               lineHeight: 1.5,
-              color: "rgba(255, 255, 255, 0.7)",
             }}
             key={name}
             onClick={() => navigate(routeTo)}

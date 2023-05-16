@@ -97,7 +97,6 @@ export default function MainLayout({ children }) {
       <MainAppBar open={open} />
       <Drawer
         sx={{
-          "& .MuiPaper-root": { backgroundColor: "black" },
           display: { xs: "none", sm: "inherit" },
         }}
         variant="permanent"
