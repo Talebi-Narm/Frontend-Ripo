@@ -2,6 +2,7 @@ import React from "react";
 import "./App.css";
 import { Route, Routes } from "react-router-dom";
 
+import HeroSection from "./Components/HeroSection";
 import SearchResultProduct from "./Components/SearchResultsProduct/SearchResultProduct";
 import ShowCoins from "./Components/ShowCoins";
 import WateringUpdate from "./Components/UpdateCoins/WateringUpdate";
@@ -48,6 +49,7 @@ function AppRoutes() {
       <Route path="/greenhouse" exact element={<Plantmanagement />} />
       <Route path="/AdminPage" exact element={<AdminPage />} />
       <Route path="/FAQsPage" exact element={<FAQsPage />} />
+      <Route path="/testAnimation" exact element={<HeroSection />} />
       <Route path="/testButton" exact element={<TestButton />} />
       <Route
         path="/ProductPlantsPage/:id"

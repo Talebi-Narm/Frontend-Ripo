@@ -3,6 +3,7 @@
 .body {
   /* background-color: whitesmoke; */
   overflow-x: hidden;
+  font-family: 'Comic Neue !important';
 }
 
 #root {
