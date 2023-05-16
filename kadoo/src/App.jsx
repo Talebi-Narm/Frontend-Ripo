@@ -8,6 +8,7 @@ import Helmet from "react-helmet";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
 import AppRoutes from "./AppRoutes";
+import MainLayout from "./Pages/MainLayout";
 import Theme from "./Theme/ThemeGenerator";
 
 function App() {
@@ -19,11 +20,13 @@ function App() {
       <ThemeProvider theme={Theme}>
         <CssBaseline />
         <LocalizationProvider dateAdapter={AdapterDayjs}>
-          <Router>
-            <Routes>
-              <Route path="/*" element={<AppRoutes />} />
-            </Routes>
-          </Router>
+          <MainLayout>
+            <Router>
+              <Routes>
+                <Route path="/*" element={<AppRoutes />} />
+              </Routes>
+            </Router>
+          </MainLayout>
         </LocalizationProvider>
       </ThemeProvider>
     </>

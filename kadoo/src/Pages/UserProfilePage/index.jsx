@@ -11,7 +11,7 @@ import {
 import { TalebiButton } from "../../Components/CustomButton/Button";
 import { Box, style, ThemeProvider } from "@mui/system";
 import React, { useRef, useState } from "react";
-import { toast } from "react-toastify";
+// import { toast } from "react-toastify";
 
 import SampleAvatar from "../../assets/Images/SampleProfile/sample-profile-pic.jfif";
 import AppBar from "../../Components/AppBar";
@@ -68,7 +68,7 @@ function UserProfilePage() {
       }));
     } else {
       setImageSizeErr(true);
-      toast.warning("حجم تصویر حداکثر باید 300 کیلوبایت باشد.");
+      // toast.warning("حجم تصویر حداکثر باید 300 کیلوبایت باشد.");
     }
   };
 

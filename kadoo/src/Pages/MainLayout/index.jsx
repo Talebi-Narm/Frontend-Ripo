@@ -73,7 +73,7 @@ const Drawer = styled(MuiDrawer, {
   }),
 }));
 
-export default function MainLayout() {
+export default function MainLayout({ children }) {
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
   const [selectedIndex, setSelectedIndex] = React.useState(0);
@@ -191,7 +191,7 @@ export default function MainLayout() {
       <Box component="main" sx={{ flexGrow: 1, p: 3, pt: 5 }}>
         <DrawerHeader />
         <MainBreadcrumbs style={{ marginBottom: "8px" }} />
-        <Box>sdffsdf</Box>
+        <Box>{children}</Box>
       </Box>
       <AppBar
         position="fixed"

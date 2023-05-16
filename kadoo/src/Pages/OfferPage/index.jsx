@@ -30,10 +30,12 @@ export default function OfferPage() {
     setOpen(false);
   };
   React.useEffect(() => {
-    axiosInstance.get(`/v1/order/coupons`).then((res) => {
-      const couponsInRes = res.data;
-      setCoupons(couponsInRes);
-    });
+    setTimeout(() => {
+      axiosInstance.get(`/v1/order/coupons`).then((res) => {
+        const couponsInRes = res.data;
+        setCoupons(couponsInRes);
+      });
+    }, 2000);
   }, []);
   return (
     <>
@@ -73,7 +75,15 @@ export default function OfferPage() {
         </>
       )}
       {coupons.length === 0 && (
-        <Box sx={{ display: "flex" }}>
+        <Box
+          sx={{
+            display: "flex",
+            width: "100%",
+            height: "100vh",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
           <CircularProgress />
         </Box>
       )}
