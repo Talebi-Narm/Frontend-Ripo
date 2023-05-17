@@ -12,7 +12,8 @@ import AdminPage from "./Pages/AdminPage";
 import CategoriesPage from "./Pages/CategoriesPage";
 import FAQsPage from "./Pages/FAQs/FAQ";
 import GreenHouseEdit from "./Pages/GreenHouseEdit";
-import HomePage from "./Pages/HomePage";
+// import HomePage from "./Pages/HomePage";
+import HomePageRefactored from "./Pages/HomePage/HomePage";
 import LandingPage from "./Pages/LandingPage";
 import NotFound from "./Pages/NotFound";
 import OfferPage from "./Pages/OfferPage";
@@ -42,7 +43,7 @@ function AppRoutes() {
       <Route path="/signup" exact element={<SignUp />} />
       <Route path="/search/:text" exact element={<SearchResultProduct />} />
       <Route path="/search/" exact element={<SearchResultProduct />} />
-      <Route path="/Homepage" exact element={<HomePage />} />
+      <Route path="/Homepage" exact element={<HomePageRefactored />} />
       <Route path="/cart" exact element={<Cart />} />
       <Route path="/categories" exact element={<CategoriesPage />} />
       <Route path="/Reminder" exact element={<Reminder />} />

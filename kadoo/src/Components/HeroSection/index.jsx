@@ -3,19 +3,15 @@ import { Player } from "@lottiefiles/react-lottie-player";
 import { Grid, Typography } from "@mui/material";
 import Slide from "@mui/material/Slide";
 import { useTheme } from "@mui/material/styles";
-import React, { useState, useEffect, useRef } from "react";
+import React, { forwardRef } from "react";
 // eslint-disable-next-line import/no-extraneous-dependencies
 import Typed from "react-typed";
 
 import SearchBar from "../SearchBar";
 
-export default function HeroSection() {
+// eslint-disable-next-line func-names
+const HeroSection = forwardRef(function ({ heightImage }, ref) {
   const theme = useTheme();
-  const [heightImage, setHeightImage] = useState(0);
-  const ref = useRef(null);
-  useEffect(() => {
-    setTimeout(() => setHeightImage(ref.current.clientHeight), 1000);
-  });
 
   return (
     <div>
@@ -75,4 +71,6 @@ export default function HeroSection() {
       </Slide>
     </div>
   );
-}
+});
+
+export default HeroSection;
