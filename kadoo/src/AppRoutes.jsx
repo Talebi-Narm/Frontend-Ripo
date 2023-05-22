@@ -2,6 +2,7 @@ import React from "react";
 import "./App.css";
 import { Route, Routes } from "react-router-dom";
 
+import ChatUI from "./Components/ChatRoom";
 import HeroSection from "./Components/HeroSection";
 import SearchResultProduct from "./Components/SearchResultsProduct/SearchResultProduct";
 import ShowCoins from "./Components/ShowCoins";
@@ -51,6 +52,7 @@ function AppRoutes() {
       <Route path="/AdminPage" exact element={<AdminPage />} />
       <Route path="/FAQsPage" exact element={<FAQsPage />} />
       <Route path="/testAnimation" exact element={<HeroSection />} />
+      <Route path="/testChat" exact element={<ChatUI />} />
       <Route path="/testButton" exact element={<TestButton />} />
       <Route
         path="/ProductPlantsPage/:id"

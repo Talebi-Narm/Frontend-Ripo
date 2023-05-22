@@ -12,7 +12,9 @@ export default function HomePageRefactored() {
     maeginFixer: {
       height: {
         xs: `calc(${heightImage}px + 50px)`,
-        md: `calc(${heightImage}px - 150px)`,
+        md: `calc(${heightImage}px - 200px)`,
+        lg: `calc(${heightImage}px - 150px)`,
+        xl: `calc(${heightImage}px - 150px)`,
       },
     },
   };
