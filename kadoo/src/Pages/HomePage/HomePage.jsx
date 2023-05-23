@@ -1,8 +1,30 @@
-import { Grid } from "@mui/material";
+import { Box, Grid } from "@mui/material";
 import React, { useState, useRef, useEffect } from "react";
+// eslint-disable-next-line import/no-extraneous-dependencies
+import { useInView } from "react-intersection-observer";
 
+import CommentsBar from "../../Components/CommentsBar";
 import HeroSection from "../../Components/HeroSection";
 import LeadProducts from "../../Components/LeadProducts";
+
+function ScrollAnimation({ children }) {
+  const [ref, inView] = useInView({
+    triggerOnce: true,
+    threshold: 0.1,
+  });
+
+  return (
+    <Box
+      ref={ref}
+      sx={{
+        opacity: inView ? 1 : 0,
+        transition: "opacity 500ms ease-in-out",
+      }}
+    >
+      {children}
+    </Box>
+  );
+}
 
 export default function HomePageRefactored() {
   const [heightImage, setHeightImage] = useState(0);
@@ -31,9 +53,16 @@ export default function HomePageRefactored() {
           setHeightImage={setHeightImage}
         />
       </Grid>
-      <Grid container item>
-        {heightImage !== 0 && <LeadProducts heightImage={heightImage} />}
-      </Grid>
+      <ScrollAnimation>
+        <Grid container item>
+          {heightImage !== 0 && <LeadProducts heightImage={heightImage} />}
+        </Grid>
+      </ScrollAnimation>
+      <ScrollAnimation>
+        <Grid container item>
+          {heightImage !== 0 && <CommentsBar />}
+        </Grid>
+      </ScrollAnimation>
     </Grid>
   );
 }
