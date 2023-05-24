@@ -29,6 +29,7 @@
     "clsx": "^1.2.1",
     "date-fns": "^2.27.0",
     "dayjs": "^1.11.7",
+    "framer-motion": "^10.12.16",
     "gapi-script": "^1.2.0",
     "moment": "^2.29.1",
     "mui-image": "^1.0.4",

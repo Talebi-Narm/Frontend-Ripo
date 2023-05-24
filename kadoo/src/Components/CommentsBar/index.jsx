@@ -10,9 +10,9 @@ export default function CommentsBar() {
     container: {
       width: "100%",
       borderRadius: "16px",
-      mt: "50px",
+      mt: "12px",
       p: 3,
-      backgroundColor: `${theme.palette.primary.main}90`,
+      backgroundColor: `${theme.palette.primary.main}30`,
       position: "relative",
     },
   };
