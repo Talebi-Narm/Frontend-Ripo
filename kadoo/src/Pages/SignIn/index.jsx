@@ -1,14 +1,15 @@
+// eslint-disable-next-line import/no-extraneous-dependencies
+import { Player } from "@lottiefiles/react-lottie-player";
 import { EmailRounded, VpnKey } from "@mui/icons-material";
-import { Grid, TextField, InputAdornment, Box } from "@mui/material";
+import { Grid, TextField, InputAdornment, Box, Button } from "@mui/material";
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { gapi } from "gapi-script";
 import React, { useState, useEffect } from "react";
 // eslint-disable-next-line no-unused-vars
 import { useNavigate } from "react-router-dom";
 
-import Background from "../../assets/Images/SignIn/signInBG.png";
-import AppBar from "../../Components/AppBar";
-import { CustomButton } from "../../Components/CustomButton/Button";
+// import Background from "../../assets/Images/SignIn/signInBG.png";
+// import { CustomButton } from "../../Components/CustomButton/Button";
 import Text from "../../Components/Text";
 
 import "./style.scss";
@@ -166,18 +167,9 @@ function SignIn() {
   };
   return (
     <div className="signin-main">
-      <AppBar
-        SearchOption={false}
-        TicketOption={false}
-        CartOption={false}
-        DrawerOption={false}
-        AuthorizationOption={false}
-      />
       <Box
         style={{
-          backgroundImage: `url(${Background})`,
           backgroundPosition: "center",
-          height: "100vh",
           backgroundRepeat: "no-repeat",
           backgroundSize: "cover",
           position: "relative",
@@ -193,6 +185,21 @@ function SignIn() {
           style={{ minHeight: "100vh" }}
           sx={{ pl: { sm: 20, xs: 0 }, pr: { sm: 20, xs: 0 } }}
         >
+          <Grid item sx={{ width: "100%" }} xs={12} sm={6}>
+            <Player
+              src="https://assets1.lottiefiles.com/private_files/lf30_j4v2bg0q.json"
+              mode="bounce"
+              background="transparent"
+              speed="1"
+              style={{
+                width: "100%",
+                filter: "opacity(0.9)",
+                zIndex: -1,
+              }}
+              loop
+              autoplay
+            />
+          </Grid>
           <Grid
             container
             item
@@ -246,6 +253,7 @@ function SignIn() {
                   ),
                 }}
                 onChange={handleChange}
+                sx={{ mb: 3 }}
               />
               <GoogleLogin
                 clientId={clientId}
@@ -253,6 +261,7 @@ function SignIn() {
                 onSuccess={onSuccess}
                 onFailure={onFailure}
                 cookiePolicy="single_host_origin"
+                style={{ marginTop: "16px" }}
               />
               <div
                 style={{
@@ -263,14 +272,16 @@ function SignIn() {
                   minWidth: 300,
                 }}
               />
-              <CustomButton onClick={handleSubmit}>Sign In</CustomButton>
-              <div style={{ height: 30 }} />
+              <Button variant="contained" onClick={handleSubmit}>
+                Sign In
+              </Button>
+              <div style={{ height: 10 }} />
               <div className="divSignUp">
                 <Text
                   text="Creacte account now"
                   underline
                   link="signup"
-                  fontSize={16}
+                  fontSize={14}
                 />
               </div>
             </div>
