@@ -15,6 +15,7 @@ import Text from "../../Components/Text";
 import "./style.scss";
 // eslint-disable-next-line import/no-extraneous-dependencies, import/order
 import { GoogleLogin } from "react-google-login";
+import { baseURL } from "../../Utils/axios";
 
 function SignIn() {
   useEffect(() => {
@@ -122,13 +123,15 @@ function SignIn() {
     else setRefresh(true);
     const requestOptions = {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: {
+        "Content-Type": "application/json",
+      },
       body: JSON.stringify({
         email: formData.email,
         password: formData.password,
       }),
     };
-    fetch("http://0.0.0.0:8000/api/v1/user/jwt/create/", requestOptions)
+    fetch(`${baseURL}v1/user/jwt/create/`, requestOptions)
       .then((response) => {
         if (response.status === 200) {
           response.json().then((data) => {
@@ -137,7 +140,6 @@ function SignIn() {
             setFlagData(!flagData);
           });
           alert("User logined!");
-          // history.push("/Homepage");
         } else {
           throw response;
         }
