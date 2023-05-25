@@ -17,6 +17,7 @@ import Text from "../../Components/Text";
 import "./style.scss";
 // eslint-disable-next-line import/no-extraneous-dependencies, import/order
 import { GoogleLogin } from "react-google-login";
+import showToast from "../../Components/Toast";
 import { baseURL } from "../../Utils/axios";
 
 function SignIn() {
@@ -122,6 +123,11 @@ function SignIn() {
   const onFailure = (res) => {
     console.log("Login failed: res:", res);
   };
+  // test
+  const handleTest = () => {
+    console.log("hi");
+    showToast("hi", "error");
+  };
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -203,7 +209,7 @@ function SignIn() {
                 width: "100%",
                 filter: "opacity(0.9)",
                 zIndex: -1,
-                paddingTop: "20px",
+                // paddingTop: "20px",
               }}
               loop
               autoplay
@@ -284,6 +290,9 @@ function SignIn() {
               <Button variant="contained" onClick={handleSubmit}>
                 Sign In
               </Button>
+              <Button variant="contained" onClick={handleTest}>
+                test
+              </Button>
               <div style={{ height: 10 }} />
               <div className="divSignUp">
                 <Text
@@ -295,13 +304,7 @@ function SignIn() {
               </div>
             </div>
           </Grid>
-          <Grid item xs={12} sm={6}>
-            {/* <img
-              src={Background}
-              style={{ width: "100%", height: "100%", objectFit: "contain" }}
-              alt="Background"
-            /> */}
-          </Grid>
+          <Grid item xs={12} sm={6} />
         </Grid>
       </Box>
     </div>

@@ -6,10 +6,13 @@ import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import React from "react";
 import Helmet from "react-helmet";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
 
 import AppRoutes from "./AppRoutes";
 import MainLayout from "./Pages/MainLayout";
 import Theme from "./Theme/ThemeGenerator";
+
+import "react-toastify/dist/ReactToastify.css";
 
 function App() {
   return (
@@ -29,6 +32,19 @@ function App() {
           </Router>
         </LocalizationProvider>
       </ThemeProvider>
+      <ToastContainer
+        position="top-center"
+        autoClose={4000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+        import
+      />
     </>
   );
 }
