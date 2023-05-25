@@ -11,22 +11,20 @@ import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 import * as React from "react";
-import { Fade } from "react-awesome-reveal";
+// import { Fade } from "react-awesome-reveal";
 import Carousel from "react-multi-carousel";
 
 import Amir from "../../assets/Images/Landing/Amirmohammad.jpg";
 import apartmentPlants from "../../assets/Images/Landing/apartmentPlants.jpg";
 import Background from "../../assets/Images/Landing/Background.png";
-import Background2 from "../../assets/Images/Landing/Background2.png";
 import Background3 from "../../assets/Images/Landing/Background3.png";
 import Deniz from "../../assets/Images/Landing/Deniz.jpg";
-import Elnaz from "../../assets/Images/Landing/Elnaz.jpg";
 import GardenPlants from "../../assets/Images/Landing/GardenPlants.jpg";
-import Hooriye from "../../assets/Images/Landing/Hoorie.jpg";
+import Hamed from "../../assets/Images/Landing/Hamed.jpg";
+import narges from "../../assets/Images/Landing/Narges.jpg";
 import Navid from "../../assets/Images/Landing/Navid.jpg";
-import Sara from "../../assets/Images/Landing/Sara.jpg";
 import YardPlants from "../../assets/Images/Landing/YardPlants.jpg";
-import AppBar from "../../Components/AppBar";
+// import AppBar from "../../Components/AppBar";
 
 import "react-multi-carousel/lib/styles.css";
 
@@ -51,15 +49,24 @@ export default function LandingPage() {
 
   return (
     <div>
-      <Box sx={{ flexGrow: 1 }}>
-        <AppBar
-          SearchOption={false}
-          TicketOption={false}
-          CartOption={false}
-          DrawerOption={false}
-          AuthorizationOption
-        />
-      </Box>
+      <Grid container className="Landing-appbar">
+        <Grid xs={9} />
+        <Grid xs={1}>
+          <a className="Landing-appbar-item" href="Homepage">
+            Home
+          </a>
+        </Grid>
+        <Grid xs={1}>
+          <a className="Landing-appbar-item" href="signin">
+            Log In
+          </a>
+        </Grid>
+        <Grid xs={1}>
+          <a className="Landing-appbar-item" href="signup">
+            Sign Up
+          </a>
+        </Grid>
+      </Grid>
       <Box
         style={{
           backgroundImage: `url(${Background})`,
@@ -75,35 +82,30 @@ export default function LandingPage() {
         }}
         alt="Background"
       >
-        <Box className="Box1" flexDirection="column">
-          <Fade>
-            <h6 data-text="kadoo" className="KadooAnimation">
-              kadoo
-            </h6>
-            <a href="/Homepage" className="Button">
-              <span />
-              <span />
-              <span />
-              <span />
-              Click here to start
-            </a>
-          </Fade>
-        </Box>
-        <Grid
-          className="Introduction"
-          sx={{ display: { xs: "flex", sm: "none", md: "none" } }}
-        >
-          <Typography align="center">
-            We often don{`'`}t think to buy plant online. But what if we tell
-            you that you can now order the most beautiful plants right from
-            home?
-          </Typography>
+        <Grid container spacing={2}>
+          <Grid xs={4} />
+          <Grid xs={8} className="Landing-title">
+            <Grid>
+              <p className="Landing-title-name text-center">TALEBI</p>
+            </Grid>
+            <Grid className="Introduction">
+              <Typography align="center" color="black" fontSize={20}>
+                {" "}
+                We often don{`'`}t think to buy plant online. But what if we
+                tell you that you can now order the most beautiful plants right
+                from home?
+              </Typography>
+              <a href="Homepage" className="Landing-Button">
+                Click here to start
+              </a>
+            </Grid>
+          </Grid>
         </Grid>
       </Box>
       <Grid
         className="BlackBackground"
         style={{
-          backgroundImage: `url(${Background2})`,
+          backgroundImage: `url(${Background3})`,
           backgroundPosition: "center",
           minHeight: "100vh",
           backgroundRepeat: "no-repeat",
@@ -123,9 +125,7 @@ export default function LandingPage() {
               paddingBottom: { sm: "5%", xs: "15%", md: "5%" },
             }}
           >
-            <h4>
-              Why<span className="Span"> kadoo</span> :
-            </h4>
+            <Typography fontSize={40}>Why Talebi</Typography>
           </Typography>
           <Carousel
             fade
@@ -163,7 +163,7 @@ export default function LandingPage() {
                   >
                     Apartment plants
                   </Typography>
-                  <Typography color="#7FC7AD" variant="body2" component="p">
+                  <Typography color="#00c853" variant="body2" component="p">
                     Fill your living space with beautiful houseplants to making
                     your apartment feel more welcoming and also for help clean
                     the air.
@@ -191,8 +191,8 @@ export default function LandingPage() {
                   >
                     Garden plants
                   </Typography>
-                  <Typography color="#7FC7AD" variant="body2" component="p">
-                    Buying Garden Plants online is easy from Kadoo, as the
+                  <Typography color="#00c853" variant="body2" component="p">
+                    Buying Garden Plants online is easy from Talebi, as the
                     leading online garden nursery, our plant selection is first
                     to none.
                   </Typography>
@@ -219,10 +219,10 @@ export default function LandingPage() {
                   >
                     Yard plants
                   </Typography>
-                  <Typography color="#7FC7AD" variant="body2" component="p">
+                  <Typography color="#00c853" variant="body2" component="p">
                     With a pinch of effort , you can have the lush, beautiful
                     garden of your dreams. The secret is to choose your plants
-                    from Kadoo.
+                    from Talebi.
                   </Typography>
                 </CardContent>
               </Card>
@@ -250,21 +250,14 @@ export default function LandingPage() {
             className="GridContactUs"
             sx={{ marginTop: { sm: 20, xs: 10, md: 10 } }}
           >
-            <Typography
-              variant="h4"
-              className="TypographyContactUs"
-              align="center"
-            >
-              <h4>
-                Meet The<span className="Span"> Team</span> :
-              </h4>
-            </Typography>
+            <Typography fontSize={40}>About Us</Typography>
             <Typography
               align="center"
               marginLeft={4}
               marginRight={4}
               sx={{ marginTop: { sm: 20, xs: 5, md: 8 } }}
-              color="white"
+              color="black"
+              width={600}
             >
               We were founded to transform spaces into attractive plantscapes
               that improve the quality of people’s lives. Research shows that
@@ -295,7 +288,7 @@ export default function LandingPage() {
             itemClass="carousel-item-padding-40-px"
           >
             <div>
-              <Tooltip title="Amirmohammad Sohrabi" arrow>
+              <Tooltip title="Backend Developer" arrow>
                 <Avatar
                   alt="Amirmohammad Sohrabi"
                   src={Amir}
@@ -306,12 +299,13 @@ export default function LandingPage() {
                   }}
                 />
               </Tooltip>
+              <Typography align="center">Amirmohammad Sohrabi</Typography>
             </div>
             <div>
-              <Tooltip title="Hoorie Sabzevari" arrow>
+              <Tooltip title="Backend Developer" arrow>
                 <Avatar
-                  alt="Hoorie Sabzevari"
-                  src={Hooriye}
+                  alt="Hamed FeizAbadi"
+                  src={Hamed}
                   sx={{
                     width: { sm: 200, xs: 150 },
                     height: { sm: 200, xs: 150 },
@@ -319,22 +313,10 @@ export default function LandingPage() {
                   }}
                 />
               </Tooltip>
+              <Typography align="center">Hamed Feizabadi</Typography>
             </div>
             <div>
-              <Tooltip title="Elnaz Rezaee" arrow>
-                <Avatar
-                  alt="Elnaz Rezaee"
-                  src={Elnaz}
-                  sx={{
-                    width: { sm: 200, xs: 150 },
-                    height: { sm: 200, xs: 150 },
-                    marginTop: { sm: 2, xs: 8, md: 4 },
-                  }}
-                />
-              </Tooltip>
-            </div>
-            <div>
-              <Tooltip title="Navid Moosavizade" arrow>
+              <Tooltip title="Frontend Developer" arrow>
                 <Avatar
                   alt="Navid Moosavizade"
                   src={Navid}
@@ -345,12 +327,13 @@ export default function LandingPage() {
                   }}
                 />
               </Tooltip>
+              <Typography align="center">Navid Moosavizade</Typography>
             </div>
             <div>
-              <Tooltip title="Sara Yoonesi" arrow>
+              <Tooltip title="Frontend Developer" arrow>
                 <Avatar
-                  alt="Sara Yoonesi"
-                  src={Sara}
+                  alt="Narges Mashayekhi"
+                  src={narges}
                   sx={{
                     width: { sm: 200, xs: 150 },
                     height: { sm: 200, xs: 150 },
@@ -358,9 +341,10 @@ export default function LandingPage() {
                   }}
                 />
               </Tooltip>
+              <Typography align="center">Narges Mashayekhi</Typography>
             </div>
             <div>
-              <Tooltip title="Deniz Ahmadi" arrow>
+              <Tooltip title="Frontend Developer" arrow>
                 <Avatar
                   alt="Deniz Ahmadi"
                   src={Deniz}
@@ -371,6 +355,7 @@ export default function LandingPage() {
                   }}
                 />
               </Tooltip>
+              <Typography align="center">Deniz Ahmadi</Typography>
             </div>
           </Carousel>
           <Grid

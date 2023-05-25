@@ -1,9 +1,17 @@
+$primery: #00c853 !default;
+$secondary: #ffeb3b !default;
+$landingGreen:#708b2c ;
+
+
+
+
+
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@700&display=swap');
 *{
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Poppins' , sans-serif;
+    font-family: 'New Century Schoolbook' ;
 }
 .AppBar{
     color: "#282c34" !important;
@@ -20,13 +28,13 @@
 
 .css-hip9hq-MuiPaper-root-MuiAppBar-root {
     background-color:#212121 !important;
-    color: #7FC7AD !important;
+    color: $landingGreen !important;
     justify-content: center o !important;
 }
 
 .css-1rwt2y5-MuiButtonBase-root-MuiButton-root:hover {
-    border-color: #B8E0D2 !important;
-    color: #B8E0D2 !important;
+    border-color: $landingGreen !important;
+    color: $landingGreen !important;
 }
 
 .css-1rwt2y5-MuiButtonBase-root-MuiButton-root {
@@ -36,7 +44,7 @@
 }
 
 .BlackBackground{
-    background-color: #212121 !important;
+    background-color: black !important;
 }
 
 .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6 {
@@ -46,7 +54,7 @@
 .KadooAnimation{
     position: relative;
     font-size: 10vw;
-    color: #B8E0D2;
+    color: $landingGreen;
     -webkit-text-stroke: 0.3vw #7d7d80;
     text-transform: uppercase;
 }
@@ -251,3 +259,57 @@
     margin-left: 3%;
     margin-right: 3%;
 }
+
+
+
+.t-members{
+    color: black !important;
+}
+.Landing-title{
+    text-align: center !important;
+}
+.Landing-title-name{
+    font-size: 100px;
+    align-self: center !important;
+    // font-family: 'Times New Roman', Times, serif;
+    font-family: "Comic Neue";
+    color: black;
+}
+.Landing-Button{
+    color: #708b2c; 
+    font-family: "Comic Neue";
+    text-decoration: underline !important;
+}
+
+.Landing-appbar{
+    background-color: white !important;
+    padding: 20px;
+    padding-bottom: 5px;
+    // padding-top: 0px;
+    // margin-top: 0px !important;
+}
+.Landing-appbar-item{
+    font-size:20px !important;
+    color: $landingGreen;
+    text-align: center;
+    text-decoration: underline !important;
+    font-family: "Comic Neue";
+    padding-right: 15px;
+    padding-left: 15px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+.Landing-appbar-item:hover{
+    background-color: $landingGreen;
+    border-radius: 25px;
+    color: white;
+    text-decoration: none !important;
+}
+.Landing-appbar-title{
+    color: #212121;
+    font-size: 30px !important;
+    padding-left: 30px;
+}
+// .landing-titles{
+//     font-size: 30px ;
+// }

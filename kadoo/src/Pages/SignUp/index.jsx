@@ -1,6 +1,8 @@
 import { AccountCircle, VpnKey, EmailSharp, Create } from "@mui/icons-material";
 import { Grid, TextField, InputAdornment } from "@mui/material";
 import React, { useState } from "react";
+// eslint-disable-next-line no-unused-vars
+import { useNavigate } from "react-router-dom";
 
 import Background from "../../assets/Images/SignUp/SignUpBG.png";
 import AppBar from "../../Components/AppBar";
@@ -19,6 +21,7 @@ function SignUp() {
   });
   const [formData, updateFormData] = useState(initialFormData);
   const [errorData, updateErrorData] = useState(initialFormData);
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     updateFormData({
@@ -70,7 +73,7 @@ function SignUp() {
       .then((response) => {
         if (response.status === 201) {
           alert("User registered!");
-          // history.push("/signin");
+          navigate("/signin");
           window.location.reload(true);
         } else {
           throw response;
@@ -126,7 +129,7 @@ function SignUp() {
   return (
     <div>
       <AppBar
-        SearchOption
+        SearchOption={false}
         TicketOption={false}
         CartOption={false}
         DrawerOption={false}
