@@ -1,15 +1,13 @@
 import axios from "axios";
 
-export const baseURL = "https://Talebi-narm.ir/api/";
+const baseURL = "http://Talebi-narm.ir/api/";
 const axiosInstance = axios.create({
   baseURL,
   timeout: 5000,
   headers: {
     Authorization: localStorage.getItem("access_token")
-      ? `Bearer ${localStorage.getItem("access_token")}`
+      ? `JWT ${localStorage.getItem("access_token")}`
       : null,
-    accept: "application/json",
-    "Content-Type": "application/json",
   },
 });
 

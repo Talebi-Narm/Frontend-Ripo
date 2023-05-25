@@ -15,7 +15,6 @@ import HomePage from "./Pages/HomePage";
 import LandingPage from "./Pages/LandingPage";
 import MainLayout from "./Pages/MainLayout";
 import NotFound from "./Pages/NotFound";
-import OfferPage from "./Pages/OfferPage";
 import Plantmanagement from "./Pages/Plantmanagement";
 import ProductPlantsPage from "./Pages/ProductPlantsPage/inedx";
 import ProductToolsPage from "./Pages/ProductToolsPage";
@@ -64,7 +63,6 @@ function AppRoutes() {
       <Route path="/greenHouseCreate/" exact element={<GreenHouseEdit />} />
       <Route path="/UserProfilePage" exact element={<UserProfilePage />} />
       <Route path="/test-layout/test1/test2" element={<MainLayout />} />
-      <Route path="/offer" element={<OfferPage />} />
       <Route exact element={<NotFound />} />
     </Routes>
   );

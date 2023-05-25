@@ -1,8 +1,8 @@
 import "./App.css";
+import AdapterDateFns from "@mui/lab/AdapterDateFns";
+import LocalizationProvider from "@mui/lab/LocalizationProvider";
 import CssBaseline from "@mui/material/CssBaseline";
 import { ThemeProvider } from "@mui/material/styles";
-import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import React from "react";
 import Helmet from "react-helmet";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
@@ -18,7 +18,7 @@ function App() {
       </Helmet>
       <ThemeProvider theme={Theme}>
         <CssBaseline />
-        <LocalizationProvider dateAdapter={AdapterDayjs}>
+        <LocalizationProvider dateAdapter={AdapterDateFns}>
           <Router>
             <Routes>
               <Route path="/*" element={<AppRoutes />} />
