@@ -19,6 +19,7 @@ import React, { useEffect, useState, useRef } from "react";
 import AppBar from "../../Components/AppBar";
 import SkeletonArticle from "../../Components/Cart/SkeletonArticle";
 import ShowGreenHouse from "../../Components/ShowProduct/ShowGreenHouse";
+import showToast from "../../Components/Toast";
 import Theme from "../../Theme/ThemeGenerator";
 import GreenHouseEdit from "../GreenHouseEdit";
 
@@ -124,13 +125,13 @@ function Plantmanagment() {
     if (newPlantInfo.name !== "") {
       formData.append("name", newPlantInfo.name);
     } else {
-      alert("Enter the name of plant!");
+      showToast("Enter the name of plant!", "info");
       return;
     }
     if (selectedFile !== null) {
       formData.append("image", selectedFile, selectedFile.name);
     } else {
-      alert("Select Image for the plant!");
+      showToast("Select Image for the plant!", "info");
       return;
     }
     formData.append("description", newPlantInfo.description);
@@ -146,7 +147,7 @@ function Plantmanagment() {
         if (response.status === 401 || response.status === 400) {
           throw response;
         } else {
-          alert("Plant Added!");
+          showToast("Plant Added!", "success");
           handleReload();
           handleClose();
         }
@@ -210,7 +211,7 @@ function Plantmanagment() {
     if (newPlantInfo.name !== "") {
       formData.append("name", newPlantInfo.name);
     } else {
-      alert("Enter the name of plant!");
+      showToast("Enter the name of plant!", "info");
       return;
     }
     formData.append("description", newPlantInfo.description);
@@ -234,7 +235,7 @@ function Plantmanagment() {
         if (response.status === 401 || response.status === 400) {
           throw response;
         } else {
-          alert("Plant Updated!");
+          showToast("Plant Updated!", "success");
           handleReload();
           handleClose();
         }
@@ -303,7 +304,7 @@ function Plantmanagment() {
             setNewPlant(true);
             setOpen(true);
           } else {
-            alert("You dont have enough coin!");
+            showToast("You dont have enough coin!", "error");
           }
         });
     }
@@ -447,7 +448,7 @@ function Plantmanagment() {
         })
         .catch((error) => {
           if (error === 401) {
-            alert("You should login first!");
+            showToast("You should login first!", "error");
           }
           console.error("There was an error!", error);
           setPlantDataLoaded(true);

@@ -6,6 +6,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import Text from "../../Components/Text";
+import showToast from "../../Components/Toast";
 import "./style.scss";
 import { baseURL } from "../../Utils/axios";
 
@@ -71,7 +72,7 @@ function SignUp() {
     fetch(`${baseURL}v1/user/register`, requestOptions)
       .then((response) => {
         if (response.status === 201) {
-          alert("User registered!");
+          showToast("User registered!", "success");
           navigate("/signin");
           window.location.reload(true);
         } else {

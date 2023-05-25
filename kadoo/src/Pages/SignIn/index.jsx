@@ -81,7 +81,7 @@ function SignIn() {
             localStorage.setItem("refresh_token", data.refresh);
             setFlagData(!flagData);
           });
-          alert("User logined!");
+          showToast("User logined!", "success");
           navigate("/Homepage");
         } else {
           throw response;
@@ -89,7 +89,7 @@ function SignIn() {
       })
       .catch((err) => {
         if (err.status === 401) {
-          alert("Something went wrong");
+          showToast("Something went wrong", "error");
         }
         err.text().then((errorMessage) => {
           const errors = JSON.parse(errorMessage);
@@ -123,11 +123,6 @@ function SignIn() {
   const onFailure = (res) => {
     console.log("Login failed: res:", res);
   };
-  // test
-  const handleTest = () => {
-    console.log("hi");
-    showToast("hi", "error");
-  };
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -151,14 +146,14 @@ function SignIn() {
             localStorage.setItem("refresh_token", data.refresh);
             setFlagData(!flagData);
           });
-          alert("User logined!");
+          showToast("User logined", "success");
         } else {
           throw response;
         }
       })
       .catch((err) => {
         if (err.status === 401) {
-          alert("Your email or password is incorrect!");
+          showToast("Your email or password is incorrect!", "error");
         }
         err.text().then((errorMessage) => {
           const errors = JSON.parse(errorMessage);
@@ -289,9 +284,6 @@ function SignIn() {
               />
               <Button variant="contained" onClick={handleSubmit}>
                 Sign In
-              </Button>
-              <Button variant="contained" onClick={handleTest}>
-                test
               </Button>
               <div style={{ height: 10 }} />
               <div className="divSignUp">
