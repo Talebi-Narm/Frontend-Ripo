@@ -3,6 +3,8 @@ import { Player } from "@lottiefiles/react-lottie-player";
 import { EmailRounded, VpnKey } from "@mui/icons-material";
 import { Grid, TextField, InputAdornment, Box, Button } from "@mui/material";
 // eslint-disable-next-line import/no-extraneous-dependencies
+// import MuiAlert from "@mui/material/Alert";
+// import Snackbar from "@mui/material/Snackbar";
 import { gapi } from "gapi-script";
 import React, { useState, useEffect } from "react";
 // eslint-disable-next-line no-unused-vars
@@ -52,6 +54,10 @@ function SignIn() {
       [e.target.name]: "",
     });
   };
+  // eslint-disable-next-line react/no-unstable-nested-components
+  // const Alert = React.forwardRef(function Alert(props, ref) {
+  //   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+  // });
   const postLoginGoogle = () => {
     fetch("https://service.talebi-narm.ir/api/v1/user/google-login", {
       method: "POST",
@@ -197,6 +203,7 @@ function SignIn() {
                 width: "100%",
                 filter: "opacity(0.9)",
                 zIndex: -1,
+                paddingTop: "20px",
               }}
               loop
               autoplay
