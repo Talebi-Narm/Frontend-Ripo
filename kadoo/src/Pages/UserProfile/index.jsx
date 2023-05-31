@@ -19,6 +19,11 @@ import {
   useTheme,
 } from "@mui/material";
 import { Box, style } from "@mui/system";
+// import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+// import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
+// import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import dayjs from "dayjs";
 import React, { useState } from "react";
 
 import SampleAvatar from "../../assets/Images/SampleProfile/sample-profile-pic.jfif";
@@ -30,18 +35,18 @@ function UserProfile() {
   const [name] = useState("");
   const [username] = useState("");
   const [userId] = useState("");
-  const [birthdate] = useState(null);
+  // const [birthdate] = useState(null);
   const [gender] = useState("");
   const [address] = useState("");
   const [email] = useState("");
   const [phoneNumber] = useState("");
-  const [password] = useState("");
-  const [changePassword] = useState("");
+  // const [password] = useState("");
+  // const [changePassword] = useState("");
   const [imageSizeErr, setImageSizeErr] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   const [imageCode, setImageCode] = useState("");
-
   const uploadInputRef = React.useRef(null);
+  const [value, setValue] = React.useState(dayjs("2022-06-"));
 
   // const handleUpload = () => {
   //   const file = uploadInputRef.current.files[0];
@@ -189,6 +194,7 @@ function UserProfile() {
                             display: "flex",
                             justifyContent: "center",
                           }}
+                          spacing={3}
                         >
                           <Grid item>
                             <Grid
@@ -203,6 +209,12 @@ function UserProfile() {
                                 defaultValue={username}
                                 size="small"
                                 disabled={!isEditing}
+                                inputProps={{
+                                  style: {
+                                    height: "36px",
+                                    width: "209px",
+                                  },
+                                }}
                               />
                             </Grid>
                             <Grid
@@ -217,6 +229,12 @@ function UserProfile() {
                                 defaultValue={userId}
                                 size="small"
                                 disabled={!isEditing}
+                                inputProps={{
+                                  style: {
+                                    height: "36px",
+                                    width: "209px",
+                                  },
+                                }}
                               />
                             </Grid>
                             <Grid
@@ -231,6 +249,12 @@ function UserProfile() {
                                 defaultValue={address}
                                 size="small"
                                 disabled={!isEditing}
+                                inputProps={{
+                                  style: {
+                                    height: "37px",
+                                    width: "209px",
+                                  },
+                                }}
                               />
                             </Grid>
                             <Grid
@@ -245,9 +269,15 @@ function UserProfile() {
                                 defaultValue={phoneNumber}
                                 size="small"
                                 disabled={!isEditing}
+                                inputProps={{
+                                  style: {
+                                    height: "35px",
+                                    width: "209px",
+                                  },
+                                }}
                               />
                             </Grid>
-                            <Grid
+                            {/* <Grid
                               container
                               flexDirection="row-reverse"
                               sx={{ pb: 2 }}
@@ -259,8 +289,14 @@ function UserProfile() {
                                 defaultValue={changePassword}
                                 size="small"
                                 disabled={!isEditing}
+                                inputProps={{
+                                  style: {
+                                    height: "35px",
+                                    width: "209px",
+                                  },
+                                }}
                               />
-                            </Grid>
+                            </Grid> */}
                           </Grid>
                           <Grid item sx={{ pl: 2 }}>
                             <Grid
@@ -275,6 +311,12 @@ function UserProfile() {
                                 defaultValue={name}
                                 size="small"
                                 disabled={!isEditing}
+                                inputProps={{
+                                  style: {
+                                    height: "35px",
+                                    width: "209px",
+                                  },
+                                }}
                               />
                             </Grid>
                             <Grid
@@ -289,6 +331,13 @@ function UserProfile() {
                                 defaultValue={email}
                                 size="small"
                                 disabled={!isEditing}
+                                // sx={{ height: "300px" }}
+                                inputProps={{
+                                  style: {
+                                    height: "35px",
+                                    width: "209px",
+                                  },
+                                }}
                               />
                             </Grid>
                             <Grid
@@ -296,14 +345,24 @@ function UserProfile() {
                               flexDirection="row-reverse"
                               sx={{ pb: 2 }}
                             >
-                              <TextField
+                              {/* <TextField
                                 required
                                 id="outlined-required"
                                 label="Birthdate"
                                 defaultValue={birthdate}
                                 size="small"
                                 disabled={!isEditing}
+                              /> */}
+                              {/* <LocalizationProvider dateAdapter={AdapterDayjs}>
+                                <DemoContainer components={["DatePicker"]}> */}
+                              <DatePicker
+                                label="Birthdate"
+                                value={value}
+                                onChange={(newValue) => setValue(newValue)}
+                                disabled={!isEditing}
                               />
+                              {/* </DemoContainer>
+                              </LocalizationProvider> */}
                             </Grid>
                             <Grid
                               container
@@ -317,9 +376,15 @@ function UserProfile() {
                                 defaultValue={gender}
                                 size="small"
                                 disabled={!isEditing}
+                                inputProps={{
+                                  style: {
+                                    height: "35px",
+                                    width: "209px",
+                                  },
+                                }}
                               />
                             </Grid>
-                            <Grid
+                            {/* <Grid
                               container
                               flexDirection="row-reverse"
                               sx={{ pb: 2 }}
@@ -331,8 +396,14 @@ function UserProfile() {
                                 defaultValue={password}
                                 size="small"
                                 disabled={!isEditing}
+                                inputProps={{
+                                  style: {
+                                    height: "35px",
+                                    width: "209px",
+                                  },
+                                }}
                               />
-                            </Grid>
+                            </Grid> */}
                           </Grid>
                         </Grid>
                         <Grid>
