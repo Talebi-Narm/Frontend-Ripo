@@ -3,6 +3,8 @@ import { Player } from "@lottiefiles/react-lottie-player";
 import { EmailRounded, VpnKey } from "@mui/icons-material";
 import { Grid, TextField, InputAdornment, Box, Button } from "@mui/material";
 // eslint-disable-next-line import/no-extraneous-dependencies
+// import MuiAlert from "@mui/material/Alert";
+// import Snackbar from "@mui/material/Snackbar";
 import { gapi } from "gapi-script";
 import React, { useState, useEffect } from "react";
 // eslint-disable-next-line no-unused-vars
@@ -15,6 +17,7 @@ import Text from "../../Components/Text";
 import "./style.scss";
 // eslint-disable-next-line import/no-extraneous-dependencies, import/order
 import { GoogleLogin } from "react-google-login";
+// import showToast from "../../Components/Toast";
 import { baseURL } from "../../Utils/axios";
 
 function SignIn() {
@@ -52,6 +55,10 @@ function SignIn() {
       [e.target.name]: "",
     });
   };
+  // eslint-disable-next-line react/no-unstable-nested-components
+  // const Alert = React.forwardRef(function Alert(props, ref) {
+  //   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+  // });
   const postLoginGoogle = () => {
     fetch("https://service.talebi-narm.ir/api/v1/user/google-login", {
       method: "POST",
@@ -74,7 +81,7 @@ function SignIn() {
             localStorage.setItem("refresh_token", data.refresh);
             setFlagData(!flagData);
           });
-          alert("User logined!");
+          // showToast("User logined!", "success");
           navigate("/Homepage");
         } else {
           throw response;
@@ -82,7 +89,7 @@ function SignIn() {
       })
       .catch((err) => {
         if (err.status === 401) {
-          alert("Something went wrong");
+          // showToast("Something went wrong", "error");
         }
         err.text().then((errorMessage) => {
           const errors = JSON.parse(errorMessage);
@@ -139,14 +146,15 @@ function SignIn() {
             localStorage.setItem("refresh_token", data.refresh);
             setFlagData(!flagData);
           });
-          alert("User logined!");
+          // showToast("User logined", "success");
+          alert("success");
         } else {
           throw response;
         }
       })
       .catch((err) => {
         if (err.status === 401) {
-          alert("Your email or password is incorrect!");
+          // showToast("Your email or password is incorrect!", "error");
         }
         err.text().then((errorMessage) => {
           const errors = JSON.parse(errorMessage);
@@ -197,6 +205,7 @@ function SignIn() {
                 width: "100%",
                 filter: "opacity(0.9)",
                 zIndex: -1,
+                // paddingTop: "20px",
               }}
               loop
               autoplay
@@ -288,13 +297,7 @@ function SignIn() {
               </div>
             </div>
           </Grid>
-          <Grid item xs={12} sm={6}>
-            {/* <img
-              src={Background}
-              style={{ width: "100%", height: "100%", objectFit: "contain" }}
-              alt="Background"
-            /> */}
-          </Grid>
+          <Grid item xs={12} sm={6} />
         </Grid>
       </Box>
     </div>

@@ -1,14 +1,14 @@
+import { Player } from "@lottiefiles/react-lottie-player";
 import { AccountCircle, VpnKey, EmailSharp, Create } from "@mui/icons-material";
-import { Grid, TextField, InputAdornment } from "@mui/material";
+import { Grid, TextField, InputAdornment, Button } from "@mui/material";
 import React, { useState } from "react";
 // eslint-disable-next-line no-unused-vars
 import { useNavigate } from "react-router-dom";
 
-import Background from "../../assets/Images/SignUp/SignUpBG.png";
-import AppBar from "../../Components/AppBar";
-import { CustomButton } from "../../Components/CustomButton/Button";
 import Text from "../../Components/Text";
+// import showToast from "../../Components/Toast";
 import "./style.scss";
+import { baseURL } from "../../Utils/axios";
 
 function SignUp() {
   const initialFormData = Object.freeze({
@@ -69,10 +69,10 @@ function SignUp() {
         about: formData.about,
       }),
     };
-    fetch("http://0.0.0.0:8000/api/v1/user/register", requestOptions)
+    fetch(`${baseURL}v1/user/register`, requestOptions)
       .then((response) => {
         if (response.status === 201) {
-          alert("User registered!");
+          // showToast("User registered!", "success");
           navigate("/signin");
           window.location.reload(true);
         } else {
@@ -128,23 +128,25 @@ function SignUp() {
 
   return (
     <div>
-      <AppBar
-        SearchOption={false}
-        TicketOption={false}
-        CartOption={false}
-        DrawerOption={false}
-        AuthorizationOption={false}
-      />
       <Grid
         container
         style={{ minHeight: "100vh" }}
         sx={{ pl: { sm: 20, xs: 0 }, pr: { sm: 20, xs: 0 } }}
       >
         <Grid item xs={12} sm={6}>
-          <img
-            src={Background}
-            style={{ width: "100%", height: "100%", objectFit: "contain" }}
-            alt="Background"
+          <Player
+            src="https://assets10.lottiefiles.com/packages/lf20_xd9ypluc.json"
+            mode="bounce"
+            background="transparent"
+            speed="1"
+            style={{
+              width: "100%",
+              filter: "opacity(0.9)",
+              zIndex: -1,
+              paddingTop: "80px",
+            }}
+            loop
+            autoplay
           />
         </Grid>
         <Grid
@@ -259,9 +261,9 @@ function SignUp() {
               onChange={handleChange}
             />
             <div style={{ height: 20 }} />
-            <CustomButton text="signUp" onClick={handleSubmit}>
-              Sing Up
-            </CustomButton>
+            <Button variant="contained" onClick={handleSubmit}>
+              Sign Up
+            </Button>
             <div style={{ height: 30 }} className="Buttons" />
             <div className="divSignUp">
               <Text
