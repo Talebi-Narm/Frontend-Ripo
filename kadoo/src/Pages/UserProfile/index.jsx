@@ -23,14 +23,17 @@ import { Box, style } from "@mui/system";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 // import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
 // import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+// import axios from "axios";
 import dayjs from "dayjs";
 import React, { useState } from "react";
 
 import SampleAvatar from "../../assets/Images/SampleProfile/sample-profile-pic.jfif";
 import { TalebiButton } from "../../Components/CustomButton/Button";
 import Wallet from "../../Components/Wallet";
+import "./style.scss";
+import axiosInstance from "../../Utils/axios";
 
-function UserProfile() {
+async function UserProfile() {
   const [selectedMenu, setSelectedMenu] = useState("main");
   const [name] = useState("");
   const [username] = useState("");
@@ -64,6 +67,16 @@ function UserProfile() {
       };
     });
   };
+  // const save = () => {
+  //   axiosInstance.get(`v1/user/me/`).then((res) => {
+  //     const requestOptions = res;
+  //   });
+  // };
+  // const response = await axios.get("https://talebi-narm.ir/api/v1/user/me/", {
+  //   headers: {
+  //     accept: "application/json",
+  //   },
+  // });
   // const setImageCode = () => {
   //   imageCode: base64Avatar
   // }
@@ -94,10 +107,12 @@ function UserProfile() {
     }
   };
 
-  const handelEdit = () => {
-    // if(isEditing) {
-    //   // send data to server
-    // }
+  const handelEdit = async () => {
+    if (isEditing) {
+      axiosInstance.get(`v1/user/me/`).then((res) => {
+         = res;
+      });
+    }
     setIsEditing(!isEditing);
   };
   const handleMenuClick = (menu) => {
