@@ -21,9 +21,9 @@
 }
 
 .Message {
-  font-family: 'Quicksand';
   color: black;
   padding-right: 10px !important;
+  font-family: inherit;
 }
 .waterButton {
   border-left: 2px solid rgb(226, 226, 226);
