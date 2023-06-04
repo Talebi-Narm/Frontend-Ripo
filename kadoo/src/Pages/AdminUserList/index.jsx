@@ -17,6 +17,8 @@ import * as React from "react";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
+import showToast from "../../Components/Toast";
+
 export default function UserList() {
   const [products, setProducts] = useState([]);
   const [open, setOpen] = React.useState(false);
@@ -44,7 +46,7 @@ export default function UserList() {
     };
     fetch("http://127.0.0.1:8000/api/specialist/delete/", requestOptions).then(
       () => {
-        alert("Delete successful");
+        showToast("Delete successful", "success");
         handleClose();
       }
     );

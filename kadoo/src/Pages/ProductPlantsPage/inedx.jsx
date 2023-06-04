@@ -27,6 +27,7 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 import AppBar from "../../Components/AppBar";
+import showToast from "../../Components/Toast";
 import axiosInstance from "../../Utils/axios";
 
 function ProductPlantsPage() {
@@ -147,9 +148,9 @@ function ProductPlantsPage() {
       requestOptions
     ).then((response) => {
       if (response.status === 401) {
-        alert("You are not login!");
+        showToast("You are not login!", "error");
       } else if (response.status === 400) {
-        alert("This Plant is already in the Basket!");
+        showToast("This Plant is already in the Basket!", "error");
       }
     });
   }

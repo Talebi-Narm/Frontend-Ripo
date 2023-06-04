@@ -33,6 +33,11 @@ import "./SearchResultProduct.scss";
 import SearchBar from "./SearchBar";
 import SortNavBar from "./SortNavBar";
 
+// eslint-disable-next-line import/order
+import axiosInstance from "../../Utils/axios";
+// eslint-disable-next-line import/order
+import axios from "axios";
+
 const drawerWidth = 340;
 
 const Main = styled("main", { shouldForwardProp: (prop) => prop !== "open" })(
@@ -81,11 +86,11 @@ function SearchResultProduct(props) {
 
   const [hasDefault, setHasDefault] = useState(false);
   const [searchPlantDataLoaded, setSearchPlantDataLoaded] = useState(false);
-  const [searchToolDataLoaded, setSearchToolDataLoaded] = useState(false);
+  const [searchToolDataLoaded] = useState(false);
   const [searchProductDataLoaded, setSearchProductDataLoaded] = useState(false);
   const [searchProductData, setSearchProductData] = useState([]);
   const [searchPlantData, setSearchPlantData] = useState([]);
-  const [searchToolData, setSearchToolData] = useState([]);
+  const [searchToolData] = useState([]);
   const [openDrawer, setOpenDrawer] = React.useState(false);
   const [isFilterd, setIsFilterd] = React.useState(true);
   // search
@@ -151,7 +156,28 @@ function SearchResultProduct(props) {
   // eslint-disable-next-line no-unused-vars
   const [paginationCountTools, setPaginationCountTools] = useState(6);
   const [paginationPageTools, setPaginationPageTools] = useState(1);
-  const [resultPaginationPageTools, setResultPaginationPageTools] = useState(0);
+  const [resultPaginationPageTools] = useState(0);
+
+  // test
+  useEffect(() => {
+    const res = axios.get(
+      "https://service.talebi-narm.ir/api/v1/store/tools/",
+      {
+        params: {
+          count: "5",
+          page: "1",
+          page_size: "5",
+          price: "",
+        },
+        headers: {
+          accept: "application/json",
+          Authorization:
+            "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzE2ODIyMjc3LCJpYXQiOjE2ODU3MTgyNzcsImp0aSI6IjI1MGU0YmRlODhhNTRjYzJhMmU1YzE2YjQwYWYyZjVlIiwidXNlcl9pZCI6Ijg2ZDZkMWUzLWY0NmItNDA1OS04MzBiLTQ1MWMxZDNjMmM0MiJ9.CY08HrL-y8dHD-nu9f_YwK6x9Zqf_70-5tLZNqn2PvY",
+        },
+      }
+    );
+    console.log("narges", res);
+  }, []);
 
   const handleChangePlant = (event, value) => {
     setTimeout(() => {
@@ -275,64 +301,94 @@ function SearchResultProduct(props) {
       setSearchProductDataLoaded(true);
     }, 3000);
   }
+  // function ToolsAdvanceSearch() {
+  //   const requestOptions = {
+  //     method: "POST",
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //     },
+  //     body: JSON.stringify({
+  //       name: searchTextTools !== "" ? searchTextTools : null,
+  //       // price: {
+  //       //   lower: filterPriceLowerTools !== "" ? filterPriceLowerTools : null,
+  //       //   higher: filterPriceHigherTools !== "" ? filterPriceHigherTools : null,
+  //       // },
+  //       price: filterPriceLowerTools !== "" ? filterPriceLowerTools : null,
+  //       // pagination: {
+  //       //   count: paginationCountTools !== "" ? paginationCountTools : null,
+  //       //   page: paginationPageTools !== "" ? paginationPageTools : null,
+  //       // },
+  //       count: paginationCountTools !== "" ? paginationCountTools : null,
+  //       page: paginationPageTools !== "" ? paginationPageTools : null,
+  //       // sort: {
+  //       //   kind: sortKindTools !== "" ? sortKindTools : null,
+  //       //   order: sortOrderTools !== "" ? sortOrderTools : null,
+  //       // },
+  //     }),
+  //   };
+  //   setSearchToolData([]);
+  //   setSearchToolDataLoaded(false);
+  //   setTimeout(async () => {
+  //     const res = await fetch(
+  //       "http://127.0.0.1:8000/api/toolsAdvanceSearch/",
+  //       requestOptions
+  //     );
+  //     if (res.status === 500) {
+  //       setSearchProductDataLoaded(true);
+  //     }
+  //     const data = await res.json();
+  //     setSearchToolData(data.data);
+  //     setResultPaginationPageTools(data.pageCount);
+  //     setSearchToolDataLoaded(true);
+  //   }, 3000);
+  // }
   function ToolsAdvanceSearch() {
-    const requestOptions = {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        name: searchTextTools !== "" ? searchTextTools : null,
-        price: {
-          lower: filterPriceLowerTools !== "" ? filterPriceLowerTools : null,
-          higher: filterPriceHigherTools !== "" ? filterPriceHigherTools : null,
-        },
-        pagination: {
-          count: paginationCountTools !== "" ? paginationCountTools : null,
-          page: paginationPageTools !== "" ? paginationPageTools : null,
-        },
-        sort: {
-          kind: sortKindTools !== "" ? sortKindTools : null,
-          order: sortOrderTools !== "" ? sortOrderTools : null,
-        },
-      }),
-    };
-    setSearchToolData([]);
-    setSearchToolDataLoaded(false);
+    setSearchPlantData([]);
+    setSearchPlantDataLoaded(false);
+
     setTimeout(async () => {
-      const res = await fetch(
-        "http://127.0.0.1:8000/api/toolsAdvanceSearch/",
-        requestOptions
-      );
-      if (res.status === 500) {
-        setSearchProductDataLoaded(true);
+      try {
+        const res = await axiosInstance.get(`v1/store/tools/`, {
+          params: {
+            name: searchTextTools !== "" ? searchTextTools : null,
+            price: filterPriceLowerTools !== "" ? filterPriceLowerTools : null,
+            count: paginationCountTools !== "" ? paginationCountTools : null,
+            page: paginationPageTools !== "" ? paginationPageTools : null,
+          },
+        });
+        if (res.status === 500) {
+          setSearchProductDataLoaded(true);
+        }
+        const data = res;
+        setSearchPlantData(data.data);
+        setResultPaginationPagePlants(data.pageCount);
+        setSearchPlantDataLoaded(true);
+      } catch (error) {
+        // Handle error
+        console.error(error);
       }
-      const data = await res.json();
-      setSearchToolData(data.data);
-      setResultPaginationPageTools(data.pageCount);
-      setSearchToolDataLoaded(true);
     }, 3000);
   }
 
   // eslint-disable-next-line no-unused-vars
-  const updateSearch = () => {
-    async function fetchProductData() {
-      await fetch("http://127.0.0.1:8000/api/plantsList/")
-        .then((response) => response.json())
-        .then((data) => {
-          setSearchPlantData(data);
-        });
-    }
-    async function fetchToolData() {
-      await fetch("http://127.0.0.1:8000/api/toolsList/")
-        .then((response) => response.json())
-        .then((data) => {
-          setSearchToolData(data);
-        });
-    }
-    fetchProductData();
-    fetchToolData();
-  };
+  // const updateSearch = () => {
+  //   async function fetchProductData() {
+  //     await fetch("http://127.0.0.1:8000/api/plantsList/")
+  //       .then((response) => response.json())
+  //       .then((data) => {
+  //         setSearchPlantData(data);
+  //       });
+  //   }
+  //   async function fetchToolData() {
+  //     await fetch("http://127.0.0.1:8000/api/toolsList/")
+  //       .then((response) => response.json())
+  //       .then((data) => {
+  //         setSearchToolData(data);
+  //       });
+  //   }
+  //   fetchProductData();
+  //   fetchToolData();
+  // };
 
   const Reset = () => {
     setFilterType(0);

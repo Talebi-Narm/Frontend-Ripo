@@ -14,6 +14,7 @@ import Toolbar from "@mui/material/Toolbar";
 import Tooltip from "@mui/material/Tooltip";
 import Typography from "@mui/material/Typography";
 import * as React from "react";
+import { useNavigate } from "react-router-dom";
 
 import DefualtAvatar from "../../assets/Images/Main/Defualt-Avatar-01.svg";
 import { ReactComponent as Logo } from "../../assets/Images/Main/Logo-01.svg";
@@ -23,6 +24,7 @@ const pages = ["Top Sales", "Offers", "Special Sales", "Any question?"];
 const settings = ["Profile", "Account", "Dashboard", "Logout"];
 
 function MainAppBar(props) {
+  const navigate = useNavigate();
   const theme = useTheme();
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
@@ -67,8 +69,15 @@ function MainAppBar(props) {
     setAnchorElNav(null);
   };
 
-  const handleCloseUserMenu = () => {
-    setAnchorElUser(null);
+  const handleCloseUserMenu = (i) => {
+    if (i === "Logout") {
+      localStorage.removeItem("access_token");
+      localStorage.removeItem("refresh_token");
+      setAnchorElUser(null);
+      navigate("/");
+    } else {
+      setAnchorElUser(null);
+    }
   };
 
   const AppBarStyles = {
@@ -212,7 +221,10 @@ function MainAppBar(props) {
               onClose={handleCloseUserMenu}
             >
               {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
+                <MenuItem
+                  key={setting}
+                  onClick={() => handleCloseUserMenu(setting)}
+                >
                   <Typography textAlign="center">{setting}</Typography>
                 </MenuItem>
               ))}

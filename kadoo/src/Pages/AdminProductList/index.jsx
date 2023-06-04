@@ -16,6 +16,8 @@ import * as React from "react";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
+import showToast from "../../Components/Toast";
+
 export default function ProductList() {
   const [products, setProducts] = useState([]);
   const [open, setOpen] = React.useState(false);
@@ -42,7 +44,7 @@ export default function ProductList() {
       fetch(`http://127.0.0.1:8000/api/plantsRUD/${id1}/`, requestOptions).then(
         (res) => {
           if (res.status === 200) {
-            alert("Delete successful");
+            showToast("Delete successful", "success");
             handleClose();
           }
         }
@@ -51,7 +53,7 @@ export default function ProductList() {
       fetch(`http://127.0.0.1:8000/api/toolsRUD/${id1}/`, requestOptions).then(
         (res) => {
           if (res.status === 200) {
-            alert("Delete successful");
+            showToast("Delete successful", "success");
             handleClose();
           }
         }

@@ -1,0 +1,32 @@
+.Toastify__toast-container {
+  font-size: 14px;
+  line-height: 1.5;
+  width: 320px;
+  padding: 8px;
+  box-sizing: border-box;
+  color: #333;
+}
+
+.Toastify__toast {
+  border-radius: 4px;
+  padding: 12px;
+  margin-bottom: 8px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+  background-color: #f5f5f5;
+  color: #333;
+}
+
+.Toastify__toast--success {
+  background-color: #d4edda;
+  color: #155724;
+}
+
+.Toastify__toast--error {
+  background-color: #f8d7da;
+  color: #721c24;
+}
+
+.Toastify__toast--warning {
+  background-color: #fff3cd;
+  color: #856404;
+}

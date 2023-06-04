@@ -17,7 +17,7 @@ import Text from "../../Components/Text";
 import "./style.scss";
 // eslint-disable-next-line import/no-extraneous-dependencies, import/order
 import { GoogleLogin } from "react-google-login";
-// import showToast from "../../Components/Toast";
+import showToast from "../../Components/Toast";
 import { baseURL } from "../../Utils/axios";
 
 function SignIn() {
@@ -81,7 +81,7 @@ function SignIn() {
             localStorage.setItem("refresh_token", data.refresh);
             setFlagData(!flagData);
           });
-          // showToast("User logined!", "success");
+          showToast("User logined!", "success");
           navigate("/Homepage");
         } else {
           throw response;
@@ -89,7 +89,7 @@ function SignIn() {
       })
       .catch((err) => {
         if (err.status === 401) {
-          // showToast("Something went wrong", "error");
+          showToast("Something went wrong", "error");
         }
         err.text().then((errorMessage) => {
           const errors = JSON.parse(errorMessage);
@@ -146,15 +146,14 @@ function SignIn() {
             localStorage.setItem("refresh_token", data.refresh);
             setFlagData(!flagData);
           });
-          // showToast("User logined", "success");
-          alert("success");
+          showToast("User logined", "success");
         } else {
           throw response;
         }
       })
       .catch((err) => {
         if (err.status === 401) {
-          // showToast("Your email or password is incorrect!", "error");
+          showToast("Your email or password is incorrect!", "error");
         }
         err.text().then((errorMessage) => {
           const errors = JSON.parse(errorMessage);

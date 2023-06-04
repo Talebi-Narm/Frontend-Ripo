@@ -1,5 +1,4 @@
 /* eslint-disable no-console */
-/* eslint-disable no-alert */
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
 import AdapterDateFns from "@mui/lab/AdapterDateFns";
@@ -20,6 +19,8 @@ import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import React, { useEffect } from "react";
+
+import showToast from "../Toast";
 
 const steps = ["Information", "Date", "Time"];
 
@@ -144,7 +145,7 @@ export default function Reminder() {
         })
         .catch((error) => {
           if (error === 401) {
-            alert("You should login first!");
+            showToast("You should login first!", "error");
           }
           console.error("There was an error!", error);
         });
@@ -159,9 +160,9 @@ export default function Reminder() {
 
   const consoleData = () => {
     if (summaryText === "") {
-      alert("Set an event summary!");
+      showToast("Set an event summary!", "error");
     } else if (value[0] === null || value[1] === null) {
-      alert("Choose a date range!");
+      showToast("Choose a date range!", "error");
     } else {
       setStartDate(
         `${

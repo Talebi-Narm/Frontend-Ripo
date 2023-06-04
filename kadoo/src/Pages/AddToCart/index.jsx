@@ -9,6 +9,7 @@ import { Link } from "react-router-dom";
 import AppBar from "../../Components/AppBar";
 import Basket from "../../Components/Cart/Basket";
 import Main from "../../Components/Cart/Main";
+import showToast from "../../Components/Toast";
 import axiosInstance from "../../Utils/axios";
 
 const Item = styled(Box)(({ theme }) => ({
@@ -200,7 +201,7 @@ function AddtoCart() {
         "access_token"
       )}`;
       console.log(res);
-      alert("Implement Checkout!");
+      showToast("Implement Checkout!", "error");
     });
   };
 

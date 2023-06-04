@@ -15,6 +15,8 @@ import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 import React, { useEffect } from "react";
 
+import showToast from "../Toast";
+
 export default function Reminder(props) {
   const [num, setNum] = React.useState(1);
   const [enable, setEnable] = React.useState(false);
@@ -212,8 +214,7 @@ export default function Reminder(props) {
             })
             .catch((error) => {
               if (error === 401) {
-                // eslint-disable-next-line no-alert
-                alert("You should login first!");
+                showToast("You should login first!", "error");
               }
             });
         }, index * 2000);
@@ -386,8 +387,7 @@ export default function Reminder(props) {
       })
       .catch((err) => {
         err.text().then((errorMessage) => {
-          // eslint-disable-next-line no-alert
-          alert(errorMessage);
+          showToast(errorMessage, "error");
         });
       });
   }, []);
