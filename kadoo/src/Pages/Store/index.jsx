@@ -62,6 +62,7 @@ function a11yProps(index) {
 }
 
 function Store() {
+  // *************************** PLANTS ***************************
   // const
   const [plants, setPlants] = useState([]);
   const [price, setPrice] = useState([20, 37]);
@@ -119,19 +120,26 @@ function Store() {
       reqOption = updateRequestOption(reqOption, "growth_rate", growthRate);
     }
     axiosInstance.get(`v1/store/plants/`, { params: reqOption }).then((res) => {
-      console.log("final", res);
       setPlants(res.data.results);
     });
   }, [environment, water, light, growthRate]);
 
+  // *************************** TOOLS ***************************
+
+  // const
+  const [tools, setTools] = useState([]);
+  // API
+  useEffect(async () => {
+    axiosInstance.get(`v1/store/tools/`).then((res) => {
+      setTools(res.data.results);
+      // console.log(res.data.results);
+    });
+  }, []);
+
   return (
     <Box sx={{ width: "100%" }}>
       <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
-        <Tabs
-          value={tab}
-          onChange={handleChangeTab}
-          aria-label="basic tabs example"
-        >
+        <Tabs value={tab} onChange={handleChangeTab}>
           <Tab icon={<ForestOutlinedIcon />} label="PLANTS" {...a11yProps(0)} />
           <Tab icon={<HandymanIcon />} label="TOOLS" {...a11yProps(1)} />
         </Tabs>
@@ -223,7 +231,19 @@ function Store() {
       </TabPanel>
       {/* Tools */}
       <TabPanel value={tab} index={1}>
-        Item Two
+        <div style={{ display: "flex", flexWrap: "wrap", gap: "20px" }}>
+          {tools.map((item, index) => (
+            <PlantsCart
+              // eslint-disable-next-line react/no-array-index-key
+              key={index}
+              product={{
+                image: item.main_image,
+                name: item.name,
+                price: item.price,
+              }}
+            />
+          ))}
+        </div>
       </TabPanel>
     </Box>
   );
