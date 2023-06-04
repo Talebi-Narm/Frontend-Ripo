@@ -17,7 +17,7 @@ import Text from "../../Components/Text";
 import "./style.scss";
 // eslint-disable-next-line import/no-extraneous-dependencies, import/order
 import { GoogleLogin } from "react-google-login";
-// import showToast from "../../Components/Toast";
+import showToast from "../../Components/Toast";
 import { baseURL } from "../../Utils/axios";
 
 function SignIn() {
@@ -60,7 +60,8 @@ function SignIn() {
   //   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
   // });
   const postLoginGoogle = () => {
-    fetch("https://service.talebi-narm.ir/api/v1/user/google-login", {
+    fetch("http://localhost:8000/api/v1/user/google-login", {
+      // fetch("https://service.talebi-narm.ir/api/v1/user/google-login", {
       method: "POST",
       headers: {
         accept: "application/json",
@@ -81,7 +82,7 @@ function SignIn() {
             localStorage.setItem("refresh_token", data.refresh);
             setFlagData(!flagData);
           });
-          // showToast("User logined!", "success");
+          showToast("User logined!", "success");
           navigate("/Homepage");
         } else {
           throw response;
@@ -89,7 +90,7 @@ function SignIn() {
       })
       .catch((err) => {
         if (err.status === 401) {
-          // showToast("Something went wrong", "error");
+          showToast("Something went wrong", "error");
         }
         err.text().then((errorMessage) => {
           const errors = JSON.parse(errorMessage);
@@ -146,15 +147,14 @@ function SignIn() {
             localStorage.setItem("refresh_token", data.refresh);
             setFlagData(!flagData);
           });
-          // showToast("User logined", "success");
-          alert("success");
+          showToast("User logined", "success");
         } else {
           throw response;
         }
       })
       .catch((err) => {
         if (err.status === 401) {
-          // showToast("Your email or password is incorrect!", "error");
+          showToast("Your email or password is incorrect!", "error");
         }
         err.text().then((errorMessage) => {
           const errors = JSON.parse(errorMessage);

@@ -17,6 +17,8 @@ import { makeStyles } from "@mui/styles";
 import Image from "mui-image";
 import React, { useEffect } from "react";
 
+import showToast from "../../Components/Toast";
+
 import "./style.scss";
 
 const useStyles1 = makeStyles((theme) => ({
@@ -177,7 +179,7 @@ export default function NewUser(props) {
             .get("content-type")
             .includes("application/json");
           const data = isJson ? await response.json() : null;
-          if (data) alert("Updated Successfully");
+          if (data) showToast("Updated Successfully", "success");
         } else {
           throw response;
         }
@@ -190,7 +192,7 @@ export default function NewUser(props) {
           ).then((res) => {
             if (res.status === 200) {
               res.json().then((data) => {
-                if (data) alert("Updated Successfully");
+                if (data) showToast("Updated Successfully", "success");
               });
             }
           });

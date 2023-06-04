@@ -29,6 +29,7 @@ import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 
 import Comments from "../../Components/Comment";
+// import showToast from "../../Components/Toast";
 import axiosInstance from "../../Utils/axios";
 
 function ProductPlantsPage() {
@@ -722,7 +723,7 @@ function ProductPlantsPage() {
                     <Typography>Comments</Typography>
                   </AccordionSummary>
                   <AccordionDetails>
-                    <Comments />
+                    <Comments id={id} />
                   </AccordionDetails>
                 </Accordion>
               </Card>

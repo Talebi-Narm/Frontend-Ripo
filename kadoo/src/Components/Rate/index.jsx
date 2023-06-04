@@ -1,6 +1,8 @@
 import { Rating } from "@mui/material";
 import * as React from "react";
 
+import showToast from "../Toast";
+
 export default function Rate(props) {
   const [state, setState] = React.useState(true);
   const [value, setValue] = React.useState(0);
@@ -36,8 +38,7 @@ export default function Rate(props) {
         })
         .catch((res) => {
           if (res.status === 401) {
-            // eslint-disable-next-line no-alert
-            alert("You must Login first!");
+            showToast("You must Login first!", "error");
           }
         });
     }

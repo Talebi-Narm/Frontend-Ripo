@@ -7,6 +7,8 @@ import moment from "moment";
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
+import showToast from "../../Components/Toast";
+
 const currencies = [
   {
     value: "Associate",
@@ -104,7 +106,7 @@ export default function NewUser() {
       )
         .then((response) => {
           if (response.status === 200) {
-            alert("Specialist registered!");
+            showToast("Specialist registered!", "success");
           } else {
             throw response;
           }
