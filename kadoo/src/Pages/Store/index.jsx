@@ -65,7 +65,7 @@ function Store() {
   // *************************** PLANTS ***************************
   // const
   const [plants, setPlants] = useState([]);
-  const [price, setPrice] = useState([20, 37]);
+  const [price, setPrice] = useState([0, 100]);
   const [environment, setEnviroment] = useState("all");
   const [water, setWater] = useState("all");
   const [light, setLight] = useState("all");
@@ -119,10 +119,12 @@ function Store() {
     if (growthRate !== "all") {
       reqOption = updateRequestOption(reqOption, "growth_rate", growthRate);
     }
+    reqOption = updateRequestOption(reqOption, "max_price", price[1]);
+    reqOption = updateRequestOption(reqOption, "min_price", price[0]);
     axiosInstance.get(`v1/store/plants/`, { params: reqOption }).then((res) => {
       setPlants(res.data.results);
     });
-  }, [environment, water, light, growthRate]);
+  }, [environment, water, light, growthRate, price]);
 
   // *************************** TOOLS ***************************
 
