@@ -24,8 +24,11 @@ import Plantmanagement from "./Pages/Plantmanagement";
 import ProductPlantsPage from "./Pages/ProductPlantsPage/inedx";
 import ProductToolsPage from "./Pages/ProductToolsPage";
 import Reminder from "./Pages/ReminderTest";
+// eslint-disable-next-line import/namespace
 import SignIn from "./Pages/SignIn";
 import SignUp from "./Pages/SignUp";
+// eslint-disable-next-line import/no-unresolved, import/extensions
+import Store from "./Pages/Store";
 import TestButton from "./Pages/TestButton/TestButton";
 import TicketPage from "./Pages/TicketPage";
 import TicketUser from "./Pages/TicketUser";
@@ -45,6 +48,7 @@ function AppRoutes() {
       <Route path="/" exact element={<LandingPage />} />
       <Route path="/signin" exact element={<SignIn />} />
       <Route path="/signup" exact element={<SignUp />} />
+      <Route path="/store" exact element={<Store />} />
       <Route path="/search/:text" exact element={<SearchResultProduct />} />
       <Route path="/search/" exact element={<SearchResultProduct />} />
       <Route path="/Homepage" exact element={<HomePageRefactored />} />

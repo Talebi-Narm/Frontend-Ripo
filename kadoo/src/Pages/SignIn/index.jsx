@@ -60,7 +60,8 @@ function SignIn() {
   //   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
   // });
   const postLoginGoogle = () => {
-    fetch("https://service.talebi-narm.ir/api/v1/user/google-login", {
+    fetch("http://localhost:8000/api/v1/user/google-login", {
+      // fetch("https://service.talebi-narm.ir/api/v1/user/google-login", {
       method: "POST",
       headers: {
         accept: "application/json",
