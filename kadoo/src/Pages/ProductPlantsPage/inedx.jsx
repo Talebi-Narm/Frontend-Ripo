@@ -2,12 +2,14 @@ import "./style.scss";
 import AddIcon from "@mui/icons-material/Add";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import NatureIcon from "@mui/icons-material/Nature";
 import OpacityIcon from "@mui/icons-material/Opacity";
 import RemoveIcon from "@mui/icons-material/Remove";
 import TagIcon from "@mui/icons-material/Tag";
 import ThermostatIcon from "@mui/icons-material/Thermostat";
 import WbSunnyIcon from "@mui/icons-material/WbSunny";
+import { Accordion, AccordionDetails, AccordionSummary } from "@mui/material";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Card from "@mui/material/Card";
@@ -26,6 +28,7 @@ import Image from "mui-image";
 import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 
+import Comments from "../../Components/Comment";
 import axiosInstance from "../../Utils/axios";
 
 function ProductPlantsPage() {
@@ -354,339 +357,374 @@ function ProductPlantsPage() {
               className="BringFront"
             >
               <Card sx={{ boxShadow: 3, widht: "100%" }}>
-                <Grid
-                  container
-                  spacing={1}
-                  style={{ minHeight: "75vh" }}
-                  sx={{ p: 2 }}
-                >
-                  <Grid
-                    item
-                    xs={12}
-                    md={12}
-                    lg={12}
-                    className="ProductPageTitle"
+                <Accordion expanded>
+                  <AccordionSummary
+                    expandIcon={<ExpandMoreIcon />}
+                    aria-controls="panel1a-content"
+                    id="panel1a-header"
                   >
-                    <Typography
-                      variant="h5"
-                      sx={{ pb: 2 }}
-                      className="productPageTitle"
+                    <Typography>Plant Detail</Typography>
+                  </AccordionSummary>
+                  <AccordionDetails>
+                    <Grid
+                      container
+                      spacing={1}
+                      style={{ minHeight: "75vh" }}
+                      sx={{ p: 2 }}
                     >
-                      {product.name}
-                    </Typography>
-                    <Divider />
-                  </Grid>
-                  <Grid
-                    item
-                    xs={12}
-                    md={12}
-                    lg={12}
-                    spacing={1}
-                    className="ProductPageText"
-                  >
-                    <Box sx={{ p: 2, mt: 1, mb: 0.5 }} className="BgText">
-                      <Typography className="ProductPageText">
-                        {product.description}{" "}
-                      </Typography>
-                      <TableContainer
-                        component={Box}
-                        className="TableContainer"
-                        sx={{
-                          p: 1,
-                          mt: 2,
-                          backgroundColor: "white",
-                        }}
-                      >
-                        <Table aria-label="simple table">
-                          <TableHead>
-                            <TableRow>
-                              <TableCell align="center">
-                                <ThermostatIcon className="tempButton1" />
-                              </TableCell>
-                              <TableCell align="center">
-                                <OpacityIcon className="waterButton1" />
-                              </TableCell>
-                              <TableCell align="center">
-                                <WbSunnyIcon className="lightButton1" />
-                              </TableCell>
-                              <TableCell align="center">
-                                <NatureIcon className="growButton1" />
-                              </TableCell>
-                            </TableRow>
-                          </TableHead>
-                          <TableBody>
-                            <TableRow sx={{ borderColor: "grey.300" }}>
-                              <TableCell
-                                align="center"
-                                sx={{
-                                  borderBottom: "none",
-                                  borderRight: 1,
-                                  borderColor: "grey.300",
-                                }}
-                              >
-                                {getTitleFromLevel(
-                                  "environment",
-                                  product.environment
-                                )}
-                              </TableCell>
-                              <TableCell
-                                align="center"
-                                sx={{
-                                  borderBottom: "none",
-                                  borderRight: 1,
-                                  borderColor: "grey.300",
-                                }}
-                              >
-                                {getTitleFromLevel("water", product.water)}
-                              </TableCell>
-                              <TableCell
-                                align="center"
-                                sx={{
-                                  borderBottom: "none",
-                                  borderRight: 1,
-                                  borderColor: "grey.300",
-                                }}
-                              >
-                                {getTitleFromLevel("light", product.light)}
-                              </TableCell>
-                              <TableCell
-                                align="center"
-                                sx={{ borderBottom: "none" }}
-                              >
-                                {getTitleFromLevel(
-                                  "growth_rate",
-                                  product.growth_rate
-                                )}
-                              </TableCell>
-                            </TableRow>
-                          </TableBody>
-                        </Table>
-                      </TableContainer>
-                    </Box>
-                    <Grid container item alignItems="flex-start">
                       <Grid
                         item
                         xs={12}
-                        md={6}
-                        sx={{ display: { xs: "none", md: "flex" } }}
+                        md={12}
+                        lg={12}
+                        className="ProductPageTitle"
                       >
-                        <Box sx={{ ml: 0, mt: 1, mb: 1.5 }}>
-                          <Box sx={{ display: "flex", flexDirection: "row" }}>
-                            <Box alignItems="center" sx={{ display: "flex" }}>
-                              <TagIcon color="action" />
-                              <Typography>Tags:</Typography>
-                            </Box>
-                            <Box
-                              sx={{
-                                display: "flex",
-                                flexWrap: "wrap",
-                                ml: 0.5,
-                              }}
-                            >
-                              {tags.length !== 0 && (
-                                <Grid>
-                                  {tags.map((item) => (
-                                    <Chip
-                                      sx={{ mr: 0.5, mt: 0.5 }}
-                                      label={
-                                        <Typography>{item.name}</Typography>
-                                      }
-                                      variant="outlined"
-                                    />
-                                  ))}
-                                </Grid>
-                              )}
-                              {tags.length === 0 && (
-                                <Grid>
-                                  <Typography sx={{ mr: 0.5, mt: 0.5 }}>
-                                    NO TAGS
-                                  </Typography>
-                                </Grid>
-                              )}
-                            </Box>
-                          </Box>
-                        </Box>
+                        <Typography
+                          variant="h5"
+                          sx={{ pb: 2 }}
+                          className="productPageTitle"
+                        >
+                          {product.name}
+                        </Typography>
+                        <Divider />
                       </Grid>
                       <Grid
                         item
                         xs={12}
-                        md={6}
-                        sx={{ mt: { xs: 0.25, md: 0 } }}
+                        md={12}
+                        lg={12}
+                        spacing={1}
+                        className="ProductPageText"
                       >
-                        <Box className="BgButton">
-                          <Grid item xs={12} md={12} lg={12}>
-                            <Grid
-                              container
-                              spacing={0}
-                              alignItems="center"
-                              justifyContent="center"
-                            >
-                              <Grid
-                                item
-                                container
-                                className="ProductPageTitle"
-                                justifyContent="center"
+                        <Box sx={{ p: 2, mt: 1, mb: 0.5 }} className="BgText">
+                          <Typography className="ProductPageText">
+                            {product.description}{" "}
+                          </Typography>
+                          <TableContainer
+                            component={Box}
+                            className="TableContainer"
+                            sx={{
+                              p: 1,
+                              mt: 2,
+                              backgroundColor: "white",
+                            }}
+                          >
+                            <Table aria-label="simple table">
+                              <TableHead>
+                                <TableRow>
+                                  <TableCell align="center">
+                                    <ThermostatIcon className="tempButton1" />
+                                  </TableCell>
+                                  <TableCell align="center">
+                                    <OpacityIcon className="waterButton1" />
+                                  </TableCell>
+                                  <TableCell align="center">
+                                    <WbSunnyIcon className="lightButton1" />
+                                  </TableCell>
+                                  <TableCell align="center">
+                                    <NatureIcon className="growButton1" />
+                                  </TableCell>
+                                </TableRow>
+                              </TableHead>
+                              <TableBody>
+                                <TableRow sx={{ borderColor: "grey.300" }}>
+                                  <TableCell
+                                    align="center"
+                                    sx={{
+                                      borderBottom: "none",
+                                      borderRight: 1,
+                                      borderColor: "grey.300",
+                                    }}
+                                  >
+                                    {getTitleFromLevel(
+                                      "environment",
+                                      product.environment
+                                    )}
+                                  </TableCell>
+                                  <TableCell
+                                    align="center"
+                                    sx={{
+                                      borderBottom: "none",
+                                      borderRight: 1,
+                                      borderColor: "grey.300",
+                                    }}
+                                  >
+                                    {getTitleFromLevel("water", product.water)}
+                                  </TableCell>
+                                  <TableCell
+                                    align="center"
+                                    sx={{
+                                      borderBottom: "none",
+                                      borderRight: 1,
+                                      borderColor: "grey.300",
+                                    }}
+                                  >
+                                    {getTitleFromLevel("light", product.light)}
+                                  </TableCell>
+                                  <TableCell
+                                    align="center"
+                                    sx={{ borderBottom: "none" }}
+                                  >
+                                    {getTitleFromLevel(
+                                      "growth_rate",
+                                      product.growth_rate
+                                    )}
+                                  </TableCell>
+                                </TableRow>
+                              </TableBody>
+                            </Table>
+                          </TableContainer>
+                        </Box>
+                        <Grid container item alignItems="flex-start">
+                          <Grid
+                            item
+                            xs={12}
+                            md={6}
+                            sx={{ display: { xs: "none", md: "flex" } }}
+                          >
+                            <Box sx={{ ml: 0, mt: 1, mb: 1.5 }}>
+                              <Box
+                                sx={{ display: "flex", flexDirection: "row" }}
                               >
                                 <Box
-                                  className="BgChip"
+                                  alignItems="center"
+                                  sx={{ display: "flex" }}
+                                >
+                                  <TagIcon color="action" />
+                                  <Typography>Tags:</Typography>
+                                </Box>
+                                <Box
                                   sx={{
                                     display: "flex",
-                                    p: 1,
-                                    mt: -2.75,
-                                    boxShadow: 2,
+                                    flexWrap: "wrap",
+                                    ml: 0.5,
                                   }}
                                 >
-                                  <Chip
-                                    label={
-                                      <Typography variant="h6">
-                                        {`${product.price}$`}
+                                  {tags.length !== 0 && (
+                                    <Grid>
+                                      {tags.map((item) => (
+                                        <Chip
+                                          sx={{ mr: 0.5, mt: 0.5 }}
+                                          label={
+                                            <Typography>{item.name}</Typography>
+                                          }
+                                          variant="outlined"
+                                        />
+                                      ))}
+                                    </Grid>
+                                  )}
+                                  {tags.length === 0 && (
+                                    <Grid>
+                                      <Typography sx={{ mr: 0.5, mt: 0.5 }}>
+                                        NO TAGS
                                       </Typography>
-                                    }
-                                    color="success"
-                                    variant="outlined"
-                                    style={{ fontSize: "1.1rem" }}
-                                    sx={{
-                                      pt: 0.5,
-                                      pb: 0.5,
-                                      pr: 1.5,
-                                      pl: 1.5,
-                                    }}
-                                  />
+                                    </Grid>
+                                  )}
                                 </Box>
-                              </Grid>
-                              <Grid
-                                item
-                                container
-                                xs={12}
-                                md={12}
-                                lg={12}
-                                className="ProductPageCounter"
-                                alignItems="center"
-                                justifyContent="space-between"
-                                direction="row"
-                                sx={{
-                                  flexWrap: "wrap",
-                                  pl: 1,
-                                  pr: 1.5,
-                                  pb: 1,
-                                  pt: 0.5,
-                                }}
-                              >
+                              </Box>
+                            </Box>
+                          </Grid>
+                          <Grid
+                            item
+                            xs={12}
+                            md={6}
+                            sx={{ mt: { xs: 0.25, md: 0 } }}
+                          >
+                            <Box className="BgButton">
+                              <Grid item xs={12} md={12} lg={12}>
                                 <Grid
-                                  item
+                                  container
+                                  spacing={0}
                                   alignItems="center"
-                                  justifyContent="space-between"
-                                  direction="row"
-                                  sx={{
-                                    flexWrap: "nowrap",
-                                    alignSelf: "center",
-                                  }}
+                                  justifyContent="center"
                                 >
+                                  <Grid
+                                    item
+                                    container
+                                    className="ProductPageTitle"
+                                    justifyContent="center"
+                                  >
+                                    <Box
+                                      className="BgChip"
+                                      sx={{
+                                        display: "flex",
+                                        p: 1,
+                                        mt: -2.75,
+                                        boxShadow: 2,
+                                      }}
+                                    >
+                                      <Chip
+                                        label={
+                                          <Typography variant="h6">
+                                            {`${product.price}$`}
+                                          </Typography>
+                                        }
+                                        color="success"
+                                        variant="outlined"
+                                        style={{ fontSize: "1.1rem" }}
+                                        sx={{
+                                          pt: 0.5,
+                                          pb: 0.5,
+                                          pr: 1.5,
+                                          pl: 1.5,
+                                        }}
+                                      />
+                                    </Box>
+                                  </Grid>
+                                  <Grid
+                                    item
+                                    container
+                                    xs={12}
+                                    md={12}
+                                    lg={12}
+                                    className="ProductPageCounter"
+                                    alignItems="center"
+                                    justifyContent="space-between"
+                                    direction="row"
+                                    sx={{
+                                      flexWrap: "wrap",
+                                      pl: 1,
+                                      pr: 1.5,
+                                      pb: 1,
+                                      pt: 0.5,
+                                    }}
+                                  >
+                                    <Grid
+                                      item
+                                      alignItems="center"
+                                      justifyContent="space-between"
+                                      direction="row"
+                                      sx={{
+                                        flexWrap: "nowrap",
+                                        alignSelf: "center",
+                                      }}
+                                    >
+                                      <Box
+                                        sx={{
+                                          display: "flex",
+                                          flexDirection: "row",
+                                          alignItems: "center",
+                                        }}
+                                      >
+                                        <IconButton
+                                          size="large"
+                                          aria-label="show 4 new mails"
+                                          color="inherit"
+                                          sx={{ color: "error.main" }}
+                                          onClick={decreaseBought}
+                                        >
+                                          <RemoveIcon />
+                                        </IconButton>
+                                        <Box
+                                          className="ProductPageCounterNum"
+                                          sx={{
+                                            display: "flex",
+                                            pr: 3,
+                                            pl: 2,
+                                            boxShadow: 1,
+                                          }}
+                                        >
+                                          <Typography>{numberOfBuy}</Typography>
+                                        </Box>
+                                        <IconButton
+                                          size="large"
+                                          aria-label="show 4 new mails"
+                                          color="inherit"
+                                          sx={{ color: "success.main" }}
+                                          onClick={increaseBought}
+                                        >
+                                          <AddIcon />
+                                        </IconButton>
+                                      </Box>
+                                    </Grid>
+                                    <Grid
+                                      item
+                                      justifyContent="flex-end"
+                                      sx={{
+                                        pt: 1,
+                                        pb: 1,
+                                        Color: "#12824C",
+                                        alignSelf: "center",
+                                      }}
+                                      className="ProductPageTitle"
+                                    >
+                                      <Link to="/cart/">
+                                        <Button
+                                          variant="contained"
+                                          className="productsPageAdd"
+                                          // onClick={addToBasket}
+                                        >
+                                          {`Add To Cart (${totalPrice}$)`}
+                                        </Button>
+                                      </Link>
+                                    </Grid>
+                                  </Grid>
+                                </Grid>
+                              </Grid>
+                            </Box>
+                          </Grid>
+                          <Grid
+                            item
+                            xs={12}
+                            md={6}
+                            sx={{ display: { xs: "flex", md: "none" }, mt: 1 }}
+                          >
+                            <Box sx={{ ml: 0, mt: 1, mb: 1.5 }}>
+                              {tags.length !== 0 && (
+                                <Box
+                                  sx={{ display: "flex", flexDirection: "row" }}
+                                >
+                                  <Box
+                                    alignItems="center"
+                                    sx={{ display: "flex" }}
+                                  >
+                                    <TagIcon color="action" />
+                                    <Typography>Tags:</Typography>
+                                  </Box>
                                   <Box
                                     sx={{
                                       display: "flex",
-                                      flexDirection: "row",
-                                      alignItems: "center",
+                                      flexWrap: "wrap",
+                                      ml: 0.5,
                                     }}
                                   >
-                                    <IconButton
-                                      size="large"
-                                      aria-label="show 4 new mails"
-                                      color="inherit"
-                                      sx={{ color: "error.main" }}
-                                      onClick={decreaseBought}
-                                    >
-                                      <RemoveIcon />
-                                    </IconButton>
-                                    <Box
-                                      className="ProductPageCounterNum"
-                                      sx={{
-                                        display: "flex",
-                                        pr: 3,
-                                        pl: 2,
-                                        boxShadow: 1,
-                                      }}
-                                    >
-                                      <Typography>{numberOfBuy}</Typography>
-                                    </Box>
-                                    <IconButton
-                                      size="large"
-                                      aria-label="show 4 new mails"
-                                      color="inherit"
-                                      sx={{ color: "success.main" }}
-                                      onClick={increaseBought}
-                                    >
-                                      <AddIcon />
-                                    </IconButton>
+                                    {tags.length !== 0 && (
+                                      <Grid>
+                                        {tags.map((item) => (
+                                          <Chip
+                                            sx={{ mr: 0.5, mt: 0.5 }}
+                                            label={
+                                              <Typography>
+                                                {item.name}
+                                              </Typography>
+                                            }
+                                            variant="outlined"
+                                          />
+                                        ))}
+                                      </Grid>
+                                    )}
                                   </Box>
-                                </Grid>
-                                <Grid
-                                  item
-                                  justifyContent="flex-end"
-                                  sx={{
-                                    pt: 1,
-                                    pb: 1,
-                                    Color: "#12824C",
-                                    alignSelf: "center",
-                                  }}
-                                  className="ProductPageTitle"
-                                >
-                                  <Link to="/cart/">
-                                    <Button
-                                      variant="contained"
-                                      className="productsPageAdd"
-                                      // onClick={addToBasket}
-                                    >
-                                      {`Add To Cart (${totalPrice}$)`}
-                                    </Button>
-                                  </Link>
-                                </Grid>
-                              </Grid>
-                            </Grid>
-                          </Grid>
-                        </Box>
-                      </Grid>
-                      <Grid
-                        item
-                        xs={12}
-                        md={6}
-                        sx={{ display: { xs: "flex", md: "none" }, mt: 1 }}
-                      >
-                        <Box sx={{ ml: 0, mt: 1, mb: 1.5 }}>
-                          {tags.length !== 0 && (
-                            <Box sx={{ display: "flex", flexDirection: "row" }}>
-                              <Box alignItems="center" sx={{ display: "flex" }}>
-                                <TagIcon color="action" />
-                                <Typography>Tags:</Typography>
-                              </Box>
-                              <Box
-                                sx={{
-                                  display: "flex",
-                                  flexWrap: "wrap",
-                                  ml: 0.5,
-                                }}
-                              >
-                                {tags.length !== 0 && (
-                                  <Grid>
-                                    {tags.map((item) => (
-                                      <Chip
-                                        sx={{ mr: 0.5, mt: 0.5 }}
-                                        label={
-                                          <Typography>{item.name}</Typography>
-                                        }
-                                        variant="outlined"
-                                      />
-                                    ))}
-                                  </Grid>
-                                )}
-                              </Box>
+                                </Box>
+                              )}
                             </Box>
-                          )}
-                        </Box>
+                          </Grid>
+                        </Grid>
                       </Grid>
                     </Grid>
-                  </Grid>
-                </Grid>
+                  </AccordionDetails>
+                </Accordion>
+                <Accordion>
+                  <AccordionSummary
+                    expandIcon={<ExpandMoreIcon />}
+                    aria-controls="panel2a-content"
+                    id="panel2a-header"
+                  >
+                    <Typography>Comments</Typography>
+                  </AccordionSummary>
+                  <AccordionDetails>
+                    <Comments />
+                  </AccordionDetails>
+                </Accordion>
               </Card>
             </Grid>
           </Grid>
