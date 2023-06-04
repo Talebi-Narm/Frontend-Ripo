@@ -24,9 +24,8 @@ import TableRow from "@mui/material/TableRow";
 import Typography from "@mui/material/Typography";
 import Image from "mui-image";
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
-import AppBar from "../../Components/AppBar";
 import axiosInstance from "../../Utils/axios";
 
 function ProductPlantsPage() {
@@ -36,37 +35,20 @@ function ProductPlantsPage() {
   const [totalPrice, setTotalPrice] = useState(0);
   const [album, setAlbum] = useState([]);
   const [currentImage, setCurrentImage] = useState(0);
-  const [imageName, setImageName] = useState([]);
+  const [imageName, setImageName] = useState(null);
+
+  const { id } = useParams();
 
   useEffect(() => {
-    console.log("dsaaaaaaaaaaaa");
     axiosInstance
-      .get("v1/store/plants/", {
-        params: {
-          count: 0,
-          environment: 2,
-          growth_rate: 0,
-          light: 1,
-          name: "test",
-          page: 2,
-          page_size: 1,
-          price: 5,
-          tags: "3fa85f64-5717-4562-b3fc-2c963f66afa6",
-          water: 1,
-        },
-      })
+      .get(`v1/store/plants/${id}/`)
       .then((response) => {
+        console.log(response);
         setProduct(response.data);
-      })
-      .then(() => {
-        setTotalPrice(product.price);
-      })
-      .then((data) => {
-        setTags(data);
-      })
-      .then((data) => {
-        setAlbum(data);
-        setImageName(data[0]);
+        setAlbum(Object.values(response.data.album));
+        setImageName(response.data.main_image);
+        setTags(response.data.tags);
+        setTotalPrice(response.data.price);
       })
       .catch((error) => {
         console.error(error);
@@ -118,7 +100,6 @@ function ProductPlantsPage() {
     } else {
       setCurrentImage(currentImage - 1);
     }
-    setImageName(album[currentImage]);
   }
 
   function forWardImageClick() {
@@ -127,44 +108,65 @@ function ProductPlantsPage() {
     } else {
       setCurrentImage(currentImage + 1);
     }
-    setImageName(album[currentImage]);
   }
 
-  function addToBasket() {
-    const requestOptions = {
-      method: "POST",
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem("access_token")}`,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        id: product.id,
-        count: `${numberOfBuy}`,
-      }),
-    };
-    fetch(
-      "https://service.talebi-narm.ir/api/cart/add-plant-to-cart/",
-      requestOptions
-    ).then((response) => {
-      if (response.status === 401) {
-        alert("You are not login!");
-      } else if (response.status === 400) {
-        alert("This Plant is already in the Basket!");
+  useEffect(() => {
+    if (album && currentImage) {
+      setImageName(album[currentImage]);
+    }
+  }, [currentImage]);
+
+  // function addToBasket() {
+  //   const requestOptions = {
+  //     method: "POST",
+  //     headers: {
+  //       Authorization: `Bearer ${localStorage.getItem("access_token")}`,
+  //       "Content-Type": "application/json",
+  //     },
+  //     body: JSON.stringify({
+  //       id: product.id,
+  //       count: `${numberOfBuy}`,
+  //     }),
+  //   };
+  //   fetch(
+  //     "https://service.talebi-narm.ir/api/cart/add-plant-to-cart/",
+  //     requestOptions
+  //   ).then((response) => {
+  //     if (response.status === 401) {
+  //       alert("You are not login!");
+  //     } else if (response.status === 400) {
+  //       alert("This Plant is already in the Basket!");
+  //     }
+  //   });
+  // }
+
+  const getTitleFromLevel = (fieldName, level) => {
+    if (fieldName === "environment") {
+      if (level === 0) {
+        return "tropical";
       }
-    });
-  }
-  return (
-    <Grid container style={{ minHeight: "100vh" }} sx={{ pb: 2 }}>
-      <Box style={{ width: "100%" }}>
-        <AppBar
-          SearchOption
-          TicketOption
-          CartOption
-          AuthorizationOption
-          DrawerOption={false}
-        />
-      </Box>
+      if (level === 1) {
+        return "cold";
+      }
+      if (level === 2) {
+        return "none";
+      }
+      return level;
+    }
+    if (level === 0) {
+      return "low";
+    }
+    if (level === 1) {
+      return "medium";
+    }
+    if (level === 2) {
+      return "much";
+    }
+    return level;
+  };
 
+  return product && imageName ? (
+    <Grid container sx={{ pb: 2 }}>
       <Grid
         container
         justifyContent="center"
@@ -194,13 +196,13 @@ function ProductPlantsPage() {
               justifyContent="center"
               alignItems="center"
               sx={{
-                height: { xs: "auto", md: "70vh" },
+                maxHeight: { xs: "auto", md: "60vh" },
               }}
             >
               <Card
                 sx={{
                   boxShadow: 2,
-                  height: { xs: "auto", md: "70vh" },
+                  maxHeight: { xs: "auto", md: "60vh" },
                 }}
                 className="ProductPageImageContainer"
               >
@@ -210,17 +212,21 @@ function ProductPlantsPage() {
                   justifyContent="center"
                   alignItems="center"
                   sx={{
-                    height: { xs: "auto", md: "70vh" },
+                    maxHeight: { xs: "auto", md: "60vh" },
                     pb: { xs: 0, md: 0 },
+                    ml: { xs: 0, md: "-10px" },
                   }}
                 >
-                  <Grid item container className="blurred">
+                  <Grid
+                    item
+                    container
+                    className="blurred"
+                    sx={{
+                      maxHeight: { xs: "auto", md: "60vh" },
+                    }}
+                  >
                     <Image
-                      src={
-                        imageName === undefined
-                          ? `http://127.0.0.1:8000${product.image}`
-                          : `http://127.0.0.1:8000${imageName.image}`
-                      }
+                      src={imageName}
                       width="100%"
                       height="100%"
                       fit="cover"
@@ -240,7 +246,13 @@ function ProductPlantsPage() {
                       alignItems="center"
                       direction="row"
                       className="widthResize"
-                      sx={{ mr: { md: 1.5, xs: 0 } }}
+                      sx={{
+                        mr: { md: 1.5, xs: 0 },
+                        position: "absolute",
+                        transform: "translate(-50%,-50%)",
+                        left: "50%",
+                        top: "50%",
+                      }}
                     >
                       <Grid
                         item
@@ -270,11 +282,7 @@ function ProductPlantsPage() {
                         }}
                       >
                         <Image
-                          src={
-                            imageName === undefined
-                              ? `http://127.0.0.1:8000${product.image}`
-                              : `http://127.0.0.1:8000${imageName.image}`
-                          }
+                          src={imageName}
                           className="mainImage"
                           shift="bottom"
                           shiftDuration={320}
@@ -345,7 +353,7 @@ function ProductPlantsPage() {
               sx={{ p: 2, ml: { xs: 0, md: -5 }, mt: { xs: -4.5, md: 0 } }}
               className="BringFront"
             >
-              <Card sx={{ boxShadow: 3 }}>
+              <Card sx={{ boxShadow: 3, widht: "100%" }}>
                 <Grid
                   container
                   spacing={1}
@@ -383,7 +391,11 @@ function ProductPlantsPage() {
                       <TableContainer
                         component={Box}
                         className="TableContainer"
-                        sx={{ p: 1, mt: 2, mb: 2 }}
+                        sx={{
+                          p: 1,
+                          mt: 2,
+                          backgroundColor: "white",
+                        }}
                       >
                         <Table aria-label="simple table">
                           <TableHead>
@@ -412,7 +424,10 @@ function ProductPlantsPage() {
                                   borderColor: "grey.300",
                                 }}
                               >
-                                {product.environment}
+                                {getTitleFromLevel(
+                                  "environment",
+                                  product.environment
+                                )}
                               </TableCell>
                               <TableCell
                                 align="center"
@@ -422,7 +437,7 @@ function ProductPlantsPage() {
                                   borderColor: "grey.300",
                                 }}
                               >
-                                {product.water}
+                                {getTitleFromLevel("water", product.water)}
                               </TableCell>
                               <TableCell
                                 align="center"
@@ -432,13 +447,16 @@ function ProductPlantsPage() {
                                   borderColor: "grey.300",
                                 }}
                               >
-                                {product.light}
+                                {getTitleFromLevel("light", product.light)}
                               </TableCell>
                               <TableCell
                                 align="center"
                                 sx={{ borderBottom: "none" }}
                               >
-                                {product.growthRate}
+                                {getTitleFromLevel(
+                                  "growth_rate",
+                                  product.growth_rate
+                                )}
                               </TableCell>
                             </TableRow>
                           </TableBody>
@@ -617,7 +635,7 @@ function ProductPlantsPage() {
                                     <Button
                                       variant="contained"
                                       className="productsPageAdd"
-                                      onClick={addToBasket}
+                                      // onClick={addToBasket}
                                     >
                                       {`Add To Cart (${totalPrice}$)`}
                                     </Button>
@@ -675,6 +693,6 @@ function ProductPlantsPage() {
         </Grid>
       </Grid>
     </Grid>
-  );
+  ) : null;
 }
 export default ProductPlantsPage;

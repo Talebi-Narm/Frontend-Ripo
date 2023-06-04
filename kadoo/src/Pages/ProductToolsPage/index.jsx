@@ -13,53 +13,62 @@ import Grid from "@mui/material/Grid";
 import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import Image from "mui-image";
-import { useState, useEffect } from "react";
-import * as React from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Link, useParams } from "react-router-dom";
 
-import AppBar from "../../Components/AppBar";
 import axiosInstance from "../../Utils/axios";
 
-function ProductToolsPage() {
+function ProductPlantsPage() {
   const [product, setProduct] = useState([]);
-  const [toolTags, setToolTags] = useState("");
+  const [tags, setTags] = useState([]);
   const [numberOfBuy, setNumberOfBuy] = useState(1);
   const [totalPrice, setTotalPrice] = useState(0);
   const [album, setAlbum] = useState([]);
   const [currentImage, setCurrentImage] = useState(0);
-  const [imageName, setImageName] = useState([]);
+  const [imageName, setImageName] = useState(null);
+
+  const { id } = useParams();
 
   useEffect(() => {
     axiosInstance
-      .get("/v1/store/tools/", {
-        params: {
-          count: 0,
-          name: "toolTest",
-          page: 2,
-          page_size: 1,
-          price: 5,
-          tags: "7&tags=3fa85f64-5717-4562-b3fc-2c963f66afa6",
-          water: 1,
-        },
-      })
+      .get(`v1/store/tools/${id}/`)
       .then((response) => {
-        console.log("ghoo", response);
+        console.log(response);
         setProduct(response.data);
-      })
-      .then(() => {
-        setTotalPrice(product.price);
-      })
-      .then((data) => {
-        setToolTags(data);
-      })
-      .then((data) => {
-        setAlbum(data);
-        setImageName(data[0]);
+        setAlbum(Object.values(response.data.album));
+        setImageName(response.data.main_image);
+        setTags(response.data.tags);
+        setTotalPrice(response.data.price);
       })
       .catch((error) => {
         console.error(error);
       });
   }, []);
+
+  // useEffect(() => {
+  // fetch("http://146.190.205.127:443/api/v1/store/plants" + id + "/")
+  //   // .then((response) => response.json())
+  //   .then((response) => console.log(response,"ghoooo"))
+  //   .catch((error) => {console.error(error)
+  //   });
+  // .then((data) => setProduct(data))
+  // .then(() => {
+  //   setTotalPrice(product.price);
+  // });
+  // }, []);
+
+  // fetch("http://127.0.0.1:8000/api/plantTags/" + id + "/")
+  //   .then((response) => response.json())
+  //   .then((data) => {
+  //     setTags(data);
+  //   });
+  // fetch("http://127.0.0.1:8000/api/plantAlbumImages/" + id + "/")
+  //   .then((response) => response.json())
+  // .then((data) => {
+  //   setAlbum(data);
+  //   setImageName(data[0]);
+  // });
+  // }, []);
 
   function increaseBought() {
     if (numberOfBuy < 9) {
@@ -67,6 +76,7 @@ function ProductToolsPage() {
       setTotalPrice((numberOfBuy + 1) * product.price);
     }
   }
+
   function decreaseBought() {
     if (numberOfBuy > 1) {
       setNumberOfBuy(numberOfBuy - 1);
@@ -80,127 +90,36 @@ function ProductToolsPage() {
     } else {
       setCurrentImage(currentImage - 1);
     }
-    setImageName(album[currentImage]);
   }
+
   function forWardImageClick() {
     if (currentImage === album.length - 1) {
       setCurrentImage(0);
     } else {
       setCurrentImage(currentImage + 1);
     }
-    setImageName(album[currentImage]);
-  }
-  function addToBasket() {
-    const requestOptions = {
-      method: "POST",
-      headers: {
-        Authorization: `JWT ${localStorage.getItem("access_token")}`,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        id: product.id,
-        count: `${numberOfBuy}`,
-      }),
-    };
-    fetch(
-      "http://127.0.0.1:8000/api/cart/add-tool-to-cart/",
-      requestOptions
-    ).then((response) => {
-      if (response.status === 401) {
-        alert("You are not login!");
-      } else if (response.status === 400) {
-        alert("This Plant is already in the Basket!");
-      }
-    });
   }
 
-  // class ProductToolsPage extends React.Component {
-  //   constructor(props) {
-  //     super(props);
-  //     this.state = {
-  //       product: [],
-  //       toolTags: "",
-  //       id: this.props.match.params.id,
-  //       numberOfBuy: 1,
-  //       totalPrice: 0,
-  //       album: [],
-  //       currentImage: 0,
-  //       imageName: [],
-  //     };
-  //   }
+  useEffect(() => {
+    if (album && currentImage) {
+      setImageName(album[currentImage]);
+    }
+  }, [currentImage]);
 
-  //   componentDidMount() {
-  //     fetch("http://127.0.0.1:8000/api/toolsRUD/" + this.state.id + "/")
-  //       .then((response) => response.json())
-  //       .then((data) => this.setState({ product: data }))
-  //       .then(() => {
-  //         this.setState({
-  //           totalPrice: this.state.product.price,
-  //         });
-  //       });
-
-  //     fetch("http://127.0.0.1:8000/api/toolTags/" + this.state.id + "/")
-  //       .then((response) => response.json())
-  //       .then((data) => {
-  //         this.setState({ toolTags: data });
-  //       });
-  //     fetch("http://127.0.0.1:8000/api/toolAlbumImages/" + this.state.id + "/")
-  //       .then((response) => response.json())
-  //       .then((data) => {
-  //         this.setState({ album: data });
-  //         this.setState({ imageName: data[0] });
-  //       });
-  //   }
-
-  // render() {
-  // var increaseBought = () => {
-  //   var nob = this.state.numberOfBuy;
-  //   if (nob < 9) {
-  //     this.setState({
-  //       numberOfBuy: nob + 1,
-  //       totalPrice: (nob + 1) * this.state.product.price,
-  //     });
-  //   }
-  // };
-  // var decreaseBought = () => {
-  //   var nob = this.state.numberOfBuy;
-  //   if (nob > 1) {
-  //     this.setState({
-  //       numberOfBuy: nob - 1,
-  //       totalPrice: (nob - 1) * this.state.product.price,
-  //     });
-  //   }
-  // };
-  // var backWardImageClick = () => {
-  //   if (this.state.currentImage === 0) {
-  //     this.setState({ currentImage: this.state.album.length - 1 });
-  //   } else {
-  //     this.setState({ currentImage: this.state.currentImage - 1 });
-  //   }
-  //   this.setState({ imageName: this.state.album[this.state.currentImage] });
-  // };
-  // var forWardImageClick = () => {
-  //   if (this.state.currentImage === this.state.album.length - 1) {
-  //     this.setState({ currentImage: 0 });
-  //   } else {
-  //     this.setState({ currentImage: this.state.currentImage + 1 });
-  //   }
-  //   this.setState({ imageName: this.state.album[this.state.currentImage] });
-  // };
-  // var addToBasket = () => {
+  // function addToBasket() {
   //   const requestOptions = {
   //     method: "POST",
   //     headers: {
-  //       Authorization: "JWT " + localStorage.getItem("access_token"),
+  //       Authorization: `Bearer ${localStorage.getItem("access_token")}`,
   //       "Content-Type": "application/json",
   //     },
   //     body: JSON.stringify({
-  //       id: this.state.product.id,
-  //       count: `${this.state.numberOfBuy}`,
+  //       id: product.id,
+  //       count: `${numberOfBuy}`,
   //     }),
   //   };
   //   fetch(
-  //     "http://127.0.0.1:8000/api/cart/add-tool-to-cart/",
+  //     "https://service.talebi-narm.ir/api/cart/add-plant-to-cart/",
   //     requestOptions
   //   ).then((response) => {
   //     if (response.status === 401) {
@@ -209,20 +128,10 @@ function ProductToolsPage() {
   //       alert("This Plant is already in the Basket!");
   //     }
   //   });
-  // };
+  // }
 
-  return (
-    <Grid container style={{ minHeight: "100vh" }} sx={{ pb: 2 }}>
-      <Box style={{ width: "100%" }}>
-        <AppBar
-          SearchOption
-          TicketOption
-          CartOption
-          AuthorizationOption
-          DrawerOption={false}
-        />
-      </Box>
-
+  return product && imageName ? (
+    <Grid container sx={{ pb: 2 }}>
       <Grid
         container
         justifyContent="center"
@@ -252,13 +161,13 @@ function ProductToolsPage() {
               justifyContent="center"
               alignItems="center"
               sx={{
-                height: { xs: "auto", md: "70vh" },
+                maxHeight: { xs: "auto", md: "60vh" },
               }}
             >
               <Card
                 sx={{
                   boxShadow: 2,
-                  height: { xs: "auto", md: "70vh" },
+                  maxHeight: { xs: "auto", md: "60vh" },
                 }}
                 className="ProductPageImageContainer"
               >
@@ -268,17 +177,21 @@ function ProductToolsPage() {
                   justifyContent="center"
                   alignItems="center"
                   sx={{
-                    height: { xs: "auto", md: "70vh" },
+                    maxHeight: { xs: "auto", md: "60vh" },
                     pb: { xs: 0, md: 0 },
+                    ml: { xs: 0, md: "-10px" },
                   }}
                 >
-                  <Grid item container className="blurred-tool">
+                  <Grid
+                    item
+                    container
+                    className="blurred"
+                    sx={{
+                      maxHeight: { xs: "auto", md: "60vh" },
+                    }}
+                  >
                     <Image
-                      src={
-                        imageName === undefined
-                          ? `http://127.0.0.1:8000${product.image}`
-                          : `http://127.0.0.1:8000${imageName.image}`
-                      }
+                      src={imageName}
                       width="100%"
                       height="100%"
                       fit="cover"
@@ -298,7 +211,13 @@ function ProductToolsPage() {
                       alignItems="center"
                       direction="row"
                       className="widthResize"
-                      sx={{ mr: { md: 1.5, xs: 0 } }}
+                      sx={{
+                        mr: { md: 1.5, xs: 0 },
+                        position: "absolute",
+                        transform: "translate(-50%,-50%)",
+                        left: "50%",
+                        top: "50%",
+                      }}
                     >
                       <Grid
                         item
@@ -328,11 +247,7 @@ function ProductToolsPage() {
                         }}
                       >
                         <Image
-                          src={
-                            imageName === undefined
-                              ? `http://127.0.0.1:8000${product.image}`
-                              : `http://127.0.0.1:8000${imageName.image}`
-                          }
+                          src={imageName}
                           className="mainImage"
                           shift="bottom"
                           shiftDuration={320}
@@ -403,8 +318,13 @@ function ProductToolsPage() {
               sx={{ p: 2, ml: { xs: 0, md: -5 }, mt: { xs: -4.5, md: 0 } }}
               className="BringFront"
             >
-              <Card sx={{ boxShadow: 3 }}>
-                <Grid container spacing={1} sx={{ p: 2 }}>
+              <Card sx={{ boxShadow: 3, widht: "100%" }}>
+                <Grid
+                  container
+                  spacing={1}
+                  style={{ minHeight: "75vh" }}
+                  sx={{ p: 2 }}
+                >
                   <Grid
                     item
                     xs={12}
@@ -438,52 +358,7 @@ function ProductToolsPage() {
                       <Grid
                         item
                         xs={12}
-                        md={6}
-                        sx={{ display: { xs: "none", md: "flex" } }}
-                      >
-                        <Box sx={{ ml: 0, mt: 1, mb: 1.5 }}>
-                          <Box sx={{ display: "flex", flexDirection: "row" }}>
-                            <Box alignItems="center" sx={{ display: "flex" }}>
-                              <TagIcon color="action" />
-                              <Typography>Tags:</Typography>
-                            </Box>
-                            {toolTags.length !== 0 && (
-                              <Box
-                                sx={{
-                                  display: "flex",
-                                  flexWrap: "wrap",
-                                  ml: 0.5,
-                                }}
-                              >
-                                {toolTags.map((item) => (
-                                  <Chip
-                                    sx={{ mr: 0.5, mt: 0.5 }}
-                                    label={<Typography>{item.name}</Typography>}
-                                    variant="outlined"
-                                  />
-                                ))}
-                              </Box>
-                            )}
-                            {toolTags.length === 0 && (
-                              <Box
-                                sx={{
-                                  display: "flex",
-                                  flexWrap: "wrap",
-                                  ml: 0.5,
-                                }}
-                              >
-                                <Typography sx={{ mr: 0.5, mt: 0.5 }}>
-                                  NO TAGS!
-                                </Typography>
-                              </Box>
-                            )}
-                          </Box>
-                        </Box>
-                      </Grid>
-                      <Grid
-                        item
-                        xs={12}
-                        md={6}
+                        md={12}
                         sx={{ mt: { xs: 0.25, md: 0 } }}
                       >
                         <Box className="BgButton">
@@ -503,10 +378,10 @@ function ProductToolsPage() {
                                 <Box
                                   className="BgChip"
                                   sx={{
+                                    display: "flex",
                                     p: 1,
                                     mt: -2.75,
                                     boxShadow: 2,
-                                    display: "flex",
                                   }}
                                 >
                                   <Chip
@@ -608,7 +483,7 @@ function ProductToolsPage() {
                                     <Button
                                       variant="contained"
                                       className="productsPageAdd"
-                                      onClick={addToBasket}
+                                      // onClick={addToBasket}
                                     >
                                       {`Add To Cart (${totalPrice}$)`}
                                     </Button>
@@ -619,14 +494,9 @@ function ProductToolsPage() {
                           </Grid>
                         </Box>
                       </Grid>
-                      <Grid
-                        item
-                        xs={12}
-                        md={6}
-                        sx={{ display: { xs: "flex", md: "none" }, mt: 1 }}
-                      >
+                      <Grid item xs={12} md={12} sx={{ mt: 1 }}>
                         <Box sx={{ ml: 0, mt: 1, mb: 1.5 }}>
-                          {toolTags.length !== 0 && (
+                          {tags.length !== 0 && (
                             <Box sx={{ display: "flex", flexDirection: "row" }}>
                               <Box alignItems="center" sx={{ display: "flex" }}>
                                 <TagIcon color="action" />
@@ -639,13 +509,19 @@ function ProductToolsPage() {
                                   ml: 0.5,
                                 }}
                               >
-                                {toolTags.map((item) => (
-                                  <Chip
-                                    sx={{ mr: 0.5, mt: 0.5 }}
-                                    label={<Typography>{item.name}</Typography>}
-                                    variant="outlined"
-                                  />
-                                ))}
+                                {tags.length !== 0 && (
+                                  <Grid>
+                                    {tags.map((item) => (
+                                      <Chip
+                                        sx={{ mr: 0.5, mt: 0.5 }}
+                                        label={
+                                          <Typography>{item.name}</Typography>
+                                        }
+                                        variant="outlined"
+                                      />
+                                    ))}
+                                  </Grid>
+                                )}
                               </Box>
                             </Box>
                           )}
@@ -660,7 +536,6 @@ function ProductToolsPage() {
         </Grid>
       </Grid>
     </Grid>
-  );
+  ) : null;
 }
-
-export default ProductToolsPage;
+export default ProductPlantsPage;

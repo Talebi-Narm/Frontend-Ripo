@@ -17,7 +17,7 @@ export default function Services() {
         </Typography>
       </Grid>
       <Grid container item justifyContent="center" sx={{ m: 1 }}>
-        <Link to="/search">
+        <Link to="/search/">
           <Button>
             <Player
               src="https://assets4.lottiefiles.com/private_files/lf30_gnkqx2xe.json"
@@ -44,7 +44,7 @@ export default function Services() {
         </Typography>
       </Grid>
       <Grid container item justifyContent="center" sx={{ m: 1 }}>
-        <Link to="/search">
+        <Link to="/search/">
           <Button>
             <Player
               src="https://assets8.lottiefiles.com/packages/lf20_uyk1evya.json"
