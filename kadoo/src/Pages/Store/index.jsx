@@ -130,13 +130,26 @@ function Store() {
 
   // const
   const [tools, setTools] = useState([]);
+  const [priceTools, setPriceTools] = useState([0, 100]);
+
+  // Function
+  const handleChangePriceSliderTools = (event, newValue) => {
+    setPriceTools(newValue);
+  };
   // API
   useEffect(async () => {
     axiosInstance.get(`v1/store/tools/`).then((res) => {
       setTools(res.data.results);
-      // console.log(res.data.results);
     });
   }, []);
+  useEffect(() => {
+    let reqOption = {};
+    reqOption = updateRequestOption(reqOption, "max_price", priceTools[1]);
+    reqOption = updateRequestOption(reqOption, "min_price", priceTools[0]);
+    axiosInstance.get(`v1/store/tools/`, { params: reqOption }).then((res) => {
+      setTools(res.data.results);
+    });
+  }, [priceTools]);
 
   return (
     <Box sx={{ width: "100%" }}>
@@ -233,6 +246,26 @@ function Store() {
       </TabPanel>
       {/* Tools */}
       <TabPanel value={tab} index={1}>
+        <FormControl>
+          <FormLabel>price</FormLabel>
+          <Box sx={{ width: 300 }}>
+            <Stack
+              spacing={2}
+              direction="row"
+              sx={{ mb: 1 }}
+              alignItems="center"
+            >
+              <AttachMoneyIcon fontSize="small" />
+              <Slider
+                value={priceTools}
+                onChange={handleChangePriceSliderTools}
+                valueLabelDisplay="auto"
+              />
+              <AttachMoneyIcon fontSize="large" />
+            </Stack>
+          </Box>
+        </FormControl>
+
         <div style={{ display: "flex", flexWrap: "wrap", gap: "20px" }}>
           {tools.map((item, index) => (
             <PlantsCart
