@@ -202,7 +202,7 @@ export default function LeadProducts({ heightImage }) {
                           display: index === currentIndex ? "flex" : "none",
                         }}
                       >
-                        {products[currentIndex].name}
+                        {x.name}
                       </Typography>
                     </Fade>
                   ))}
@@ -216,7 +216,7 @@ export default function LeadProducts({ heightImage }) {
                           display: index === currentIndex ? "flex" : "none",
                         }}
                       >
-                        {products[currentIndex].description}
+                        {x.description}
                       </Typography>
                     </Fade>
                   ))}
