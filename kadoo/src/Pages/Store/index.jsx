@@ -145,12 +145,39 @@ function Store() {
     if (growthRate !== "all") {
       reqOption = updateRequestOption(reqOption, "growth_rate", growthRate);
     }
+    if (selectedPricePlants === "cheapest") {
+      reqOption = updateRequestOption(reqOption, "ordering", "price");
+    }
+    if (selectedPricePlants === "mostExpensive") {
+      reqOption = updateRequestOption(reqOption, "ordering", "-price");
+    }
+    if (selectedDatePlants === "oldest") {
+      reqOption = updateRequestOption(reqOption, "ordering", "created_at");
+    }
+    if (selectedDatePlants === "newest") {
+      reqOption = updateRequestOption(reqOption, "ordering", "-created_at");
+    }
+    if (selectedNamePlants === "ascending") {
+      reqOption = updateRequestOption(reqOption, "ordering", "name");
+    }
+    if (selectedNamePlants === "descending") {
+      reqOption = updateRequestOption(reqOption, "ordering", "-name");
+    }
     reqOption = updateRequestOption(reqOption, "max_price", price[1]);
     reqOption = updateRequestOption(reqOption, "min_price", price[0]);
     axiosInstance.get(`v1/store/plants/`, { params: reqOption }).then((res) => {
       setPlants(res.data.results);
     });
-  }, [environment, water, light, growthRate, price]);
+  }, [
+    environment,
+    water,
+    light,
+    growthRate,
+    price,
+    selectedPricePlants,
+    selectedDatePlants,
+    selectedNamePlants,
+  ]);
 
   // *************************** TOOLS ***************************
 
@@ -194,12 +221,30 @@ function Store() {
   }, []);
   useEffect(() => {
     let reqOption = {};
+    if (selectedPriceTools === "cheapest") {
+      reqOption = updateRequestOption(reqOption, "ordering", "price");
+    }
+    if (selectedPriceTools === "mostExpensive") {
+      reqOption = updateRequestOption(reqOption, "ordering", "-price");
+    }
+    if (selectedDateTools === "oldest") {
+      reqOption = updateRequestOption(reqOption, "ordering", "created_at");
+    }
+    if (selectedDateTools === "newest") {
+      reqOption = updateRequestOption(reqOption, "ordering", "-created_at");
+    }
+    if (selectedNameTools === "ascending") {
+      reqOption = updateRequestOption(reqOption, "ordering", "name");
+    }
+    if (selectedNameTools === "descending") {
+      reqOption = updateRequestOption(reqOption, "ordering", "-name");
+    }
     reqOption = updateRequestOption(reqOption, "max_price", priceTools[1]);
     reqOption = updateRequestOption(reqOption, "min_price", priceTools[0]);
     axiosInstance.get(`v1/store/tools/`, { params: reqOption }).then((res) => {
       setTools(res.data.results);
     });
-  }, [priceTools]);
+  }, [priceTools, selectedPriceTools, selectedDateTools, selectedNameTools]);
 
   return (
     <Box sx={{ width: "100%" }}>
