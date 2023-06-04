@@ -4,6 +4,8 @@ import { Route, Routes } from "react-router-dom";
 
 import ChatUI from "./Components/ChatRoom";
 import HeroSection from "./Components/HeroSection";
+import PlantsCart from "./Components/ProductsCart/PlantsCart";
+import ToolsCart from "./Components/ProductsCart/ToolsCart";
 import SearchResultProduct from "./Components/SearchResultsProduct/SearchResultProduct";
 import ShowCoins from "./Components/ShowCoins";
 import WateringUpdate from "./Components/UpdateCoins/WateringUpdate";
@@ -54,6 +56,37 @@ function AppRoutes() {
       <Route path="/FAQsPage" exact element={<FAQsPage />} />
       <Route path="/testAnimation" exact element={<HeroSection />} />
       <Route path="/testChat" exact element={<ChatUI />} />
+      <Route
+        path="/testCard"
+        exact
+        element={
+          <PlantsCart
+            product={{
+              image:
+                "https://watchandlearn.scholastic.com/content/dam/classroom-magazines/watchandlearn/videos/animals-and-plants/plants/what-are-plants-/english/wall-2018-whatareplantsmp4.transform/content-tile-large/image.png",
+              name: "test",
+              price: 10,
+              light: "much",
+              water: "much",
+              growthRate: "much",
+            }}
+          />
+        }
+      />
+      <Route
+        path="/testToolCard"
+        exact
+        element={
+          <ToolsCart
+            product={{
+              image:
+                "https://watchandlearn.scholastic.com/content/dam/classroom-magazines/watchandlearn/videos/animals-and-plants/plants/what-are-plants-/english/wall-2018-whatareplantsmp4.transform/content-tile-large/image.png",
+              name: "test",
+              price: 10,
+            }}
+          />
+        }
+      />
       <Route path="/testButton" exact element={<TestButton />} />
       <Route
         path="/ProductPlantsPage/:id"
