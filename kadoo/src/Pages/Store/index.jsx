@@ -4,6 +4,8 @@ import ForestOutlinedIcon from "@mui/icons-material/ForestOutlined";
 import HandymanIcon from "@mui/icons-material/Handyman";
 // import { tableContainerClasses } from "@mui/material";
 import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
+import ButtonGroup from "@mui/material/ButtonGroup";
 import FormControl from "@mui/material/FormControl";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import FormLabel from "@mui/material/FormLabel";
@@ -71,6 +73,9 @@ function Store() {
   const [light, setLight] = useState("all");
   const [growthRate, setGrowthRate] = useState("all");
   const [tab, setTab] = useState(0);
+  const [selectedPricePlants, setSelectedPricePlants] = useState(null);
+  const [selectedDatePlants, setSelectedDatePlants] = useState(null);
+  const [selectedNamePlants, setSelectedNamePlants] = useState(null);
 
   // function
   const handleChangePriceSlider = (event, newValue) => {
@@ -96,6 +101,27 @@ function Store() {
   }
   const handleChangeTab = (event, newValue) => {
     setTab(newValue);
+  };
+  const handleButtonPricePlants = (buttonValue) => {
+    if (selectedPricePlants === buttonValue) {
+      setSelectedPricePlants(null);
+    } else {
+      setSelectedPricePlants(buttonValue);
+    }
+  };
+  const handleButtonDatePlants = (buttonValue) => {
+    if (selectedDatePlants === buttonValue) {
+      setSelectedDatePlants(null);
+    } else {
+      setSelectedDatePlants(buttonValue);
+    }
+  };
+  const handleButtonNamePlants = (buttonValue) => {
+    if (selectedNamePlants === buttonValue) {
+      setSelectedNamePlants(null);
+    } else {
+      setSelectedNamePlants(buttonValue);
+    }
   };
 
   // API
@@ -131,10 +157,34 @@ function Store() {
   // const
   const [tools, setTools] = useState([]);
   const [priceTools, setPriceTools] = useState([0, 100]);
+  const [selectedPriceTools, setSelectedPriceTools] = useState(null);
+  const [selectedDateTools, setSelectedDateTools] = useState(null);
+  const [selectedNameTools, setSelectedNameTools] = useState(null);
 
   // Function
   const handleChangePriceSliderTools = (event, newValue) => {
     setPriceTools(newValue);
+  };
+  const handleButtonPriceTools = (buttonValue) => {
+    if (selectedPriceTools === buttonValue) {
+      setSelectedPriceTools(null);
+    } else {
+      setSelectedPriceTools(buttonValue);
+    }
+  };
+  const handleButtonDateTools = (buttonValue) => {
+    if (selectedDateTools === buttonValue) {
+      setSelectedDateTools(null);
+    } else {
+      setSelectedDateTools(buttonValue);
+    }
+  };
+  const handleButtonNameTools = (buttonValue) => {
+    if (selectedNameTools === buttonValue) {
+      setSelectedNameTools(null);
+    } else {
+      setSelectedNameTools(buttonValue);
+    }
   };
   // API
   useEffect(async () => {
@@ -227,6 +277,83 @@ function Store() {
           </FormControl>
         </div>
 
+        {/* sort */}
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            "& > *": {
+              m: 1,
+            },
+          }}
+        >
+          <div style={{ display: "flex", flexDirection: "column" }}>
+            <FormLabel>Price</FormLabel>
+            <ButtonGroup variant="outlined">
+              <Button
+                onClick={() => handleButtonPricePlants("cheapest")}
+                variant={
+                  selectedPricePlants === "cheapest" ? "contained" : "outlined"
+                }
+              >
+                Cheapest
+              </Button>
+              <Button
+                onClick={() => handleButtonPricePlants("mostExpensive")}
+                variant={
+                  selectedPricePlants === "mostExpensive"
+                    ? "contained"
+                    : "outlined"
+                }
+              >
+                The Most Expensive
+              </Button>
+            </ButtonGroup>
+          </div>
+          <div style={{ display: "flex", flexDirection: "column" }}>
+            <FormLabel>Date Added</FormLabel>
+            <ButtonGroup variant="outlined">
+              <Button
+                onClick={() => handleButtonDatePlants("oldest")}
+                variant={
+                  selectedDatePlants === "oldest" ? "contained" : "outlined"
+                }
+              >
+                Oldest
+              </Button>
+              <Button
+                onClick={() => handleButtonDatePlants("newest")}
+                variant={
+                  selectedDatePlants === "newest" ? "contained" : "outlined"
+                }
+              >
+                Newest
+              </Button>
+            </ButtonGroup>
+          </div>
+          <div style={{ display: "flex", flexDirection: "column" }}>
+            <FormLabel>Name</FormLabel>
+            <ButtonGroup variant="outlined">
+              <Button
+                onClick={() => handleButtonNamePlants("ascending")}
+                variant={
+                  selectedNamePlants === "ascending" ? "contained" : "outlined"
+                }
+              >
+                Ascending
+              </Button>
+              <Button
+                onClick={() => handleButtonNamePlants("descending")}
+                variant={
+                  selectedNamePlants === "descending" ? "contained" : "outlined"
+                }
+              >
+                Descending
+              </Button>
+            </ButtonGroup>
+          </div>
+        </Box>
         <div style={{ display: "flex", flexWrap: "wrap", gap: "20px" }}>
           {plants.map((item, index) => (
             <PlantsCart
@@ -265,6 +392,82 @@ function Store() {
             </Stack>
           </Box>
         </FormControl>
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            "& > *": {
+              m: 1,
+            },
+          }}
+        >
+          <div style={{ display: "flex", flexDirection: "column" }}>
+            <FormLabel>Price</FormLabel>
+            <ButtonGroup variant="outlined">
+              <Button
+                onClick={() => handleButtonPriceTools("cheapest")}
+                variant={
+                  selectedPriceTools === "cheapest" ? "contained" : "outlined"
+                }
+              >
+                Cheapest
+              </Button>
+              <Button
+                onClick={() => handleButtonPriceTools("mostExpensive")}
+                variant={
+                  selectedPriceTools === "mostExpensive"
+                    ? "contained"
+                    : "outlined"
+                }
+              >
+                The Most Expensive
+              </Button>
+            </ButtonGroup>
+          </div>
+          <div style={{ display: "flex", flexDirection: "column" }}>
+            <FormLabel>Date Added</FormLabel>
+            <ButtonGroup variant="outlined">
+              <Button
+                onClick={() => handleButtonDateTools("oldest")}
+                variant={
+                  selectedDateTools === "oldest" ? "contained" : "outlined"
+                }
+              >
+                Oldest
+              </Button>
+              <Button
+                onClick={() => handleButtonDateTools("newest")}
+                variant={
+                  selectedDateTools === "newest" ? "contained" : "outlined"
+                }
+              >
+                Newest
+              </Button>
+            </ButtonGroup>
+          </div>
+          <div style={{ display: "flex", flexDirection: "column" }}>
+            <FormLabel>Name</FormLabel>
+            <ButtonGroup variant="outlined">
+              <Button
+                onClick={() => handleButtonNameTools("ascending")}
+                variant={
+                  selectedNameTools === "ascending" ? "contained" : "outlined"
+                }
+              >
+                Ascending
+              </Button>
+              <Button
+                onClick={() => handleButtonNameTools("descending")}
+                variant={
+                  selectedNameTools === "descending" ? "contained" : "outlined"
+                }
+              >
+                Descending
+              </Button>
+            </ButtonGroup>
+          </div>
+        </Box>
 
         <div style={{ display: "flex", flexWrap: "wrap", gap: "20px" }}>
           {tools.map((item, index) => (
