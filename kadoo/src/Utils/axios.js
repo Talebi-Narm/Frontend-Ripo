@@ -1,6 +1,6 @@
 import axios from "axios";
 
-export const baseURL = "https://Talebi-narm.ir/api/";
+export const baseURL = "http://localhost:8000/api/";
 const axiosInstance = axios.create({
   baseURL,
   timeout: 5000,
