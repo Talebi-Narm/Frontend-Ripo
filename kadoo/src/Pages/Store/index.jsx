@@ -3,16 +3,20 @@ import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
 import ForestOutlinedIcon from "@mui/icons-material/ForestOutlined";
 import HandymanIcon from "@mui/icons-material/Handyman";
 // import { tableContainerClasses } from "@mui/material";
+import SearchIcon from "@mui/icons-material/Search";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import ButtonGroup from "@mui/material/ButtonGroup";
 import FormControl from "@mui/material/FormControl";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import FormLabel from "@mui/material/FormLabel";
+import Grid from "@mui/material/Grid";
+import InputBase from "@mui/material/InputBase";
 import Radio from "@mui/material/Radio";
 import RadioGroup from "@mui/material/RadioGroup";
 import Slider from "@mui/material/Slider";
 import Stack from "@mui/material/Stack";
+import { styled } from "@mui/material/styles";
 import Tab from "@mui/material/Tab";
 import Tabs from "@mui/material/Tabs";
 import Typography from "@mui/material/Typography";
@@ -76,8 +80,13 @@ function Store() {
   const [selectedPricePlants, setSelectedPricePlants] = useState(null);
   const [selectedDatePlants, setSelectedDatePlants] = useState(null);
   const [selectedNamePlants, setSelectedNamePlants] = useState(null);
+  const [searchPlants, setSearchPlants] = useState("");
 
   // function
+  const handleSearchChange = (event) => {
+    const { value } = event.target;
+    setSearchPlants(value);
+  };
   const handleChangePriceSlider = (event, newValue) => {
     setPrice(newValue);
   };
@@ -179,6 +188,53 @@ function Store() {
     selectedNamePlants,
   ]);
 
+  // Search
+  const Search = styled("div")(({ theme }) => ({
+    position: "relative",
+    borderRadius: theme.shape.borderRadius,
+    backgroundColor: "#e2f7e7",
+    borderColor: "#00c853",
+    "&:hover": {
+      backgroundColor: "#e2f7e7",
+    },
+    marginLeft: 0,
+    width: "100%",
+    [theme.breakpoints.up("sm")]: {
+      marginTop: "30px",
+      width: "250px",
+    },
+  }));
+
+  const SearchIconWrapper = styled("div")(({ theme }) => ({
+    padding: theme.spacing(0, 2),
+    height: "100%",
+    position: "absolute",
+    pointerEvents: "none",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+  }));
+  const StyledInputBase = styled(InputBase)(({ theme }) => ({
+    color: "inherit",
+    "& .MuiInputBase-input": {
+      padding: theme.spacing(1, 1, 1, 0),
+      // vertical padding + font size from searchIcon
+      paddingLeft: `calc(1em + ${theme.spacing(4)})`,
+      transition: theme.transitions.create("width"),
+      width: "100%",
+      [theme.breakpoints.up("sm")]: {
+        width: "12ch",
+        "&:focus": {
+          width: "20ch",
+        },
+      },
+    },
+  }));
+
+  useEffect(async () => {
+    console.log(searchPlants);
+  }, [searchPlants]);
+
   // *************************** TOOLS ***************************
 
   // const
@@ -249,172 +305,282 @@ function Store() {
   return (
     <Box sx={{ width: "100%" }}>
       <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
-        <Tabs value={tab} onChange={handleChangeTab}>
+        <Tabs value={tab} onChange={handleChangeTab} centered>
           <Tab icon={<ForestOutlinedIcon />} label="PLANTS" {...a11yProps(0)} />
           <Tab icon={<HandymanIcon />} label="TOOLS" {...a11yProps(1)} />
         </Tabs>
       </Box>
       {/* Plants */}
       <TabPanel value={tab} index={0}>
-        <div style={{ display: "flex", flexWrap: "wrap", gap: "20px" }}>
-          <FormControl>
-            <FormLabel>environment</FormLabel>
-            <RadioGroup defaultValue="all" onChange={handleChangeEnviroment}>
-              <FormControlLabel
-                value="0"
-                control={<Radio />}
-                label="tropical"
-              />
-              <FormControlLabel value="1" control={<Radio />} label="cold" />
-              <FormControlLabel value="2" control={<Radio />} label="none" />
-              <FormControlLabel value="all" control={<Radio />} label="all" />
-            </RadioGroup>
-          </FormControl>
-
-          <FormControl>
-            <FormLabel>growth rate</FormLabel>
-            <RadioGroup defaultValue="all" onChange={handleChangeGrowthRate}>
-              <FormControlLabel value="0" control={<Radio />} label="low" />
-              <FormControlLabel value="1" control={<Radio />} label="medium" />
-              <FormControlLabel value="2" control={<Radio />} label="much" />
-              <FormControlLabel value="all" control={<Radio />} label="all" />
-            </RadioGroup>
-          </FormControl>
-
-          <FormControl>
-            <FormLabel>light</FormLabel>
-            <RadioGroup defaultValue="all" onChange={handleChangeLight}>
-              <FormControlLabel value="0" control={<Radio />} label="low" />
-              <FormControlLabel value="1" control={<Radio />} label="medium" />
-              <FormControlLabel value="2" control={<Radio />} label="much" />
-              <FormControlLabel value="all" control={<Radio />} label="all" />
-            </RadioGroup>
-          </FormControl>
-
-          <FormControl>
-            <FormLabel>water</FormLabel>
-            <RadioGroup defaultValue="all" onChange={handleChangeWater}>
-              <FormControlLabel value="0" control={<Radio />} label="low" />
-              <FormControlLabel value="1" control={<Radio />} label="medium" />
-              <FormControlLabel value="2" control={<Radio />} label="much" />
-              <FormControlLabel value="all" control={<Radio />} label="all" />
-            </RadioGroup>
-          </FormControl>
-
-          <FormControl>
-            <FormLabel>price</FormLabel>
-            <Box sx={{ width: 300 }}>
-              <Stack
-                spacing={2}
-                direction="row"
-                sx={{ mb: 1 }}
-                alignItems="center"
+        <Box sx={{ flexGrow: 1 }}>
+          <Grid container spacing={2}>
+            {/* sort */}
+            <Grid item xs={8}>
+              <FormLabel style={{ fontSize: 30, color: "black" }}>
+                SORT:
+              </FormLabel>
+              <Box
+                sx={{
+                  display: "flex",
+                  flexDirection: "row",
+                  alignItems: "center",
+                  "& > *": {
+                    m: 1,
+                  },
+                }}
               >
-                <AttachMoneyIcon fontSize="small" />
-                <Slider
-                  value={price}
-                  onChange={handleChangePriceSlider}
-                  valueLabelDisplay="auto"
+                <div style={{ display: "flex", flexDirection: "column" }}>
+                  <FormLabel>Price</FormLabel>
+                  <ButtonGroup variant="outlined">
+                    <Button
+                      onClick={() => handleButtonPricePlants("cheapest")}
+                      variant={
+                        selectedPricePlants === "cheapest"
+                          ? "contained"
+                          : "outlined"
+                      }
+                    >
+                      Cheapest
+                    </Button>
+                    <Button
+                      onClick={() => handleButtonPricePlants("mostExpensive")}
+                      variant={
+                        selectedPricePlants === "mostExpensive"
+                          ? "contained"
+                          : "outlined"
+                      }
+                    >
+                      The Most Expensive
+                    </Button>
+                  </ButtonGroup>
+                </div>
+                <div style={{ display: "flex", flexDirection: "column" }}>
+                  <FormLabel>Date Added</FormLabel>
+                  <ButtonGroup variant="outlined">
+                    <Button
+                      onClick={() => handleButtonDatePlants("oldest")}
+                      variant={
+                        selectedDatePlants === "oldest"
+                          ? "contained"
+                          : "outlined"
+                      }
+                    >
+                      Oldest
+                    </Button>
+                    <Button
+                      onClick={() => handleButtonDatePlants("newest")}
+                      variant={
+                        selectedDatePlants === "newest"
+                          ? "contained"
+                          : "outlined"
+                      }
+                    >
+                      Newest
+                    </Button>
+                  </ButtonGroup>
+                </div>
+                <div style={{ display: "flex", flexDirection: "column" }}>
+                  <FormLabel>Name</FormLabel>
+                  <ButtonGroup variant="outlined">
+                    <Button
+                      onClick={() => handleButtonNamePlants("ascending")}
+                      variant={
+                        selectedNamePlants === "ascending"
+                          ? "contained"
+                          : "outlined"
+                      }
+                    >
+                      Ascending
+                    </Button>
+                    <Button
+                      onClick={() => handleButtonNamePlants("descending")}
+                      variant={
+                        selectedNamePlants === "descending"
+                          ? "contained"
+                          : "outlined"
+                      }
+                    >
+                      Descending
+                    </Button>
+                  </ButtonGroup>
+                </div>
+              </Box>
+            </Grid>
+            {/* search */}
+            <Grid item xs={4}>
+              <FormLabel style={{ fontSize: 30, color: "black" }}>
+                SEARCH:
+              </FormLabel>
+              <Search>
+                <SearchIconWrapper>
+                  <SearchIcon />
+                </SearchIconWrapper>
+                <StyledInputBase
+                  placeholder="Search…"
+                  inputProps={{ "aria-label": "search" }}
+                  onChange={handleSearchChange}
+                  value={searchPlants}
                 />
-                <AttachMoneyIcon fontSize="large" />
-              </Stack>
-            </Box>
-          </FormControl>
-        </div>
+              </Search>
+            </Grid>
+            {/* filter */}
+            <Grid item xs={2}>
+              <div style={{ display: "flex", flexWrap: "wrap", gap: "20px" }}>
+                <FormControl>
+                  <FormLabel style={{ fontSize: 30, color: "black" }}>
+                    FILTERS:
+                  </FormLabel>
+                  <FormLabel>environment</FormLabel>
+                  <RadioGroup
+                    defaultValue="all"
+                    onChange={handleChangeEnviroment}
+                  >
+                    <FormControlLabel
+                      value="0"
+                      control={<Radio />}
+                      label="tropical"
+                    />
+                    <FormControlLabel
+                      value="1"
+                      control={<Radio />}
+                      label="cold"
+                    />
+                    <FormControlLabel
+                      value="2"
+                      control={<Radio />}
+                      label="none"
+                    />
+                    <FormControlLabel
+                      value="all"
+                      control={<Radio />}
+                      label="all"
+                    />
+                  </RadioGroup>
+                </FormControl>
 
-        {/* sort */}
-        <Box
-          sx={{
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            "& > *": {
-              m: 1,
-            },
-          }}
-        >
-          <div style={{ display: "flex", flexDirection: "column" }}>
-            <FormLabel>Price</FormLabel>
-            <ButtonGroup variant="outlined">
-              <Button
-                onClick={() => handleButtonPricePlants("cheapest")}
-                variant={
-                  selectedPricePlants === "cheapest" ? "contained" : "outlined"
-                }
-              >
-                Cheapest
-              </Button>
-              <Button
-                onClick={() => handleButtonPricePlants("mostExpensive")}
-                variant={
-                  selectedPricePlants === "mostExpensive"
-                    ? "contained"
-                    : "outlined"
-                }
-              >
-                The Most Expensive
-              </Button>
-            </ButtonGroup>
-          </div>
-          <div style={{ display: "flex", flexDirection: "column" }}>
-            <FormLabel>Date Added</FormLabel>
-            <ButtonGroup variant="outlined">
-              <Button
-                onClick={() => handleButtonDatePlants("oldest")}
-                variant={
-                  selectedDatePlants === "oldest" ? "contained" : "outlined"
-                }
-              >
-                Oldest
-              </Button>
-              <Button
-                onClick={() => handleButtonDatePlants("newest")}
-                variant={
-                  selectedDatePlants === "newest" ? "contained" : "outlined"
-                }
-              >
-                Newest
-              </Button>
-            </ButtonGroup>
-          </div>
-          <div style={{ display: "flex", flexDirection: "column" }}>
-            <FormLabel>Name</FormLabel>
-            <ButtonGroup variant="outlined">
-              <Button
-                onClick={() => handleButtonNamePlants("ascending")}
-                variant={
-                  selectedNamePlants === "ascending" ? "contained" : "outlined"
-                }
-              >
-                Ascending
-              </Button>
-              <Button
-                onClick={() => handleButtonNamePlants("descending")}
-                variant={
-                  selectedNamePlants === "descending" ? "contained" : "outlined"
-                }
-              >
-                Descending
-              </Button>
-            </ButtonGroup>
-          </div>
+                <FormControl>
+                  <FormLabel>growth rate</FormLabel>
+                  <RadioGroup
+                    defaultValue="all"
+                    onChange={handleChangeGrowthRate}
+                  >
+                    <FormControlLabel
+                      value="0"
+                      control={<Radio />}
+                      label="low"
+                    />
+                    <FormControlLabel
+                      value="1"
+                      control={<Radio />}
+                      label="medium"
+                    />
+                    <FormControlLabel
+                      value="2"
+                      control={<Radio />}
+                      label="much"
+                    />
+                    <FormControlLabel
+                      value="all"
+                      control={<Radio />}
+                      label="all"
+                    />
+                  </RadioGroup>
+                </FormControl>
+
+                <FormControl>
+                  <FormLabel>light</FormLabel>
+                  <RadioGroup defaultValue="all" onChange={handleChangeLight}>
+                    <FormControlLabel
+                      value="0"
+                      control={<Radio />}
+                      label="low"
+                    />
+                    <FormControlLabel
+                      value="1"
+                      control={<Radio />}
+                      label="medium"
+                    />
+                    <FormControlLabel
+                      value="2"
+                      control={<Radio />}
+                      label="much"
+                    />
+                    <FormControlLabel
+                      value="all"
+                      control={<Radio />}
+                      label="all"
+                    />
+                  </RadioGroup>
+                </FormControl>
+
+                <FormControl>
+                  <FormLabel>water</FormLabel>
+                  <RadioGroup defaultValue="all" onChange={handleChangeWater}>
+                    <FormControlLabel
+                      value="0"
+                      control={<Radio />}
+                      label="low"
+                    />
+                    <FormControlLabel
+                      value="1"
+                      control={<Radio />}
+                      label="medium"
+                    />
+                    <FormControlLabel
+                      value="2"
+                      control={<Radio />}
+                      label="much"
+                    />
+                    <FormControlLabel
+                      value="all"
+                      control={<Radio />}
+                      label="all"
+                    />
+                  </RadioGroup>
+                </FormControl>
+
+                <FormControl>
+                  <FormLabel style={{ paddingBottom: "20px" }}>price</FormLabel>
+                  <Box sx={{ width: 300 }}>
+                    <Stack sx={{ height: 200, spacing: 2, direction: "row" }}>
+                      <Slider
+                        value={price}
+                        onChange={handleChangePriceSlider}
+                        valueLabelDisplay="auto"
+                        orientation="vertical"
+                        sx={{
+                          '& input[type="range"]': {
+                            WebkitAppearance: "slider-vertical",
+                            height: 200,
+                          },
+                        }}
+                      />
+                    </Stack>
+                  </Box>
+                </FormControl>
+              </div>
+            </Grid>
+            {/* cards */}
+            <Grid item xs={10}>
+              <div style={{ display: "flex", flexWrap: "wrap", gap: "20px" }}>
+                {plants.map((item, index) => (
+                  <PlantsCart
+                    // eslint-disable-next-line react/no-array-index-key
+                    key={index}
+                    product={{
+                      image: item.main_image,
+                      name: item.name,
+                      price: item.price,
+                      light: item.light,
+                      water: item.water,
+                      growthRate: item.growth_rate,
+                    }}
+                  />
+                ))}
+              </div>
+            </Grid>
+          </Grid>
         </Box>
-        <div style={{ display: "flex", flexWrap: "wrap", gap: "20px" }}>
-          {plants.map((item, index) => (
-            <PlantsCart
-              // eslint-disable-next-line react/no-array-index-key
-              key={index}
-              product={{
-                image: item.main_image,
-                name: item.name,
-                price: item.price,
-                light: item.light,
-                water: item.water,
-                growthRate: item.growth_rate,
-              }}
-            />
-          ))}
-        </div>
       </TabPanel>
       {/* Tools */}
       <TabPanel value={tab} index={1}>
