@@ -448,10 +448,11 @@ function Store() {
             </Grid>
             {/* search */}
             <Grid item xs={4}>
-              <FormLabel style={{ fontSize: 30, color: "black" }}>
-                SEARCH:
-              </FormLabel>
-              {/* <Search>
+              <Box sx={{ display: "flex", flexDirection: "column" }}>
+                <FormLabel style={{ fontSize: 30, color: "black" }}>
+                  SEARCH:
+                </FormLabel>
+                {/* <Search>
                 <SearchIconWrapper>
                   <SearchIcon />
                 </SearchIconWrapper>
@@ -461,37 +462,38 @@ function Store() {
                   // onChange={handleSearchChange}
                 />
               </Search> */}
-              <FormControl sx={{ m: 1, width: 300 }}>
-                <InputLabel id="demo-multiple-chip-label">Chip</InputLabel>
-                <Select
-                  labelId="demo-multiple-chip-label"
-                  id="demo-multiple-chip"
-                  multiple={false}
-                  value={personName}
-                  onChange={handleChange}
-                  input={
-                    <OutlinedInput id="select-multiple-chip" label="Chip" />
-                  }
-                  renderValue={() => (
-                    <Box sx={{ display: "flex", flexWrap: "wrap", gap: 0.5 }}>
-                      {personName.map((value) => (
-                        <Chip key={value.id} label={value.name} />
-                      ))}
-                    </Box>
-                  )}
-                  MenuProps={MenuProps}
-                >
-                  {tags.map((tag) => (
-                    <MenuItem
-                      key={tag.id}
-                      value={tag}
-                      style={getStyles(tag.name, personName, theme)}
-                    >
-                      {tag.name}
-                    </MenuItem>
-                  ))}
-                </Select>
-              </FormControl>
+                <FormControl sx={{ m: 1, width: 300 }}>
+                  <InputLabel id="demo-multiple-chip-label">Chip</InputLabel>
+                  <Select
+                    labelId="demo-multiple-chip-label"
+                    id="demo-multiple-chip"
+                    multiple={false}
+                    value={personName}
+                    onChange={handleChange}
+                    input={
+                      <OutlinedInput id="select-multiple-chip" label="Chip" />
+                    }
+                    renderValue={() => (
+                      <Box sx={{ display: "flex", flexWrap: "wrap", gap: 0.5 }}>
+                        {personName.map((value) => (
+                          <Chip key={value.id} label={value.name} />
+                        ))}
+                      </Box>
+                    )}
+                    MenuProps={MenuProps}
+                  >
+                    {tags.map((tag) => (
+                      <MenuItem
+                        key={tag.id}
+                        value={tag}
+                        style={getStyles(tag.name, personName, theme)}
+                      >
+                        {tag.name}
+                      </MenuItem>
+                    ))}
+                  </Select>
+                </FormControl>
+              </Box>
             </Grid>
             {/* filter */}
             <Grid item xs={2}>
@@ -750,10 +752,11 @@ function Store() {
             </Grid>
             {/* search */}
             <Grid item xs={4}>
-              <FormLabel style={{ fontSize: 30, color: "black" }}>
-                SEARCH:
-              </FormLabel>
-              {/* <Search>
+              <Box sx={{ display: "flex", flexDirection: "column" }}>
+                <FormLabel style={{ fontSize: 30, color: "black" }}>
+                  SEARCH:
+                </FormLabel>
+                {/* <Search>
                 <SearchIconWrapper>
                   <SearchIcon />
                 </SearchIconWrapper>
@@ -763,37 +766,38 @@ function Store() {
                   // onChange={handleSearchChange}
                 />
               </Search> */}
-              <FormControl sx={{ m: 1, width: 300 }}>
-                <InputLabel id="demo-multiple-chip-label">Chip</InputLabel>
-                <Select
-                  labelId="demo-multiple-chip-label"
-                  id="demo-multiple-chip"
-                  multiple={false}
-                  value={personName}
-                  onChange={handleChange}
-                  input={
-                    <OutlinedInput id="select-multiple-chip" label="Chip" />
-                  }
-                  renderValue={() => (
-                    <Box sx={{ display: "flex", flexWrap: "wrap", gap: 0.5 }}>
-                      {personName.map((value) => (
-                        <Chip key={value.id} label={value.name} />
-                      ))}
-                    </Box>
-                  )}
-                  MenuProps={MenuProps}
-                >
-                  {tags.map((tag) => (
-                    <MenuItem
-                      key={tag.id}
-                      value={tag}
-                      style={getStyles(tag.name, personName, theme)}
-                    >
-                      {tag.name}
-                    </MenuItem>
-                  ))}
-                </Select>
-              </FormControl>
+                <FormControl sx={{ m: 1, width: 300 }}>
+                  <InputLabel id="demo-multiple-chip-label">Chip</InputLabel>
+                  <Select
+                    labelId="demo-multiple-chip-label"
+                    id="demo-multiple-chip"
+                    multiple={false}
+                    value={personName}
+                    onChange={handleChange}
+                    input={
+                      <OutlinedInput id="select-multiple-chip" label="Chip" />
+                    }
+                    renderValue={() => (
+                      <Box sx={{ display: "flex", flexWrap: "wrap", gap: 0.5 }}>
+                        {personName.map((value) => (
+                          <Chip key={value.id} label={value.name} />
+                        ))}
+                      </Box>
+                    )}
+                    MenuProps={MenuProps}
+                  >
+                    {tags.map((tag) => (
+                      <MenuItem
+                        key={tag.id}
+                        value={tag}
+                        style={getStyles(tag.name, personName, theme)}
+                      >
+                        {tag.name}
+                      </MenuItem>
+                    ))}
+                  </Select>
+                </FormControl>
+              </Box>
             </Grid>
             {/* filter */}
             <Grid item xs={2}>
