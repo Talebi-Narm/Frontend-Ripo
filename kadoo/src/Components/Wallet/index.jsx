@@ -2,7 +2,9 @@
 import { Player } from "@lottiefiles/react-lottie-player";
 import { Fade, Grid } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
-import React, { useRef } from "react";
+import React, { useRef, useEffect, useState } from "react";
+
+import axiosInstance from "../../Utils/axios";
 
 // eslint-disable-next-line import/no-extraneous-dependencies
 // import Typed from "react-typed";
@@ -10,7 +12,13 @@ import React, { useRef } from "react";
 export default function Wallet() {
   const theme = useTheme();
   const ref = useRef(null);
+  const [walletBalance, SetWalletBalance] = useState();
 
+  useEffect(() => {
+    axiosInstance.get(`v1/user/me/`).then((res) => {
+      SetWalletBalance(res.data.user.wallet_charge);
+    });
+  }, []);
   const styles = {
     titleBar: {
       p: 2,
@@ -72,8 +80,7 @@ export default function Wallet() {
                   borderRadius: "24px",
                 }}
               >
-                gkndfghm; gmd;f gkmd;fl fgk[l pkwfmsd;mfl dapfjskdf sdgjimks
-                mgjsngfkdflm g]
+                Your account balance is : {walletBalance}
               </Grid>
             </Grid>
           </Grid>
