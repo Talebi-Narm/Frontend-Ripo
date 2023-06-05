@@ -1,5 +1,4 @@
 // eslint-disable-next-line prettier/prettier
-import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
 import ForestOutlinedIcon from "@mui/icons-material/ForestOutlined";
 import HandymanIcon from "@mui/icons-material/Handyman";
 // import { tableContainerClasses } from "@mui/material";
@@ -80,13 +79,19 @@ function Store() {
   const [selectedPricePlants, setSelectedPricePlants] = useState(null);
   const [selectedDatePlants, setSelectedDatePlants] = useState(null);
   const [selectedNamePlants, setSelectedNamePlants] = useState(null);
-  const [searchPlants, setSearchPlants] = useState("");
+  // const [searchPlants, setSearchPlants] = useState("");
 
   // function
-  const handleSearchChange = (event) => {
-    const { value } = event.target;
-    setSearchPlants(value);
-  };
+  // const handleSearchChange = (event) => {
+  //   // setSearchPlants(event.target.value);
+  //   axiosInstance
+  //     .get(`v1/store/plants/`, {
+  //       search: event.target.value,
+  //     })
+  //     .then((res) => {
+  //       setPlants(res.data.results);
+  //     });
+  // };
   const handleChangePriceSlider = (event, newValue) => {
     setPrice(newValue);
   };
@@ -188,7 +193,6 @@ function Store() {
     selectedNamePlants,
   ]);
 
-  // Search
   const Search = styled("div")(({ theme }) => ({
     position: "relative",
     borderRadius: theme.shape.borderRadius,
@@ -214,15 +218,15 @@ function Store() {
     alignItems: "center",
     justifyContent: "center",
   }));
+
   const StyledInputBase = styled(InputBase)(({ theme }) => ({
     color: "inherit",
     "& .MuiInputBase-input": {
       padding: theme.spacing(1, 1, 1, 0),
-      // vertical padding + font size from searchIcon
       paddingLeft: `calc(1em + ${theme.spacing(4)})`,
       transition: theme.transitions.create("width"),
       width: "100%",
-      [theme.breakpoints.up("sm")]: {
+      [theme.breakpoints.up("md")]: {
         width: "12ch",
         "&:focus": {
           width: "20ch",
@@ -231,9 +235,9 @@ function Store() {
     },
   }));
 
-  useEffect(async () => {
-    console.log(searchPlants);
-  }, [searchPlants]);
+  // useEffect(async () => {
+  //   console.log(searchPlants);
+  // }, [searchPlants]);
 
   // *************************** TOOLS ***************************
 
@@ -416,10 +420,9 @@ function Store() {
                   <SearchIcon />
                 </SearchIconWrapper>
                 <StyledInputBase
-                  placeholder="Search…"
+                  placeholder="search"
                   inputProps={{ "aria-label": "search" }}
-                  onChange={handleSearchChange}
-                  value={searchPlants}
+                  // onChange={handleSearchChange}
                 />
               </Search>
             </Grid>
@@ -584,115 +587,159 @@ function Store() {
       </TabPanel>
       {/* Tools */}
       <TabPanel value={tab} index={1}>
-        <FormControl>
-          <FormLabel>price</FormLabel>
-          <Box sx={{ width: 300 }}>
-            <Stack
-              spacing={2}
-              direction="row"
-              sx={{ mb: 1 }}
-              alignItems="center"
-            >
-              <AttachMoneyIcon fontSize="small" />
-              <Slider
-                value={priceTools}
-                onChange={handleChangePriceSliderTools}
-                valueLabelDisplay="auto"
-              />
-              <AttachMoneyIcon fontSize="large" />
-            </Stack>
-          </Box>
-        </FormControl>
-        <Box
-          sx={{
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            "& > *": {
-              m: 1,
-            },
-          }}
-        >
-          <div style={{ display: "flex", flexDirection: "column" }}>
-            <FormLabel>Price</FormLabel>
-            <ButtonGroup variant="outlined">
-              <Button
-                onClick={() => handleButtonPriceTools("cheapest")}
-                variant={
-                  selectedPriceTools === "cheapest" ? "contained" : "outlined"
-                }
+        <Box sx={{ flexGrow: 1 }}>
+          <Grid container spacing={2}>
+            {/* sort */}
+            <Grid item xs={8}>
+              <FormLabel style={{ fontSize: 30, color: "black" }}>
+                SORT:
+              </FormLabel>
+              <Box
+                sx={{
+                  display: "flex",
+                  flexDirection: "row",
+                  alignItems: "center",
+                  "& > *": {
+                    m: 1,
+                  },
+                }}
               >
-                Cheapest
-              </Button>
-              <Button
-                onClick={() => handleButtonPriceTools("mostExpensive")}
-                variant={
-                  selectedPriceTools === "mostExpensive"
-                    ? "contained"
-                    : "outlined"
-                }
-              >
-                The Most Expensive
-              </Button>
-            </ButtonGroup>
-          </div>
-          <div style={{ display: "flex", flexDirection: "column" }}>
-            <FormLabel>Date Added</FormLabel>
-            <ButtonGroup variant="outlined">
-              <Button
-                onClick={() => handleButtonDateTools("oldest")}
-                variant={
-                  selectedDateTools === "oldest" ? "contained" : "outlined"
-                }
-              >
-                Oldest
-              </Button>
-              <Button
-                onClick={() => handleButtonDateTools("newest")}
-                variant={
-                  selectedDateTools === "newest" ? "contained" : "outlined"
-                }
-              >
-                Newest
-              </Button>
-            </ButtonGroup>
-          </div>
-          <div style={{ display: "flex", flexDirection: "column" }}>
-            <FormLabel>Name</FormLabel>
-            <ButtonGroup variant="outlined">
-              <Button
-                onClick={() => handleButtonNameTools("ascending")}
-                variant={
-                  selectedNameTools === "ascending" ? "contained" : "outlined"
-                }
-              >
-                Ascending
-              </Button>
-              <Button
-                onClick={() => handleButtonNameTools("descending")}
-                variant={
-                  selectedNameTools === "descending" ? "contained" : "outlined"
-                }
-              >
-                Descending
-              </Button>
-            </ButtonGroup>
-          </div>
+                <div style={{ display: "flex", flexDirection: "column" }}>
+                  <FormLabel>Price</FormLabel>
+                  <ButtonGroup variant="outlined">
+                    <Button
+                      onClick={() => handleButtonPriceTools("cheapest")}
+                      variant={
+                        selectedPriceTools === "cheapest"
+                          ? "contained"
+                          : "outlined"
+                      }
+                    >
+                      Cheapest
+                    </Button>
+                    <Button
+                      onClick={() => handleButtonPriceTools("mostExpensive")}
+                      variant={
+                        selectedPriceTools === "mostExpensive"
+                          ? "contained"
+                          : "outlined"
+                      }
+                    >
+                      The Most Expensive
+                    </Button>
+                  </ButtonGroup>
+                </div>
+                <div style={{ display: "flex", flexDirection: "column" }}>
+                  <FormLabel>Date Added</FormLabel>
+                  <ButtonGroup variant="outlined">
+                    <Button
+                      onClick={() => handleButtonDateTools("oldest")}
+                      variant={
+                        selectedDateTools === "oldest"
+                          ? "contained"
+                          : "outlined"
+                      }
+                    >
+                      Oldest
+                    </Button>
+                    <Button
+                      onClick={() => handleButtonDateTools("newest")}
+                      variant={
+                        selectedDateTools === "newest"
+                          ? "contained"
+                          : "outlined"
+                      }
+                    >
+                      Newest
+                    </Button>
+                  </ButtonGroup>
+                </div>
+                <div style={{ display: "flex", flexDirection: "column" }}>
+                  <FormLabel>Name</FormLabel>
+                  <ButtonGroup variant="outlined">
+                    <Button
+                      onClick={() => handleButtonNameTools("ascending")}
+                      variant={
+                        selectedNameTools === "ascending"
+                          ? "contained"
+                          : "outlined"
+                      }
+                    >
+                      Ascending
+                    </Button>
+                    <Button
+                      onClick={() => handleButtonNameTools("descending")}
+                      variant={
+                        selectedNameTools === "descending"
+                          ? "contained"
+                          : "outlined"
+                      }
+                    >
+                      Descending
+                    </Button>
+                  </ButtonGroup>
+                </div>
+              </Box>
+            </Grid>
+            {/* search */}
+            <Grid item xs={4}>
+              <FormLabel style={{ fontSize: 30, color: "black" }}>
+                SEARCH:
+              </FormLabel>
+              <Search>
+                <SearchIconWrapper>
+                  <SearchIcon />
+                </SearchIconWrapper>
+                <StyledInputBase
+                  placeholder="search"
+                  inputProps={{ "aria-label": "search" }}
+                  // onChange={handleSearchChange}
+                />
+              </Search>
+            </Grid>
+            {/* filter */}
+            <Grid item xs={2}>
+              <FormLabel style={{ fontSize: 30, color: "black" }}>
+                FILTERS:
+              </FormLabel>
+              <FormControl>
+                <FormLabel style={{ paddingBottom: "20px" }}>price</FormLabel>
+                <Box sx={{ width: 300 }}>
+                  <Stack sx={{ height: 200, spacing: 2, direction: "row" }}>
+                    <Slider
+                      value={priceTools}
+                      onChange={handleChangePriceSliderTools}
+                      valueLabelDisplay="auto"
+                      orientation="vertical"
+                      sx={{
+                        '& input[type="range"]': {
+                          WebkitAppearance: "slider-vertical",
+                          height: 200,
+                        },
+                      }}
+                    />
+                  </Stack>
+                </Box>
+              </FormControl>
+            </Grid>
+            {/* cards */}
+            <Grid item xs={10}>
+              <div style={{ display: "flex", flexWrap: "wrap", gap: "20px" }}>
+                {tools.map((item, index) => (
+                  <PlantsCart
+                    // eslint-disable-next-line react/no-array-index-key
+                    key={index}
+                    product={{
+                      image: item.main_image,
+                      name: item.name,
+                      price: item.price,
+                    }}
+                  />
+                ))}
+              </div>
+            </Grid>
+          </Grid>
         </Box>
-
-        <div style={{ display: "flex", flexWrap: "wrap", gap: "20px" }}>
-          {tools.map((item, index) => (
-            <PlantsCart
-              // eslint-disable-next-line react/no-array-index-key
-              key={index}
-              product={{
-                image: item.main_image,
-                name: item.name,
-                price: item.price,
-              }}
-            />
-          ))}
-        </div>
       </TabPanel>
     </Box>
   );
