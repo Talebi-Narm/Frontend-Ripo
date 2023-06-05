@@ -24,7 +24,7 @@ function CartProvider({ children }) {
       .get(`v1/cart/tool-cart`)
       .then((response) => {
         console.log("Cart Info: ", response);
-        setCartCount((prevState) => prevState + response.count);
+        setCartCount((prevState) => prevState + response.data.length);
       })
       .catch((error) => {
         console.error("Error User Info:", error);

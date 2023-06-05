@@ -24,6 +24,31 @@ import "./Product.scss";
 export default function Product(props) {
   const { product, onAddPlant, onRemovePlant } = props;
 
+  const getTitleFromLevel = (fieldName, level) => {
+    if (fieldName === "environment") {
+      if (level === 0) {
+        return "tropical";
+      }
+      if (level === 1) {
+        return "cold";
+      }
+      if (level === 2) {
+        return "none";
+      }
+      return level;
+    }
+    if (level === 0) {
+      return "low";
+    }
+    if (level === 1) {
+      return "medium";
+    }
+    if (level === 2) {
+      return "much";
+    }
+    return level;
+  };
+
   return (
     <Card sx={{ mb: 2, p: 2 }}>
       <Grid container sx={{ display: "flex" }}>
@@ -39,7 +64,7 @@ export default function Product(props) {
           <Grid className="productIconImageContainer1" sx={{ p: 1 }}>
             <CardMedia className="productContainerImage">
               <img
-                src={`http://127.0.0.1:8000${product.image}`}
+                src={product.plant_detail.main_image}
                 className="productIconImage1"
                 alt=""
               />
@@ -73,7 +98,7 @@ export default function Product(props) {
                     }}
                   >
                     <Typography component="div" variant="h5" sx={{ flex: 1 }}>
-                      {product.name.trim()}
+                      {product.plant_detail.name.trim()}
                     </Typography>
                   </Box>
 
@@ -181,13 +206,25 @@ export default function Product(props) {
                       <ListItemIcon>
                         <InvertColorsIcon style={{ fill: "#1976d2" }} />
                       </ListItemIcon>
-                      <ListItemText sx={{ m: -3 }} primary={product.water} />
+                      <ListItemText
+                        sx={{ m: -3 }}
+                        primary={getTitleFromLevel(
+                          "water",
+                          product.plant_detail.water
+                        )}
+                      />
                     </ListItem>
                     <ListItem sx={{ color: "#ed6c02" }}>
                       <ListItemIcon>
                         <LightModeIcon style={{ fill: "#ed6c02" }} />
                       </ListItemIcon>
-                      <ListItemText sx={{ m: -3 }} primary={product.light} />
+                      <ListItemText
+                        sx={{ m: -3 }}
+                        primary={getTitleFromLevel(
+                          "light",
+                          product.plant_detail.light
+                        )}
+                      />
                     </ListItem>
                     <ListItem sx={{ color: "#4caf50" }}>
                       <ListItemIcon>
@@ -195,12 +232,15 @@ export default function Product(props) {
                       </ListItemIcon>
                       <ListItemText
                         sx={{ m: -3 }}
-                        primary={product.growthRate}
+                        primary={getTitleFromLevel(
+                          "growth_rate",
+                          product.plant_detail.growth_rate
+                        )}
                       />
                     </ListItem>
                     <ListItem>
                       <Chip
-                        label={`${product.price}$`}
+                        label={`${product.plant_detail.price}$`}
                         color="success"
                         variant="outlined"
                         style={{ fontSize: "1.1rem" }}

@@ -3,12 +3,12 @@ import Button from "@mui/material/Button";
 import Grid from "@mui/material/Grid";
 import { styled } from "@mui/material/styles";
 import Typography from "@mui/material/Typography";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
-import AppBar from "../../Components/AppBar";
 import Basket from "../../Components/Cart/Basket";
 import Main from "../../Components/Cart/Main";
+import { CartContext } from "../../Components/NewAppBar/CartContext";
 import showToast from "../../Components/Toast";
 import axiosInstance from "../../Utils/axios";
 
@@ -21,83 +21,62 @@ const Item = styled(Box)(({ theme }) => ({
 
 function AddtoCart() {
   const [cartItems, setCartItems] = useState([]);
-  const [numberOfItems, setNumberOfItems] = useState(null);
   const [toolCartItems, setToolCartItems] = useState([]);
-  const requestOptions = {
-    method: "GET",
-    headers: {
-      Authorization: `JWT ${localStorage.getItem("access_token")}`,
-      "Content-Type": "application/json",
-    },
-  };
-  async function FetchCountCart() {
-    await fetch(
-      "http://127.0.0.1:8000/api/cart/user-count-cart/",
-      requestOptions
-    )
-      .then((response) => {
-        if (response.status !== 401) {
-          response.json().then((data) => {
-            setNumberOfItems(data);
-          });
-        } else {
-          throw response;
-        }
-      })
-      .catch((res) => {
-        if (res.status === 401) setNumberOfItems(0);
-      });
-  }
+  const [userInfo, setUserInfo] = useState(null);
+  const { cartCount, updateCartCount } = useContext(CartContext);
 
-  useEffect(() => {
-    FetchCountCart();
-  }, []);
+  const fetchUserInfo = async () => {
+    axiosInstance
+      .get(`v1/user/me/`)
+      .then((response) => {
+        console.log("User Info: ", response);
+        setUserInfo(response.data.user);
+      })
+      .catch((error) => {
+        console.error("Error User Info:", error);
+      });
+  };
 
   async function fetchAllProductData() {
-    await axiosInstance
-      .get(`cart/user-unapproved-plants-cart-count/`)
-      .then((res) => {
-        axiosInstance.defaults.headers.Authorization = `JWT ${localStorage.getItem(
-          "access_token"
-        )}`;
-        setCartItems(res.data);
-      });
+    axiosInstance.get(`v1/cart/plant-cart`).then((res) => {
+      console.log(
+        "plants",
+        res.data.map((x) => x.plant_detail)
+      );
+      setCartItems(res.data);
+    });
   }
   async function fetchAllToolsData() {
-    await axiosInstance
-      .get(`cart/user-unapproved-tools-cart-count/`)
-      .then((res) => {
-        axiosInstance.defaults.headers.Authorization = `JWT ${localStorage.getItem(
-          "access_token"
-        )}`;
-        setToolCartItems(res.data);
-      });
+    axiosInstance.get(`v1/cart/tool-cart`).then((res) => {
+      console.log("tools", res);
+      setToolCartItems(res.data);
+    });
   }
 
   useEffect(() => {
-    if (numberOfItems !== null && numberOfItems !== 0) {
-      fetchAllProductData();
-      fetchAllToolsData();
-    }
-  }, [numberOfItems]);
+    // if (cardCount !== null && cardCount !== 0) {
+    fetchUserInfo();
+    fetchAllProductData();
+    fetchAllToolsData();
+    // }
+  }, []);
 
   const onAdd = (product) => {
     const exist = cartItems.find((x) => x.id === product.id);
+    const newVal = exist.count + 1;
     if (exist) {
       setCartItems(
         cartItems.map((x) =>
-          x.id === product.id ? { ...exist, count: exist.count + 1 } : x
+          x.id === product.id ? { ...exist, count: newVal } : x
         )
       );
       axiosInstance
-        .post(`cart/update-plant-cart/`, {
-          id: product.id,
-          count: exist.count + 1,
+        .put(`v1/cart/plant-cart/${exist.id}/`, {
+          count: newVal,
+          user: userInfo.id,
+          plant: exist.plant,
         })
         .then((res) => {
-          axiosInstance.defaults.headers.Authorization = `JWT ${localStorage.getItem(
-            "access_token"
-          )}`;
           console.log(res);
         });
     }
@@ -105,6 +84,7 @@ function AddtoCart() {
 
   const onAddTool = (product) => {
     const exist = toolCartItems.find((x) => x.id === product.id);
+    const newVal = exist.count + 1;
     if (exist) {
       setToolCartItems(
         toolCartItems.map((x) =>
@@ -112,14 +92,12 @@ function AddtoCart() {
         )
       );
       axiosInstance
-        .post(`cart/update-tool-cart/`, {
-          id: product.id,
-          count: exist.count + 1,
+        .put(`v1/cart/tool-cart/${exist.id}/`, {
+          count: newVal,
+          user: userInfo.id,
+          tool: exist.tool,
         })
         .then((res) => {
-          axiosInstance.defaults.headers.Authorization = `JWT ${localStorage.getItem(
-            "access_token"
-          )}`;
           console.log(res);
         });
     }
@@ -127,18 +105,11 @@ function AddtoCart() {
 
   const onRemove = (product) => {
     const exist = cartItems.find((x) => x.id === product.id);
+    const newVal = exist.count - 1;
     if (exist.count === 1) {
       setCartItems(cartItems.filter((x) => x.id !== product.id));
-      const config = {
-        headers: {
-          Authorization: `JWT ${localStorage.getItem("access_token")}`,
-        },
-        data: {
-          id: product.id,
-        },
-      };
-      axiosInstance.delete(`cart/delete-plant-cart/`, config).then(() => {
-        FetchCountCart();
+      axiosInstance.delete(`v1/cart/plant-cart/${exist.id}/`).then(() => {
+        updateCartCount(cartCount - 1);
       });
     } else {
       setCartItems(
@@ -147,14 +118,12 @@ function AddtoCart() {
         )
       );
       axiosInstance
-        .post(`cart/update-plant-cart/`, {
-          id: product.id,
-          count: exist.count - 1,
+        .put(`v1/cart/plant-cart/${exist.id}/`, {
+          count: newVal,
+          user: userInfo.id,
+          plant: exist.plant,
         })
         .then((res) => {
-          axiosInstance.defaults.headers.Authorization = `JWT ${localStorage.getItem(
-            "access_token"
-          )}`;
           console.log(res);
         });
     }
@@ -162,18 +131,11 @@ function AddtoCart() {
 
   const onRemoveTool = (product) => {
     const exist = toolCartItems.find((x) => x.id === product.id);
+    const newVal = exist.count - 1;
     if (exist.count === 1) {
-      setToolCartItems(toolCartItems.filter((x) => x.id !== product.id));
-      const config = {
-        headers: {
-          Authorization: `JWT ${localStorage.getItem("access_token")}`,
-        },
-        data: {
-          id: product.id,
-        },
-      };
-      axiosInstance.delete(`cart/delete-tool-cart/`, config).then(() => {
-        FetchCountCart();
+      setCartItems(toolCartItems.filter((x) => x.id !== product.id));
+      axiosInstance.delete(`v1/cart/tool-cart/${exist.id}/`).then(() => {
+        updateCartCount(cartCount + 1);
       });
     } else {
       setToolCartItems(
@@ -182,14 +144,12 @@ function AddtoCart() {
         )
       );
       axiosInstance
-        .post(`cart/update-tool-cart/`, {
-          id: product.id,
-          count: exist.count - 1,
+        .put(`v1/cart/tool-cart/${exist.id}/`, {
+          count: newVal,
+          user: userInfo.id,
+          tool: exist.tool,
         })
         .then((res) => {
-          axiosInstance.defaults.headers.Authorization = `JWT ${localStorage.getItem(
-            "access_token"
-          )}`;
           console.log(res);
         });
     }
@@ -206,17 +166,10 @@ function AddtoCart() {
   };
 
   return (
-    <div className="App">
-      {numberOfItems !== 0 && numberOfItems !== null && (
+    <div>
+      {cartCount !== 0 && cartCount !== null && (
         <Grid>
-          <AppBar
-            SearchOption
-            TicketOption={false}
-            CartOption={false}
-            AuthorizationOption
-            DrawerOption={false}
-          />
-          <Box sx={{ flexGrow: 1, m: 4 }}>
+          <Box sx={{ flexGrow: 1 }}>
             <Grid
               container
               spacing={1}
@@ -250,20 +203,13 @@ function AddtoCart() {
           <div className="row" />
         </Grid>
       )}
-      {numberOfItems === 0 && (
+      {cartCount === 0 && (
         <Grid
           container
           justifyContent="center"
           alignItems="center"
           direction="row"
         >
-          <AppBar
-            SearchOption
-            TicketOption={false}
-            CartOption={false}
-            AuthorizationOption
-            DrawerOption={false}
-          />
           <Grid
             container
             item

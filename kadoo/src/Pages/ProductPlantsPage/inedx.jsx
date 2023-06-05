@@ -25,11 +25,13 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Typography from "@mui/material/Typography";
 import Image from "mui-image";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
+import { toast } from "react-toastify";
 
 import Comments from "../../Components/Comment";
 // import showToast from "../../Components/Toast";
+import { CartContext } from "../../Components/NewAppBar/CartContext";
 import axiosInstance from "../../Utils/axios";
 
 function ProductPlantsPage() {
@@ -40,10 +42,25 @@ function ProductPlantsPage() {
   const [album, setAlbum] = useState([]);
   const [currentImage, setCurrentImage] = useState(0);
   const [imageName, setImageName] = useState(null);
+  const [userInfo, setUserInfo] = useState(null);
+  const { cartCount, updateCartCount } = useContext(CartContext);
+
+  const fetchUserInfo = async () => {
+    axiosInstance
+      .get(`v1/user/me/`)
+      .then((response) => {
+        console.log("User Info: ", response);
+        setUserInfo(response.data.user);
+      })
+      .catch((error) => {
+        console.error("Error User Info:", error);
+      });
+  };
 
   const { id } = useParams();
 
   useEffect(() => {
+    fetchUserInfo();
     axiosInstance
       .get(`v1/store/plants/${id}/`)
       .then((response) => {
@@ -58,31 +75,6 @@ function ProductPlantsPage() {
         console.error(error);
       });
   }, []);
-
-  // useEffect(() => {
-  // fetch("http://146.190.205.127:443/api/v1/store/plants" + id + "/")
-  //   // .then((response) => response.json())
-  //   .then((response) => console.log(response,"ghoooo"))
-  //   .catch((error) => {console.error(error)
-  //   });
-  // .then((data) => setProduct(data))
-  // .then(() => {
-  //   setTotalPrice(product.price);
-  // });
-  // }, []);
-
-  // fetch("http://127.0.0.1:8000/api/plantTags/" + id + "/")
-  //   .then((response) => response.json())
-  //   .then((data) => {
-  //     setTags(data);
-  //   });
-  // fetch("http://127.0.0.1:8000/api/plantAlbumImages/" + id + "/")
-  //   .then((response) => response.json())
-  // .then((data) => {
-  //   setAlbum(data);
-  //   setImageName(data[0]);
-  // });
-  // }, []);
 
   function increaseBought() {
     if (numberOfBuy < 9) {
@@ -120,29 +112,28 @@ function ProductPlantsPage() {
     }
   }, [currentImage]);
 
-  // function addToBasket() {
-  //   const requestOptions = {
-  //     method: "POST",
-  //     headers: {
-  //       Authorization: `Bearer ${localStorage.getItem("access_token")}`,
-  //       "Content-Type": "application/json",
-  //     },
-  //     body: JSON.stringify({
-  //       id: product.id,
-  //       count: `${numberOfBuy}`,
-  //     }),
-  //   };
-  //   fetch(
-  //     "https://service.talebi-narm.ir/api/cart/add-plant-to-cart/",
-  //     requestOptions
-  //   ).then((response) => {
-  //     if (response.status === 401) {
-  //       alert("You are not login!");
-  //     } else if (response.status === 400) {
-  //       alert("This Plant is already in the Basket!");
-  //     }
-  //   });
-  // }
+  const AddToCartPlant = () => {
+    axiosInstance
+      .post(
+        "v1/cart/plant-cart",
+        JSON.stringify({
+          count: numberOfBuy,
+          user: userInfo.id,
+          plant: id,
+        })
+      )
+      .then((response) => {
+        console.log("Bookmark", response);
+        if (response.status === 200 || response.status === 201) {
+          toast.success(`${product.name} added to Cart!`);
+          updateCartCount(cartCount + 1);
+        }
+      })
+      .catch((error) => {
+        console.log("error", error);
+        toast.error(`${product.name} is already in the cart!`);
+      });
+  };
 
   const getTitleFromLevel = (fieldName, level) => {
     if (fieldName === "environment") {
@@ -653,7 +644,7 @@ function ProductPlantsPage() {
                                         <Button
                                           variant="contained"
                                           className="productsPageAdd"
-                                          // onClick={addToBasket}
+                                          onClick={AddToCartPlant}
                                         >
                                           {`Add To Cart (${totalPrice}$)`}
                                         </Button>

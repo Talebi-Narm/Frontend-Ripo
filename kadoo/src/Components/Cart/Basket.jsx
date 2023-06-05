@@ -15,8 +15,14 @@ import "./Basket.scss";
 
 export default function Basket(props) {
   const { cartItems, toolCartItems, CheckoutCart } = props;
-  let itemsPrice = cartItems.reduce((a, c) => a + c.count * c.price, 0);
-  itemsPrice += toolCartItems.reduce((a, c) => a + c.count * c.price, 0);
+  let itemsPrice = cartItems.reduce(
+    (a, c) => a + c.count * c.plant_detail.price,
+    0
+  );
+  itemsPrice += toolCartItems.reduce(
+    (a, c) => a + c.count * c.plant_detail.price,
+    0
+  );
   const taxPrice = itemsPrice * 0.09;
   const shippingPrice = itemsPrice > 300 ? 0 : 20;
   const totalPrice = itemsPrice + taxPrice + shippingPrice;
@@ -50,13 +56,13 @@ export default function Basket(props) {
                       }}
                       align="left"
                     >
-                      {row.name}
+                      {row.plant_detail.name}
                     </TableCell>
                     <TableCell align="center" sx={{ borderBottom: "none" }}>
                       {row.count}
                     </TableCell>
                     <TableCell align="center" sx={{ borderBottom: "none" }}>
-                      {`$${row.count * row.price}`}
+                      {`$${row.count * row.plant_detail.price}`}
                     </TableCell>
                   </TableRow>
                 ))}
@@ -73,7 +79,7 @@ export default function Basket(props) {
                       }}
                       align="left"
                     >
-                      {row.name}
+                      {row.plant_detail.name}
                     </TableCell>
                     <TableCell align="center" sx={{ borderBottom: "none" }}>
                       {row.count}
