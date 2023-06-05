@@ -1,4 +1,7 @@
 import {
+  Accordion,
+  AccordionSummary,
+  AccordionDetails,
   Avatar,
   Typography,
   Box,
@@ -9,7 +12,8 @@ import {
 import { makeStyles } from "@material-ui/core/styles";
 import { Send as SendIcon } from "@material-ui/icons";
 import CloseIcon from "@mui/icons-material/Close";
-import { IconButton } from "@mui/material";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import { Grid, IconButton, useTheme } from "@mui/material";
 import React, { useEffect, useState } from "react";
 
 import axiosInstance, { baseURL } from "../../Utils/axios";
@@ -120,6 +124,8 @@ function ChatUI() {
   const [messages, setMessages] = useState([]);
   const [inputValue, setInputValue] = useState("");
   const [role, setRole] = useState("user_message");
+
+  const theme = useTheme();
 
   const toggleConversation = (index) => {
     setOpenIndex(index);
@@ -279,34 +285,66 @@ function ChatUI() {
 
   return (
     <>
-      <Box>
-        <Typography variant="h6">Open Conversations</Typography>
-        <List sx={{ marginTop: 2 }}>
-          {conversations.map((conversation, index) => (
-            <ListItem
-              // eslint-disable-next-line react/no-array-index-key
-              key={index}
-              button
-              selected={openIndex === index}
-              onClick={() => toggleConversation(index)}
-              sx={{
-                color: "black",
-                py: 2,
+      {role === "specialist_message" && (
+        <Accordion>
+          <AccordionSummary
+            expandIcon={<ExpandMoreIcon />}
+            aria-controls="panel1a-content"
+            id="panel1a-header"
+          >
+            <Grid container alignItems="center">
+              <Grid
+                item
+                sx={{
+                  backgroundColor: theme.palette.primary.main,
+                  borderRadius: "100%",
+                  width: "24px",
+                  height: "24px",
+                  textAlign: "center",
+                  mr: 2,
+                }}
+              >
+                {conversations.length}
+              </Grid>
+              <Grid item>
+                <Typography variant="h6">Open Conversations</Typography>
+              </Grid>
+            </Grid>
+          </AccordionSummary>
+          <AccordionDetails>
+            <Box sx={{ width: "100%" }}>
+              <List sx={{ width: "100%", marginTop: 2 }}>
+                {conversations.map((conversation, index) => (
+                  <ListItem
+                    // eslint-disable-next-line react/no-array-index-key
+                    key={index}
+                    button
+                    selected={openIndex === index}
+                    onClick={() => toggleConversation(index)}
+                    sx={{
+                      color: "black",
+                      py: 2,
+                      width: "100%",
+                      borderRadius: "24px",
+                      backgroundColor:
+                        openIndex === index ? "#e6f7ff" : "transparent",
+                      "&:hover": {
+                        backgroundColor: "#e6f7ff",
+                      },
+                      "& .MuiButtonBase-root": {
+                        borderRadius: "24px",
+                      },
+                    }}
+                  >
+                    <ListItemText primary={conversation.title} />
+                  </ListItem>
+                ))}
+              </List>
+            </Box>
+          </AccordionDetails>
+        </Accordion>
+      )}
 
-                borderRadius: "12px",
-                backgroundColor:
-                  openIndex === index ? "#e6f7ff" : "transparent",
-
-                "&:hover": {
-                  backgroundColor: "#e6f7ff",
-                },
-              }}
-            >
-              <ListItemText primary={conversation.title} />
-            </ListItem>
-          ))}
-        </List>
-      </Box>
       <div className={classes.chatContainer}>
         <div className={classes.messagesContainer}>
           {messages.map((message) => (
@@ -317,11 +355,11 @@ function ChatUI() {
               }`}
             >
               {message.sender === "me" && (
-                <Avatar className={classes.avatar}>B</Avatar>
+                <Avatar className={classes.avatar}>
+                  {userInfo.username[0]}
+                </Avatar>
               )}
-              {message.sender !== "me" && (
-                <Avatar className={classes.avatar}>A</Avatar>
-              )}
+              {message.sender !== "me" && <Avatar className={classes.avatar} />}
               <div
                 className={`${classes.bubble} ${
                   message.sender === "me"

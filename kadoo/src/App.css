@@ -3,7 +3,15 @@
 .body {
   /* background-color: whitesmoke; */
   overflow-x: hidden;
-  font-family: 'Comic Neue !important';
+  font-family: Comic Neue !important;
+}
+
+.MuiTypography-root {
+  font-family: Comic Neue !important;
+}
+
+.MuiTypography-body1 {
+  font-family: Comic Neue !important;
 }
 
 #root {
