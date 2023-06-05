@@ -30,6 +30,23 @@ function Store() {
   const [water, setWater] = useState("all");
   const [light, setLight] = useState("all");
   const [growthRate, setGrowthRate] = useState("all");
+  const [userInfo, setUserInfo] = useState(null);
+
+  const fetchUserInfo = async () => {
+    axiosInstance
+      .get(`v1/user/me/`)
+      .then((response) => {
+        console.log("User Info: ", response);
+        setUserInfo(response.data.user);
+      })
+      .catch((error) => {
+        console.error("Error User Info:", error);
+      });
+  };
+
+  useEffect(() => {
+    fetchUserInfo();
+  }, []);
 
   // function
   const handleChangePriceSlider = (event, newValue) => {
@@ -153,6 +170,7 @@ function Store() {
             // eslint-disable-next-line react/no-array-index-key
             key={index}
             product={{
+              id: item.id,
               image: item.main_image,
               name: item.name,
               price: item.price,
@@ -160,6 +178,7 @@ function Store() {
               water: item.water,
               growthRate: item.growth_rate,
             }}
+            userInfo={userInfo}
           />
         ))}
       </div>

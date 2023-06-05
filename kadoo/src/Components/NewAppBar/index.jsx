@@ -1,7 +1,9 @@
 // import AppBar from '@mui/material/AppBar'
 import MenuIcon from "@mui/icons-material/Menu";
+import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import MuiAppBar from "@mui/material/AppBar";
 import Avatar from "@mui/material/Avatar";
+import Badge from "@mui/material/Badge";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Container from "@mui/material/Container";
@@ -18,7 +20,9 @@ import { useNavigate } from "react-router-dom";
 
 import DefualtAvatar from "../../assets/Images/Main/Defualt-Avatar-01.svg";
 import { ReactComponent as Logo } from "../../assets/Images/Main/Logo-01.svg";
+
 import "./style.css";
+import { CartContext } from "./CartContext";
 
 const pages = ["Top Sales", "Offers", "Special Sales", "Any question?"];
 const settings = ["Profile", "Account", "Dashboard", "Logout"];
@@ -28,6 +32,7 @@ function MainAppBar(props) {
   const theme = useTheme();
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
+  const { cartCount } = React.useContext(CartContext);
 
   const AppBar = styled(MuiAppBar, {
     shouldForwardProp: (prop) => prop !== "open",
@@ -197,7 +202,15 @@ function MainAppBar(props) {
               </Button>
             ))}
           </Box>
-
+          <Box sx={{ flexGrow: 0, mb: -0.75, mr: 1 }}>
+            <Tooltip title="Cart">
+              <IconButton size="large" color="inherit" href="/cart">
+                <Badge badgeContent={cartCount} color="secondary">
+                  <ShoppingCartIcon sx={{ color: "white" }} />
+                </Badge>
+              </IconButton>
+            </Tooltip>
+          </Box>
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
@@ -208,15 +221,6 @@ function MainAppBar(props) {
               sx={{ mt: "45px" }}
               id="menu-appbar"
               anchorEl={anchorElUser}
-              anchorOrigin={{
-                vertical: "top",
-                horizontal: "right",
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: "top",
-                horizontal: "right",
-              }}
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
             >

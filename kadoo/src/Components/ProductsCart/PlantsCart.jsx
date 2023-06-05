@@ -15,11 +15,81 @@ import Fab from "@mui/material/Fab";
 import Typography from "@mui/material/Typography";
 import * as React from "react";
 import { Link } from "react-router-dom";
+import { toast } from "react-toastify";
+
+import axiosInstance from "../../Utils/axios";
+import { CartContext } from "../NewAppBar/CartContext";
 
 // import { baseURL } from "../../Utils/axios";
 
 export default function PlantsCart(props) {
   const [isHovered, setIsHovered] = React.useState(false);
+  const { cartCount, updateCartCount } = React.useContext(CartContext);
+
+  const getTitleFromLevel = (fieldName, level) => {
+    if (fieldName === "environment") {
+      if (level === 0) {
+        return "tropical";
+      }
+      if (level === 1) {
+        return "cold";
+      }
+      if (level === 2) {
+        return "none";
+      }
+      return level;
+    }
+    if (level === 0) {
+      return "low";
+    }
+    if (level === 1) {
+      return "medium";
+    }
+    if (level === 2) {
+      return "much";
+    }
+    return level;
+  };
+
+  const bookmarkPlant = () => {
+    axiosInstance
+      .post(
+        "v1/common/plant-bookmarks/",
+        JSON.stringify({
+          Plant: props.product.id,
+        })
+      )
+      .then((response) => {
+        console.log("Bookmark", response);
+        if (response.status === 200 || response.status === 201) {
+          toast.success(`${props.product.name} added to bookmarks!`);
+        }
+      });
+  };
+
+  const AddToCartPlant = () => {
+    axiosInstance
+      .post(
+        "v1/cart/plant-cart",
+        JSON.stringify({
+          count: 1,
+          user: props.userInfo.id,
+          plant: props.product.id,
+        })
+      )
+      .then((response) => {
+        console.log("Bookmark", response);
+        if (response.status === 200 || response.status === 201) {
+          toast.success(`${props.product.name} added to Cart!`);
+          updateCartCount(cartCount + 1);
+        }
+      })
+      .catch((error) => {
+        console.log("error", error);
+        toast.error(`${props.product.name} is already in the cart!`);
+      });
+  };
+
   const handleMouseEnter = () => {
     setIsHovered(true);
   };
@@ -110,6 +180,7 @@ export default function PlantsCart(props) {
             }}
             color="primary"
             aria-label="add"
+            onClick={AddToCartPlant}
           >
             <Player
               src="https://assets2.lottiefiles.com/packages/lf20_5zlgNU.json"
@@ -146,22 +217,47 @@ export default function PlantsCart(props) {
         </Typography>
         <Grid className="featButton" sx={{ alignSelf: "flex-end" }}>
           <WbSunnyIcon className="lightButton" />
-          <Typography className="Message"> {props.product.light} </Typography>
+          <Typography className="Message">
+            {" "}
+            {getTitleFromLevel("light", props.product.light)}{" "}
+          </Typography>
           <OpacityIcon className="waterButton" />
-          <Typography className="Message"> {props.product.water} </Typography>
+          <Typography className="Message">
+            {" "}
+            {getTitleFromLevel("water", props.product.water)}{" "}
+          </Typography>
           <NatureIcon className="growButton" />
           <Typography className="Message">
             {" "}
-            {props.product.growthRate}{" "}
+            {getTitleFromLevel("growth_rate", props.product.growthRate)}
           </Typography>
         </Grid>
       </CardContent>
       {isHovered ? (
         <CardActions disableSpacing>
-          <IconButton aria-label="add to favorites" sx={{ zIndex: 10 }}>
+          <IconButton
+            aria-label="add to favorites"
+            sx={{ zIndex: 10 }}
+            onClick={bookmarkPlant}
+          >
             <FavoriteIcon />
           </IconButton>
-          <IconButton aria-label="share" sx={{ zIndex: 10 }}>
+          <IconButton
+            aria-label="share"
+            sx={{ zIndex: 10 }}
+            onClick={() => {
+              navigator.clipboard
+                .writeText(
+                  `${window.location.origin}/store/${props.product.id}`
+                )
+                .then(() => {
+                  toast.success("Copied to clipboard!");
+                })
+                .catch((error) => {
+                  console.error("Error copying to clipboard:", error);
+                });
+            }}
+          >
             <ShareIcon />
           </IconButton>
         </CardActions>
