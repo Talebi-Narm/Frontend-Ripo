@@ -20,6 +20,8 @@ import Tab from "@mui/material/Tab";
 import Tabs from "@mui/material/Tabs";
 import Toolbar from "@mui/material/Toolbar";
 import * as React from "react";
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 import MainBreadcrumbs from "../../Components/BreadCrumbs";
 import MainAppBar from "../../Components/NewAppBar";
@@ -74,6 +76,7 @@ const Drawer = styled(MuiDrawer, {
 }));
 
 export default function MainLayout({ children }) {
+  const navigate = useNavigate();
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
   const [selectedIndex, setSelectedIndex] = React.useState(0);
@@ -91,6 +94,20 @@ export default function MainLayout({ children }) {
     setOpen(false);
   };
 
+  useEffect(() => {
+    if (selectedIndex === 0) {
+      navigate("/store");
+    }
+    if (selectedIndex === 1) {
+      navigate("/greenHouse");
+    }
+    if (selectedIndex === 2) {
+      navigate("/Dashboard");
+    }
+    if (selectedIndex === 3) {
+      navigate("/Tickets");
+    }
+  }, [selectedIndex]);
   return (
     <Box sx={{ display: "flex" }}>
       <CssBaseline />
