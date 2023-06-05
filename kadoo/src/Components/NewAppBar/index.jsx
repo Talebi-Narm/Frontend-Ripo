@@ -76,6 +76,9 @@ function MainAppBar(props) {
     }
     if (i === "Any question?") {
       navigate("/FAQsPage");
+    }
+    if (i === "Offers") {
+      navigate("/offer");
     } else {
       setAnchorElNav(null);
     }
