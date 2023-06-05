@@ -24,7 +24,7 @@ import { ReactComponent as Logo } from "../../assets/Images/Main/Logo-01.svg";
 import "./style.css";
 import { CartContext } from "./CartContext";
 
-const pages = ["Top Sales", "Offers", "Special Sales", "Any question?"];
+const pages = ["Top Sales", "Offers", "Any question?"];
 const settings = ["Profile", "Account", "Dashboard", "Logout"];
 
 function MainAppBar(props) {
@@ -70,8 +70,12 @@ function MainAppBar(props) {
     setAnchorElUser(event.currentTarget);
   };
 
-  const handleCloseNavMenu = () => {
-    setAnchorElNav(null);
+  const handleCloseNavMenu = (i) => {
+    if (i === "Top Sales") {
+      navigate("/store");
+    } else {
+      setAnchorElNav(null);
+    }
   };
 
   const handleCloseUserMenu = (i) => {
@@ -160,7 +164,7 @@ function MainAppBar(props) {
               }}
             >
               {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
+                <MenuItem key={page} onClick={() => handleCloseNavMenu(page)}>
                   <Typography textAlign="center">{page}</Typography>
                 </MenuItem>
               ))}
@@ -191,7 +195,7 @@ function MainAppBar(props) {
             {pages.map((page) => (
               <Button
                 key={page}
-                onClick={handleCloseNavMenu}
+                onClick={() => handleCloseNavMenu(page)}
                 sx={{
                   my: 2,
                   color: "white",
