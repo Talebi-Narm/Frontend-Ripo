@@ -4,6 +4,7 @@ import {
   AccountBalanceWallet,
   History,
 } from "@mui/icons-material";
+import AddIcon from "@mui/icons-material/Add";
 import {
   Avatar,
   Grid,
@@ -17,6 +18,10 @@ import {
   ListItemIcon,
   ListItemText,
   useTheme,
+  Dialog,
+  DialogTitle,
+  ListItemButton,
+  ListItemAvatar,
 } from "@mui/material";
 import { Box, style } from "@mui/system";
 // import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
@@ -24,6 +29,8 @@ import { Box, style } from "@mui/system";
 // import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
 // import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 // import dayjs from "dayjs";
+// eslint-disable-next-line import/no-extraneous-dependencies
+import PropTypes from "prop-types";
 import React, { useEffect, useState } from "react";
 
 import SampleAvatar from "../../assets/Images/SampleProfile/sample-profile-pic.jfif";
@@ -49,7 +56,15 @@ function UserProfile() {
   const [imageCode, setImageCode] = useState("");
   const uploadInputRef = React.useRef(null);
   // const [value, setValue] = React.useState(dayjs("2022-06-"));
+  const [open, setOpen] = React.useState(false);
 
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
   useEffect(() => {
     axiosInstance.get(`v1/user/me/`).then((res) => {
       console.log(res.data.user);
@@ -247,33 +262,14 @@ function UserProfile() {
                               <TextField
                                 required
                                 id="outlined-required"
-                                label="User Id"
-                                value={userId}
+                                label="Email"
+                                value={email}
                                 size="small"
                                 disabled={!isEditing}
+                                // sx={{ height: "300px" }}
                                 inputProps={{
                                   style: {
-                                    height: "36px",
-                                    width: "209px",
-                                  },
-                                }}
-                              />
-                            </Grid>
-                            <Grid
-                              container
-                              flexDirection="row-reverse"
-                              sx={{ pb: 2 }}
-                            >
-                              <TextField
-                                required
-                                id="outlined-required"
-                                label="Address"
-                                value={address}
-                                size="small"
-                                disabled={!isEditing}
-                                inputProps={{
-                                  style: {
-                                    height: "37px",
+                                    height: "35px",
                                     width: "209px",
                                   },
                                 }}
@@ -349,14 +345,13 @@ function UserProfile() {
                               <TextField
                                 required
                                 id="outlined-required"
-                                label="Email"
-                                value={email}
+                                label="User Name"
+                                value={username}
                                 size="small"
                                 disabled={!isEditing}
-                                // sx={{ height: "300px" }}
                                 inputProps={{
                                   style: {
-                                    height: "35px",
+                                    height: "36px",
                                     width: "209px",
                                   },
                                 }}
@@ -385,26 +380,6 @@ function UserProfile() {
                               /> */}
                               {/* </DemoContainer>
                               </LocalizationProvider> */}
-                              <TextField
-                                required
-                                id="outlined-required"
-                                label="User Name"
-                                value={username}
-                                size="small"
-                                disabled={!isEditing}
-                                inputProps={{
-                                  style: {
-                                    height: "36px",
-                                    width: "209px",
-                                  },
-                                }}
-                              />
-                            </Grid>
-                            <Grid
-                              container
-                              flexDirection="row-reverse"
-                              sx={{ pb: 2 }}
-                            >
                               <TextField
                                 required
                                 id="outlined-required"
@@ -441,6 +416,30 @@ function UserProfile() {
                               />
                             </Grid> */}
                           </Grid>
+                        </Grid>
+                        <Grid
+                          container
+                          flexDirection="row-reverse"
+                          sx={{ pb: 2, justifyContent: "center" }}
+                        >
+                          {/* <TalebiButton
+                            text="YourAdrress"
+                            sx={{ width: "50%" }}
+                            variant="contained"
+                            component="label"
+                            // onClick={() => setAvatarRef()}
+                          /> */}
+                          <Button
+                            variant="text"
+                            color="success"
+                            sx={{ width: "50%" }}
+                            // variant="contained"
+                            component="label"
+                            onClick={handleClickOpen}
+                          >
+                            YourAddress
+                          </Button>
+                          <SimpleDialog open={open} onClose={handleClose} />
                         </Grid>
                         <Grid>
                           <TalebiButton
@@ -591,5 +590,108 @@ function UserProfile() {
     </Grid>
   );
 }
+function SimpleDialog(props) {
+  const { onClose, selectedValue, open } = props;
+  const [isEditing, setIsEditing] = useState(false);
+  const [addresses, setAddresses] = useState({});
+  const [me, setMe] = useState("");
+
+  // const payload = Object.entries(addresses).map(([]) => ({
+  //   address: "djfhbvd d",
+  //   label: "Your label value",
+  //   owner: me,
+  //   is_active: true,
+  // }));
+
+  // const requestData = Object.values(payload);
+  useEffect(() => {
+    axiosInstance.get(`v1/user/me/`).then((res) => {
+      // console.log("me", res.data.user.id);
+      setMe(res.data.user.id);
+    });
+    axiosInstance.get(`v1/user/addresses`).then((res) => {
+      setAddresses(res.data);
+      // console.log("sdghj", res.data);
+    });
+  }, []);
+  useEffect(() => {
+    axiosInstance
+      .post(`v1/user/addresses`, {
+        address: "djfhbvd d",
+        label: "Your label value",
+        owner: me,
+        is_active: true,
+      })
+      .then((res) => {
+        console.log("POST request successful:", res.data);
+        // console.log("sdghj", res.data);
+      });
+  }, [me]);
+  const handleClose = () => {
+    onClose(selectedValue);
+    setIsEditing(!isEditing);
+  };
+
+  const handleListItemClick = (value) => {
+    if (value === "addAddress") {
+      setAddresses([...addresses, ""]);
+    } else {
+      onClose(value);
+    }
+  };
+
+  const handleChangeAddress = (id, value) => {
+    const updatedAddresses = { ...addresses, [id]: value };
+    setAddresses(updatedAddresses);
+  };
+
+  return (
+    <Dialog onClose={handleClose} open={open}>
+      <DialogTitle>
+        <List sx={{ pt: 0 }}>
+          {Object.entries(addresses).map(([id, address]) => (
+            <ListItem key={id} disableGutters>
+              <TextField
+                required
+                id={`outlined-required-${id}`}
+                label="Address"
+                value={address}
+                size="small"
+                disabled={!isEditing}
+                inputProps={{
+                  style: {
+                    height: "37px",
+                    width: "209px",
+                  },
+                }}
+                onChange={(e) => handleChangeAddress(id, e.target.value)}
+              />
+            </ListItem>
+          ))}
+
+          <ListItem disableGutters>
+            <ListItemButton
+              autoFocus
+              onClick={() => handleListItemClick("addAddress")}
+            >
+              <ListItemAvatar>
+                <Avatar>
+                  <AddIcon />
+                </Avatar>
+              </ListItemAvatar>
+              <ListItemText primary="Add address" />
+            </ListItemButton>
+          </ListItem>
+        </List>
+      </DialogTitle>
+    </Dialog>
+  );
+}
+
+SimpleDialog.propTypes = {
+  onClose: PropTypes.func.isRequired,
+  open: PropTypes.bool.isRequired,
+  selectedValue: PropTypes.string.isRequired,
+};
 
 export default UserProfile;
