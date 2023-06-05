@@ -103,7 +103,7 @@ function Store() {
   const [selectedDatePlants, setSelectedDatePlants] = useState(null);
   const [selectedNamePlants, setSelectedNamePlants] = useState(null);
   const [tags, setTags] = useState([]);
-  const [setTagResult] = useState([]);
+  // const [setTagResult] = useState([]);
   // chip
   const theme = useTheme();
   const [personName, setPersonName] = React.useState([]);
@@ -127,16 +127,10 @@ function Store() {
       target: { value },
     } = event;
 
+    // setPersonName(value);
     setPersonName(value === null ? [] : [value]);
   };
-  useEffect(() => {
-    const selectedTagIds = personName.map((tag) => tag.id);
-    // this give us the id of tag
-    console.log(selectedTagIds[0]);
-    axiosInstance.get(`v1/common/tags/${selectedTagIds[0]}/`).then((res) => {
-      setTagResult(res.data);
-    });
-  }, [personName]);
+
   // ----------------------------------------- end chip
   const handleChangePriceSlider = (event, newValue) => {
     setPrice(newValue);
@@ -188,7 +182,6 @@ function Store() {
   useEffect(async () => {
     axiosInstance.get(`v1/store/plants/`).then((res) => {
       setPlants(res.data.results);
-      console.log("res plant : ", res.data.results);
     });
     axiosInstance.get(`v1/common/tags/`).then((res) => {
       setTags(res.data.results);
@@ -358,6 +351,19 @@ function Store() {
       setTools(res.data.results);
     });
   }, [priceTools, selectedPriceTools, selectedDateTools, selectedNameTools]);
+  // search bu chip
+  useEffect(() => {
+    const selectedTagIds = personName.map((tag) => tag.id);
+    axiosInstance
+      .get(`v1/store/tools/`, {
+        params: {
+          tags: selectedTagIds[0],
+        },
+      })
+      .then((res) => {
+        setTools(res.data.results);
+      });
+  }, [personName]);
 
   return (
     <Box sx={{ width: "100%" }}>
