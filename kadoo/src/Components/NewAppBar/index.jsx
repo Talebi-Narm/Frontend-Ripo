@@ -73,6 +73,9 @@ function MainAppBar(props) {
   const handleCloseNavMenu = (i) => {
     if (i === "Top Sales") {
       navigate("/store");
+    }
+    if (i === "Any question?") {
+      navigate("/FAQsPage");
     } else {
       setAnchorElNav(null);
     }
