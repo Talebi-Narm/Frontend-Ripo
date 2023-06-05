@@ -10,7 +10,7 @@ import React, { useState, useEffect } from "react";
 
 import axiosInstance from "../../Utils/axios";
 
-function Comments({ id }) {
+function Comments({ id, tool }) {
   const [comments, setComments] = useState([]);
   const [userInfo, setUserInfo] = useState(null);
   const [newComment, setNewComment] = useState("");
@@ -19,7 +19,11 @@ function Comments({ id }) {
 
   const fetchComments = async () => {
     axiosInstance
-      .get(`v1/store/plants/${id}/comments/`)
+      .get(
+        tool
+          ? `v1/store/tools/${id}/comments/`
+          : `v1/store/plants/${id}/comments/`
+      )
       .then((response) => {
         console.log("response: ", response);
         setComments(
@@ -27,7 +31,7 @@ function Comments({ id }) {
             text: x.text,
             rating: x.rate,
             profileImg: "",
-            username: "dummy",
+            username: x.owner_detail.username,
           }))
         );
       })
@@ -52,15 +56,25 @@ function Comments({ id }) {
     if (userInfo) {
       setIsSubmitting(true);
 
-      const newCommentObj = {
-        text: newComment,
-        owner: userInfo.id,
-        plant: id,
-        rate: rating,
-      };
+      const newCommentObj = tool
+        ? {
+            text: newComment,
+            owner: userInfo.id,
+            tool: id,
+            rate: rating,
+          }
+        : {
+            text: newComment,
+            owner: userInfo.id,
+            plant: id,
+            rate: rating,
+          };
 
       axiosInstance
-        .post(`v1/store/plant-comments/`, JSON.stringify(newCommentObj))
+        .post(
+          tool ? `v1/store/tool-comments/` : `v1/store/plant-comments/`,
+          JSON.stringify(newCommentObj)
+        )
         .then((response) => {
           console.log("Post response: ", response);
           if (response.status === 200 || response.status === 201) {
