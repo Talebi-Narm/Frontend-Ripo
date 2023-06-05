@@ -20,25 +20,27 @@ import {
 } from "@mui/material";
 import { Box, style } from "@mui/system";
 // import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+// import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 // import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
 // import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import dayjs from "dayjs";
-import React, { useState } from "react";
+// import dayjs from "dayjs";
+import React, { useEffect, useState } from "react";
 
 import SampleAvatar from "../../assets/Images/SampleProfile/sample-profile-pic.jfif";
 import { TalebiButton } from "../../Components/CustomButton/Button";
 import Wallet from "../../Components/Wallet";
+import axiosInstance from "../../Utils/axios";
 
 function UserProfile() {
   const [selectedMenu, setSelectedMenu] = useState("main");
-  const [name] = useState("");
-  const [username] = useState("");
-  const [userId] = useState("");
-  // const [birthdate] = useState(null);
-  const [gender] = useState("");
+  const [name, setName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [username, setUsername] = useState("");
+  const [userId, setUserId] = useState("");
+  // const [birthdate, setBirthdate] = useState(null);
+  const [gender, setGender] = useState("");
   const [address] = useState("");
-  const [email] = useState("");
+  const [email, setEmail] = useState("");
   const [phoneNumber] = useState("");
   // const [password] = useState("");
   // const [changePassword] = useState("");
@@ -46,8 +48,26 @@ function UserProfile() {
   const [isEditing, setIsEditing] = useState(false);
   const [imageCode, setImageCode] = useState("");
   const uploadInputRef = React.useRef(null);
-  const [value, setValue] = React.useState(dayjs("2022-06-"));
+  // const [value, setValue] = React.useState(dayjs("2022-06-"));
 
+  useEffect(() => {
+    axiosInstance.get(`v1/user/me/`).then((res) => {
+      console.log(res.data.user);
+      setName(res.data.user.first_name);
+      setLastName(res.data.user.last_name);
+      setUsername(res.data.user.username);
+      setGender(res.data.user.gender);
+      setEmail(res.data.user.email);
+      setUserId(res.data.user.userId);
+    });
+  }, [name, username, gender, userId, email]);
+
+  useEffect(() => {
+    axiosInstance.get(`v1/user/addresses`).then((res) => {
+      // setAddress(res);
+      console.log(res);
+    });
+  }, [address]);
   // const handleUpload = () => {
   //   const file = uploadInputRef.current.files[0];
   // };
@@ -94,9 +114,11 @@ function UserProfile() {
     }
   };
 
-  const handelEdit = () => {
-    // if(isEditing) {
-    //   // send data to server
+  const handelEdit = async () => {
+    // if (isEditing) {
+    //   axiosInstance.get(`v1/user/me/`).then((res) => {
+    //     res;
+    //   });
     // }
     setIsEditing(!isEditing);
   };
@@ -205,8 +227,8 @@ function UserProfile() {
                               <TextField
                                 required
                                 id="outlined-required"
-                                label="User Name"
-                                defaultValue={username}
+                                label="Last Name"
+                                value={lastName}
                                 size="small"
                                 disabled={!isEditing}
                                 inputProps={{
@@ -226,7 +248,7 @@ function UserProfile() {
                                 required
                                 id="outlined-required"
                                 label="User Id"
-                                defaultValue={userId}
+                                value={userId}
                                 size="small"
                                 disabled={!isEditing}
                                 inputProps={{
@@ -246,7 +268,7 @@ function UserProfile() {
                                 required
                                 id="outlined-required"
                                 label="Address"
-                                defaultValue={address}
+                                value={address}
                                 size="small"
                                 disabled={!isEditing}
                                 inputProps={{
@@ -266,7 +288,7 @@ function UserProfile() {
                                 required
                                 id="outlined-required"
                                 label="Phone Number"
-                                defaultValue={phoneNumber}
+                                value={phoneNumber}
                                 size="small"
                                 disabled={!isEditing}
                                 inputProps={{
@@ -286,7 +308,7 @@ function UserProfile() {
                                 required
                                 id="outlined-required"
                                 label="Change Password"
-                                defaultValue={changePassword}
+                                value={changePassword}
                                 size="small"
                                 disabled={!isEditing}
                                 inputProps={{
@@ -307,8 +329,8 @@ function UserProfile() {
                               <TextField
                                 required
                                 id="outlined-required"
-                                label="Name"
-                                defaultValue={name}
+                                label="First Name"
+                                value={name}
                                 size="small"
                                 disabled={!isEditing}
                                 inputProps={{
@@ -328,7 +350,7 @@ function UserProfile() {
                                 required
                                 id="outlined-required"
                                 label="Email"
-                                defaultValue={email}
+                                value={email}
                                 size="small"
                                 disabled={!isEditing}
                                 // sx={{ height: "300px" }}
@@ -349,20 +371,34 @@ function UserProfile() {
                                 required
                                 id="outlined-required"
                                 label="Birthdate"
-                                defaultValue={birthdate}
+                                value={birthdate}
                                 size="small"
                                 disabled={!isEditing}
                               /> */}
                               {/* <LocalizationProvider dateAdapter={AdapterDayjs}>
                                 <DemoContainer components={["DatePicker"]}> */}
-                              <DatePicker
+                              {/* <DatePicker
                                 label="Birthdate"
-                                value={value}
-                                onChange={(newValue) => setValue(newValue)}
+                                value={birthdate}
+                                onChange={(newValue) => setBirthdate(newValue)}
                                 disabled={!isEditing}
-                              />
+                              /> */}
                               {/* </DemoContainer>
                               </LocalizationProvider> */}
+                              <TextField
+                                required
+                                id="outlined-required"
+                                label="User Name"
+                                value={username}
+                                size="small"
+                                disabled={!isEditing}
+                                inputProps={{
+                                  style: {
+                                    height: "36px",
+                                    width: "209px",
+                                  },
+                                }}
+                              />
                             </Grid>
                             <Grid
                               container
@@ -373,7 +409,7 @@ function UserProfile() {
                                 required
                                 id="outlined-required"
                                 label="Gender"
-                                defaultValue={gender}
+                                value={gender}
                                 size="small"
                                 disabled={!isEditing}
                                 inputProps={{
@@ -393,7 +429,7 @@ function UserProfile() {
                                 required
                                 id="outlined-required"
                                 label="Password"
-                                defaultValue={password}
+                                value={password}
                                 size="small"
                                 disabled={!isEditing}
                                 inputProps={{

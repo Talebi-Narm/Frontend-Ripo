@@ -80,6 +80,9 @@ function MainAppBar(props) {
       localStorage.removeItem("refresh_token");
       setAnchorElUser(null);
       navigate("/");
+    }
+    if (i === "Profile") {
+      navigate("/UserProfile");
     } else {
       setAnchorElUser(null);
     }
