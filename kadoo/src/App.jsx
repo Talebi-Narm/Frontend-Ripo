@@ -9,6 +9,7 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 
 import AppRoutes from "./AppRoutes";
+import { CartProvider } from "./Components/NewAppBar/CartContext";
 import MainLayout from "./Pages/MainLayout";
 import Theme from "./Theme/ThemeGenerator";
 
@@ -23,13 +24,15 @@ function App() {
       <ThemeProvider theme={Theme}>
         <CssBaseline />
         <LocalizationProvider dateAdapter={AdapterDayjs}>
-          <Router>
-            <MainLayout>
-              <Routes>
-                <Route path="/*" element={<AppRoutes />} />
-              </Routes>
-            </MainLayout>
-          </Router>
+          <CartProvider>
+            <Router>
+              <MainLayout>
+                <Routes>
+                  <Route path="/*" element={<AppRoutes />} />
+                </Routes>
+              </MainLayout>
+            </Router>
+          </CartProvider>
         </LocalizationProvider>
       </ThemeProvider>
       <ToastContainer

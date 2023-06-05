@@ -6,6 +6,7 @@ import ThermostatIcon from "@mui/icons-material/Thermostat";
 import WbSunnyIcon from "@mui/icons-material/WbSunny";
 import { Fade, Grid, Slide, Typography } from "@mui/material";
 import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
 import { useTheme } from "@mui/material/styles";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
@@ -15,6 +16,7 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import React, { useState, useEffect, useRef } from "react";
 // eslint-disable-next-line import/no-extraneous-dependencies
+import { Link } from "react-router-dom";
 import Typed from "react-typed";
 
 import axiosInstance from "../../Utils/axios";
@@ -301,6 +303,13 @@ export default function LeadProducts({ heightImage }) {
                       </TableContainer>
                     </Fade>
                   ))}
+                {products && currentIndex !== null && (
+                  <Link to={`/ProductPlantsPage/${products[currentIndex].id}`}>
+                    <Button variant="contained" sx={{ mt: 2 }}>
+                      Buy now!
+                    </Button>
+                  </Link>
+                )}
               </Grid>
               <Grid item sx={{ width: "100%" }}>
                 <Player

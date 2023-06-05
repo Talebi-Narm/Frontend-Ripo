@@ -189,8 +189,8 @@ export default function MainLayout({ children }) {
       </Drawer>
       <Box component="main" sx={{ flexGrow: 1, p: 3, pt: 5 }}>
         <DrawerHeader />
-        <MainBreadcrumbs style={{ marginBottom: "8px" }} />
-        <Box>{children}</Box>
+        <MainBreadcrumbs />
+        <Box sx={{ mt: 1 }}>{children}</Box>
       </Box>
       <AppBar
         position="fixed"

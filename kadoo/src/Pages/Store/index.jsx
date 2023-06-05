@@ -34,6 +34,7 @@ import PlantsCart from "../../Components/ProductsCart/PlantsCart";
 
 // import axiosInstancefrom "../../Utils/axios";
 import "./style.scss";
+import ToolsCart from "../../Components/ProductsCart/ToolsCart";
 import axiosInstance from "../../Utils/axios";
 
 function TabPanel(props) {
@@ -96,6 +97,7 @@ function Store() {
   const [water, setWater] = useState("all");
   const [light, setLight] = useState("all");
   const [growthRate, setGrowthRate] = useState("all");
+  const [userInfo, setUserInfo] = useState(null);
   const [tab, setTab] = useState(0);
   const [selectedPricePlants, setSelectedPricePlants] = useState(null);
   const [selectedDatePlants, setSelectedDatePlants] = useState(null);
@@ -105,6 +107,21 @@ function Store() {
   // chip
   const theme = useTheme();
   const [personName, setPersonName] = React.useState([]);
+  const fetchUserInfo = async () => {
+    axiosInstance
+      .get(`v1/user/me/`)
+      .then((response) => {
+        console.log("User Info: ", response);
+        setUserInfo(response.data.user);
+      })
+      .catch((error) => {
+        console.error("Error User Info:", error);
+      });
+  };
+
+  useEffect(() => {
+    fetchUserInfo();
+  }, []);
   const handleChange = (event) => {
     const {
       target: { value },
@@ -638,6 +655,7 @@ function Store() {
                     // eslint-disable-next-line react/no-array-index-key
                     key={index}
                     product={{
+                      id: item.id,
                       image: item.main_image,
                       name: item.name,
                       price: item.price,
@@ -645,6 +663,7 @@ function Store() {
                       water: item.water,
                       growthRate: item.growth_rate,
                     }}
+                    userInfo={userInfo}
                   />
                 ))}
               </div>
@@ -824,14 +843,16 @@ function Store() {
             <Grid item xs={10}>
               <div style={{ display: "flex", flexWrap: "wrap", gap: "20px" }}>
                 {tools.map((item, index) => (
-                  <PlantsCart
+                  <ToolsCart
                     // eslint-disable-next-line react/no-array-index-key
                     key={index}
                     product={{
+                      id: item.id,
                       image: item.main_image,
                       name: item.name,
                       price: item.price,
                     }}
+                    userInfo={userInfo}
                   />
                 ))}
               </div>

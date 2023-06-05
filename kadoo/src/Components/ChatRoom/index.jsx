@@ -1,8 +1,22 @@
-import { Avatar, Typography } from "@material-ui/core";
+import {
+  Accordion,
+  AccordionSummary,
+  AccordionDetails,
+  Avatar,
+  Typography,
+  Box,
+  List,
+  ListItem,
+  ListItemText,
+} from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import { Send as SendIcon } from "@material-ui/icons";
-import { IconButton } from "@mui/material";
-import React, { useState } from "react";
+import CloseIcon from "@mui/icons-material/Close";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import { Grid, IconButton, useTheme } from "@mui/material";
+import React, { useEffect, useState } from "react";
+
+import axiosInstance, { baseURL } from "../../Utils/axios";
 
 const useStyles = makeStyles((theme) => ({
   chatContainer: {
@@ -102,14 +116,155 @@ const useStyles = makeStyles((theme) => ({
 
 function ChatUI() {
   const classes = useStyles();
-  const [messages, setMessages] = useState([
-    {
-      id: Date.now(),
-      content: "test sdahdas djhsabjdh dshaujd",
-      sender: "ali",
-    },
-  ]);
+  const [userInfo, setUserInfo] = useState(null);
+  const [conversations, setConversations] = useState([]);
+  const [openIndex, setOpenIndex] = useState(null);
+  const [socket, setSocket] = useState(null);
+  const [specialistSocket, setSpecialistSocket] = useState(null);
+  const [messages, setMessages] = useState([]);
   const [inputValue, setInputValue] = useState("");
+  const [role, setRole] = useState("user_message");
+
+  const theme = useTheme();
+
+  const toggleConversation = (index) => {
+    setOpenIndex(index);
+  };
+
+  const fetchUserInfo = async () => {
+    axiosInstance
+      .get(`v1/user/me/`)
+      .then((response) => {
+        console.log("User Info: ", response);
+        setUserInfo(response.data.user);
+      })
+      .catch((error) => {
+        console.error("Error User Info:", error);
+      });
+  };
+
+  useEffect(() => {
+    if (userInfo) {
+      setSocket(
+        new WebSocket(
+          `ws://${baseURL
+            .replace("https://", "")
+            .replace("http://", "")
+            .replace("api/", "")}ws/v1/support/chat/${
+            userInfo.id
+          }/?token=${localStorage.getItem("access_token")}`
+        )
+      );
+      setSpecialistSocket(
+        new WebSocket(
+          `ws://${baseURL
+            .replace("https://", "")
+            .replace("http://", "")
+            .replace(
+              "api/",
+              ""
+            )}ws/v1/support/ticket/notifications/?token=${localStorage.getItem(
+            "access_token"
+          )}`
+        )
+      );
+    }
+  }, [userInfo]);
+
+  useEffect(() => {
+    fetchUserInfo();
+  }, []);
+
+  useEffect(() => {
+    if (openIndex !== null) {
+      setSocket(
+        new WebSocket(
+          `ws://${baseURL
+            .replace("https://", "")
+            .replace("http://", "")
+            .replace("api/", "")}ws/v1/support/chat/${
+            conversations[openIndex].user_id
+          }/?token=${localStorage.getItem("access_token")}`
+        )
+      );
+    }
+  }, [openIndex]);
+
+  useEffect(() => {
+    if (socket) {
+      // eslint-disable-next-line func-names
+      socket.onmessage = function (e) {
+        const data = JSON.parse(e.data);
+        console.log(data);
+
+        if (data.message) {
+          const newMessage = {
+            id: Date.now(),
+            content: data.message,
+            sender: role === data.type ? "me" : "other",
+          };
+          setMessages((prevMessages) => [...prevMessages, newMessage]);
+        }
+      };
+    }
+    if (specialistSocket) {
+      // eslint-disable-next-line func-names
+      specialistSocket.addEventListener("open", () => {
+        // Connection successful
+        console.log("Specialist WebSocket connection established");
+      });
+
+      specialistSocket.addEventListener("error", (error) => {
+        // Connection error
+        console.error("Specialist WebSocket connection error:", error);
+      });
+
+      specialistSocket.addEventListener("close", (event) => {
+        // Connection closed
+        console.log(
+          "Specialist WebSocket connection closed with code:",
+          event.code
+        );
+        setRole("user_message");
+      });
+      // eslint-disable-next-line func-names
+      specialistSocket.onmessage = function (e) {
+        const data = JSON.parse(e.data);
+        console.log("specialist notify", data);
+
+        if (data.active_tickets) {
+          setRole("specialist_message");
+          setConversations(data.active_tickets);
+        }
+      };
+    }
+    return null;
+  }, [socket]);
+
+  const sendMessage = () => {
+    socket.send(
+      JSON.stringify({
+        title: inputValue,
+        type: "new_ticket",
+      })
+    );
+    socket.send(
+      JSON.stringify({
+        message: inputValue,
+        type: "new_message",
+      })
+    );
+    setInputValue("");
+  };
+
+  const closeConversation = () => {
+    socket.send(
+      JSON.stringify({
+        type: "close_ticket",
+      })
+    );
+    setInputValue("");
+  };
 
   const handleInputChange = (event) => {
     setInputValue(event.target.value);
@@ -117,13 +272,7 @@ function ChatUI() {
 
   const handleSend = () => {
     if (inputValue.trim() !== "") {
-      const newMessage = {
-        id: Date.now(),
-        content: inputValue,
-        sender: "me",
-      };
-
-      setMessages((prevMessages) => [...prevMessages, newMessage]);
+      sendMessage();
       setInputValue("");
     }
   };
@@ -135,47 +284,116 @@ function ChatUI() {
   };
 
   return (
-    <div className={classes.chatContainer}>
-      <div className={classes.messagesContainer}>
-        {messages.map((message) => (
-          <div
-            key={message.id}
-            className={`${classes.message} ${
-              message.sender !== "me" ? "received" : ""
-            }`}
+    <>
+      {role === "specialist_message" && (
+        <Accordion>
+          <AccordionSummary
+            expandIcon={<ExpandMoreIcon />}
+            aria-controls="panel1a-content"
+            id="panel1a-header"
           >
-            {message.sender === "me" && (
-              <Avatar className={classes.avatar}>B</Avatar>
-            )}
-            {message.sender !== "me" && (
-              <Avatar className={classes.avatar}>A</Avatar>
-            )}
+            <Grid container alignItems="center">
+              <Grid
+                item
+                sx={{
+                  backgroundColor: theme.palette.primary.main,
+                  borderRadius: "100%",
+                  width: "24px",
+                  height: "24px",
+                  textAlign: "center",
+                  mr: 2,
+                }}
+              >
+                {conversations.length}
+              </Grid>
+              <Grid item>
+                <Typography variant="h6">Open Conversations</Typography>
+              </Grid>
+            </Grid>
+          </AccordionSummary>
+          <AccordionDetails>
+            <Box sx={{ width: "100%" }}>
+              <List sx={{ width: "100%", marginTop: 2 }}>
+                {conversations.map((conversation, index) => (
+                  <ListItem
+                    // eslint-disable-next-line react/no-array-index-key
+                    key={index}
+                    button
+                    selected={openIndex === index}
+                    onClick={() => toggleConversation(index)}
+                    sx={{
+                      color: "black",
+                      py: 2,
+                      width: "100%",
+                      borderRadius: "24px",
+                      backgroundColor:
+                        openIndex === index ? "#e6f7ff" : "transparent",
+                      "&:hover": {
+                        backgroundColor: "#e6f7ff",
+                      },
+                      "& .MuiButtonBase-root": {
+                        borderRadius: "24px",
+                      },
+                    }}
+                  >
+                    <ListItemText primary={conversation.title} />
+                  </ListItem>
+                ))}
+              </List>
+            </Box>
+          </AccordionDetails>
+        </Accordion>
+      )}
+
+      <div className={classes.chatContainer}>
+        <div className={classes.messagesContainer}>
+          {messages.map((message) => (
             <div
-              className={`${classes.bubble} ${
-                message.sender === "me"
-                  ? classes.sentBubble
-                  : classes.receivedBubble
+              key={message.id}
+              className={`${classes.message} ${
+                message.sender !== "me" ? "received" : ""
               }`}
             >
-              <Typography variant="body1">{message.content}</Typography>
+              {message.sender === "me" && (
+                <Avatar className={classes.avatar}>
+                  {userInfo.username[0]}
+                </Avatar>
+              )}
+              {message.sender !== "me" && <Avatar className={classes.avatar} />}
+              <div
+                className={`${classes.bubble} ${
+                  message.sender === "me"
+                    ? classes.sentBubble
+                    : classes.receivedBubble
+                }`}
+              >
+                <Typography variant="body1">{message.content}</Typography>
+              </div>
             </div>
-          </div>
-        ))}
+          ))}
+        </div>
+        <div className={classes.sendContainer}>
+          <input
+            type="text"
+            className={classes.input}
+            placeholder="Type a message..."
+            value={inputValue}
+            onChange={handleInputChange}
+            onKeyDown={handleKeyDown}
+          />
+          <IconButton className={classes.sendButton} onClick={handleSend}>
+            <SendIcon />
+          </IconButton>
+          <IconButton
+            className={classes.sendButton}
+            sx={{ ml: 1 }}
+            onClick={closeConversation}
+          >
+            <CloseIcon />
+          </IconButton>
+        </div>
       </div>
-      <div className={classes.sendContainer}>
-        <input
-          type="text"
-          className={classes.input}
-          placeholder="Type a message..."
-          value={inputValue}
-          onChange={handleInputChange}
-          onKeyDown={handleKeyDown}
-        />
-        <IconButton className={classes.sendButton} onClick={handleSend}>
-          <SendIcon />
-        </IconButton>
-      </div>
-    </div>
+    </>
   );
 }
 

@@ -12,13 +12,57 @@ import Fab from "@mui/material/Fab";
 import Typography from "@mui/material/Typography";
 import * as React from "react";
 import { Link } from "react-router-dom";
+import { toast } from "react-toastify";
+
+import axiosInstance from "../../Utils/axios";
+import { CartContext } from "../NewAppBar/CartContext";
 
 // import { baseURL } from "../../Utils/axios";
 
 export default function ToolsCart(props) {
   const [isHovered, setIsHovered] = React.useState(false);
+  const { cartCount, updateCartCount } = React.useContext(CartContext);
   const handleMouseEnter = () => {
     setIsHovered(true);
+  };
+
+  const bookmarkTool = () => {
+    axiosInstance
+      .post(
+        "v1/common/tool-bookmarks/",
+        JSON.stringify({
+          Tool: props.product.id,
+        })
+      )
+      .then((response) => {
+        console.log("Bookmark", response);
+        if (response.status === 200 || response.status === 201) {
+          toast.success(`${props.product.name} added to bookmarks!`);
+        }
+      });
+  };
+
+  const AddToCartTool = () => {
+    axiosInstance
+      .post(
+        "v1/cart/tool-cart",
+        JSON.stringify({
+          count: 1,
+          user: props.userInfo.id,
+          tool: props.product.id,
+        })
+      )
+      .then((response) => {
+        console.log("Bookmark", response);
+        if (response.status === 200 || response.status === 201) {
+          toast.success(`${props.product.name} added to Cart!`);
+          updateCartCount(cartCount + 1);
+        }
+      })
+      .catch((error) => {
+        console.log("error", error);
+        toast.error(`${props.product.name} is already in the cart!`);
+      });
   };
 
   const handleMouseLeave = () => {
@@ -107,6 +151,7 @@ export default function ToolsCart(props) {
             }}
             color="primary"
             aria-label="add"
+            onClick={AddToCartTool}
           >
             <Player
               src="https://assets2.lottiefiles.com/packages/lf20_5zlgNU.json"
@@ -144,10 +189,29 @@ export default function ToolsCart(props) {
       </CardContent>
       {isHovered ? (
         <CardActions disableSpacing>
-          <IconButton aria-label="add to favorites" sx={{ zIndex: 10 }}>
+          <IconButton
+            aria-label="add to favorites"
+            sx={{ zIndex: 10 }}
+            onClick={bookmarkTool}
+          >
             <FavoriteIcon />
           </IconButton>
-          <IconButton aria-label="share" sx={{ zIndex: 10 }}>
+          <IconButton
+            aria-label="share"
+            sx={{ zIndex: 10 }}
+            onClick={() => {
+              navigator.clipboard
+                .writeText(
+                  `${window.location.origin}/store/${props.product.id}`
+                )
+                .then(() => {
+                  toast.success("Copied to clipboard!");
+                })
+                .catch((error) => {
+                  console.error("Error copying to clipboard:", error);
+                });
+            }}
+          >
             <ShareIcon />
           </IconButton>
         </CardActions>

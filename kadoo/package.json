@@ -51,6 +51,7 @@
     "recharts": "^2.1.6",
     "redux": "^4.2.1",
     "sass": "^1.60.0",
+    "socket.io-client": "^4.6.2",
     "styled-components": "^5.3.3",
     "swiper": "^6.8.4",
     "web-vitals": "^1.0.1"

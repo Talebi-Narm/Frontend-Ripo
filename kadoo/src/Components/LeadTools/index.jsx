@@ -1,9 +1,10 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { Player } from "@lottiefiles/react-lottie-player";
-import { Fade, Grid, Slide, Typography } from "@mui/material";
+import { Button, Fade, Grid, Slide, Typography } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 import React, { useState, useEffect, useRef } from "react";
 // eslint-disable-next-line import/no-extraneous-dependencies
+import { Link } from "react-router-dom";
 import Typed from "react-typed";
 
 import axiosInstance from "../../Utils/axios";
@@ -143,6 +144,13 @@ export default function LeadTools({ heightImage }) {
                       </Typography>
                     </Fade>
                   ))}
+                {products && currentIndex !== null && (
+                  <Link to={`/ProductToolsPage/${products[currentIndex].id}`}>
+                    <Button variant="contained" sx={{ mt: 2 }}>
+                      Buy now!
+                    </Button>
+                  </Link>
+                )}
               </Grid>
               <Grid item sx={{ width: "100%" }}>
                 <Player

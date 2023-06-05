@@ -3,6 +3,7 @@ import { Player } from "@lottiefiles/react-lottie-player";
 import { Button, Grid, Typography } from "@mui/material";
 import React from "react";
 import "./style.scss";
+import { Link } from "react-router-dom";
 
 export default function Services() {
   return (
@@ -16,21 +17,23 @@ export default function Services() {
         </Typography>
       </Grid>
       <Grid container item justifyContent="center" sx={{ m: 1 }}>
-        <Button>
-          <Player
-            src="https://assets4.lottiefiles.com/private_files/lf30_gnkqx2xe.json"
-            mode="bounce"
-            background="transparent"
-            speed="1"
-            style={{
-              width: "100%",
-              filter: "opacity(0.9)",
-            }}
-            loop
-            autoplay
-          />
-          Explore Our Plants
-        </Button>
+        <Link to="/search/">
+          <Button>
+            <Player
+              src="https://assets4.lottiefiles.com/private_files/lf30_gnkqx2xe.json"
+              mode="bounce"
+              background="transparent"
+              speed="1"
+              style={{
+                width: "100%",
+                filter: "opacity(0.9)",
+              }}
+              loop
+              autoplay
+            />
+            Explore Our Plants
+          </Button>
+        </Link>
       </Grid>
       <Grid container item>
         <Typography>
@@ -41,21 +44,23 @@ export default function Services() {
         </Typography>
       </Grid>
       <Grid container item justifyContent="center" sx={{ m: 1 }}>
-        <Button>
-          <Player
-            src="https://assets8.lottiefiles.com/packages/lf20_uyk1evya.json"
-            mode="bounce"
-            background="transparent"
-            speed="1"
-            style={{
-              width: "80%",
-              filter: "opacity(0.9)",
-            }}
-            loop
-            autoplay
-          />
-          Explore Our Tools
-        </Button>
+        <Link to="/search/">
+          <Button>
+            <Player
+              src="https://assets8.lottiefiles.com/packages/lf20_uyk1evya.json"
+              mode="bounce"
+              background="transparent"
+              speed="1"
+              style={{
+                width: "80%",
+                filter: "opacity(0.9)",
+              }}
+              loop
+              autoplay
+            />
+            Explore Our Tools
+          </Button>
+        </Link>
       </Grid>
     </Grid>
   );
