@@ -2,20 +2,25 @@
 import ForestOutlinedIcon from "@mui/icons-material/ForestOutlined";
 import HandymanIcon from "@mui/icons-material/Handyman";
 // import { tableContainerClasses } from "@mui/material";
-import SearchIcon from "@mui/icons-material/Search";
+// import SearchIcon from "@mui/icons-material/Search";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import ButtonGroup from "@mui/material/ButtonGroup";
+import Chip from "@mui/material/Chip";
 import FormControl from "@mui/material/FormControl";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import FormLabel from "@mui/material/FormLabel";
 import Grid from "@mui/material/Grid";
-import InputBase from "@mui/material/InputBase";
+// import InputBase from "@mui/material/InputBase";
+import InputLabel from "@mui/material/InputLabel";
+import MenuItem from "@mui/material/MenuItem";
+import OutlinedInput from "@mui/material/OutlinedInput";
 import Radio from "@mui/material/Radio";
 import RadioGroup from "@mui/material/RadioGroup";
+import Select from "@mui/material/Select";
 import Slider from "@mui/material/Slider";
 import Stack from "@mui/material/Stack";
-import { styled } from "@mui/material/styles";
+import { useTheme } from "@mui/material/styles";
 import Tab from "@mui/material/Tab";
 import Tabs from "@mui/material/Tabs";
 import Typography from "@mui/material/Typography";
@@ -58,11 +63,28 @@ TabPanel.propTypes = {
   index: PropTypes.number.isRequired,
   value: PropTypes.number.isRequired,
 };
-
 function a11yProps(index) {
   return {
     id: `simple-tab-${index}`,
     "aria-controls": `simple-tabpanel-${index}`,
+  };
+}
+const ITEM_HEIGHT = 48;
+const ITEM_PADDING_TOP = 8;
+const MenuProps = {
+  PaperProps: {
+    style: {
+      maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
+      width: 250,
+    },
+  },
+};
+function getStyles(name, personName, theme) {
+  return {
+    fontWeight:
+      personName.indexOf(name) === -1
+        ? theme.typography.fontWeightRegular
+        : theme.typography.fontWeightMedium,
   };
 }
 
@@ -79,19 +101,27 @@ function Store() {
   const [selectedPricePlants, setSelectedPricePlants] = useState(null);
   const [selectedDatePlants, setSelectedDatePlants] = useState(null);
   const [selectedNamePlants, setSelectedNamePlants] = useState(null);
-  // const [searchPlants, setSearchPlants] = useState("");
+  const [tags, setTags] = useState([]);
+  const [setTagResult] = useState([]);
+  // chip
+  const theme = useTheme();
+  const [personName, setPersonName] = React.useState([]);
+  const handleChange = (event) => {
+    const {
+      target: { value },
+    } = event;
 
-  // function
-  // const handleSearchChange = (event) => {
-  //   // setSearchPlants(event.target.value);
-  //   axiosInstance
-  //     .get(`v1/store/plants/`, {
-  //       search: event.target.value,
-  //     })
-  //     .then((res) => {
-  //       setPlants(res.data.results);
-  //     });
-  // };
+    setPersonName(value === null ? [] : [value]);
+  };
+  useEffect(() => {
+    const selectedTagIds = personName.map((tag) => tag.id);
+    // this give us the id of tag
+    console.log(selectedTagIds[0]);
+    axiosInstance.get(`v1/common/tags/${selectedTagIds[0]}/`).then((res) => {
+      setTagResult(res.data);
+    });
+  }, [personName]);
+  // ----------------------------------------- end chip
   const handleChangePriceSlider = (event, newValue) => {
     setPrice(newValue);
   };
@@ -142,6 +172,10 @@ function Store() {
   useEffect(async () => {
     axiosInstance.get(`v1/store/plants/`).then((res) => {
       setPlants(res.data.results);
+      console.log("res plant : ", res.data.results);
+    });
+    axiosInstance.get(`v1/common/tags/`).then((res) => {
+      setTags(res.data.results);
     });
   }, []);
 
@@ -193,47 +227,50 @@ function Store() {
     selectedNamePlants,
   ]);
 
-  const Search = styled("div")(({ theme }) => ({
-    position: "relative",
-    borderRadius: theme.shape.borderRadius,
-    backgroundColor: "#e2f7e7",
-    borderColor: "#00c853",
-    "&:hover": {
-      backgroundColor: "#e2f7e7",
-    },
-    marginLeft: 0,
-    width: "100%",
-    [theme.breakpoints.up("sm")]: {
-      marginTop: "30px",
-      width: "250px",
-    },
-  }));
+  // eslint-disable-next-line no-shadow
+  // const Search = styled("div")(({ theme }) => ({
+  //   position: "relative",
+  //   borderRadius: theme.shape.borderRadius,
+  //   backgroundColor: "#e2f7e7",
+  //   borderColor: "#00c853",
+  //   "&:hover": {
+  //     backgroundColor: "#e2f7e7",
+  //   },
+  //   marginLeft: 0,
+  //   width: "100%",
+  //   [theme.breakpoints.up("sm")]: {
+  //     marginTop: "30px",
+  //     width: "250px",
+  //   },
+  // }));
 
-  const SearchIconWrapper = styled("div")(({ theme }) => ({
-    padding: theme.spacing(0, 2),
-    height: "100%",
-    position: "absolute",
-    pointerEvents: "none",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-  }));
+  // eslint-disable-next-line no-shadow
+  // const SearchIconWrapper = styled("div")(({ theme }) => ({
+  //   padding: theme.spacing(0, 2),
+  //   height: "100%",
+  //   position: "absolute",
+  //   pointerEvents: "none",
+  //   display: "flex",
+  //   alignItems: "center",
+  //   justifyContent: "center",
+  // }));
 
-  const StyledInputBase = styled(InputBase)(({ theme }) => ({
-    color: "inherit",
-    "& .MuiInputBase-input": {
-      padding: theme.spacing(1, 1, 1, 0),
-      paddingLeft: `calc(1em + ${theme.spacing(4)})`,
-      transition: theme.transitions.create("width"),
-      width: "100%",
-      [theme.breakpoints.up("md")]: {
-        width: "12ch",
-        "&:focus": {
-          width: "20ch",
-        },
-      },
-    },
-  }));
+  // // eslint-disable-next-line no-shadow
+  // const StyledInputBase = styled(InputBase)(({ theme }) => ({
+  //   color: "inherit",
+  //   "& .MuiInputBase-input": {
+  //     padding: theme.spacing(1, 1, 1, 0),
+  //     paddingLeft: `calc(1em + ${theme.spacing(4)})`,
+  //     transition: theme.transitions.create("width"),
+  //     width: "100%",
+  //     [theme.breakpoints.up("md")]: {
+  //       width: "12ch",
+  //       "&:focus": {
+  //         width: "20ch",
+  //       },
+  //     },
+  //   },
+  // }));
 
   // useEffect(async () => {
   //   console.log(searchPlants);
@@ -415,7 +452,7 @@ function Store() {
               <FormLabel style={{ fontSize: 30, color: "black" }}>
                 SEARCH:
               </FormLabel>
-              <Search>
+              {/* <Search>
                 <SearchIconWrapper>
                   <SearchIcon />
                 </SearchIconWrapper>
@@ -424,7 +461,38 @@ function Store() {
                   inputProps={{ "aria-label": "search" }}
                   // onChange={handleSearchChange}
                 />
-              </Search>
+              </Search> */}
+              <FormControl sx={{ m: 1, width: 300 }}>
+                <InputLabel id="demo-multiple-chip-label">Chip</InputLabel>
+                <Select
+                  labelId="demo-multiple-chip-label"
+                  id="demo-multiple-chip"
+                  multiple={false}
+                  value={personName}
+                  onChange={handleChange}
+                  input={
+                    <OutlinedInput id="select-multiple-chip" label="Chip" />
+                  }
+                  renderValue={() => (
+                    <Box sx={{ display: "flex", flexWrap: "wrap", gap: 0.5 }}>
+                      {personName.map((value) => (
+                        <Chip key={value.id} label={value.name} />
+                      ))}
+                    </Box>
+                  )}
+                  MenuProps={MenuProps}
+                >
+                  {tags.map((tag) => (
+                    <MenuItem
+                      key={tag.id}
+                      value={tag}
+                      style={getStyles(tag.name, personName, theme)}
+                    >
+                      {tag.name}
+                    </MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
             </Grid>
             {/* filter */}
             <Grid item xs={2}>
@@ -686,7 +754,7 @@ function Store() {
               <FormLabel style={{ fontSize: 30, color: "black" }}>
                 SEARCH:
               </FormLabel>
-              <Search>
+              {/* <Search>
                 <SearchIconWrapper>
                   <SearchIcon />
                 </SearchIconWrapper>
@@ -695,7 +763,38 @@ function Store() {
                   inputProps={{ "aria-label": "search" }}
                   // onChange={handleSearchChange}
                 />
-              </Search>
+              </Search> */}
+              <FormControl sx={{ m: 1, width: 300 }}>
+                <InputLabel id="demo-multiple-chip-label">Chip</InputLabel>
+                <Select
+                  labelId="demo-multiple-chip-label"
+                  id="demo-multiple-chip"
+                  multiple={false}
+                  value={personName}
+                  onChange={handleChange}
+                  input={
+                    <OutlinedInput id="select-multiple-chip" label="Chip" />
+                  }
+                  renderValue={() => (
+                    <Box sx={{ display: "flex", flexWrap: "wrap", gap: 0.5 }}>
+                      {personName.map((value) => (
+                        <Chip key={value.id} label={value.name} />
+                      ))}
+                    </Box>
+                  )}
+                  MenuProps={MenuProps}
+                >
+                  {tags.map((tag) => (
+                    <MenuItem
+                      key={tag.id}
+                      value={tag}
+                      style={getStyles(tag.name, personName, theme)}
+                    >
+                      {tag.name}
+                    </MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
             </Grid>
             {/* filter */}
             <Grid item xs={2}>
