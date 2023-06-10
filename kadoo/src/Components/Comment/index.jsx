@@ -38,16 +38,18 @@ function Comments({ id, tool }) {
           : `v1/store/plants/${id}/comments/`
       )
       .then((response) => {
-        console.log("response: ", response);
         setComments(
-          response.data.map((x) => ({
-            id: x.id,
-            text: x.text,
-            rating: x.rate,
-            profileImg: "",
-            username: x.owner_detail.username,
-            selected: false,
-          }))
+          response.data
+            .filter((z) => !z.reply_to)
+            .map((x) => ({
+              id: x.id,
+              text: x.text,
+              rating: x.rate,
+              profileImg: "",
+              username: x.owner_detail.username,
+              selected: false,
+              replies: response.data.filter((y) => y.reply_to === x.id),
+            }))
         );
       })
       .catch((error) => {
@@ -70,20 +72,40 @@ function Comments({ id, tool }) {
   const postComment = async () => {
     if (userInfo) {
       setIsSubmitting(true);
-
-      const newCommentObj = tool
-        ? {
+      let newCommentObj = {};
+      if (tool) {
+        if (comments.find((x) => x.selected)) {
+          newCommentObj = {
             text: newComment,
             owner: userInfo.id,
             tool: id,
             rate: rating,
-          }
-        : {
+            reply_to: comments.find((x) => x.selected).id,
+          };
+        } else {
+          newCommentObj = {
             text: newComment,
             owner: userInfo.id,
-            plant: id,
+            tool: id,
             rate: rating,
           };
+        }
+      } else if (comments.find((x) => x.selected)) {
+        newCommentObj = {
+          text: newComment,
+          owner: userInfo.id,
+          plant: id,
+          rate: rating,
+          reply_to: comments.find((x) => x.selected).id,
+        };
+      } else {
+        newCommentObj = {
+          text: newComment,
+          owner: userInfo.id,
+          plant: id,
+          rate: rating,
+        };
+      }
 
       axiosInstance
         .post(
@@ -116,8 +138,8 @@ function Comments({ id, tool }) {
   }, [userInfo]);
 
   useEffect(() => {
-    console.log("rating:", rating);
-  }, [rating]);
+    console.log("comments: ", comments);
+  }, [comments]);
 
   return (
     <Box sx={{ width: "100%" }}>
