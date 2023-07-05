@@ -22,19 +22,16 @@ import {
   DialogTitle,
   ListItemButton,
   ListItemAvatar,
+  FormControl,
+  InputLabel,
+  Select,
+  MenuItem,
 } from "@mui/material";
 import { Box, style } from "@mui/system";
-// import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-// import { DatePicker } from "@mui/x-date-pickers/DatePicker";
-// import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
-// import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-// import dayjs from "dayjs";
-// eslint-disable-next-line import/no-extraneous-dependencies
 import PropTypes from "prop-types";
 import React, { useEffect, useState } from "react";
 
 import SampleAvatar from "../../assets/Images/SampleProfile/sample-profile-pic.jfif";
-import { TalebiButton } from "../../Components/CustomButton/Button";
 import Wallet from "../../Components/Wallet";
 import axiosInstance from "../../Utils/axios";
 
@@ -43,19 +40,21 @@ function UserProfile() {
   const [name, setName] = useState("");
   const [lastName, setLastName] = useState("");
   const [username, setUsername] = useState("");
-  const [userId, setUserId] = useState("");
-  // const [birthdate, setBirthdate] = useState(null);
   const [gender, setGender] = useState("");
   const [address] = useState("");
   const [email, setEmail] = useState("");
-  const [phoneNumber] = useState("");
-  // const [password] = useState("");
-  // const [changePassword] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("");
+  const [errors, setErrors] = useState({
+    name: false,
+    lastName: false,
+    username: false,
+    email: false,
+    phoneNumber: false,
+  });
   const [imageSizeErr, setImageSizeErr] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   const [imageCode, setImageCode] = useState("");
   const uploadInputRef = React.useRef(null);
-  // const [value, setValue] = React.useState(dayjs("2022-06-"));
   const [open, setOpen] = React.useState(false);
 
   const handleClickOpen = () => {
@@ -65,27 +64,60 @@ function UserProfile() {
   const handleClose = () => {
     setOpen(false);
   };
+
+  const isValidEmail = (mail) => {
+    return /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/.test(mail);
+  };
+
+  const isValidPhoneNumber = (phoneNum) => {
+    return /^(\+98|0)9\d{9}$/.test(phoneNum);
+  };
+  const handleSelectChange = (event) => {
+    const selectedGender = event.target.value;
+
+    let genderValue;
+    if (selectedGender === "Woman") {
+      genderValue = 1;
+    } else if (selectedGender === "Man") {
+      genderValue = 2;
+    } else if (selectedGender === "Other") {
+      genderValue = 3;
+    }
+
+    setGender(selectedGender);
+    axiosInstance
+      .patch("v1/user/me/", { gender: genderValue })
+      .then((res) => {
+        console.log(res.data);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };
   useEffect(() => {
     axiosInstance.get(`v1/user/me/`).then((res) => {
       console.log(res.data.user);
       setName(res.data.user.first_name);
       setLastName(res.data.user.last_name);
       setUsername(res.data.user.username);
-      setGender(res.data.user.gender);
+      setPhoneNumber(res.data.user.phoneNumber);
+      const receivedGender = res.data.user.gender;
+      if (receivedGender === 1) {
+        setGender("Woman");
+      } else if (receivedGender === 2) {
+        setGender("Man");
+      } else if (receivedGender === 3) {
+        setGender("Other");
+      }
       setEmail(res.data.user.email);
-      setUserId(res.data.user.userId);
     });
-  }, [name, username, gender, userId, email]);
+  }, []);
 
   useEffect(() => {
     axiosInstance.get(`v1/user/addresses`).then((res) => {
-      // setAddress(res);
       console.log(res);
     });
   }, [address]);
-  // const handleUpload = () => {
-  //   const file = uploadInputRef.current.files[0];
-  // };
   const convertFileToBase64 = (file) => {
     return new Promise((resolve, reject) => {
       const fileReader = new FileReader();
@@ -99,22 +131,6 @@ function UserProfile() {
       };
     });
   };
-  // const setImageCode = () => {
-  //   imageCode: base64Avatar
-  // }
-  // const setAvatarRef = async () => {
-  //   const file = uploadInputRef.current.files[0];
-  //   const SizeMb = uploadInputRef.current.files[0].size / 1024 ** 2;
-  //   const SizeKb = SizeMb * 1000;
-  //   if (SizeKb <= 300) {
-  //     const base64Avatar = await convertFileToBase64(file);
-  //     setImageSizeErr(false);
-  //     setImageCode(base64Avatar || "");
-  //   } else {
-  //     setImageSizeErr(true);
-  //     // toast.warning("حجم تصویر حداکثر باید 300 کیلوبایت باشد.");
-  //   }
-  // };
   const setAvatar = async (e) => {
     const file = e.target.files[0] || uploadInputRef.current.files[0];
     const SizeMb = e.target.files[0].size / 1024 ** 2;
@@ -125,17 +141,56 @@ function UserProfile() {
       setImageCode(base64Avatar || "");
     } else {
       setImageSizeErr(true);
-      // toast.warning("حجم تصویر حداکثر باید 300 کیلوبایت باشد.");
     }
   };
 
-  const handelEdit = async () => {
-    // if (isEditing) {
-    //   axiosInstance.get(`v1/user/me/`).then((res) => {
-    //     res;
-    //   });
-    // }
+  const handleEdit = () => {
+    setErrors({
+      name: false,
+      lastName: false,
+      username: false,
+      email: false,
+      phoneNumber: false,
+    });
     setIsEditing(!isEditing);
+  };
+  const handleSave = () => {
+    if (!lastName) {
+      setErrors((prevError) => ({ ...prevError, lastName: true }));
+      return;
+    }
+    if (!name) {
+      setErrors((prevError) => ({ ...prevError, name: true }));
+      return;
+    }
+    if (!username) {
+      setErrors((prevError) => ({ ...prevError, username: true }));
+      return;
+    }
+    if (!email || !isValidEmail(email)) {
+      setErrors((prevError) => ({ ...prevError, email: true }));
+      return;
+    }
+    if (!phoneNumber || !isValidPhoneNumber(phoneNumber)) {
+      setErrors((prevError) => ({ ...prevError, phoneNumber: true }));
+      return;
+    }
+    const payload = {
+      name,
+      last_name: lastName,
+      username,
+      email,
+      phoneNumber,
+    };
+    axiosInstance
+      .patch("v1/user/me/", payload)
+      .then((res) => {
+        console.log(res.data);
+        setIsEditing(false);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
   };
   const handleMenuClick = (menu) => {
     setSelectedMenu(menu);
@@ -197,16 +252,6 @@ function UserProfile() {
                               </span>
                             </div>
                           )}
-
-                          {/* <Box className="add-user-center-element">
-                            <TalebiButton
-                              text="ChoosePicture"
-                              sx={{ width: "100%" }}
-                              variant="contained"
-                              component="label"
-                              onClick={() => setAvatarRef()}
-                            />
-                          </Box> */}
                           <Box className="add-user-center-element">
                             <Button
                               sx={{ mt: 1, width: "100%" }}
@@ -223,198 +268,150 @@ function UserProfile() {
                         </Grid>
                         <Grid
                           container
-                          item
-                          flexDirection="row-reverse"
-                          flexWrap="nowrap"
-                          sx={{
-                            pl: 2,
-                            display: "flex",
-                            justifyContent: "center",
-                          }}
-                          spacing={3}
+                          spacing={2}
+                          columns={16}
+                          sx={{ justifyContent: "center", my: 1 }}
                         >
                           <Grid item>
-                            <Grid
-                              container
-                              flexDirection="row-reverse"
-                              sx={{ pb: 2 }}
-                            >
-                              <TextField
-                                required
-                                id="outlined-required"
-                                label="Last Name"
-                                value={lastName}
-                                size="small"
-                                disabled={!isEditing}
-                                inputProps={{
-                                  style: {
-                                    height: "36px",
-                                    width: "209px",
-                                  },
-                                }}
-                              />
-                            </Grid>
-                            <Grid
-                              container
-                              flexDirection="row-reverse"
-                              sx={{ pb: 2 }}
-                            >
-                              <TextField
-                                required
-                                id="outlined-required"
-                                label="Email"
-                                value={email}
-                                size="small"
-                                disabled={!isEditing}
-                                // sx={{ height: "300px" }}
-                                inputProps={{
-                                  style: {
-                                    height: "35px",
-                                    width: "209px",
-                                  },
-                                }}
-                              />
-                            </Grid>
-                            <Grid
-                              container
-                              flexDirection="row-reverse"
-                              sx={{ pb: 2 }}
-                            >
-                              <TextField
-                                required
-                                id="outlined-required"
-                                label="Phone Number"
-                                value={phoneNumber}
-                                size="small"
-                                disabled={!isEditing}
-                                inputProps={{
-                                  style: {
-                                    height: "35px",
-                                    width: "209px",
-                                  },
-                                }}
-                              />
-                            </Grid>
-                            {/* <Grid
-                              container
-                              flexDirection="row-reverse"
-                              sx={{ pb: 2 }}
-                            >
-                              <TextField
-                                required
-                                id="outlined-required"
-                                label="Change Password"
-                                value={changePassword}
-                                size="small"
-                                disabled={!isEditing}
-                                inputProps={{
-                                  style: {
-                                    height: "35px",
-                                    width: "209px",
-                                  },
-                                }}
-                              />
-                            </Grid> */}
+                            <TextField
+                              required
+                              id="outlined-required"
+                              label="First Name"
+                              value={name}
+                              size="small"
+                              disabled={!isEditing}
+                              onChange={(e) => setName(e.target.value)}
+                              error={errors.name}
+                              helperText={
+                                errors.name ? "Name is required." : ""
+                              }
+                              inputProps={{
+                                style: {
+                                  height: "35px",
+                                  width: "210px",
+                                },
+                              }}
+                            />
                           </Grid>
-                          <Grid item sx={{ pl: 2 }}>
-                            <Grid
-                              container
-                              flexDirection="row-reverse"
-                              sx={{ pb: 2 }}
-                            >
-                              <TextField
-                                required
-                                id="outlined-required"
-                                label="First Name"
-                                value={name}
-                                size="small"
-                                disabled={!isEditing}
-                                inputProps={{
-                                  style: {
-                                    height: "35px",
-                                    width: "209px",
-                                  },
-                                }}
-                              />
-                            </Grid>
-                            <Grid
-                              container
-                              flexDirection="row-reverse"
-                              sx={{ pb: 2 }}
-                            >
-                              <TextField
-                                required
-                                id="outlined-required"
-                                label="User Name"
-                                value={username}
-                                size="small"
-                                disabled={!isEditing}
-                                inputProps={{
-                                  style: {
-                                    height: "36px",
-                                    width: "209px",
-                                  },
-                                }}
-                              />
-                            </Grid>
-                            <Grid
-                              container
-                              flexDirection="row-reverse"
-                              sx={{ pb: 2 }}
-                            >
-                              {/* <TextField
-                                required
-                                id="outlined-required"
-                                label="Birthdate"
-                                value={birthdate}
-                                size="small"
-                                disabled={!isEditing}
-                              /> */}
-                              {/* <LocalizationProvider dateAdapter={AdapterDayjs}>
-                                <DemoContainer components={["DatePicker"]}> */}
-                              {/* <DatePicker
-                                label="Birthdate"
-                                value={birthdate}
-                                onChange={(newValue) => setBirthdate(newValue)}
-                                disabled={!isEditing}
-                              /> */}
-                              {/* </DemoContainer>
-                              </LocalizationProvider> */}
-                              <TextField
-                                required
-                                id="outlined-required"
-                                label="Gender"
+                          <Grid item>
+                            <TextField
+                              required
+                              id="outlined-required"
+                              label="Last Name"
+                              value={lastName}
+                              size="small"
+                              disabled={!isEditing}
+                              onChange={(e) => setLastName(e.target.value)}
+                              error={errors.lastName}
+                              helperText={
+                                errors.lastName ? "Last Name is required." : ""
+                              }
+                              inputProps={{
+                                style: {
+                                  height: "35px",
+                                  width: "210px",
+                                },
+                              }}
+                            />
+                          </Grid>
+                        </Grid>
+                        <Grid
+                          container
+                          spacing={2}
+                          columns={16}
+                          sx={{ justifyContent: "center", my: 1 }}
+                        >
+                          <Grid item>
+                            <TextField
+                              required
+                              id="outlined-required"
+                              label="User Name"
+                              value={username}
+                              size="small"
+                              disabled={!isEditing}
+                              onChange={(e) => setUsername(e.target.value)}
+                              error={errors.username}
+                              helperText={
+                                errors.username ? "Invalid userName." : ""
+                              }
+                              inputProps={{
+                                style: {
+                                  height: "35px",
+                                  width: "210px",
+                                },
+                              }}
+                            />
+                          </Grid>
+                          <Grid item>
+                            <TextField
+                              required
+                              id="outlined-required"
+                              label="Email"
+                              value={email}
+                              size="small"
+                              disabled={!isEditing}
+                              onChange={(e) => setEmail(e.target.value)}
+                              error={errors.email}
+                              helperText={
+                                errors.email ? "Invalid email address." : ""
+                              }
+                              inputProps={{
+                                style: {
+                                  height: "35px",
+                                  width: "210px",
+                                },
+                              }}
+                            />
+                          </Grid>
+                        </Grid>
+                        <Grid
+                          container
+                          spacing={2}
+                          columns={16}
+                          sx={{ justifyContent: "center", my: 1 }}
+                        >
+                          <Grid item>
+                            <FormControl>
+                              <InputLabel id="demo-simple-select-label">
+                                Gender
+                              </InputLabel>
+                              <Select
+                                labelId="demo-simple-select-label"
+                                id="demo-simple-select"
                                 value={gender}
-                                size="small"
+                                label="Gender"
+                                onChange={handleSelectChange}
                                 disabled={!isEditing}
-                                inputProps={{
-                                  style: {
-                                    height: "35px",
-                                    width: "209px",
-                                  },
-                                }}
-                              />
-                            </Grid>
-                            {/* <Grid
-                              container
-                              flexDirection="row-reverse"
-                              sx={{ pb: 2 }}
-                            >
-                              <TextField
-                                required
-                                id="outlined-required"
-                                label="Password"
-                                value={password}
-                                size="small"
-                                disabled={!isEditing}
-                                inputProps={{
-                                  style: {
-                                    height: "35px",
-                                    width: "209px",
-                                  },
-                                }}
-                              />
-                            </Grid> */}
+                                style={{ height: "52px", width: "242px" }}
+                              >
+                                <MenuItem value="Woman">Woman</MenuItem>
+                                <MenuItem value="Man">Man</MenuItem>
+                                <MenuItem value="Other">Other</MenuItem>
+                              </Select>
+                            </FormControl>
+                          </Grid>
+                          <Grid item>
+                            <TextField
+                              required
+                              id="outlined-required"
+                              label="Phone Number"
+                              value={phoneNumber}
+                              size="small"
+                              disabled={!isEditing}
+                              onChange={(e) => setPhoneNumber(e.target.value)}
+                              error={errors.phoneNumber}
+                              helperText={
+                                errors.phoneNumber
+                                  ? "Invalid phone number."
+                                  : ""
+                              }
+                              inputProps={{
+                                style: {
+                                  height: "35px",
+                                  width: "210px",
+                                },
+                              }}
+                            />
                           </Grid>
                         </Grid>
                         <Grid
@@ -422,18 +419,10 @@ function UserProfile() {
                           flexDirection="row-reverse"
                           sx={{ pb: 2, justifyContent: "center" }}
                         >
-                          {/* <TalebiButton
-                            text="YourAdrress"
-                            sx={{ width: "50%" }}
-                            variant="contained"
-                            component="label"
-                            // onClick={() => setAvatarRef()}
-                          /> */}
                           <Button
                             variant="text"
                             color="success"
                             sx={{ width: "50%" }}
-                            // variant="contained"
                             component="label"
                             onClick={handleClickOpen}
                           >
@@ -441,12 +430,26 @@ function UserProfile() {
                           </Button>
                           <SimpleDialog open={open} onClose={handleClose} />
                         </Grid>
-                        <Grid>
-                          <TalebiButton
-                            variant="contained"
-                            onClick={handelEdit}
-                            text={isEditing ? "Save" : "Edit"}
-                          />
+                        <Grid container justifyContent="center">
+                          <Grid item>
+                            {isEditing ? (
+                              <Button
+                                variant="contained"
+                                color="primary"
+                                onClick={handleSave}
+                              >
+                                Save
+                              </Button>
+                            ) : (
+                              <Button
+                                variant="contained"
+                                color="primary"
+                                onClick={handleEdit}
+                              >
+                                Edit
+                              </Button>
+                            )}
+                          </Grid>
                         </Grid>
                       </Grid>
                     </Grid>
@@ -593,25 +596,14 @@ function UserProfile() {
 function SimpleDialog(props) {
   const { onClose, selectedValue, open } = props;
   const [isEditing, setIsEditing] = useState(false);
-  const [addresses, setAddresses] = useState({});
+  const [addresses, setAddresses] = useState([]);
   const [me, setMe] = useState("");
-
-  // const payload = Object.entries(addresses).map(([]) => ({
-  //   address: "djfhbvd d",
-  //   label: "Your label value",
-  //   owner: me,
-  //   is_active: true,
-  // }));
-
-  // const requestData = Object.values(payload);
   useEffect(() => {
     axiosInstance.get(`v1/user/me/`).then((res) => {
-      // console.log("me", res.data.user.id);
       setMe(res.data.user.id);
     });
     axiosInstance.get(`v1/user/addresses`).then((res) => {
       setAddresses(res.data);
-      // console.log("sdghj", res.data);
     });
   }, []);
   useEffect(() => {
@@ -624,7 +616,6 @@ function SimpleDialog(props) {
       })
       .then((res) => {
         console.log("POST request successful:", res.data);
-        // console.log("sdghj", res.data);
       });
   }, [me]);
   const handleClose = () => {
@@ -640,8 +631,9 @@ function SimpleDialog(props) {
     }
   };
 
-  const handleChangeAddress = (id, value) => {
-    const updatedAddresses = { ...addresses, [id]: value };
+  const handleChangeAddress = (index, value) => {
+    const updatedAddresses = [...addresses];
+    updatedAddresses[index] = value;
     setAddresses(updatedAddresses);
   };
 
@@ -655,9 +647,9 @@ function SimpleDialog(props) {
                 required
                 id={`outlined-required-${id}`}
                 label="Address"
-                value={address}
+                value={typeof address === "object" ? "" : address}
                 size="small"
-                disabled={!isEditing}
+                disabled={isEditing}
                 inputProps={{
                   style: {
                     height: "37px",
