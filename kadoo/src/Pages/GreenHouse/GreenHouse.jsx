@@ -1,12 +1,14 @@
 import AddIcon from "@mui/icons-material/Add";
 import { Box, Button } from "@mui/material";
 import { React, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 import GreenHouseCard from "../../Components/GreenHouse/GreenHouseCard";
 import axiosInstance from "../../Utils/axios";
 
 export default function GreenHouse() {
   const [plants, setPlants] = useState([]);
+  const navigate = useNavigate();
   // const [me, setMe] = useState("");
   // get plants
   useEffect(async () => {
@@ -16,27 +18,9 @@ export default function GreenHouse() {
       console.log(res);
     });
   }, []);
-
-  // post plants
-  // useEffect(async () => {
-  //   axiosInstance.get(`v1/user/me`).then((res) => {
-  //     setMe(res.data.user.id);
-  //   });
-  // }, []);
-  // useEffect(() => {
-  //   axiosInstance.post(`v1/green_house/user-plants/`, {
-  //     is_active: true,
-  //     nickname: "narges",
-  //     description: "kjfbvjkndf",
-  //     image_url: "https://picsum.photos/200/300",
-  //     address: "homeeee",
-  //     has_calendar: true,
-  //     user: me,
-  //   });
-  //   // .then((res) => {
-  //   //   console.log(res);
-  //   // });
-  // }, [me]);
+  const handleAddNewPlant = () => {
+    navigate("/GreenHouseNew");
+  };
 
   return (
     <Box display="flex" flexWrap="wrap" gap="20px">
@@ -56,7 +40,15 @@ export default function GreenHouse() {
         <Button
           variant="contained"
           color="primary"
-          sx={{ borderRadius: "50%" }}
+          sx={{
+            borderRadius: "50%",
+            width: "56px",
+            height: "56px",
+            minWidth: "unset",
+            minHeight: "unset",
+            padding: "0",
+          }}
+          onClick={handleAddNewPlant}
         >
           <AddIcon sx={{ fontSize: "2rem" }} />
         </Button>

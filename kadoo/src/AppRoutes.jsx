@@ -19,6 +19,7 @@ import GreenHouse from "./Pages/GreenHouse/GreenHouse";
 // import GreenHouseEdit from "./Pages/GreenHouseEdit";
 // import HomePage from "./Pages/HomePage";
 import GreenHouseEdit from "./Pages/GreenHouse/GreenHouseEdit";
+import GreenHouseNew from "./Pages/GreenHouse/GreenHouseNew";
 import HomePageRefactored from "./Pages/HomePage/HomePage";
 import LandingPage from "./Pages/LandingPage";
 import NotFound from "./Pages/NotFound";
@@ -111,6 +112,7 @@ function AppRoutes() {
       <Route path="/UserProfile" exact element={<UserProfile />} />
       <Route path="/offer" element={<OfferPage />} />
       <Route path="/greenHouseEdit/:id" element={<GreenHouseEdit />} />
+      <Route path="/GreenHouseNew" element={<GreenHouseNew />} />
       <Route exact element={<NotFound />} />
     </Routes>
   );
