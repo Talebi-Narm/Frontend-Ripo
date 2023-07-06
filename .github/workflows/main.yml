@@ -16,11 +16,15 @@ jobs:
           username: ${{ secrets.SSH_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
-            cd ${{ secrets.WORK_DIR }}
+            cd ${{ secrets.SECOND_WORK_DIR }}
             docker compose down
+
+            cd ${{ secrets.FIRST_WORK_DIR }}
             git reset HEAD --hard
             git checkout ${{ secrets.MAIN_BRANCH }}
             git pull
+            
+            cd ${{ secrets.SECOND_WORK_DIR }}
             docker compose up --build
       - name: cleanup
         run: rm -rf ~/.ssh
