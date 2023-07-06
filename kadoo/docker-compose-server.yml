@@ -3,7 +3,7 @@ version: '3.7'
 services:
   sample:
     container_name: sample
-    image: navid2001mousavi/talebi-front
+    image: navid2001mousavi/talebi-front:latest
     volumes:
       - '.:/app'
       - '/app/node_modules'
