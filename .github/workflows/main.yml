@@ -31,30 +31,4 @@ jobs:
           context: .
           file: ./kadoo/dockerfile2
           push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/talebi-front:lastest
-
-
-  deploy-front:
-    name: deploy front
-    runs-on: ubuntu-latest
-    needs: build-front
-    steps:
-      - name: deploy
-        uses: appleboy/ssh-action@v0.1.10
-        with:
-          host: ${{ secrets.SSH_HOST }}
-          username: ${{ secrets.SSH_USER }}
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
-          script: |
-            cd ${{ secrets.SECOND_WORK_DIR }}
-            docker compose down
-
-            cd ${{ secrets.FIRST_WORK_DIR }}
-            git reset HEAD --hard
-            git checkout ${{ secrets.MAIN_BRANCH }}
-            git pull
-
-            cd ${{ secrets.SECOND_WORK_DIR }}
-            docker compose -f docker-compose-server.yml up --build -d
-      - name: cleanup
-        run: rm -rf ~/.ssh
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/talebi-front:latest
