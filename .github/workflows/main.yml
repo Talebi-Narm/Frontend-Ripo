@@ -31,7 +31,7 @@ jobs:
           context: .
           file: ./kadoo/dockerfile2
           push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/talebi-front:lastest
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/talebi-front:latest
 
 
   deploy-front:
