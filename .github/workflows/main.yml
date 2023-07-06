@@ -55,6 +55,6 @@ jobs:
             git pull
 
             cd ${{ secrets.SECOND_WORK_DIR }}
-            docker compose up --build -d
+            docker compose -f docker-compose-server.yml up --build -d
       - name: cleanup
         run: rm -rf ~/.ssh
