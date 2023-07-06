@@ -16,3 +16,4 @@ services:
     command: sh -c "npm install && npm start"
     environment:
       - CHOKIDAR_USEPOLLING=true
+      - NODE_OPTIONS="--max-old-space-size=4096"
