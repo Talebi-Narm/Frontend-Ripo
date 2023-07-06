@@ -6,7 +6,6 @@ services:
     image: navid2001mousavi/talebi-front:latest
     volumes:
       - '.:/app'
-      - '/app/node_modules'
     ports:
       - 2052:3000
       - 2053:3000
