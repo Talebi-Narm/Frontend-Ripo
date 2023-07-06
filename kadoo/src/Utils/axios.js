@@ -36,6 +36,14 @@ axiosInstance.interceptors.response.use(
       window.location.href = "/login/";
       return Promise.reject(error);
     }
+    if (
+      error.response.status === 401 &&
+      error.response.data.code === "token_not_valid"
+    ) {
+      // Redirect to login page if user is not logged in
+      window.location.href = "/login/";
+      return Promise.reject(error);
+    }
 
     if (
       error.response.data.code === "token_not_valid" &&
