@@ -1,0 +1,17 @@
+version: '3.7'
+
+services:
+  sample:
+    container_name: sample
+    image: navid2001mousavi/talebi-front
+    volumes:
+      - '.:/app'
+      - '/app/node_modules'
+    ports:
+      - 2052:3000
+      - 2053:3000
+      - 3001:3000
+    command: sh -c "npm install && npm start"
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+      - NODE_OPTIONS="--max-old-space-size=4096"
