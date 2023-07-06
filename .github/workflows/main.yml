@@ -23,8 +23,8 @@ jobs:
             git reset HEAD --hard
             git checkout ${{ secrets.MAIN_BRANCH }}
             git pull
-            
+
             cd ${{ secrets.SECOND_WORK_DIR }}
-            docker compose up --build
+            docker compose up --build -d
       - name: cleanup
         run: rm -rf ~/.ssh
