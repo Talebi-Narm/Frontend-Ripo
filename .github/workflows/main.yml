@@ -6,8 +6,8 @@ on:
 
 jobs:
 
-build-service:
-    name: build service image
+  build-front:
+    name: build front image
     runs-on: ubuntu-latest
     steps:
       - name: checkout main
@@ -37,6 +37,7 @@ build-service:
   deploy-front:
     name: deploy front
     runs-on: ubuntu-latest
+    needs: build-front
     steps:
       - name: deploy
         uses: appleboy/ssh-action@v0.1.10
