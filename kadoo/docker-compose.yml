@@ -13,5 +13,6 @@ services:
       - 2052:3000
       - 2053:3000
       - 3001:3000
+    command: sh -c "npm install && npm start"
     environment:
       - CHOKIDAR_USEPOLLING=true
