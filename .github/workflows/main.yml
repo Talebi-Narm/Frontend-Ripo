@@ -48,6 +48,7 @@ jobs:
           script: |
             cd ${{ secrets.SECOND_WORK_DIR }}
             docker compose down
+            docker image rm navid2001mousavi/talebi-front:latest
 
             cd ${{ secrets.FIRST_WORK_DIR }}
             git reset HEAD --hard
