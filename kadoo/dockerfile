@@ -5,6 +5,8 @@ WORKDIR /app
 
 # add `/app/node_modules/.bin` to $PATH
 ENV PATH /app/node_modules/.bin:$PATH
+ENV CHOKIDAR_USEPOLLING true
+ENV NODE_OPTIONS "--max-old-space-size=4096"
 
 # install app dependencies
 COPY package.json ./
