@@ -1,0 +1,27 @@
+name: front CI/CD
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  deploy-front:
+    name: deploy front
+    runs-on: ubuntu-latest
+    needs: build-service
+    steps:
+      - name: deploy
+        uses: appleboy/ssh-action@v0.1.10
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            cd ${{ secrets.WORK_DIR }}
+            docker compose down
+            git reset HEAD --hard
+            git checkout ${{ secrets.MAIN_BRANCH }}
+            git pull
+            docker compose up --build
+      - name: cleanup
+        run: rm -rf ~/.ssh
