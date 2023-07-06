@@ -1,0 +1,315 @@
+$primery: #00c853 !default;
+$secondary: #ffeb3b !default;
+$landingGreen:#708b2c ;
+
+
+
+
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@700&display=swap');
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    // font-family: 'New Century Schoolbook' ;
+}
+.AppBar{
+    color: "#282c34" !important;
+}
+
+.header{
+    align-items: center;
+}
+
+.css-1oqqzyl-MuiContainer-root{
+    height: 100vh;
+    padding-top: 3px;
+}
+
+.css-hip9hq-MuiPaper-root-MuiAppBar-root {
+    background-color:#212121 !important;
+    color: $landingGreen !important;
+    justify-content: center o !important;
+}
+
+.css-1rwt2y5-MuiButtonBase-root-MuiButton-root:hover {
+    border-color: $landingGreen !important;
+    color: $landingGreen !important;
+}
+
+.css-1rwt2y5-MuiButtonBase-root-MuiButton-root {
+    color: #7FC7AD !important;
+    border-color: #7FC7AD !important;
+    margin-left: 10px !important;
+}
+
+.BlackBackground{
+    background-color: black !important;
+}
+
+.h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6 {
+    margin-bottom: 0rem !important;
+}
+
+.KadooAnimation{
+    position: relative;
+    font-size: 10vw;
+    color: $landingGreen;
+    -webkit-text-stroke: 0.3vw #7d7d80;
+    text-transform: uppercase;
+}
+
+.KadooAnimation::before{
+    content: attr(data-text);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0;
+    color: #212121;
+    -webkit-text-stroke: 0vw #7d7d80;
+    overflow: hidden;
+    animation: animate 6s linear infinite;
+}
+
+@keyframes animate {
+    0%,10%,100%{
+        width: 0;
+    }
+    70%,90%{
+        width: 100%;
+    }
+}
+
+.background{
+    background-color: #212121;
+}
+
+.Box1{
+    align-items: center !important;
+    justify-content: center !important;
+    display: flex !important;
+    height: 80vh;
+}
+
+.Button{
+    position: relative !important;
+    display: inline-block !important;
+    padding: 10px 30px !important;
+    color: #fff !important;
+    background-color: rgba(184, 224, 210, 1) !important;
+    text-decoration: none !important;
+    text-transform: uppercase !important;
+    font-size: 16px !important;
+    letter-spacing: 2px !important;
+    transition: 0.5s !important;
+}
+
+.Button:hover{
+    color: rgba(97, 97, 97, 1) !important;
+}
+
+.Button span
+{
+    display: block;
+    position: absolute;
+    background: #616161;
+}
+
+.Button span:nth-child(1)
+{
+    left: 0;
+    bottom: 0;
+    width: 2px;
+    height: 100%;
+    transform: scaleY(0);
+    transform-origin: top;
+    transition: transform 0.5s;
+}
+
+.Button:hover span:nth-child(1)
+{
+    transform: scaleY(1);
+    transform-origin: bottom;
+    transition: transform 0.5s;
+}
+
+.Button span:nth-child(2)
+{
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 2px;
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 0.5s;
+}
+
+.Button:hover span:nth-child(2)
+{
+    transform: scaleX(1);
+    transform-origin: left;
+    transition: transform 0.5s;
+}
+
+.Button span:nth-child(3)
+{
+    right: 0;
+    bottom: 0;
+    width: 2px;
+    height: 100%;
+    transform: scaleY(0);
+    transform-origin: top;
+    transition: transform 0.5s;
+}
+
+.Button:hover span:nth-child(3)
+{
+    transform: scaleY(1);
+    transform-origin: bottom;
+    transition: transform 0.5s;
+}
+
+.Button span:nth-child(4)
+{
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 2px;
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 0.5s;
+}
+
+.Button:hover span:nth-child(4)
+{
+    transform: scaleX(1);
+    transform-origin: left;
+    transition: transform 0.5s;
+}
+
+.Introduction{
+    margin-left: 10%;
+    margin-right: 10%;
+}
+
+.css-1ri6ub7-MuiPaper-root-MuiCard-root{
+    background-color:rgba(0,0,0,0.5) !important;
+}
+
+.Span{
+    color: #7FC7AD !important;
+}
+
+.TypographyKadoo{
+    font-weight: 800;
+    padding-bottom: 5%;
+    align-items: center !important;
+    justify-content: center !important;
+    display: flex !important;
+}
+
+.Card{
+    max-width: 100%;
+}
+
+.Container{
+    max-height: fit-content !important;
+}
+
+.GridContactUs{
+    align-items: center !important;
+    justify-content: center !important;
+    display: flex !important;
+}
+
+.Avatars{
+    margin-top: 4% !important;
+}
+
+.ContactUs{
+    color: #8c7fc7 !important;
+}
+
+.css-147bo66-MuiSvgIcon-root{
+    color: #7FC7AD !important;
+}
+
+.AboutUsTxt{
+    margin-top: 8% !important;
+    justify-content: center !important;
+    display: flex !important;
+    align-items: center !important;
+}
+
+.react-multi-carousel-item{
+    margin-left: 2% !important;
+    margin-right: 2% !important;
+}
+
+.Icons{
+    margin-top: 2% !important;
+}
+
+.Info{
+    margin-top: 4%;
+}
+
+.Carousel{
+    margin-top: 6%;
+    margin-left: 3%;
+    margin-right: 3%;
+}
+
+
+
+.t-members{
+    color: black !important;
+}
+.Landing-title{
+    text-align: center !important;
+}
+.Landing-title-name{
+    font-size: 100px;
+    align-self: center !important;
+    // font-family: 'Times New Roman', Times, serif;
+    font-family: "Comic Neue";
+    color: black;
+}
+.Landing-Button{
+    color: #708b2c; 
+    font-family: "Comic Neue";
+    text-decoration: underline !important;
+}
+
+.Landing-appbar{
+    background-color: white !important;
+    padding: 20px;
+    padding-bottom: 5px;
+    // padding-top: 0px;
+    // margin-top: 0px !important;
+}
+.Landing-appbar-item{
+    font-size:20px !important;
+    color: $landingGreen;
+    text-align: center;
+    text-decoration: underline !important;
+    font-family: "Comic Neue";
+    padding-right: 15px;
+    padding-left: 15px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+.Landing-appbar-item:hover{
+    background-color: $landingGreen;
+    border-radius: 25px;
+    color: white;
+    text-decoration: none !important;
+}
+.Landing-appbar-title{
+    color: #212121;
+    font-size: 30px !important;
+    padding-left: 30px;
+}
+// .landing-titles{
+//     font-size: 30px ;
+// }

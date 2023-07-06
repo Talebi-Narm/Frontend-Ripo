@@ -1,0 +1,27 @@
+.showProductsBack {
+  margin-left: 1rem;
+  margin-right: 1rem;
+  margin-top: 1rem;
+  border-radius: 8px;
+  padding-left: 2rem;
+  padding-right: 2rem;
+  padding-top: 0.25rem;
+  background-color: rgb(245, 244, 244);
+}
+
+.wrapper {
+  padding-bottom: 3%;
+}
+
+.showProductsIcons:hover {
+  background-color: rgb(248, 250, 248);
+  transition: all 0.3s ease-in;
+}
+
+.showProductSubs {
+  display: flex;
+  padding-top: 1rem;
+  padding-bottom: 0.8rem;
+  font-size: 25px;
+  font-weight: bolder;
+}

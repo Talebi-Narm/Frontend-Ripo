@@ -1,0 +1,208 @@
+.ProductPage {
+  background-color: rgb(230, 227, 227);
+  height: 100vh;
+  padding-left: 10%;
+  padding-right: 10%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.ProductPageProductContainer {
+  min-height: 30rem;
+  border-radius: 15px;
+}
+
+.ProductPageImageContainer {
+  background-color: #ebf7f6;
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+@media (min-width: 901px) {
+  .front .mui-image-wrapper {
+    width: 100% !important;
+    height: 100% !important;
+  }
+
+  .BgText {
+    background-color: whitesmoke;
+    border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 0px;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+  }
+}
+
+@media (min-width: 0px) and (max-width: 900px) {
+  .front .mui-image-wrapper {
+    width: 80% !important;
+    height: 80% !important;
+  }
+
+  .BgText {
+    background-color: whitesmoke;
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+  }
+}
+
+.mainImage {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+.widthResize {
+  width: calc(100% - 40px) !important;
+}
+
+.BringFront {
+  z-index: 5;
+}
+
+.blurred {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  filter: blur(5px) opacity(30%);
+}
+
+.blurred-tool {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  filter: blur(5px) opacity(0%);
+}
+
+.front {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+
+.productsPageAdd {
+  white-space: nowrap;
+  min-width: max-content;
+}
+
+.ProductPageImage {
+  object-fit: fit;
+  height: 400px;
+  width: 400px;
+}
+
+.TableContainer {
+  background-color: rgba(255, 255, 255, 0.726);
+  border-bottom-left-radius: 15px;
+  border-bottom-right-radius: 15px;
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+}
+
+.tempButton1 {
+  color: #ff9191;
+}
+
+.waterButton1 {
+  color: #a0d4f1;
+}
+
+.growButton1 {
+  color: #5ef09f;
+}
+
+.lightButton1 {
+  color: #fce61d;
+}
+
+.BgButton {
+  background-color: whitesmoke;
+  border-bottom-left-radius: 15px;
+  border-bottom-right-radius: 15px;
+  border-top-left-radius: 0px;
+  border-top-right-radius: 0px;
+}
+
+.BgChip {
+  background-color: rgb(255, 255, 255);
+  border-bottom-left-radius: 99px;
+  border-bottom-right-radius: 99px;
+  border-top-left-radius: 99px;
+  border-top-right-radius: 99px;
+}
+
+.PlantPageTitle {
+  font-size: 18px;
+  font-weight: bolder;
+  font-weight: 800 !important;
+}
+
+.ProductPageText {
+  font-size: 16px;
+  white-space: pre-line;
+}
+
+.ProductPageCounter {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ProductPageCounterMin {
+  border: 1px solid rgb(153, 153, 153);
+  border-top-left-radius: 3px;
+  border-bottom-left-radius: 3px;
+  width: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#demo-simple-select-label {
+  margin-right: 3px;
+}
+
+.ProductPageCounterMin:hover {
+  background-color: rgb(206, 206, 206);
+  transition: all 0.3s ease-in-out;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ProductPageCounterMin:active {
+  background-color: rgb(146, 146, 146);
+  transition: all 0.3s ease-in-out;
+}
+
+.ProductPageCounterPlu {
+  border: 1px solid rgb(153, 153, 153);
+  border-top-right-radius: 3px;
+  border-bottom-right-radius: 3px;
+  width: 1.5rem;
+}
+
+.ProductPageCounterPlu:hover {
+  background-color: rgb(206, 206, 206);
+  transition: all 0.3s ease-in-out;
+}
+
+.ProductPageCounterPlu:active {
+  background-color: rgb(146, 146, 146);
+  transition: all 0.3s ease-in-out;
+}
+.ProductPageCounterNum {
+  background-color: white;
+  border-bottom-left-radius: 99px;
+  border-bottom-right-radius: 99px;
+  border-top-left-radius: 99px;
+  border-top-right-radius: 99px;
+  width: 1.5rem;
+  text-align: center;
+  text-justify: auto;
+}
