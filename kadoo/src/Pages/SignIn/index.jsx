@@ -44,7 +44,6 @@ function SignIn() {
   const [name, setName] = useState("");
   const [lastName, setLastName] = useState("");
   const [token, setToken] = useState("");
-  const navigate = useNavigate();
   const handleChange = (e) => {
     updateFormData({
       ...formData,
