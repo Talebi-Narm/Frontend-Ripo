@@ -40,7 +40,9 @@ function CartProvider({ children }) {
     [cartCount, updateCartCount]
   );
   useEffect(() => {
-    fetchPlantCartInfo().then(() => fetchToolCartInfo());
+    if (window.localStorage.getItem("access_token")) {
+      fetchPlantCartInfo().then(() => fetchToolCartInfo());
+    }
   }, []);
 
   return (

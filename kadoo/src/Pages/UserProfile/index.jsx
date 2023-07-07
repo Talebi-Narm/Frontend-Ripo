@@ -30,8 +30,11 @@ import {
 import { Box, style } from "@mui/system";
 import PropTypes from "prop-types";
 import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 
 import SampleAvatar from "../../assets/Images/SampleProfile/sample-profile-pic.jfif";
+import BookmarksProducts from "../../Components/Bookmarks";
+import Orders from "../../Components/Orders";
 import Wallet from "../../Components/Wallet";
 import axiosInstance from "../../Utils/axios";
 
@@ -56,6 +59,14 @@ function UserProfile() {
   const [imageCode, setImageCode] = useState("");
   const uploadInputRef = React.useRef(null);
   const [open, setOpen] = React.useState(false);
+
+  const { orders } = useParams();
+
+  useEffect(() => {
+    if (orders) {
+      setSelectedMenu("history");
+    }
+  }, []);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -487,7 +498,7 @@ function UserProfile() {
             <Typography variant="h5" gutterBottom>
               Bookmarked Products
             </Typography>
-            {/* Render bookmarked products */}
+            <BookmarksProducts />
           </Paper>
         );
       case "wallet":
@@ -505,7 +516,7 @@ function UserProfile() {
             <Typography variant="h5" gutterBottom>
               Order History
             </Typography>
-            {/* Render order history */}
+            <Orders />
           </Paper>
         );
       default:

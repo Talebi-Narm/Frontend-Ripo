@@ -20,7 +20,7 @@ export default function Basket(props) {
     0
   );
   itemsPrice += toolCartItems.reduce(
-    (a, c) => a + c.count * c.plant_detail.price,
+    (a, c) => a + c.count * c.tool_detail.price,
     0
   );
   const taxPrice = itemsPrice * 0.09;
@@ -79,13 +79,13 @@ export default function Basket(props) {
                       }}
                       align="left"
                     >
-                      {row.plant_detail.name}
+                      {row.tool_detail.name}
                     </TableCell>
                     <TableCell align="center" sx={{ borderBottom: "none" }}>
                       {row.count}
                     </TableCell>
                     <TableCell align="center" sx={{ borderBottom: "none" }}>
-                      {`$${row.count * row.price}`}
+                      {`$${row.count * row.tool_detail.price}`}
                     </TableCell>
                   </TableRow>
                 ))}
