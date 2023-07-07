@@ -1,17 +1,15 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { Player } from "@lottiefiles/react-lottie-player";
 import { EmailRounded, VpnKey } from "@mui/icons-material";
+// eslint-disable-next-line import/order
 import { Grid, TextField, InputAdornment, Box, Button } from "@mui/material";
 // eslint-disable-next-line import/no-extraneous-dependencies
-// import MuiAlert from "@mui/material/Alert";
-// import Snackbar from "@mui/material/Snackbar";
+
 import { gapi } from "gapi-script";
 import React, { useState, useEffect } from "react";
 // eslint-disable-next-line no-unused-vars
 import { useNavigate } from "react-router-dom";
 
-// import Background from "../../assets/Images/SignIn/signInBG.png";
-// import { CustomButton } from "../../Components/CustomButton/Button";
 import Text from "../../Components/Text";
 
 import "./style.scss";
@@ -60,8 +58,7 @@ function SignIn() {
   //   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
   // });
   const postLoginGoogle = () => {
-    fetch("http://localhost:8000/api/v1/user/google-login", {
-      // fetch("https://service.talebi-narm.ir/api/v1/user/google-login", {
+    fetch("https://service.talebi-narm.ir/api/v1/user/google-login", {
       method: "POST",
       headers: {
         accept: "application/json",

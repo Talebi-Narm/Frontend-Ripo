@@ -3,6 +3,7 @@ import { Box, Button } from "@mui/material";
 import { React, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
+import plantpic from "../../assets/Images/GreenHouse/plant.png";
 import GreenHouseCard from "../../Components/GreenHouse/GreenHouseCard";
 import axiosInstance from "../../Utils/axios";
 
@@ -16,10 +17,20 @@ export default function GreenHouse() {
       setPlants(res.data);
       console.log(res);
     });
+    // eslint-disable-next-line no-use-before-define
+    updatePlantImages();
   }, []);
   const handleAddNewPlant = () => {
     navigate("/GreenHouseNew");
   };
+  function updatePlantImages() {
+    return plants.map((plant) => {
+      if (plant.image_url === null) {
+        return { ...plant, image_url: URL.createObjectURL(plantpic) };
+      }
+      return plant;
+    });
+  }
 
   return (
     <Box display="flex" flexWrap="wrap" gap="20px">

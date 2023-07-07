@@ -35,6 +35,7 @@ export default function GreenHouseCard(props) {
     <Card
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
+      className="fixed-card-size"
       sx={{
         height: "100%",
         maxWidth: "300px",
