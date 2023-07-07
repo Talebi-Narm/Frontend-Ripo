@@ -147,7 +147,8 @@ function SignIn() {
             localStorage.setItem("refresh_token", data.refresh);
             setFlagData(!flagData);
           });
-          showToast("User logined", "success");
+          // showToast("User logined", "success");
+          navigate("/Homepage");
         } else {
           throw response;
         }
