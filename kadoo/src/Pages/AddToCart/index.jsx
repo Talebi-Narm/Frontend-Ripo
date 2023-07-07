@@ -167,6 +167,7 @@ function AddtoCart() {
       .then((res) => {
         if (res.status === 200 || res.status === 201) {
           showToast("Checedout!", "success");
+          window.location.href = "/UserProfile/orders";
         }
       });
   };

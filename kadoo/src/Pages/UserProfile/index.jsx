@@ -34,6 +34,7 @@ import { useParams } from "react-router-dom";
 
 import SampleAvatar from "../../assets/Images/SampleProfile/sample-profile-pic.jfif";
 import BookmarksProducts from "../../Components/Bookmarks";
+import Orders from "../../Components/Orders";
 import Wallet from "../../Components/Wallet";
 import axiosInstance from "../../Utils/axios";
 
@@ -493,7 +494,7 @@ function UserProfile() {
             <Typography variant="h5" gutterBottom>
               Order History
             </Typography>
-            {/* Render order history */}
+            <Orders />
           </Paper>
         );
       default:
