@@ -146,7 +146,9 @@ function SignIn() {
             setFlagData(!flagData);
           });
           // showToast("User logined", "success");
-          navigate("/Homepage");
+          setTimeout(() => {
+            window.location.href = "/Homepage";
+          }, 5000);
         } else {
           throw response;
         }
