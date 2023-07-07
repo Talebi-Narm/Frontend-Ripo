@@ -30,8 +30,11 @@ import {
 import { Box, style } from "@mui/system";
 import PropTypes from "prop-types";
 import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 
 import SampleAvatar from "../../assets/Images/SampleProfile/sample-profile-pic.jfif";
+import BookmarksProducts from "../../Components/Bookmarks";
+import Orders from "../../Components/Orders";
 import Wallet from "../../Components/Wallet";
 import axiosInstance from "../../Utils/axios";
 
@@ -56,6 +59,14 @@ function UserProfile() {
   const [imageCode, setImageCode] = useState("");
   const uploadInputRef = React.useRef(null);
   const [open, setOpen] = React.useState(false);
+
+  const { orders } = useParams();
+
+  useEffect(() => {
+    if (orders) {
+      setSelectedMenu("history");
+    }
+  }, []);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -94,6 +105,29 @@ function UserProfile() {
         console.error(error);
       });
   };
+  useEffect(() => {
+    const updateUser = async () => {
+      try {
+        await axiosInstance.put("v1/user/me/", {
+          first_name: "deniz",
+          last_name: "ahmadi",
+          phone_number: "+989022147444",
+          email: "a@gmail.com",
+          gender: "2",
+        });
+
+        axiosInstance.defaults.headers.Authorization = `JWT ${localStorage.getItem(
+          "access_token"
+        )}`;
+        console.log("User updated successfully.");
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    updateUser();
+  }, [name, lastName, phoneNumber, email, gender]);
+
   useEffect(() => {
     axiosInstance.get(`v1/user/me/`).then((res) => {
       console.log(res.data.user);
@@ -155,42 +189,41 @@ function UserProfile() {
     setIsEditing(!isEditing);
   };
   const handleSave = () => {
-    if (!lastName) {
-      setErrors((prevError) => ({ ...prevError, lastName: true }));
-      return;
-    }
-    if (!name) {
-      setErrors((prevError) => ({ ...prevError, name: true }));
-      return;
-    }
-    if (!username) {
-      setErrors((prevError) => ({ ...prevError, username: true }));
-      return;
-    }
+    //   if (!lastName) {
+    //     setErrors((prevError) => ({ ...prevError, lastName: true }));
+    //     return;
+    //   }
+    //   if (!name) {
+    //     setErrors((prevError) => ({ ...prevError, name: true }));
+    //     return;
+    //   }
+    //   if (!username) {
+    //     setErrors((prevError) => ({ ...prevError, username: true }));
+    //     return;
+    //   }
     if (!email || !isValidEmail(email)) {
       setErrors((prevError) => ({ ...prevError, email: true }));
       return;
     }
     if (!phoneNumber || !isValidPhoneNumber(phoneNumber)) {
       setErrors((prevError) => ({ ...prevError, phoneNumber: true }));
-      return;
     }
-    const payload = {
-      name,
-      last_name: lastName,
-      username,
-      email,
-      phoneNumber,
-    };
-    axiosInstance
-      .patch("v1/user/me/", payload)
-      .then((res) => {
-        console.log(res.data);
-        setIsEditing(false);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
+    //   const payload = {
+    //     name,
+    //     last_name: lastName,
+    //     username,
+    //     email,
+    //     phoneNumber,
+    //   };
+    //   axiosInstance
+    //     .put("v1/user/me/", payload)
+    //     .then((res) => {
+    //       console.log(res.data);
+    //       setIsEditing(false);
+    //     })
+    //     .catch((error) => {
+    //       console.error(error);
+    //     });
   };
   const handleMenuClick = (menu) => {
     setSelectedMenu(menu);
@@ -465,7 +498,7 @@ function UserProfile() {
             <Typography variant="h5" gutterBottom>
               Bookmarked Products
             </Typography>
-            {/* Render bookmarked products */}
+            <BookmarksProducts />
           </Paper>
         );
       case "wallet":
@@ -483,7 +516,7 @@ function UserProfile() {
             <Typography variant="h5" gutterBottom>
               Order History
             </Typography>
-            {/* Render order history */}
+            <Orders />
           </Paper>
         );
       default:

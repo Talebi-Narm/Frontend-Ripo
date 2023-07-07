@@ -133,9 +133,9 @@ function AddtoCart() {
     const exist = toolCartItems.find((x) => x.id === product.id);
     const newVal = exist.count - 1;
     if (exist.count === 1) {
-      setCartItems(toolCartItems.filter((x) => x.id !== product.id));
+      setToolCartItems(toolCartItems.filter((x) => x.id !== product.id));
       axiosInstance.delete(`v1/cart/tool-cart/${exist.id}/`).then(() => {
-        updateCartCount(cartCount + 1);
+        updateCartCount(cartCount - 1);
       });
     } else {
       setToolCartItems(
@@ -156,13 +156,20 @@ function AddtoCart() {
   };
 
   const Checkout = () => {
-    axiosInstance.post(`cart/approve-all-cart/`, {}).then((res) => {
-      axiosInstance.defaults.headers.Authorization = `JWT ${localStorage.getItem(
-        "access_token"
-      )}`;
-      console.log(res);
-      showToast("Implement Checkout!", "error");
-    });
+    axiosInstance
+      .post(`v1/order/order/`, {
+        status: 0,
+        user: userInfo.id,
+        coupon: "",
+        plants: cartItems.map((x) => x.id),
+        tools: toolCartItems.map((x) => x.id),
+      })
+      .then((res) => {
+        if (res.status === 200 || res.status === 201) {
+          showToast("Checedout!", "success");
+          window.location.href = "/UserProfile/orders";
+        }
+      });
   };
 
   return (

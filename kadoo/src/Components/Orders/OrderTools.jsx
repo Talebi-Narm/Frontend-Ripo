@@ -1,6 +1,3 @@
-import AddIcon from "@mui/icons-material/Add";
-import DeleteIcon from "@mui/icons-material/Delete";
-import RemoveIcon from "@mui/icons-material/Remove";
 import Box from "@mui/material/Box";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
@@ -8,17 +5,16 @@ import CardMedia from "@mui/material/CardMedia";
 import Chip from "@mui/material/Chip";
 import Divider from "@mui/material/Divider";
 import Grid from "@mui/material/Grid";
-import IconButton from "@mui/material/IconButton";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 import * as React from "react";
 import "./Product.scss";
 
-export default function Product(props) {
-  const { product, onAddTool, onRemoveTool } = props;
+export default function OrderTool(props) {
+  const { product } = props;
 
   return (
-    <Card sx={{ mb: 2, p: 2 }}>
+    <Card sx={{ mb: 2, p: 2, width: "100%" }}>
       <Grid container sx={{ display: "flex" }}>
         <Grid
           item
@@ -32,7 +28,7 @@ export default function Product(props) {
           <Grid className="productIconImageContainer1" sx={{ p: 1 }}>
             <CardMedia className="productContainerImage">
               <img
-                src={product.tool_detail.main_image}
+                src={product.main_image}
                 className="ToolProductIconImage1"
                 alt=""
               />
@@ -66,7 +62,7 @@ export default function Product(props) {
                     }}
                   >
                     <Typography component="div" variant="h5" sx={{ flex: 1 }}>
-                      {product.tool_detail.name.trim()}
+                      {product.name.trim()}
                     </Typography>
                   </Box>
 
@@ -81,27 +77,9 @@ export default function Product(props) {
                       justifyContent: "center",
                     }}
                   >
-                    <IconButton
-                      size="large"
-                      aria-label="show 4 new mails"
-                      color="inherit"
-                      sx={{
-                        color: "error.main",
-                        mt: {
-                          md: 0,
-                          xs: 1,
-                        },
-                        mb: {
-                          md: 0,
-                          xs: 1,
-                        },
-                      }}
-                      onClick={() => onRemoveTool(product)}
-                    >
-                      {product.count === 1 ? <DeleteIcon /> : <RemoveIcon />}
-                    </IconButton>
                     <TextField
                       id="outlined-number"
+                      disabled
                       size="small"
                       sx={{
                         width: 50,
@@ -114,34 +92,14 @@ export default function Product(props) {
                           xs: 2,
                         },
                       }}
-                      value={product.count < 100 ? product.count : 100}
+                      value={
+                        product.cart_count < 100 ? product.cart_count : 100
+                      }
                       inputProps={{
                         style: { textAlign: "center" },
                         maxLength: 2,
                       }}
                     />
-                    <IconButton
-                      size="large"
-                      color="inherit"
-                      sx={{
-                        color: "success.main",
-                        mt: {
-                          md: 0,
-                          xs: 1,
-                        },
-                        mb: {
-                          md: 0,
-                          xs: 1,
-                        },
-                      }}
-                      onClick={() => {
-                        if (product.count < 100) {
-                          onAddTool(product);
-                        }
-                      }}
-                    >
-                      <AddIcon />
-                    </IconButton>
                   </Box>
                 </Box>
               </Grid>
@@ -160,7 +118,7 @@ export default function Product(props) {
                     whiteSpace="pre-line"
                     textOverflow="ellipsis"
                   >
-                    {`${product.tool_detail.description.split("\n")[0]}..`}
+                    {`${product.description.split("\n")[0]}..`}
                   </Typography>
                 </Box>
                 <Grid
@@ -175,7 +133,7 @@ export default function Product(props) {
                   }}
                 >
                   <Chip
-                    label={`${product.tool_detail.price}$`}
+                    label={`${product.price}$`}
                     color="success"
                     variant="outlined"
                     style={{ fontSize: "1.1rem" }}

@@ -69,3 +69,8 @@
     max-width: 100% !important;
   }
 }
+.fixed-card-size {
+  width: 300px; /* Set the desired fixed height for the card */
+  height: 100%;
+  overflow: hidden; /* Hide content overflow */
+}
