@@ -87,7 +87,8 @@ function UserProfile() {
       genderValue = 3;
     }
 
-    setGender(selectedGender);
+    setGender(genderValue);
+
     axiosInstance
       .put("v1/user/me/", { gender: genderValue })
       .then((res) => {
