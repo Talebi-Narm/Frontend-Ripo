@@ -3,12 +3,9 @@ version: '3.7'
 services:
   sample:
     container_name: sample
-    build:
-      context: .
-      dockerfile: Dockerfile
+    image: navid2001mousavi/talebi-front:latest
     volumes:
       - '.:/app'
-      - '/app/node_modules'
     ports:
       - 2052:3000
       - 2053:3000
