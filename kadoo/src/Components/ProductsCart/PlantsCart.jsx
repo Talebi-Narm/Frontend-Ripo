@@ -1,6 +1,7 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { Player } from "@lottiefiles/react-lottie-player";
 import "./PlantsCart.scss";
+import DeleteIcon from "@mui/icons-material/Delete";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import NatureIcon from "@mui/icons-material/Nature";
 import OpacityIcon from "@mui/icons-material/Opacity";
@@ -76,6 +77,18 @@ export default function PlantsCart(props) {
       });
   };
 
+  const deleteBookmarkPlant = () => {
+    axiosInstance
+      .delete(`v1/common/plant-bookmarks/${props.bookmarkId}/`)
+      .then((resp) => {
+        console.log("Bookmark delete", resp);
+        if (resp.status === 200 || resp.status === 204) {
+          toast.success(`${props.product.name} removed from bookmarks!`);
+          props.fetchBookMarksPlants();
+        }
+      });
+  };
+
   const AddToCartPlant = () => {
     axiosInstance
       .post(
@@ -125,7 +138,11 @@ export default function PlantsCart(props) {
           <CardMedia
             component="img"
             height="200"
-            image={`${props.product.image}`}
+            image={`${
+              props.product.main_image
+                ? props.product.main_image
+                : props.product.image
+            }`}
             alt="picture"
             className="plantIconImage"
           />
@@ -244,13 +261,24 @@ export default function PlantsCart(props) {
       </CardContent>
       {isHovered ? (
         <CardActions disableSpacing>
-          <IconButton
-            aria-label="add to favorites"
-            sx={{ zIndex: 10 }}
-            onClick={bookmarkPlant}
-          >
-            <FavoriteIcon />
-          </IconButton>
+          {!props.fetchBookMarksPlants && (
+            <IconButton
+              aria-label="add to favorites"
+              sx={{ zIndex: 10 }}
+              onClick={bookmarkPlant}
+            >
+              <FavoriteIcon />
+            </IconButton>
+          )}
+          {props.fetchBookMarksPlants && (
+            <IconButton
+              aria-label="add to favorites"
+              sx={{ zIndex: 10 }}
+              onClick={deleteBookmarkPlant}
+            >
+              <DeleteIcon />
+            </IconButton>
+          )}
           <IconButton
             aria-label="share"
             sx={{ zIndex: 10 }}

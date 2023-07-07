@@ -32,6 +32,7 @@ import PropTypes from "prop-types";
 import React, { useEffect, useState } from "react";
 
 import SampleAvatar from "../../assets/Images/SampleProfile/sample-profile-pic.jfif";
+import BookmarksProducts from "../../Components/Bookmarks";
 import Wallet from "../../Components/Wallet";
 import axiosInstance from "../../Utils/axios";
 
@@ -465,7 +466,7 @@ function UserProfile() {
             <Typography variant="h5" gutterBottom>
               Bookmarked Products
             </Typography>
-            {/* Render bookmarked products */}
+            <BookmarksProducts />
           </Paper>
         );
       case "wallet":

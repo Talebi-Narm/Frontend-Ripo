@@ -1,6 +1,7 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { Player } from "@lottiefiles/react-lottie-player";
 import "./PlantsCart.scss";
+import DeleteIcon from "@mui/icons-material/Delete";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import ShareIcon from "@mui/icons-material/Share";
 import { Box, Grid, IconButton } from "@mui/material";
@@ -48,6 +49,18 @@ export default function ToolsCart(props) {
       })
       .catch((error) => {
         console.error("Error User Info:", error);
+      });
+  };
+
+  const deleteBookmarkPlant = () => {
+    axiosInstance
+      .delete(`v1/common/tool-bookmarks/${props.bookmarkId}/`)
+      .then((resp) => {
+        console.log("Bookmark delete", resp);
+        if (resp.status === 200 || resp.status === 204) {
+          toast.success(`${props.product.name} removed from bookmarks!`);
+          props.fetchBookMarksTools();
+        }
       });
   };
 
@@ -198,13 +211,24 @@ export default function ToolsCart(props) {
       </CardContent>
       {isHovered ? (
         <CardActions disableSpacing>
-          <IconButton
-            aria-label="add to favorites"
-            sx={{ zIndex: 10 }}
-            onClick={bookmarkTool}
-          >
-            <FavoriteIcon />
-          </IconButton>
+          {!props.fetchBookMarksTools && (
+            <IconButton
+              aria-label="add to favorites"
+              sx={{ zIndex: 10 }}
+              onClick={bookmarkTool}
+            >
+              <FavoriteIcon />
+            </IconButton>
+          )}
+          {props.fetchBookMarksTools && (
+            <IconButton
+              aria-label="add to favorites"
+              sx={{ zIndex: 10 }}
+              onClick={deleteBookmarkPlant}
+            >
+              <DeleteIcon />
+            </IconButton>
+          )}
           <IconButton
             aria-label="share"
             sx={{ zIndex: 10 }}
