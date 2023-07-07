@@ -33,6 +33,7 @@ export default function GreenHouseCard(props) {
   };
   return (
     <Card
+      data-testid="card"
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
       className="fixed-card-size"

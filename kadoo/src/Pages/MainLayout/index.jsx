@@ -20,6 +20,7 @@ import Tab from "@mui/material/Tab";
 import Tabs from "@mui/material/Tabs";
 import Toolbar from "@mui/material/Toolbar";
 import * as React from "react";
+import { Link } from "react-router-dom";
 // import { useEffect } from "react";
 // import { useNavigate } from "react-router-dom";
 
@@ -131,7 +132,7 @@ export default function MainLayout({ children }) {
         </DrawerHeader>
         <Divider />
         <List>
-          {[`Let's Shop`, "Green House", "Dashboard", "Tickets"].map(
+          {[`Store`, "GreenHouse", "Dashboard", "Tickets"].map(
             (text, index) => (
               <ListItem
                 key={text}
@@ -152,28 +153,36 @@ export default function MainLayout({ children }) {
                 }}
                 selected={selectedIndex === index}
               >
-                <ListItemButton
-                  sx={{
-                    minHeight: 48,
-                    justifyContent: open ? "initial" : "center",
-                    px: 2.5,
-                  }}
-                  onClick={() => setSelectedIndex(index)}
+                <Link
+                  to={`/${text.replace(/\s+/g, "")}`}
+                  style={{ textDecoration: "none" }}
                 >
-                  <ListItemIcon
+                  <ListItemButton
                     sx={{
-                      minWidth: 0,
-                      mr: open ? 3 : "auto",
-                      justifyContent: "center",
+                      minHeight: 48,
+                      justifyContent: open ? "initial" : "center",
+                      px: 2.5,
                     }}
+                    onClick={() => setSelectedIndex(index)}
                   >
-                    {index === 0 && <ShoppingCartIcon fontSize="small" />}
-                    {index === 1 && <ParkIcon fontSize="small" />}
-                    {index === 2 && <DashboardIcon fontSize="small" />}
-                    {index === 3 && <ForumIcon fontSize="small" />}
-                  </ListItemIcon>
-                  <ListItemText primary={text} sx={{ opacity: open ? 1 : 0 }} />
-                </ListItemButton>
+                    <ListItemIcon
+                      sx={{
+                        minWidth: 0,
+                        mr: open ? 3 : "auto",
+                        justifyContent: "center",
+                      }}
+                    >
+                      {index === 0 && <ShoppingCartIcon fontSize="small" />}
+                      {index === 1 && <ParkIcon fontSize="small" />}
+                      {index === 2 && <DashboardIcon fontSize="small" />}
+                      {index === 3 && <ForumIcon fontSize="small" />}
+                    </ListItemIcon>
+                    <ListItemText
+                      primary={text}
+                      sx={{ opacity: open ? 1 : 0 }}
+                    />
+                  </ListItemButton>
+                </Link>
               </ListItem>
             )
           )}
