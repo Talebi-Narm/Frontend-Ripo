@@ -3,7 +3,7 @@ import axios from "axios";
 export const baseURL = "https://service.talebi-narm.ir/api/";
 const axiosInstance = axios.create({
   baseURL,
-  timeout: 5000,
+  timeout: 10000,
   headers: {
     Authorization: localStorage.getItem("access_token")
       ? `Bearer ${localStorage.getItem("access_token")}`

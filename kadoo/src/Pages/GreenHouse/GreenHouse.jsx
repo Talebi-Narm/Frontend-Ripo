@@ -14,7 +14,6 @@ export default function GreenHouse() {
   useEffect(async () => {
     axiosInstance.get(`v1/green_house/user-plants/`).then((res) => {
       setPlants(res.data);
-      console.log("sher ");
       console.log(res);
     });
   }, []);
