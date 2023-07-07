@@ -30,6 +30,7 @@ import {
 import { Box, style } from "@mui/system";
 import PropTypes from "prop-types";
 import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 
 import SampleAvatar from "../../assets/Images/SampleProfile/sample-profile-pic.jfif";
 import BookmarksProducts from "../../Components/Bookmarks";
@@ -57,6 +58,14 @@ function UserProfile() {
   const [imageCode, setImageCode] = useState("");
   const uploadInputRef = React.useRef(null);
   const [open, setOpen] = React.useState(false);
+
+  const { orders } = useParams();
+
+  useEffect(() => {
+    if (orders) {
+      setSelectedMenu("history");
+    }
+  }, []);
 
   const handleClickOpen = () => {
     setOpen(true);

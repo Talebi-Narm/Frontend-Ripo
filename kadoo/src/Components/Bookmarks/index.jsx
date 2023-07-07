@@ -13,7 +13,6 @@ export default function BookmarksProducts() {
     try {
       const response = await axiosInstance.get(`v1/common/plant-bookmarks/`);
       console.log("bookmarks Info: ", response);
-      // Assuming `results` contains the array of plant bookmarks
 
       const plantIds = response.data.results.map((bookmark) => bookmark.Plant);
       const plantDetailsPromises = plantIds.map((plantId) =>
@@ -27,7 +26,6 @@ export default function BookmarksProducts() {
       }));
       console.log(plantDetails);
       setPlantBookmarks(plantDetails);
-      // Now you have the details of each plant bookmarked in `plantDetails`
     } catch (error) {
       console.error("Error User Info:", error);
     }
@@ -39,7 +37,7 @@ export default function BookmarksProducts() {
       console.log("bookmarks Info tool: ", response);
       // Assuming `results` contains the array of tool bookmarks
 
-      const toolIds = response.data.results.map((bookmark) => bookmark.tool);
+      const toolIds = response.data.results.map((bookmark) => bookmark.Tool);
       const toolDetailsPromises = toolIds.map((toolId) =>
         axiosInstance.get(`v1/store/admin/tools/${toolId}`)
       );

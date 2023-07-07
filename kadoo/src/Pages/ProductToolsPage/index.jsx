@@ -24,7 +24,7 @@ import Comments from "../../Components/Comment";
 import { CartContext } from "../../Components/NewAppBar/CartContext";
 import axiosInstance from "../../Utils/axios";
 
-function ProductPlantsPage() {
+function ProductToolsPage() {
   const [product, setProduct] = useState([]);
   const [tags, setTags] = useState([]);
   const [numberOfBuy, setNumberOfBuy] = useState(1);
@@ -51,6 +51,7 @@ function ProductPlantsPage() {
 
   useEffect(() => {
     fetchUserInfo();
+    console.log(id);
     axiosInstance
       .get(`v1/store/tools/${id}/`)
       .then((response) => {
@@ -150,7 +151,7 @@ function ProductPlantsPage() {
       });
   };
 
-  return product && imageName ? (
+  return product ? (
     <Grid container sx={{ pb: 2 }}>
       <Grid
         container
@@ -641,4 +642,4 @@ function ProductPlantsPage() {
     </Grid>
   ) : null;
 }
-export default ProductPlantsPage;
+export default ProductToolsPage;

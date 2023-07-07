@@ -20,8 +20,6 @@ axiosInstance.interceptors.response.use(
     return response;
   },
   async (error) => {
-    console.log("errrrrorrr", error.response.data);
-
     if (typeof error.response === "undefined") {
       console.log(
         "A server/network error occurred. handelt here " +

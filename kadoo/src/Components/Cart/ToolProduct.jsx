@@ -98,11 +98,7 @@ export default function Product(props) {
                       }}
                       onClick={() => onRemoveTool(product)}
                     >
-                      {product.tool_detail.count === 1 ? (
-                        <DeleteIcon />
-                      ) : (
-                        <RemoveIcon />
-                      )}
+                      {product.count === 1 ? <DeleteIcon /> : <RemoveIcon />}
                     </IconButton>
                     <TextField
                       id="outlined-number"
@@ -118,11 +114,7 @@ export default function Product(props) {
                           xs: 2,
                         },
                       }}
-                      value={
-                        product.tool_detail.count < 100
-                          ? product.tool_detail.count
-                          : 100
-                      }
+                      value={product.count < 100 ? product.count : 100}
                       inputProps={{
                         style: { textAlign: "center" },
                         maxLength: 2,
@@ -143,7 +135,7 @@ export default function Product(props) {
                         },
                       }}
                       onClick={() => {
-                        if (product.tool_detail.count < 100) {
+                        if (product.count < 100) {
                           onAddTool(product);
                         }
                       }}

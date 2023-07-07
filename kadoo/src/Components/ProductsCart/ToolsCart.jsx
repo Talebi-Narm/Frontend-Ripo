@@ -104,12 +104,16 @@ export default function ToolsCart(props) {
       }}
     >
       {/* <CardActionArea sx={{ height: "100%" }}> */}
-      <Link to={`/ProductPlantsPage/${props.product.id}`}>
+      <Link to={`/ProductToolsPage/${props.product.id}`}>
         <Grid className="productIconImageContainer" sx={{ p: 1 }}>
           <CardMedia
             component="img"
             height="200"
-            image={`${props.product.image}`}
+            image={`${
+              props.product.main_image
+                ? props.product.main_image
+                : props.product.image
+            }`}
             alt="picture"
             className="plantIconImage"
           />

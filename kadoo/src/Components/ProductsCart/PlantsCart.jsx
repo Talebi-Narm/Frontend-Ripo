@@ -235,6 +235,7 @@ export default function PlantsCart(props) {
           variant="h5"
           component="div"
           className="textClass"
+          data-testid="plant-name"
         >
           {props.product.name}
         </Typography>
