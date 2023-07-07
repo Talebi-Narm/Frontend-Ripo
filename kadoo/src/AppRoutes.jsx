@@ -110,6 +110,7 @@ function AppRoutes() {
       <Route path="/greenHouseEdit/:id" exact element={<GreenHouseEdit />} />
       <Route path="/greenHouseCreate/" exact element={<GreenHouseEdit />} />
       <Route path="/UserProfile" exact element={<UserProfile />} />
+      <Route path="/UserProfile/:orders" exact element={<UserProfile />} />
       <Route path="/offer" element={<OfferPage />} />
       <Route path="/greenHouseEdit/:id" element={<GreenHouseEdit />} />
       <Route path="/GreenHouseNew" element={<GreenHouseNew />} />

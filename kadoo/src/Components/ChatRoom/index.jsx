@@ -147,7 +147,7 @@ function ChatUI() {
     if (userInfo) {
       setSocket(
         new WebSocket(
-          `ws://${baseURL
+          `wss://${baseURL
             .replace("https://", "")
             .replace("http://", "")
             .replace("api/", "")}ws/v1/support/chat/${
@@ -157,7 +157,7 @@ function ChatUI() {
       );
       setSpecialistSocket(
         new WebSocket(
-          `ws://${baseURL
+          `wss://${baseURL
             .replace("https://", "")
             .replace("http://", "")
             .replace(
@@ -179,7 +179,7 @@ function ChatUI() {
     if (openIndex !== null) {
       setSocket(
         new WebSocket(
-          `ws://${baseURL
+          `wss://${baseURL
             .replace("https://", "")
             .replace("http://", "")
             .replace("api/", "")}ws/v1/support/chat/${

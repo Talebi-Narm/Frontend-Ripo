@@ -1,6 +1,7 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { Player } from "@lottiefiles/react-lottie-player";
 import "./PlantsCart.scss";
+import DeleteIcon from "@mui/icons-material/Delete";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import NatureIcon from "@mui/icons-material/Nature";
 import OpacityIcon from "@mui/icons-material/Opacity";
@@ -53,16 +54,37 @@ export default function PlantsCart(props) {
 
   const bookmarkPlant = () => {
     axiosInstance
-      .post(
-        "v1/common/plant-bookmarks/",
-        JSON.stringify({
-          Plant: props.product.id,
-        })
-      )
+      .get(`v1/user/me/`)
       .then((response) => {
-        console.log("Bookmark", response);
-        if (response.status === 200 || response.status === 201) {
-          toast.success(`${props.product.name} added to bookmarks!`);
+        console.log("User Info: ", response);
+        axiosInstance
+          .post(
+            "v1/common/plant-bookmarks/",
+            JSON.stringify({
+              Plant: props.product.id,
+              user: response.data.user.id,
+            })
+          )
+          .then((resp) => {
+            console.log("Bookmark", resp);
+            if (resp.status === 200 || resp.status === 201) {
+              toast.success(`${props.product.name} added to bookmarks!`);
+            }
+          });
+      })
+      .catch((error) => {
+        console.error("Error User Info:", error);
+      });
+  };
+
+  const deleteBookmarkPlant = () => {
+    axiosInstance
+      .delete(`v1/common/plant-bookmarks/${props.bookmarkId}/`)
+      .then((resp) => {
+        console.log("Bookmark delete", resp);
+        if (resp.status === 200 || resp.status === 204) {
+          toast.success(`${props.product.name} removed from bookmarks!`);
+          props.fetchBookMarksPlants();
         }
       });
   };
@@ -116,7 +138,11 @@ export default function PlantsCart(props) {
           <CardMedia
             component="img"
             height="200"
-            image={`${props.product.image}`}
+            image={`${
+              props.product.main_image
+                ? props.product.main_image
+                : props.product.image
+            }`}
             alt="picture"
             className="plantIconImage"
           />
@@ -209,6 +235,7 @@ export default function PlantsCart(props) {
           variant="h5"
           component="div"
           className="textClass"
+          data-testid="plant-name"
         >
           {props.product.name}
         </Typography>
@@ -235,13 +262,24 @@ export default function PlantsCart(props) {
       </CardContent>
       {isHovered ? (
         <CardActions disableSpacing>
-          <IconButton
-            aria-label="add to favorites"
-            sx={{ zIndex: 10 }}
-            onClick={bookmarkPlant}
-          >
-            <FavoriteIcon />
-          </IconButton>
+          {!props.fetchBookMarksPlants && (
+            <IconButton
+              aria-label="add to favorites"
+              sx={{ zIndex: 10 }}
+              onClick={bookmarkPlant}
+            >
+              <FavoriteIcon />
+            </IconButton>
+          )}
+          {props.fetchBookMarksPlants && (
+            <IconButton
+              aria-label="add to favorites"
+              sx={{ zIndex: 10 }}
+              onClick={deleteBookmarkPlant}
+            >
+              <DeleteIcon />
+            </IconButton>
+          )}
           <IconButton
             aria-label="share"
             sx={{ zIndex: 10 }}

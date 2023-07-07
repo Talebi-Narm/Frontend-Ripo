@@ -1,6 +1,7 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { Player } from "@lottiefiles/react-lottie-player";
 import "./PlantsCart.scss";
+import DeleteIcon from "@mui/icons-material/Delete";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import ShareIcon from "@mui/icons-material/Share";
 import { Box, Grid, IconButton } from "@mui/material";
@@ -28,16 +29,37 @@ export default function ToolsCart(props) {
 
   const bookmarkTool = () => {
     axiosInstance
-      .post(
-        "v1/common/tool-bookmarks/",
-        JSON.stringify({
-          Tool: props.product.id,
-        })
-      )
+      .get(`v1/user/me/`)
       .then((response) => {
-        console.log("Bookmark", response);
-        if (response.status === 200 || response.status === 201) {
-          toast.success(`${props.product.name} added to bookmarks!`);
+        console.log("User Info: ", response);
+        axiosInstance
+          .post(
+            "v1/common/tool-bookmarks/",
+            JSON.stringify({
+              Tool: props.product.id,
+              user: response.data.user.id,
+            })
+          )
+          .then((resp) => {
+            console.log("Bookmark", resp);
+            if (resp.status === 200 || resp.status === 201) {
+              toast.success(`${props.product.name} added to bookmarks!`);
+            }
+          });
+      })
+      .catch((error) => {
+        console.error("Error User Info:", error);
+      });
+  };
+
+  const deleteBookmarkPlant = () => {
+    axiosInstance
+      .delete(`v1/common/tool-bookmarks/${props.bookmarkId}/`)
+      .then((resp) => {
+        console.log("Bookmark delete", resp);
+        if (resp.status === 200 || resp.status === 204) {
+          toast.success(`${props.product.name} removed from bookmarks!`);
+          props.fetchBookMarksTools();
         }
       });
   };
@@ -82,12 +104,16 @@ export default function ToolsCart(props) {
       }}
     >
       {/* <CardActionArea sx={{ height: "100%" }}> */}
-      <Link to={`/ProductPlantsPage/${props.product.id}`}>
+      <Link to={`/ProductToolsPage/${props.product.id}`}>
         <Grid className="productIconImageContainer" sx={{ p: 1 }}>
           <CardMedia
             component="img"
             height="200"
-            image={`${props.product.image}`}
+            image={`${
+              props.product.main_image
+                ? props.product.main_image
+                : props.product.image
+            }`}
             alt="picture"
             className="plantIconImage"
           />
@@ -189,13 +215,24 @@ export default function ToolsCart(props) {
       </CardContent>
       {isHovered ? (
         <CardActions disableSpacing>
-          <IconButton
-            aria-label="add to favorites"
-            sx={{ zIndex: 10 }}
-            onClick={bookmarkTool}
-          >
-            <FavoriteIcon />
-          </IconButton>
+          {!props.fetchBookMarksTools && (
+            <IconButton
+              aria-label="add to favorites"
+              sx={{ zIndex: 10 }}
+              onClick={bookmarkTool}
+            >
+              <FavoriteIcon />
+            </IconButton>
+          )}
+          {props.fetchBookMarksTools && (
+            <IconButton
+              aria-label="add to favorites"
+              sx={{ zIndex: 10 }}
+              onClick={deleteBookmarkPlant}
+            >
+              <DeleteIcon />
+            </IconButton>
+          )}
           <IconButton
             aria-label="share"
             sx={{ zIndex: 10 }}

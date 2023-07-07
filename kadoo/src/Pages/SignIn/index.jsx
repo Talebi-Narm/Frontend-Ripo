@@ -44,7 +44,7 @@ function SignIn() {
   const [name, setName] = useState("");
   const [lastName, setLastName] = useState("");
   const [token, setToken] = useState("");
-  const navigate = useNavigate();
+
   const handleChange = (e) => {
     updateFormData({
       ...formData,
@@ -81,9 +81,11 @@ function SignIn() {
             localStorage.setItem("access_token", data.access);
             localStorage.setItem("refresh_token", data.refresh);
             setFlagData(!flagData);
+            showToast("User logined!", "success");
+            setTimeout(() => {
+              window.location.href = "/Homepage";
+            }, 5000);
           });
-          showToast("User logined!", "success");
-          navigate("/Homepage");
         } else {
           throw response;
         }
@@ -145,9 +147,12 @@ function SignIn() {
           response.json().then((data) => {
             localStorage.setItem("access_token", data.access);
             localStorage.setItem("refresh_token", data.refresh);
+            showToast("User logined", "success");
+            setTimeout(() => {
+              window.location.href = "/Homepage";
+            }, 5000);
             setFlagData(!flagData);
           });
-          showToast("User logined", "success");
         } else {
           throw response;
         }
