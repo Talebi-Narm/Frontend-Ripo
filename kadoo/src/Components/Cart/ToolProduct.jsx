@@ -22,7 +22,7 @@ export default function Product(props) {
       <Grid container sx={{ display: "flex" }}>
         <Grid
           item
-          container
+          containertool_detail
           xs={12}
           sm={6}
           md={4}
@@ -32,7 +32,7 @@ export default function Product(props) {
           <Grid className="productIconImageContainer1" sx={{ p: 1 }}>
             <CardMedia className="productContainerImage">
               <img
-                src={`http://127.0.0.1:8000${product.image}`}
+                src={product.tool_detail.main_image}
                 className="ToolProductIconImage1"
                 alt=""
               />
@@ -66,7 +66,7 @@ export default function Product(props) {
                     }}
                   >
                     <Typography component="div" variant="h5" sx={{ flex: 1 }}>
-                      {product.name.trim()}
+                      {product.tool_detail.name.trim()}
                     </Typography>
                   </Box>
 
@@ -98,7 +98,11 @@ export default function Product(props) {
                       }}
                       onClick={() => onRemoveTool(product)}
                     >
-                      {product.count === 1 ? <DeleteIcon /> : <RemoveIcon />}
+                      {product.tool_detail.count === 1 ? (
+                        <DeleteIcon />
+                      ) : (
+                        <RemoveIcon />
+                      )}
                     </IconButton>
                     <TextField
                       id="outlined-number"
@@ -114,7 +118,11 @@ export default function Product(props) {
                           xs: 2,
                         },
                       }}
-                      value={product.count < 100 ? product.count : 100}
+                      value={
+                        product.tool_detail.count < 100
+                          ? product.tool_detail.count
+                          : 100
+                      }
                       inputProps={{
                         style: { textAlign: "center" },
                         maxLength: 2,
@@ -135,7 +143,7 @@ export default function Product(props) {
                         },
                       }}
                       onClick={() => {
-                        if (product.count < 100) {
+                        if (product.tool_detail.count < 100) {
                           onAddTool(product);
                         }
                       }}
@@ -160,7 +168,7 @@ export default function Product(props) {
                     whiteSpace="pre-line"
                     textOverflow="ellipsis"
                   >
-                    {`${product.description.split("\n")[0]}..`}
+                    {`${product.tool_detail.description.split("\n")[0]}..`}
                   </Typography>
                 </Box>
                 <Grid
@@ -175,7 +183,7 @@ export default function Product(props) {
                   }}
                 >
                   <Chip
-                    label={`${product.price}$`}
+                    label={`${product.tool_detail.price}$`}
                     color="success"
                     variant="outlined"
                     style={{ fontSize: "1.1rem" }}

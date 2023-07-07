@@ -133,7 +133,7 @@ function AddtoCart() {
     const exist = toolCartItems.find((x) => x.id === product.id);
     const newVal = exist.count - 1;
     if (exist.count === 1) {
-      setCartItems(toolCartItems.filter((x) => x.id !== product.id));
+      setToolCartItems(toolCartItems.filter((x) => x.id !== product.id));
       axiosInstance.delete(`v1/cart/tool-cart/${exist.id}/`).then(() => {
         updateCartCount(cartCount + 1);
       });

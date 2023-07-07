@@ -34,10 +34,11 @@ axiosInstance.interceptors.response.use(
       // Redirect to login page if user is not logged in
       if (!showToast) {
         toast.error("You're not loged in :( you're redirecting to login page.");
-        window.localStorage.removeItem("access_token");
-        window.localStorage.removeItem("refresh_token");
+
         showToast = true;
       }
+      window.localStorage.removeItem("access_token");
+      window.localStorage.removeItem("refresh_token");
       setTimeout(() => {
         window.location.href = "/signin";
         return Promise.reject(error);

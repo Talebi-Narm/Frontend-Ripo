@@ -53,17 +53,26 @@ export default function PlantsCart(props) {
 
   const bookmarkPlant = () => {
     axiosInstance
-      .post(
-        "v1/common/plant-bookmarks/",
-        JSON.stringify({
-          Plant: props.product.id,
-        })
-      )
+      .get(`v1/user/me/`)
       .then((response) => {
-        console.log("Bookmark", response);
-        if (response.status === 200 || response.status === 201) {
-          toast.success(`${props.product.name} added to bookmarks!`);
-        }
+        console.log("User Info: ", response);
+        axiosInstance
+          .post(
+            "v1/common/plant-bookmarks/",
+            JSON.stringify({
+              Plant: props.product.id,
+              user: response.data.user.id,
+            })
+          )
+          .then((resp) => {
+            console.log("Bookmark", resp);
+            if (resp.status === 200 || resp.status === 201) {
+              toast.success(`${props.product.name} added to bookmarks!`);
+            }
+          });
+      })
+      .catch((error) => {
+        console.error("Error User Info:", error);
       });
   };
 
