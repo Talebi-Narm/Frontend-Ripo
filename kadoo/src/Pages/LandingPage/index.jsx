@@ -1,4 +1,5 @@
 import "./style.scss";
+import { Player } from "@lottiefiles/react-lottie-player";
 import EmailIcon from "@mui/icons-material/Email";
 import PhoneIcon from "@mui/icons-material/Phone";
 import TelegramIcon from "@mui/icons-material/Telegram";
@@ -16,7 +17,7 @@ import Carousel from "react-multi-carousel";
 
 import Amir from "../../assets/Images/Landing/Amirmohammad.jpg";
 import apartmentPlants from "../../assets/Images/Landing/apartmentPlants.jpg";
-import Background from "../../assets/Images/Landing/Background.png";
+// import Background from "../../assets/Images/Landing/Background.png";
 import Background3 from "../../assets/Images/Landing/Background3.png";
 import Deniz from "../../assets/Images/Landing/Deniz.jpg";
 import GardenPlants from "../../assets/Images/Landing/GardenPlants.jpg";
@@ -69,7 +70,7 @@ export default function LandingPage() {
       </Grid>
       <Box
         style={{
-          backgroundImage: `url(${Background})`,
+          backgroundImage: `url(${Background3})`,
           backgroundPosition: "center",
           height: "100vh",
           backgroundRepeat: "no-repeat",
@@ -80,13 +81,29 @@ export default function LandingPage() {
           flexDirection: "column",
           alignItems: "center",
         }}
-        alt="Background"
+        // alt="Background"
       >
         <Grid container spacing={2}>
-          <Grid xs={4} />
-          <Grid xs={8} className="Landing-title">
+          <Grid xs={6}>
+            <Player
+              src="https://assets4.lottiefiles.com/packages/lf20_mxaFcZ.json"
+              background="transparent"
+              speed="1"
+              style={{
+                height: "450px",
+              }}
+              autoplay
+              loop
+            />
+          </Grid>
+          <Grid xs={6} className="Landing-title">
             <Grid>
-              <p className="Landing-title-name text-center">TALEBI</p>
+              <p
+                className="Landing-title-name text-center"
+                style={{ marginTop: "100px" }}
+              >
+                TALEBI
+              </p>
             </Grid>
             <Grid className="Introduction">
               <Typography align="center" color="black" fontSize={20}>
@@ -103,7 +120,7 @@ export default function LandingPage() {
         </Grid>
       </Box>
       <Grid
-        className="BlackBackground"
+        container
         style={{
           backgroundImage: `url(${Background3})`,
           backgroundPosition: "center",
@@ -121,11 +138,29 @@ export default function LandingPage() {
             variant="h4"
             className="TypographyKadoo"
             sx={{
-              marginTop: { sm: "10%", xs: "25%", md: "10%" },
+              // marginTop: { sm: "10%", xs: "25%", md: "10%" },
               paddingBottom: { sm: "5%", xs: "15%", md: "5%" },
             }}
           >
-            <Typography fontSize={40}>Why Talebi</Typography>
+            <Grid container justifyContent="center">
+              <Grid item sx={{ textAlign: "right" }}>
+                <Typography fontSize={40} marginTop={6}>
+                  Why Talebi
+                </Typography>
+              </Grid>
+              <Grid item sx={{ textAlign: "left" }}>
+                <Player
+                  src="https://assets8.lottiefiles.com/packages/lf20_n2nxpuho.json"
+                  background="transparent"
+                  speed="1"
+                  style={{
+                    height: "110px",
+                  }}
+                  autoplay
+                  loop
+                />
+              </Grid>
+            </Grid>
           </Typography>
           <Carousel
             fade
@@ -248,14 +283,24 @@ export default function LandingPage() {
           <Grid
             flexDirection="column"
             className="GridContactUs"
-            sx={{ marginTop: { sm: 20, xs: 10, md: 10 } }}
+            // sx={{ marginTop: { sm: 20, xs: 10, md: 10 } }}
           >
             <Typography fontSize={40}>About Us</Typography>
+            <Player
+              src="https://assets10.lottiefiles.com/packages/lf20_xmdlmtgz.json"
+              background="transparent"
+              speed="1"
+              style={{
+                height: "450px",
+              }}
+              autoplay
+              loop
+            />
             <Typography
               align="center"
               marginLeft={4}
               marginRight={4}
-              sx={{ marginTop: { sm: 20, xs: 5, md: 8 } }}
+              // sx={{ marginTop: { sm: 20, xs: 5, md: 8 } }}
               color="black"
               width={600}
             >
