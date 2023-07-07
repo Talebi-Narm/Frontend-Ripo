@@ -14,13 +14,17 @@ import Cart from "./Pages/AddToCart";
 import AdminPage from "./Pages/AdminPage";
 import CategoriesPage from "./Pages/CategoriesPage";
 import FAQsPage from "./Pages/FAQs/FAQ";
-import GreenHouseEdit from "./Pages/GreenHouseEdit";
+// eslint-disable-next-line import/no-unresolved, import/extensions
+import GreenHouse from "./Pages/GreenHouse/GreenHouse";
+// import GreenHouseEdit from "./Pages/GreenHouseEdit";
 // import HomePage from "./Pages/HomePage";
+import GreenHouseEdit from "./Pages/GreenHouse/GreenHouseEdit";
+import GreenHouseNew from "./Pages/GreenHouse/GreenHouseNew";
 import HomePageRefactored from "./Pages/HomePage/HomePage";
 import LandingPage from "./Pages/LandingPage";
 import NotFound from "./Pages/NotFound";
 import OfferPage from "./Pages/OfferPage";
-import Plantmanagement from "./Pages/Plantmanagement";
+// import Plantmanagement from "./Pages/Plantmanagement";
 import ProductPlantsPage from "./Pages/ProductPlantsPage/inedx";
 import ProductToolsPage from "./Pages/ProductToolsPage";
 import Reminder from "./Pages/ReminderTest";
@@ -55,7 +59,8 @@ function AppRoutes() {
       <Route path="/cart" exact element={<Cart />} />
       <Route path="/categories" exact element={<CategoriesPage />} />
       <Route path="/Reminder" exact element={<Reminder />} />
-      <Route path="/greenhouse" exact element={<Plantmanagement />} />
+      {/* <Route path="/greenhouse" exact element={<Plantmanagement />} /> */}
+      <Route path="/greenhouse" exact element={<GreenHouse />} />
       <Route path="/AdminPage" exact element={<AdminPage />} />
       <Route path="/FAQsPage" exact element={<FAQsPage />} />
       <Route path="/testAnimation" exact element={<HeroSection />} />
@@ -106,6 +111,8 @@ function AppRoutes() {
       <Route path="/greenHouseCreate/" exact element={<GreenHouseEdit />} />
       <Route path="/UserProfile" exact element={<UserProfile />} />
       <Route path="/offer" element={<OfferPage />} />
+      <Route path="/greenHouseEdit/:id" element={<GreenHouseEdit />} />
+      <Route path="/GreenHouseNew" element={<GreenHouseNew />} />
       <Route exact element={<NotFound />} />
     </Routes>
   );

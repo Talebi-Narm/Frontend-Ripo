@@ -1,6 +1,6 @@
 import axios from "axios";
 
-export const baseURL = "https://talebi-narm.ir/api/";
+export const baseURL = "https://service.talebi-narm.ir/api/";
 const axiosInstance = axios.create({
   baseURL,
   timeout: 5000,
