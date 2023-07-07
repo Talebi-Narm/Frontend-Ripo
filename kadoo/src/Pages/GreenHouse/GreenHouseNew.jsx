@@ -9,7 +9,7 @@ import axiosInstance from "../../Utils/axios";
 
 export default function GreenHouseNew() {
   const [address, setAddress] = useState("");
-  // const [description, setDescription] = useState("");
+  const [description, setDescription] = useState("");
   // const [selectedImage, setselectedImage] = useState("");
   const [selectedImage, setSelectedImage] = useState("");
   const [nickname, setNickname] = useState("");
@@ -20,9 +20,9 @@ export default function GreenHouseNew() {
     setAddress(event.target.value);
   };
 
-  // const handleDescriptionChange = (event) => {
-  //   setDescription(event.target.value);
-  // };
+  const handleDescriptionChange = (event) => {
+    setDescription(event.target.value);
+  };
 
   const handleNicknameChange = (event) => {
     setNickname(event.target.value);
@@ -89,7 +89,7 @@ export default function GreenHouseNew() {
           />
           <Avatar
             alt="Plant Image"
-            src={selectedImage}
+            src={selectedImage && URL.createObjectURL(selectedImage)}
             sx={{ width: "200px", height: "200px", margin: "auto" }}
           />
         </label>
@@ -121,14 +121,14 @@ export default function GreenHouseNew() {
           sx={{ width: "400px", marginTop: "16px" }}
         />
       </Box>
-      {/* <Box mt={2}>
+      <Box mt={2}>
         <TextField
           label="Description"
           value={description}
           onChange={handleDescriptionChange}
           sx={{ width: "400px", marginTop: "16px" }}
         />
-      </Box> */}
+      </Box>
       <Box mt={2}>
         <Button variant="contained" color="primary" onClick={handleSave}>
           Save

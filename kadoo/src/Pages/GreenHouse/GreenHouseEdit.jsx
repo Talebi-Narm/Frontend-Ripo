@@ -104,7 +104,7 @@ export default function GreenHouseEdit() {
         <label htmlFor="avatar-input">
           <Avatar
             alt="Blurred Plant Image"
-            src={imageUrl}
+            src={selectedImage && URL.createObjectURL(selectedImage)}
             sx={{
               width: "240px",
               height: "240px",
@@ -116,7 +116,7 @@ export default function GreenHouseEdit() {
           />
           <Avatar
             alt="Plant Image"
-            src={imageUrl}
+            src={selectedImage && URL.createObjectURL(selectedImage)}
             sx={{ width: "200px", height: "200px", margin: "auto" }}
           />
         </label>
