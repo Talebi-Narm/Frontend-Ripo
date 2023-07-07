@@ -95,6 +95,29 @@ function UserProfile() {
       });
   };
   useEffect(() => {
+    const updateUser = async () => {
+      try {
+        await axiosInstance.put("v1/user/me/", {
+          first_name: "deniz",
+          last_name: "ahmadi",
+          phone_number: "+989022147444",
+          email: "a@gmail.com",
+          gender: "2",
+        });
+
+        axiosInstance.defaults.headers.Authorization = `JWT ${localStorage.getItem(
+          "access_token"
+        )}`;
+        console.log("User updated successfully.");
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    updateUser();
+  }, [name, lastName, phoneNumber, email, gender]);
+
+  useEffect(() => {
     axiosInstance.get(`v1/user/me/`).then((res) => {
       console.log(res.data.user);
       setName(res.data.user.first_name);
@@ -155,42 +178,41 @@ function UserProfile() {
     setIsEditing(!isEditing);
   };
   const handleSave = () => {
-    if (!lastName) {
-      setErrors((prevError) => ({ ...prevError, lastName: true }));
-      return;
-    }
-    if (!name) {
-      setErrors((prevError) => ({ ...prevError, name: true }));
-      return;
-    }
-    if (!username) {
-      setErrors((prevError) => ({ ...prevError, username: true }));
-      return;
-    }
+    //   if (!lastName) {
+    //     setErrors((prevError) => ({ ...prevError, lastName: true }));
+    //     return;
+    //   }
+    //   if (!name) {
+    //     setErrors((prevError) => ({ ...prevError, name: true }));
+    //     return;
+    //   }
+    //   if (!username) {
+    //     setErrors((prevError) => ({ ...prevError, username: true }));
+    //     return;
+    //   }
     if (!email || !isValidEmail(email)) {
       setErrors((prevError) => ({ ...prevError, email: true }));
       return;
     }
     if (!phoneNumber || !isValidPhoneNumber(phoneNumber)) {
       setErrors((prevError) => ({ ...prevError, phoneNumber: true }));
-      return;
     }
-    const payload = {
-      name,
-      last_name: lastName,
-      username,
-      email,
-      phoneNumber,
-    };
-    axiosInstance
-      .patch("v1/user/me/", payload)
-      .then((res) => {
-        console.log(res.data);
-        setIsEditing(false);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
+    //   const payload = {
+    //     name,
+    //     last_name: lastName,
+    //     username,
+    //     email,
+    //     phoneNumber,
+    //   };
+    //   axiosInstance
+    //     .put("v1/user/me/", payload)
+    //     .then((res) => {
+    //       console.log(res.data);
+    //       setIsEditing(false);
+    //     })
+    //     .catch((error) => {
+    //       console.error(error);
+    //     });
   };
   const handleMenuClick = (menu) => {
     setSelectedMenu(menu);
