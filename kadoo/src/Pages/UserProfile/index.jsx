@@ -4,7 +4,7 @@ import {
   AccountBalanceWallet,
   History,
 } from "@mui/icons-material";
-import AddIcon from "@mui/icons-material/Add";
+// import AddIcon from "@mui/icons-material/Add";
 import {
   Avatar,
   Grid,
@@ -18,17 +18,17 @@ import {
   ListItemIcon,
   ListItemText,
   useTheme,
-  Dialog,
-  DialogTitle,
-  ListItemButton,
-  ListItemAvatar,
+  // Dialog,
+  // DialogTitle,
+  // ListItemButton,
+  // ListItemAvatar,
   FormControl,
   InputLabel,
   Select,
   MenuItem,
 } from "@mui/material";
 import { Box, style } from "@mui/system";
-import PropTypes from "prop-types";
+// import PropTypes from "prop-types";
 import React, { useEffect, useState } from "react";
 
 import SampleAvatar from "../../assets/Images/SampleProfile/sample-profile-pic.jfif";
@@ -39,31 +39,32 @@ function UserProfile() {
   const [selectedMenu, setSelectedMenu] = useState("main");
   const [name, setName] = useState("");
   const [lastName, setLastName] = useState("");
-  const [username, setUsername] = useState("");
   const [gender, setGender] = useState("");
-  const [address] = useState("");
+  // const [address] = useState("");
   const [email, setEmail] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
+  const [about, setAbout] = useState("");
+
   const [errors, setErrors] = useState({
     name: false,
     lastName: false,
-    username: false,
     email: false,
     phoneNumber: false,
+    about,
   });
   const [imageSizeErr, setImageSizeErr] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   const [imageCode, setImageCode] = useState("");
   const uploadInputRef = React.useRef(null);
-  const [open, setOpen] = React.useState(false);
+  // const [open, setOpen] = React.useState(false);
 
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
+  // const handleClickOpen = () => {
+  //   setOpen(true);
+  // };
 
-  const handleClose = () => {
-    setOpen(false);
-  };
+  // const handleClose = () => {
+  //   setOpen(false);
+  // };
 
   const isValidEmail = (mail) => {
     return /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/.test(mail);
@@ -86,7 +87,7 @@ function UserProfile() {
 
     setGender(selectedGender);
     axiosInstance
-      .patch("v1/user/me/", { gender: genderValue })
+      .put("v1/user/me/", { gender: genderValue })
       .then((res) => {
         console.log(res.data);
       })
@@ -94,35 +95,33 @@ function UserProfile() {
         console.error(error);
       });
   };
-  useEffect(() => {
-    const updateUser = async () => {
-      try {
-        await axiosInstance.put("v1/user/me/", {
-          first_name: "deniz",
-          last_name: "ahmadi",
-          phone_number: "+989022147444",
-          email: "a@gmail.com",
-          gender: "2",
-        });
 
-        axiosInstance.defaults.headers.Authorization = `JWT ${localStorage.getItem(
-          "access_token"
-        )}`;
-        console.log("User updated successfully.");
-      } catch (error) {
-        console.error(error);
-      }
-    };
+  // useEffect(() => {
+  //   const updateUser = async () => {
+  //     console.log("PUT request response");
+  //     try {
+  //       await axiosInstance.put("v1/user/me/", {
+  //         first_name: "ded",
+  //         last_name: "eef",
+  //         phone_number: "+980123456789",
+  //         email: "jkkjkl@gmail.com",
+  //         gender: "2",
+  //         about: "sdbxjash",
+  //       });
+  //       console.log("User updated successfully.");
+  //     } catch (error) {
+  //       console.error(error);
+  //     }
+  //   };
 
-    updateUser();
-  }, [name, lastName, phoneNumber, email, gender]);
-
+  //   updateUser();
+  // }, [name, lastName, phoneNumber, email, gender]);
+  // Get
   useEffect(() => {
     axiosInstance.get(`v1/user/me/`).then((res) => {
       console.log(res.data.user);
       setName(res.data.user.first_name);
       setLastName(res.data.user.last_name);
-      setUsername(res.data.user.username);
       setPhoneNumber(res.data.user.phoneNumber);
       const receivedGender = res.data.user.gender;
       if (receivedGender === 1) {
@@ -135,12 +134,84 @@ function UserProfile() {
       setEmail(res.data.user.email);
     });
   }, []);
+  // Get Address
+  // useEffect(() => {
+  //   axiosInstance.get(`v1/user/addresses`).then((res) => {
+  //     console.log(res);
+  //   });
+  // }, [address]);
+  // Put
+  const handleSave = async () => {
+    // Validate form fields
+    if (!name || !lastName || !phoneNumber || !email || !about) {
+      setErrors({
+        name: !name,
+        lastName: !lastName,
+        phoneNumber: !phoneNumber || !isValidPhoneNumber(phoneNumber),
+        email: !email || !isValidEmail(email),
+        about: !about,
+      });
+      return;
+    }
 
-  useEffect(() => {
-    axiosInstance.get(`v1/user/addresses`).then((res) => {
-      console.log(res);
+    try {
+      console.log(name);
+      await axiosInstance.put("v1/user/me/", {
+        first_name: name,
+        last_name: lastName,
+        phone_number: phoneNumber,
+        email,
+        gender,
+        about,
+      });
+
+      console.log("User updated successfully.");
+
+      // Update state and disable form fields
+      setErrors({
+        name: false,
+        lastName: false,
+        phoneNumber: false,
+        email: false,
+        about: false,
+      });
+    } catch (error) {
+      console.error(error);
+    }
+  };
+  // const handleSave = async () => {
+  //   const formData = new FormData();
+  //   formData.append("first_name", "daDK");
+  //   formData.append("last_name", "daDK");
+  //   formData.append("phone_number", "09022147444");
+  //   formData.append("email", "daDK@gmail.com");
+  //   formData.append("gender", 0);
+  //   formData.append("about", "hugfsd");
+  //   console.log("save");
+  //   axiosInstance
+  //     .put(`v1/user/me/`, formData, {
+  //       headers: {
+  //         "Content-Type": "multipart/form-data",
+  //       },
+  //     })
+  //     .then((res) => {
+  //       console.log("new item is : ", res);
+  //     });
+  // };
+
+  const handleEdit = () => {
+    setErrors({
+      first_name: false,
+      last_name: false,
+      email: false,
+      phone_number: false,
+      about: false,
     });
-  }, [address]);
+    setIsEditing(true);
+  };
+  const handleMenuClick = (menu) => {
+    setSelectedMenu(menu);
+  };
   const convertFileToBase64 = (file) => {
     return new Promise((resolve, reject) => {
       const fileReader = new FileReader();
@@ -165,57 +236,6 @@ function UserProfile() {
     } else {
       setImageSizeErr(true);
     }
-  };
-
-  const handleEdit = () => {
-    setErrors({
-      name: false,
-      lastName: false,
-      username: false,
-      email: false,
-      phoneNumber: false,
-    });
-    setIsEditing(!isEditing);
-  };
-  const handleSave = () => {
-    //   if (!lastName) {
-    //     setErrors((prevError) => ({ ...prevError, lastName: true }));
-    //     return;
-    //   }
-    //   if (!name) {
-    //     setErrors((prevError) => ({ ...prevError, name: true }));
-    //     return;
-    //   }
-    //   if (!username) {
-    //     setErrors((prevError) => ({ ...prevError, username: true }));
-    //     return;
-    //   }
-    if (!email || !isValidEmail(email)) {
-      setErrors((prevError) => ({ ...prevError, email: true }));
-      return;
-    }
-    if (!phoneNumber || !isValidPhoneNumber(phoneNumber)) {
-      setErrors((prevError) => ({ ...prevError, phoneNumber: true }));
-    }
-    //   const payload = {
-    //     name,
-    //     last_name: lastName,
-    //     username,
-    //     email,
-    //     phoneNumber,
-    //   };
-    //   axiosInstance
-    //     .put("v1/user/me/", payload)
-    //     .then((res) => {
-    //       console.log(res.data);
-    //       setIsEditing(false);
-    //     })
-    //     .catch((error) => {
-    //       console.error(error);
-    //     });
-  };
-  const handleMenuClick = (menu) => {
-    setSelectedMenu(menu);
   };
 
   const renderContent = () => {
@@ -302,12 +322,21 @@ function UserProfile() {
                               value={name}
                               size="small"
                               disabled={!isEditing}
-                              onChange={(e) => setName(e.target.value)}
+                              onChange={(e) => {
+                                setName(e.target.value);
+                                if (errors.name) {
+                                  setErrors((prevErrors) => ({
+                                    ...prevErrors,
+                                    name: false,
+                                  }));
+                                }
+                              }}
                               error={errors.name}
                               helperText={
                                 errors.name ? "Name is required." : ""
                               }
                               inputProps={{
+                                maxLength: 25,
                                 style: {
                                   height: "35px",
                                   width: "210px",
@@ -323,12 +352,21 @@ function UserProfile() {
                               value={lastName}
                               size="small"
                               disabled={!isEditing}
-                              onChange={(e) => setLastName(e.target.value)}
+                              onChange={(e) => {
+                                setLastName(e.target.value);
+                                if (errors.lastName) {
+                                  setErrors((prevErrors) => ({
+                                    ...prevErrors,
+                                    lastName: false,
+                                  }));
+                                }
+                              }}
                               error={errors.lastName}
                               helperText={
                                 errors.lastName ? "Last Name is required." : ""
                               }
                               inputProps={{
+                                maxLength: 25,
                                 style: {
                                   height: "35px",
                                   width: "210px",
@@ -347,16 +385,25 @@ function UserProfile() {
                             <TextField
                               required
                               id="outlined-required"
-                              label="User Name"
-                              value={username}
+                              label="Email"
+                              value={email}
                               size="small"
                               disabled={!isEditing}
-                              onChange={(e) => setUsername(e.target.value)}
-                              error={errors.username}
+                              onChange={(e) => {
+                                setEmail(e.target.value);
+                                if (errors.email) {
+                                  setErrors((prevErrors) => ({
+                                    ...prevErrors,
+                                    email: false,
+                                  }));
+                                }
+                              }}
+                              error={errors.email}
                               helperText={
-                                errors.username ? "Invalid userName." : ""
+                                errors.email ? "Invalid email address." : ""
                               }
                               inputProps={{
+                                maxLength: 25,
                                 style: {
                                   height: "35px",
                                   width: "210px",
@@ -368,14 +415,24 @@ function UserProfile() {
                             <TextField
                               required
                               id="outlined-required"
-                              label="Email"
-                              value={email}
+                              label="Phone Number"
+                              value={phoneNumber}
                               size="small"
                               disabled={!isEditing}
-                              onChange={(e) => setEmail(e.target.value)}
-                              error={errors.email}
+                              onChange={(e) => {
+                                setPhoneNumber(e.target.value);
+                                if (errors.phoneNumber) {
+                                  setErrors((prevErrors) => ({
+                                    ...prevErrors,
+                                    phoneNumber: false,
+                                  }));
+                                }
+                              }}
+                              error={errors.phoneNumber}
                               helperText={
-                                errors.email ? "Invalid email address." : ""
+                                errors.phoneNumber
+                                  ? "Invalid phone number."
+                                  : ""
                               }
                               inputProps={{
                                 style: {
@@ -416,18 +473,25 @@ function UserProfile() {
                             <TextField
                               required
                               id="outlined-required"
-                              label="Phone Number"
-                              value={phoneNumber}
+                              label="About"
+                              value={about}
                               size="small"
                               disabled={!isEditing}
-                              onChange={(e) => setPhoneNumber(e.target.value)}
-                              error={errors.phoneNumber}
+                              onChange={(e) => {
+                                setAbout(e.target.value);
+                                if (errors.about) {
+                                  setErrors((prevErrors) => ({
+                                    ...prevErrors,
+                                    about: false,
+                                  }));
+                                }
+                              }}
+                              error={errors.about}
                               helperText={
-                                errors.phoneNumber
-                                  ? "Invalid phone number."
-                                  : ""
+                                errors.about ? "About is required." : ""
                               }
                               inputProps={{
+                                maxLength: 25,
                                 style: {
                                   height: "35px",
                                   width: "210px",
@@ -436,7 +500,7 @@ function UserProfile() {
                             />
                           </Grid>
                         </Grid>
-                        <Grid
+                        {/* <Grid
                           container
                           flexDirection="row-reverse"
                           sx={{ pb: 2, justifyContent: "center" }}
@@ -451,7 +515,7 @@ function UserProfile() {
                             YourAddress
                           </Button>
                           <SimpleDialog open={open} onClose={handleClose} />
-                        </Grid>
+                        </Grid> */}
                         <Grid container justifyContent="center">
                           <Grid item>
                             {isEditing ? (
@@ -615,97 +679,97 @@ function UserProfile() {
     </Grid>
   );
 }
-function SimpleDialog(props) {
-  const { onClose, selectedValue, open } = props;
-  const [isEditing, setIsEditing] = useState(false);
-  const [addresses, setAddresses] = useState([]);
-  const [me, setMe] = useState("");
-  useEffect(() => {
-    axiosInstance.get(`v1/user/me/`).then((res) => {
-      setMe(res.data.user.id);
-    });
-    axiosInstance.get(`v1/user/addresses`).then((res) => {
-      setAddresses(res.data);
-    });
-  }, []);
-  useEffect(() => {
-    axiosInstance
-      .post(`v1/user/addresses`, {
-        address: "djfhbvd d",
-        label: "Your label value",
-        owner: me,
-        is_active: true,
-      })
-      .then((res) => {
-        console.log("POST request successful:", res.data);
-      });
-  }, [me]);
-  const handleClose = () => {
-    onClose(selectedValue);
-    setIsEditing(!isEditing);
-  };
+// function SimpleDialog(props) {
+//   const { onClose, selectedValue, open } = props;
+//   const [isEditing, setIsEditing] = useState(false);
+//   const [addresses, setAddresses] = useState([]);
+//   const [me, setMe] = useState("");
+//   useEffect(() => {
+//     axiosInstance.get(`v1/user/me/`).then((res) => {
+//       setMe(res.data.user.id);
+//     });
+//     axiosInstance.get(`v1/user/addresses`).then((res) => {
+//       setAddresses(res.data);
+//     });
+//   }, []);
+// useEffect(() => {
+//   axiosInstance
+//     .post(`v1/user/addresses`, {
+//       address: "djfhbvd d",
+//       label: "Your label value",
+//       owner: me,
+//       is_active: true,
+//     })
+//     .then((res) => {
+//       console.log("POST request successful:", res.data);
+//     });
+// }, [me]);
+// const handleClose = () => {
+//   onClose(selectedValue);
+//   setIsEditing(!isEditing);
+// };
 
-  const handleListItemClick = (value) => {
-    if (value === "addAddress") {
-      setAddresses([...addresses, ""]);
-    } else {
-      onClose(value);
-    }
-  };
+// const handleListItemClick = (value) => {
+//   if (value === "addAddress") {
+//     setAddresses([...addresses, ""]);
+//   } else {
+//     onClose(value);
+//   }
+// };
 
-  const handleChangeAddress = (index, value) => {
-    const updatedAddresses = [...addresses];
-    updatedAddresses[index] = value;
-    setAddresses(updatedAddresses);
-  };
+// const handleChangeAddress = (index, value) => {
+//   const updatedAddresses = [...addresses];
+//   updatedAddresses[index] = value;
+//   setAddresses(updatedAddresses);
+// };
 
-  return (
-    <Dialog onClose={handleClose} open={open}>
-      <DialogTitle>
-        <List sx={{ pt: 0 }}>
-          {Object.entries(addresses).map(([id, address]) => (
-            <ListItem key={id} disableGutters>
-              <TextField
-                required
-                id={`outlined-required-${id}`}
-                label="Address"
-                value={typeof address === "object" ? "" : address}
-                size="small"
-                disabled={isEditing}
-                inputProps={{
-                  style: {
-                    height: "37px",
-                    width: "209px",
-                  },
-                }}
-                onChange={(e) => handleChangeAddress(id, e.target.value)}
-              />
-            </ListItem>
-          ))}
+// return (
+//   <Dialog onClose={handleClose} open={open}>
+//     <DialogTitle>
+//       <List sx={{ pt: 0 }}>
+//         {Object.entries(addresses).map(([id, address]) => (
+//           <ListItem key={id} disableGutters>
+//             <TextField
+//               required
+//               id={`outlined-required-${id}`}
+//               label="Address"
+//               value={typeof address === "object" ? "" : address}
+//               size="small"
+//               disabled={isEditing}
+//               inputProps={{
+//                 style: {
+//                   height: "37px",
+//                   width: "209px",
+//                 },
+//               }}
+//               onChange={(e) => handleChangeAddress(id, e.target.value)}
+//             />
+//           </ListItem>
+//         ))}
 
-          <ListItem disableGutters>
-            <ListItemButton
-              autoFocus
-              onClick={() => handleListItemClick("addAddress")}
-            >
-              <ListItemAvatar>
-                <Avatar>
-                  <AddIcon />
-                </Avatar>
-              </ListItemAvatar>
-              <ListItemText primary="Add address" />
-            </ListItemButton>
-          </ListItem>
-        </List>
-      </DialogTitle>
-    </Dialog>
-  );
-}
+//         <ListItem disableGutters>
+//           <ListItemButton
+//             autoFocus
+//             onClick={() => handleListItemClick("addAddress")}
+//           >
+//             <ListItemAvatar>
+//               <Avatar>
+//                 <AddIcon />
+//               </Avatar>
+//             </ListItemAvatar>
+//             <ListItemText primary="Add address" />
+//           </ListItemButton>
+//         </ListItem>
+//       </List>
+//     </DialogTitle>
+//   </Dialog>
+// );
+// }
 
-SimpleDialog.propTypes = {
-  onClose: PropTypes.func.isRequired,
-  open: PropTypes.bool.isRequired,
-  selectedValue: PropTypes.string.isRequired,
-};
+// SimpleDialog.propTypes = {
+//   onClose: PropTypes.func.isRequired,
+//   open: PropTypes.bool.isRequired,
+//   selectedValue: PropTypes.string.isRequired,
+// };
 
 export default UserProfile;
