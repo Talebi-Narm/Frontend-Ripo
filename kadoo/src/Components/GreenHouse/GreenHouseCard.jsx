@@ -2,95 +2,28 @@
 import { Player } from "@lottiefiles/react-lottie-player";
 // eslint-disable-next-line import/no-unresolved
 import "./GreenHouseCard.scss";
-import FavoriteIcon from "@mui/icons-material/Favorite";
-import NatureIcon from "@mui/icons-material/Nature";
-import OpacityIcon from "@mui/icons-material/Opacity";
-import ShareIcon from "@mui/icons-material/Share";
-import WbSunnyIcon from "@mui/icons-material/WbSunny";
-import { Box, Grid, IconButton } from "@mui/material";
+import { Box, Grid } from "@mui/material";
 import Card from "@mui/material/Card";
-import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Fab from "@mui/material/Fab";
 import Typography from "@mui/material/Typography";
 import * as React from "react";
 import { Link } from "react-router-dom";
-import { toast } from "react-toastify";
 
 import axiosInstance from "../../Utils/axios";
-import { CartContext } from "../NewAppBar/CartContext";
-
-// import { baseURL } from "../../Utils/axios";
 
 export default function GreenHouseCard(props) {
   const [isHovered, setIsHovered] = React.useState(false);
-  const { cartCount, updateCartCount } = React.useContext(CartContext);
 
-  const getTitleFromLevel = (fieldName, level) => {
-    if (fieldName === "environment") {
-      if (level === 0) {
-        return "tropical";
-      }
-      if (level === 1) {
-        return "cold";
-      }
-      if (level === 2) {
-        return "none";
-      }
-      return level;
-    }
-    if (level === 0) {
-      return "low";
-    }
-    if (level === 1) {
-      return "medium";
-    }
-    if (level === 2) {
-      return "much";
-    }
-    return level;
-  };
-
-  const bookmarkPlant = () => {
+  const handleRemove = () => {
     axiosInstance
-      .post(
-        "v1/common/plant-bookmarks/",
-        JSON.stringify({
-          Plant: props.product.id,
-        })
-      )
-      .then((response) => {
-        console.log("Bookmark", response);
-        if (response.status === 200 || response.status === 201) {
-          toast.success(`${props.product.name} added to bookmarks!`);
-        }
+      .delete(`v1/green_house/user-plants/${props.product.id}/`)
+      .then(async (res) => {
+        console.log(res);
+        window.location.reload();
       });
   };
-
-  const AddToCartPlant = () => {
-    axiosInstance
-      .post(
-        "v1/cart/plant-cart",
-        JSON.stringify({
-          count: 1,
-          user: props.userInfo.id,
-          plant: props.product.id,
-        })
-      )
-      .then((response) => {
-        console.log("Bookmark", response);
-        if (response.status === 200 || response.status === 201) {
-          toast.success(`${props.product.name} added to Cart!`);
-          updateCartCount(cartCount + 1);
-        }
-      })
-      .catch((error) => {
-        console.log("error", error);
-        toast.error(`${props.product.name} is already in the cart!`);
-      });
-  };
-
   const handleMouseEnter = () => {
     setIsHovered(true);
   };
@@ -102,6 +35,7 @@ export default function GreenHouseCard(props) {
     <Card
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
+      className="fixed-card-size"
       sx={{
         height: "100%",
         maxWidth: "300px",
@@ -111,8 +45,6 @@ export default function GreenHouseCard(props) {
         },
       }}
     >
-      {/* <CardActionArea sx={{ height: "100%" }}> */}
-      {/* <Link to={`/ProductPlantsPage/${props.product.id}`}> */}
       <Link to={`/greenHouseEdit/${props.product.id}`}>
         <Grid className="productIconImageContainer" sx={{ p: 1 }}>
           <CardMedia
@@ -182,10 +114,10 @@ export default function GreenHouseCard(props) {
             }}
             color="primary"
             aria-label="add"
-            onClick={AddToCartPlant}
+            onClick={handleRemove}
           >
             <Player
-              src="https://assets2.lottiefiles.com/packages/lf20_5zlgNU.json"
+              src="https://assets6.lottiefiles.com/packages/lf20_0357PmQMHO.json"
               mode="bounce"
               background="transparent"
               speed="1"
@@ -215,56 +147,9 @@ export default function GreenHouseCard(props) {
           {props.product.name}
         </Typography>
         <Typography gutterBottom variant="h6" component="div">
-          $ {props.product.price}
+          {props.product.price}
         </Typography>
-        <Grid className="featButton" sx={{ alignSelf: "flex-end" }}>
-          <WbSunnyIcon className="lightButton" />
-          <Typography className="Message">
-            {" "}
-            {getTitleFromLevel("light", props.product.light)}{" "}
-          </Typography>
-          <OpacityIcon className="waterButton" />
-          <Typography className="Message">
-            {" "}
-            {getTitleFromLevel("water", props.product.water)}{" "}
-          </Typography>
-          <NatureIcon className="growButton" />
-          <Typography className="Message">
-            {" "}
-            {getTitleFromLevel("growth_rate", props.product.growthRate)}
-          </Typography>
-        </Grid>
       </CardContent>
-      {isHovered ? (
-        <CardActions disableSpacing>
-          <IconButton
-            aria-label="add to favorites"
-            sx={{ zIndex: 10 }}
-            onClick={bookmarkPlant}
-          >
-            <FavoriteIcon />
-          </IconButton>
-          <IconButton
-            aria-label="share"
-            sx={{ zIndex: 10 }}
-            onClick={() => {
-              navigator.clipboard
-                .writeText(
-                  `${window.location.origin}/store/${props.product.id}`
-                )
-                .then(() => {
-                  toast.success("Copied to clipboard!");
-                })
-                .catch((error) => {
-                  console.error("Error copying to clipboard:", error);
-                });
-            }}
-          >
-            <ShareIcon />
-          </IconButton>
-        </CardActions>
-      ) : null}
-      {/* </CardActionArea> */}
     </Card>
   );
 }
